@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path:'',
+    path:'login',
     loadChildren:()=> import('./pages/login/login.module').then((m)=> m.LoginModule),
     // canActivate:[AuthGuard],
   },
    {
-    path:'main',
+    path:'',
     loadChildren:()=> import('./pages/main/main.module').then((m)=> m.MainModule),
     // canActivate:[MainGuard],
    }
