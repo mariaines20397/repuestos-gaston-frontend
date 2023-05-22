@@ -1,0 +1,59 @@
+.login{
+    display: flex;
+    height: 100%;
+}
+.box-img{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+.box-login{
+    width: 50%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5% 10%;
+    border-radius: 10px;
+    padding: 40px;
+    border: 0.05px solid #b1adad;
+}
+.imgRepuestosGaston{
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+}
+.title{
+    text-align: center;
+    padding: 40px;
+    padding-bottom: 0px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+form span{
+    font-size: 15px;
+    padding: 10px 0;
+}
+form input{
+    height: 30px;
+    border: 0.05px solid #b1adad;
+    border-radius: 5px;
+}
+.btn-login{
+    width: 50%;
+    margin-top: 20px;
+}
+.login-register{
+    display: flex;
+    margin-top: 20px;
+    align-items: baseline;
+}
+.login-register a{
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: 20px;
+    cursor: pointer;
+}

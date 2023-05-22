@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-
 
 
 @NgModule({
@@ -12,8 +10,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   imports: [
     CommonModule,
-    MainRoutingModule,
-    SharedModule
+    MainRoutingModule
   ]
 })
 export class MainModule { }

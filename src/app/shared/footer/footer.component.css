@@ -1,0 +1,13 @@
+.footer{
+    /* background: #e6e6e6; */
+    background: linear-gradient(orange, yellow, orange);
+    padding: 28px 40px 28px 40px;
+    position: absolute;
+    bottom: 0px;
+    width: 100vw;
+    border-top: 0.5px solid #b1adad;
+}
+.footer span{
+    color: #464646;
+    font-size: 10px;
+}

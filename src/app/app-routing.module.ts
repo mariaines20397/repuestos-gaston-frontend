@@ -7,6 +7,11 @@ const routes: Routes = [
     loadChildren:()=> import('./pages/login/login.module').then((m)=> m.LoginModule),
     // canActivate:[AuthGuard],
   },
+  {
+    path:'register',
+    loadChildren:()=> import('./pages/register/register.module').then((m)=> m.RegisterModule),
+    // canActivate:[AuthGuard],
+  },
    {
     path:'',
     loadChildren:()=> import('./pages/main/main.module').then((m)=> m.MainModule),
