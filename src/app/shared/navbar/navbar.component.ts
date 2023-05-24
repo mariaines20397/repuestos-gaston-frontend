@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +15,12 @@ export class NavbarComponent implements OnInit{
     this.isHome();
   }
   isHome(){
-    this.router.url.includes('login') ? this.isLogin = true : this.isLogin = false;
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const url = event.urlAfterRedirects;
+        const includesLogin = url.includes('login');
+        includesLogin ? this.isLogin = true : this.isLogin = false;
+      }
+    });
   }
 }
