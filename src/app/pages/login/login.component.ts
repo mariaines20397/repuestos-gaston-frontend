@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+// import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { User } from '../register/model/users.model';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as LoginActions from './store/login.actions';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +18,8 @@ export class LoginComponent {
 
   constructor(
    private formBuilder: FormBuilder,
-   private router: Router
+   private router: Router,
+   private store:Store<{ user:User}>
   ){
     this.loginForm = this.formBuilder.group({
       username: new FormControl(null, [Validators.required, Validators.minLength(20)]),
@@ -28,6 +32,7 @@ export class LoginComponent {
       username: this.loginForm.value.username,
       password: this.loginForm.value.password
     }
+    this.store.dispatch(LoginActions.loadLogin({user:this.user}))
     console.log(this.user);
   }
 

@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as LoginActions from "./login.actions";
 import { catchError, map, mergeMap, of } from "rxjs";
 import { LoginService } from "../services/login.service";
+import { Injectable } from "@angular/core";
 
 @Injectable({
     providedIn:'root'

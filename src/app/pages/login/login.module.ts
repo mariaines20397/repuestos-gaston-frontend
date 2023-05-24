@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
@@ -7,8 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromLoginReducer from './store/login.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffects } from './store/login.effects';
-
-
+import { NgModule } from '@angular/core';
 
 @NgModule({
   declarations: [
