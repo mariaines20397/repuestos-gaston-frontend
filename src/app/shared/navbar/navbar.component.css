@@ -1,10 +1,15 @@
 nav{
-    background: linear-gradient(orange, yellow, orange);
+    background: linear-gradient(#ff5c36, #ffa701);
     border-bottom: 0.5px solid #b1adad;
 }
 .logo{
     width: 20vw;
     height: 15vh;
+}
+.logo-login{
+    width: 15vw;
+    height: 10vh;
+
 }
 .navbar-brand{
     width: 20vw;

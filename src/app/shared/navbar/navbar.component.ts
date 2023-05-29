@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit{
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const url = event.urlAfterRedirects;
-        const includesLogin = url.includes('login');
+        const includesLogin = url.includes('login') || url.includes('register');        
         includesLogin ? this.isLogin = true : this.isLogin = false;
       }
     });
