@@ -1,7 +1,7 @@
 .footer{
     /* background: #e6e6e6; */
     background: linear-gradient( #ffa701, #ff5c36);
-    padding: 18px 40px 18px 40px;
+    padding: 1vh 5vw;
     position: absolute;
     bottom: 0px;
     width: 100vw;

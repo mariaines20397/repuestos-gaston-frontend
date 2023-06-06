@@ -2,3 +2,12 @@
 body{
     font-family: 'Wix Madefor Text', sans-serif;
 }
+.alert{
+    padding: 0.5rem;
+    margin-bottom: 0;
+}
+.validatorText{
+    color: #de0b1c;
+    font-size: 13px;
+    display: block;
+}

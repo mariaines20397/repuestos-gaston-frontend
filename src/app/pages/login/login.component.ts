@@ -5,6 +5,7 @@ import { User } from '../register/model/users.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as LoginActions from './store/login.actions';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,10 @@ import * as LoginActions from './store/login.actions';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
+  usuarioPrueba:User={
+    username:'usuario123',
+    password:'123456'
+  }
   loginForm:FormGroup;
   user:User = {};
 
@@ -22,7 +26,7 @@ export class LoginComponent {
    private store:Store<{ user:User}>
   ){
     this.loginForm = this.formBuilder.group({
-      username: new FormControl(null, [Validators.required, Validators.minLength(20)]),
+      username: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
       password: new FormControl(null, [Validators.required])
     })
   }
@@ -32,8 +36,16 @@ export class LoginComponent {
       username: this.loginForm.value.username,
       password: this.loginForm.value.password
     }
-    this.store.dispatch(LoginActions.loadLogin({user:this.user}))
-    console.log(this.user);
+    if (this.user.username == this.usuarioPrueba.username &&
+      this.user.password == this.usuarioPrueba.password) {
+      this.router.navigate(['/home']);
+        // this.store.dispatch(LoginActions.loadLogin({user:this.user}));
+    }else{
+      Swal.fire('¡Lo siento!', 'Usuario o contraseña incorrectas. Por favor vualve a intentarlo.', 'error');
+    }
+    // this.user == this.usuarioPrueba?
+    //   this.store.dispatch(LoginActions.loadLogin({user:this.user})):
+    //   console.log('No se encontró el usuario');
   }
 
   register():void{

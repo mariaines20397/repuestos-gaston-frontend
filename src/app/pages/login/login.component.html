@@ -2,17 +2,30 @@
     
     <div class="box-img">
     
-        <h1 class="title">Ingresá tu e-mail o usuario de Repuestos Gastón</h1>
+        <h1 class="title">Ingresá tu nombre de usuario de Repuestos Gastón</h1>
         <div class="imgRepuestosGaston">
             <img src="../../../assets/img/img_repuestos_gaston.png" alt="Repuestos Gastón" srcset="">
         </div>
     </div>
     <div class="box-login">
         <form action="" [formGroup]="loginForm">
-            <span class="title-input">E-mail o usuario</span>
+            <span class="title-input">Usuario</span>
             <input class="text-input form-control" formControlName="username" type="text" name="" id="">
+            <div *ngIf="loginForm.controls['username'].errors && loginForm.get('username')?.touched">
+                <div class="validatorText" *ngIf="loginForm.get('username')?.hasError('required')">
+                    <span>Este campo es requerido.</span>
+                </div>
+                <div class="validatorText" *ngIf="loginForm.get('username')?.hasError('maxlength')">
+                    <span>El nombre de usuario debe tener como máximo 20 caracteres.</span>
+                </div>
+            </div>
             <span class="title-input">Contraseña</span>
             <input class="text-input form-control" formControlName="password" type="password" name="" id="">
+            <div *ngIf="loginForm.controls['password'].errors && loginForm.get('password')?.touched">
+                <div class="validatorText" *ngIf="loginForm.get('password')?.hasError('required')">
+                    <span>Este campo es requerido.</span>
+                </div>
+            </div>
             <div class="login-register">
                 <button class="btn btn-primary btn-login" [disabled]="loginForm.invalid" (click)="login()">
                     Iniciar sesión</button>
