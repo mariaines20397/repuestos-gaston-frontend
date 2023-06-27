@@ -1,4 +1,4 @@
-export interface User{
+export class User{
     id?:number;
     name?:string;
     surname?:string;
@@ -8,4 +8,5 @@ export interface User{
     username?:string;
     password?:string;
     email?:string;
+    roles?: string[] = [];
 }

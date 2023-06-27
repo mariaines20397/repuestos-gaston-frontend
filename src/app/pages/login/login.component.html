@@ -10,7 +10,7 @@
     <div class="box-login">
         <form action="" [formGroup]="loginForm">
             <span class="title-input">Usuario</span>
-            <input class="text-input form-control" formControlName="username" type="text" name="" id="">
+            <input class="text-input form-control" formControlName="username" type="text" name="" id="" autofocus>
             <div *ngIf="loginForm.controls['username'].errors && loginForm.get('username')?.touched">
                 <div class="validatorText" *ngIf="loginForm.get('username')?.hasError('required')">
                     <span>Este campo es requerido.</span>
