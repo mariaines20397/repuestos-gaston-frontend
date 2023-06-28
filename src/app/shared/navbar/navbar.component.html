@@ -1,31 +1,19 @@
-<nav *ngIf="!isLogin" class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"
-      ><img class="logo" src="../../../assets/img/logo.png" alt="" srcset=""
+<nav  class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid boxs">
+    <div class="boxSearch">
+    <a class="navbar-brand" href="/home"
+      ><img class="logo-login" src="../../../assets/img/logo.png" alt="" srcset=""
     /></a>
+    <div *ngIf="!isLogin" class="search">
+      <input type="search" class="buscador" placeholder="Busca productos" name="">
+      <button type="button" class="btn lupa">
+        <img src="../../../assets/svg/search.svg" alt="" srcset="">
+      </button>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    </div>
+</div>
+    <div *ngIf="!isLogin" class="collapse navbar-collapse boxCategorias" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -34,52 +22,63 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Dropdown link
+          Categorias
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="#">Accesorios</a></li>
+            <li><a class="dropdown-item" href="#">Caños de escape</a></li>
+            <li><a class="dropdown-item" href="#">Aceites</a></li>
           </ul>
         </li>
-        <ul class="navbar-nav navbar-right">
-           <!-- *ngIf="!authService.autenticado()" -->
-          <li>
-            <a class="nav-link" href="/login">Iniciar sesión</a>
-          </li>
-          <!-- *ngIf="authService.autenticado()" -->
-          <!-- <li class="dropdown" >
-            <a
-              class="btn btn-outline-primary dropdown-toggle"
-              href="#"
-              role="button"
-              id="dropdownMenuLink"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              {{ authService.usuario.username }}
-            </a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <button class="dropdown-item" type="submit" (click)="logout()">
-                Cerrar sesión
-              </button>
-            </div>
-          </li> -->
-        </ul>
+        
+        
       </ul>
+      <ul class="navbar-nav navbar-right">
+        <!-- *ngIf="!authService.autenticado()" -->
+        <li>
+          <a class="nav-link" href="/register">Creá tu cuenta</a>
+        </li>
+       <li>
+         <a class="nav-link" href="/login">Ingresá</a>
+       </li>
+       <li class="nav-item dropdown">
+        
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+        <img src="../../../assets/svg/user.svg" alt="user" class="user" srcset="">
+        María Inés
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Perfil</a></li>
+          <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+        </ul>
+      </li>
+       <!-- *ngIf="authService.autenticado()" -->
+       <!-- <li class="dropdown" >
+         <a
+           class="btn btn-outline-primary dropdown-toggle"
+           href="#"
+           role="button"
+           id="dropdownMenuLink"
+           data-toggle="dropdown"
+           aria-haspopup="true"
+           aria-expanded="false"
+         >
+           {{ authService.usuario.username }}
+         </a>
+
+         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+           <button class="dropdown-item" type="submit" (click)="logout()">
+             Cerrar sesión
+           </button>
+         </div>
+       </li> -->
+     </ul>
     </div>
-  </div>
-</nav>
-<nav *ngIf="isLogin" class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand-login" href="#"
-      ><img
-        class="logo-login"
-        src="../../../assets/img/logo.png"
-        alt=""
-        srcset=""
-    /></a>
   </div>
 </nav>

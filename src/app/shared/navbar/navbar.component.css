@@ -1,15 +1,63 @@
 nav{
-    background: linear-gradient(#ff5c36, #ffa701);
+    background: linear-gradient(#ff5b36a4, #ffa601);
 }
-.logo{
+/* .logo{
     width: 20vw;
     height: 15vh;
-}
+    border: 2px solid blue;
+} */
 .logo-login{
     width: 15vw;
     height: 10vh;
-
 }
 .navbar-brand{
     width: 20vw;
+}
+.boxs{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.boxSearch{
+    display: flex;
+    width: 70vw;
+    height: 8vh;
+    padding-left: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buscador{
+    width: 40vw;
+    height: 7vh;
+    border: none;
+}
+.buscador:focus{
+    padding-left: 10px;
+
+}
+
+.buscador::placeholder{
+    padding-left: 10px;
+    color: lightgrey;
+}
+.search{
+    display: flex;
+    background: white;
+}
+.lupa{
+    border-left: 1px solid lightgrey;
+    border-radius: 0;
+}
+.boxCategorias{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    width: 95vw;
+    justify-content: space-between;
+    /* border: 2px solid red; */
+}
+.nav-link{
+    color: #464646;
 }
