@@ -7,10 +7,54 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  carousel:any[]=[
+  carousel:string[]=[
     './assets/img/carousel/carousel1.png',
     './assets/img/carousel/carousel2.png',
     './assets/img/carousel/carousel3.png'
+  ]
+  productos:any[]=[
+    {
+      img:'./assets/img/productos/motul.png',
+      tile:'Motul 5100',
+      subtitle:'Aceite para moto 4t',
+      precio:1000
+    },
+    {
+      img:'./assets/img/productos/motul.png',
+      tile:'Motul 5100',
+      subtitle:'Aceite para moto 4t',
+      precio:1000
+    },
+    {
+      img:'./assets/img/productos/motul.png',
+      tile:'Motul 5100',
+      subtitle:'Aceite para moto 4t',
+      precio:1000
+    },
+    {
+      img:'./assets/img/productos/motul.png',
+      tile:'Motul 5100',
+      subtitle:'Aceite para moto 4t',
+      precio:1000
+    },
+    {
+      img:'./assets/img/productos/motul.png',
+      tile:'Motul 5100',
+      subtitle:'Aceite para moto 4t',
+      precio:1000
+    },
+    {
+      img:'./assets/img/productos/motul.png',
+      tile:'Motul 5100',
+      subtitle:'Aceite para moto 4t',
+      precio:1000
+    },
+    {
+      img:'./assets/img/productos/motul.png',
+      tile:'Motul 5100',
+      subtitle:'Aceite para moto 4t',
+      precio:1000
+    }    
   ]
   constructor(
     private _config: NgbCarouselConfig

@@ -1,13 +1,77 @@
 *{
     background: #ebebeb;
 }
-
 .carousel{
     height: 60vh;
-    width: 100vw;
+    width: 100%;
 }
-
 .carousel img{
     height: 60vh;
-    width: 100vw;
+    width: 100%;
+}
+.body{
+    /* width: 100%; */
+    height: 40vh;
+    border: 2px solid red;
+}
+.formasPago{
+    display: flex;
+    width: 60vw;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border-radius: 5px;
+    background: white;
+}
+.formasPago .card{
+    flex-direction: row;
+    align-items: center;
+    border: none;
+    background: white;
+    height: 15vh;
+    width: 20vw;
+}
+.formasPago .card-img{
+    background: white;
+
+}
+.formasPago .card-body{
+    background: white;
+    
+}
+.formasPago .card-text{
+    background: white;
+}
+.productos{
+    display: grid;
+    grid-template-columns: repeat(3,30%);
+    justify-content: center;
+    align-items: center;
+}
+.productos .card{
+    border: none;
+    margin-bottom: 20px;
+}
+.productos .card-img-top{
+    background: white;
+}
+.productos .card-body{
+    border-top: 1px solid lightgray;
+    background: white;
+}
+.productos .card-title{
+    font-weight: 600;
+    font-size: 20px;
+    background: white;
+}
+.productos .card-subtitle{
+    background: white;
+}
+.productos .card-text{
+    font-weight: 600;
+    font-size: 20px;
+    background: white;
 }
