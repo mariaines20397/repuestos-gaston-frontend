@@ -1,1 +1,12 @@
-<p>home works!</p>
+<ngb-carousel class="carousel">
+	<ng-template *ngFor="let img of carousel" ngbSlide>
+		<div class="picsum-img-wrapper">
+			<img src="{{img}}" alt="Random first slide" />
+		</div>
+		<!-- <div class="carousel-caption">
+			<h3>First slide label</h3>
+			<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+		</div> -->
+	</ng-template>
+	
+</ngb-carousel>
