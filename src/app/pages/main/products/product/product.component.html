@@ -1,1 +1,27 @@
-<p>product works!</p>
+<div class="product">
+<div class="card mb-3" style="max-width: 80%;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="./assets/img/productos/motul.png" class="card-img" alt="Motul">
+      </div>
+      <div class="col-md-4">
+        <div class="card-body">
+          <h4 class="card-title"><b>Motul 5100</b></h4>
+          <h3 class="card-title">$1.000</h3>
+          <p>Lo que debes saber de este producto</p>
+          <li>Aceite de moto de 4T</li>
+          <li>Alta densidad</li>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h6 class="card-title"><b>Stock disponible</b></h6>
+        <p>Cantidad</p>
+        <form action="" [formGroup]="cantidadForm">
+            <input type="number" formControlName="cantidad">
+           
+        </form>
+       
+    </div>
+  </div>
+</div>

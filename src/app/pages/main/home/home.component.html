@@ -1,55 +1,65 @@
 <!-- <body> -->
-	<ngb-carousel class="carousel">
-		<ng-template *ngFor="let img of carousel" ngbSlide>
-			<div class="picsum-img-wrapper">
-				<img src="{{img}}" alt="Random first slide" />
-			</div>
-		</ng-template>
-	</ngb-carousel>
-			<div class="formasPago">
-				<div class="card">
-					<div class="col-md-2">
-						<img src="../../../../assets/svg/credit-card.svg" class="card-img" alt="tarjeta de credito">
-					  </div>
-					  <div class="col-md-10">
-						<div class="card-body">
-						  <p class="card-text">Tarjetas de crédito</p>
-						</div>
-					  </div>
-				</div>
-				<div class="card">
-					<div class="col-md-2">
-						<img src="../../../../assets/svg/card.svg" class="card-img" alt="tarjeta de credito">
-					  </div>
-					  <div class="col-md-10">
-						<div class="card-body">
-						  <p class="card-text">Tarjetas de débito</p>
-						</div>
-					  </div>
-				</div>
-				<div class="card">
-					<div class="col-md-2">
-						<img src="../../../../assets/svg/cash.svg" class="card-img" alt="tarjeta de credito">
-					  </div>
-					  <div class="col-md-10">
-						<div class="card-body">
-						  <p class="card-text">Efectivo</p>
-						</div>
-					  </div>
-				</div>
-			</div>
+<ngb-carousel class="carousel">
+  <ng-template *ngFor="let img of carousel" ngbSlide>
+    <div class="picsum-img-wrapper">
+      <img src="{{ img }}" alt="Random first slide" />
+    </div>
+  </ng-template>
+</ngb-carousel>
+<div class="formasPago">
+  <div class="card">
+    <div class="col-md-2">
+      <img
+        src="../../../../assets/svg/credit-card.svg"
+        class="card-img"
+        alt="tarjeta de credito"
+      />
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <p class="card-text">Tarjetas de crédito</p>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="col-md-2">
+      <img
+        src="../../../../assets/svg/card.svg"
+        class="card-img"
+        alt="tarjeta de credito"
+      />
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <p class="card-text">Tarjetas de débito</p>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="col-md-2">
+      <img
+        src="../../../../assets/svg/cash.svg"
+        class="card-img"
+        alt="tarjeta de credito"
+      />
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <p class="card-text">Efectivo</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-			<div class="productos">
-				<div class="card" *ngFor="let producto of productos" style="width: 18rem;">
-					
-					<img src="{{producto.img}}" class="card-img-top" >
-					 
-					<div class="card-body">
-					  <h5 class="card-title">{{producto.tile}}</h5>
-					  <h6 class="card-subtitle mb-2 text-muted">{{producto.subtitle}}</h6>
-					  <p class="card-text">$ {{producto.precio}}</p>
-					</div>
-				  </div>
-				
-			</div>
-			
+<div class="productos">
+  <div class="card" *ngFor="let producto of productos" style="width: 18rem">
+    <div (click)="getProduct(producto.id)">
+      <img src="{{ producto.img }}" class="card-img-top" />
+      <div class="card-body">
+        <h5 class="card-title">{{ producto.tile }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ producto.subtitle }}</h6>
+        <p class="card-text">$ {{ producto.precio }}</p>
+      </div>
+   </div>
+  </div>
+</div>

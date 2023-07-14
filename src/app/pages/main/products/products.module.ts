@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromProductReducer from './store/products.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductsEffects } from './store/products.effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,6 +17,7 @@ import { ProductsEffects } from './store/products.effects';
   imports: [
     CommonModule,
     ProductsRoutingModule,
+    ReactiveFormsModule,
     StoreModule.forFeature(
       'products',
       fromProductReducer.productsReducer

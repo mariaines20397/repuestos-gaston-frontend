@@ -1,0 +1,11 @@
+.product{
+    display: flex;
+    background: #ebebeb;
+    justify-content: center;
+}
+.card-img{
+    border: 2px solid red;
+}
+.card{
+    width: 80%;
+}

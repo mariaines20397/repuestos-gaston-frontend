@@ -9,11 +9,7 @@
     height: 60vh;
     width: 100%;
 }
-.body{
-    /* width: 100%; */
-    height: 40vh;
-    border: 2px solid red;
-}
+
 .formasPago{
     display: flex;
     width: 60vw;
@@ -47,13 +43,22 @@
 }
 .productos{
     display: grid;
-    grid-template-columns: repeat(3,30%);
-    justify-content: center;
+    justify-content: space-around;
+    grid-template-columns: repeat(3,20%);
+    /* grid-template-rows: 40%; */
+    grid-row-gap: 5%;
+    justify-items: center;
     align-items: center;
+    /* min-height: 100vh; */
 }
 .productos .card{
     border: none;
-    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+    /* margin-bottom: 20px; */
+}
+.productos .card:hover{
+    cursor: pointer;
+    transform: scale(1.06);
 }
 .productos .card-img-top{
     background: white;
@@ -74,4 +79,8 @@
     font-weight: 600;
     font-size: 20px;
     background: white;
+}
+.card a{
+    text-decoration: none;
+    color: black;
 }

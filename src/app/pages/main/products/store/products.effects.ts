@@ -15,27 +15,8 @@ export class ProductsEffects {
     private actions$: Actions,
     private productsServices: ProductsService,
     private router: Router,
-    // private authService: AuthService
   ) {}
-//   private noAutorizado(e: any): boolean {
-//     if (e.status == 401) {
-//         if (this.authService.autenticado()) {
-//             this.authService.logout();
-//         }
-//       this.router.navigate(['/login']);
-//       return true;
-//     }
-//     if (e.status == 403) {
-//       Swal.fire(
-//         'Acceso denegado',
-//         `Lo siento ${this.authService.usuario.username}, no tienes acceso a este recurso`,
-//         'warning'
-//       );
-//       this.router.navigate(['/login']);
-//       return true;
-//     }
-//     return false;
-//   }
+
   loadProducts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductsActions.loadProducts),
@@ -47,12 +28,27 @@ export class ProductsEffects {
             });
           }),
           catchError((error) => {
-            // console.log(this.noAutorizado(error));
-
-            // if (this.noAutorizado(error)) {
-            //   return throwError(error);
-            // }
             return of(ProductsActions.loadProductsFail({ error }));
+          })
+        );
+      })
+    )
+  );
+
+  loadProductById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductsActions.loadProductById),
+      mergeMap((action) => {
+        console.log(action);
+        return this.productsServices.getProductById(action.id).pipe(
+          
+          map((response) => {
+            return ProductsActions.loadProductByIdSuccess({
+              product: response.data,
+            });
+          }),
+          catchError((error) => {
+            return of(ProductsActions.loadProductByIdFail({ error }));
           })
         );
       })
