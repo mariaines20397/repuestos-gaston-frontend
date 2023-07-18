@@ -1,8 +1,69 @@
 <div class="product">
-<div class="card mb-3" style="max-width: 80%;">
-    <div class="row no-gutters">
+  <div class="card" >
+    <div class="columns">
+      <div class="divImg">
+        <img
+        src="./assets/img/productos/motul.png"
+        class="card-img"
+        alt="Motul"
+      />
+      </div>
+      <div class="divDescription">
+        <div class="card-body">
+          <h4 class="card-title"><b>Motul 5100</b></h4>
+          <h3 class="card-title">$1.000</h3>
+          <p>Lo que debes saber de este producto</p>
+          <li>Aceite de moto de 4T</li>
+          <li>Alta densidad</li>
+          <li>Alta densidad</li>
+          <li>Alta densidad</li>
+          <li>Alta densidad</li>
+          <li>Alta densidad</li>
+          <li>Alta densidad</li>
+          <p class="card-text">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </p>
+        </div>
+      </div>
+      <div class="divActions">
+        <h6 class="card-title"><b>Stock disponible</b></h6>
+        <div class="cantidadForm">
+<p>Cantidad</p>
+        <form action="" [formGroup]="cantidadForm">
+          <input type="number" class="cantidad" formControlName="cantidad" [value]="1" />
+          <p>unidades</p>
+          <p class="card-text">
+            <small class="text-muted">(8 disponibles)</small>
+          </p>
+        </form>
+        </div>
+        <div class="divButtons">
+          <button class="btn btn-primary btn-comprar" (click)="comprarAhora()">
+            <p>Comprar ahora</p>
+            <img
+        src="./assets/svg/shop.svg"
+        class="img-button"
+        alt="Canasto"
+      />
+          </button>
+          <button class="btn btn-carrito" (click)="agregarCarrito()">
+            <p>Agregar al carrito</p>
+            <img
+        src="./assets/svg/cartPlus.svg"
+        class="img-button"
+        alt="Carrito"
+      />
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row no-gutters">
       <div class="col-md-4">
-        <img src="./assets/img/productos/motul.png" class="card-img" alt="Motul">
+        <img
+          src="./assets/img/productos/motul.png"
+          class="card-img"
+          alt="Motul"
+        />
       </div>
       <div class="col-md-4">
         <div class="card-body">
@@ -11,17 +72,28 @@
           <p>Lo que debes saber de este producto</p>
           <li>Aceite de moto de 4T</li>
           <li>Alta densidad</li>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <p class="card-text">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </p>
         </div>
       </div>
       <div class="col-md-4">
         <h6 class="card-title"><b>Stock disponible</b></h6>
         <p>Cantidad</p>
         <form action="" [formGroup]="cantidadForm">
-            <input type="number" formControlName="cantidad">
-           
+          <input type="number" formControlName="cantidad" [value]="1" />
+          unidades
+          <p class="card-text">
+            <small class="text-muted">(8 disponibles)</small>
+          </p>
         </form>
-       
-    </div>
+        <button class="btn btn-primary btn-login" (click)="comprarAhora()">
+          Comprar Ahora
+        </button>
+        <button class="btn btn-primary btn-login" (click)="agregarCarrito()">
+          Agregar Carrito
+        </button>
+      </div>
+    </div> -->
   </div>
 </div>

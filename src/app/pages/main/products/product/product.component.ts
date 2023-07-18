@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../model/product.model';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../store/products.actions';
@@ -17,6 +17,7 @@ export class ProductComponent implements OnInit{
   constructor(
     private formBuilder: FormBuilder,
     private routeActive: ActivatedRoute,
+    private router: Router,
     private store:Store<{ product:Product}>
   ){
     this.cantidadForm = this.formBuilder.group({
@@ -26,5 +27,12 @@ export class ProductComponent implements OnInit{
   ngOnInit(): void {
     this.productId = parseInt(this.routeActive.snapshot.paramMap.get('id')!)
     this.store.dispatch(ProductActions.loadProductById({id:this.productId}))
+  }
+  comprarAhora(){
+    this.router.navigate(['/carrito']);
+  }
+  agregarCarrito(){
+    this.cantidadForm.value.cantidad
+    console.log('agregar carrito');
   }
 }

@@ -2,10 +2,87 @@
     display: flex;
     background: #ebebeb;
     justify-content: center;
+    max-height: 70vh;
+    margin-top: 5%;
+    align-items: center;
+}
+.columns{
+    display: flex;
+    
 }
 .card-img{
-    border: 2px solid red;
+    width: 100%;
+}
+.divImg{
+    
+    width: 30%;
+    display: flex;
+    max-height: 100%;
+    align-items: center;
 }
 .card{
-    width: 80%;
+    max-width: 80%;
+}
+.divActions{
+    width: 35%;
+    padding: 16px;
+}
+.divDescription{
+    width: 35%;
+}
+.cantidad{
+    width: 80px;
+    height: 30px;
+    border: none;
+    border-bottom: 2px solid #ff5b36a4;
+}
+.cantidadForm{
+    display: flex;
+}
+.cantidadForm p{
+    padding: 5px;
+}
+.cantidadForm form{
+    display: flex;
+    width: 100%;
+}
+.divButtons{
+    display: flex;
+    flex-direction: column;
+}
+.btn-comprar{
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 5%;
+}
+.btn-carrito{
+    color: #1373fa;
+    font-weight: 700;
+    font-size: 18px;
+    background: lightblue;
+}
+.img-button{
+    display: none;
+}
+.btn-carrito p{
+    margin-bottom: 0;
+}
+.btn-carrito:hover p{
+    display: none;
+}
+.btn-carrito:hover .img-button{
+    display: inline;
+}
+.btn-comprar p{
+    margin-bottom: 0;
+}
+.btn-comprar:hover p{
+    display: none;
+}
+.btn-comprar:hover .img-button{
+    display: inline;
+}
+.divButtons{
+    margin-left: 15px;
+    margin-right: 15px;
 }
