@@ -34,6 +34,7 @@
     width: 80px;
     height: 30px;
     border: none;
+    text-align: center;
     border-bottom: 2px solid #ff5b36a4;
 }
 .cantidadForm{
@@ -85,4 +86,17 @@
 .divButtons{
     margin-left: 15px;
     margin-right: 15px;
+}
+.texts{
+    
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+.texts span{
+    font-size: 15px;
+}
+.card-title-stock{
+    color: red;
+    text-align: center;
+    padding-bottom: 10px;
 }

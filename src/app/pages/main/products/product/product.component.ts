@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../model/product.model';
 import { Store } from '@ngrx/store';
@@ -14,6 +14,7 @@ import * as ProductActions from '../store/products.actions';
 export class ProductComponent implements OnInit{
   cantidadForm:FormGroup;
   productId!:number;
+  stock:number = 8;
   constructor(
     private formBuilder: FormBuilder,
     private routeActive: ActivatedRoute,
@@ -21,7 +22,15 @@ export class ProductComponent implements OnInit{
     private store:Store<{ product:Product}>
   ){
     this.cantidadForm = this.formBuilder.group({
-      cantidad: new FormControl(null, [Validators.required]),
+      cantidad: new FormControl(1, [
+        Validators.required, 
+        Validators.minLength(1)
+        // this.maxValueValidator.bind(this)
+      ]
+      ),
+    },
+    {
+      validators: [this.maxValueValidator.bind(this)],
     });
   }
   ngOnInit(): void {
@@ -32,7 +41,22 @@ export class ProductComponent implements OnInit{
     this.router.navigate(['/carrito']);
   }
   agregarCarrito(){
-    this.cantidadForm.value.cantidad
-    console.log('agregar carrito');
+    console.log(this.cantidadForm.get('cantidad')!.value);
   }
+  maxValueValidator(control: AbstractControl): ValidationErrors | null  {
+    if (control.get('cantidad')?.value > this.stock) {
+      control.get('cantidad')?.setErrors({ maxValueExceeded: true });      
+      return {
+        maxValueExceeded: true 
+      };
+    }else if(control.get('cantidad')?.value == 0){
+      control.get('cantidad')?.setErrors({ minValueExceeded: true });      
+      return {
+        minValueExceeded: true 
+      };
+    }
+
+    return null; 
+  }
+  
 }
