@@ -15,6 +15,8 @@ export class ProductComponent implements OnInit{
   cantidadForm:FormGroup;
   productId!:number;
   stock:number = 8;
+  title:string = 'Motul 5100';
+  price:number = parseInt('1.000');
   constructor(
     private formBuilder: FormBuilder,
     private routeActive: ActivatedRoute,
@@ -58,5 +60,5 @@ export class ProductComponent implements OnInit{
 
     return null; 
   }
-  
+
 }
