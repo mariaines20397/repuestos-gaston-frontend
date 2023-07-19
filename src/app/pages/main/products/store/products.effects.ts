@@ -17,18 +17,18 @@ export class ProductsEffects {
     private router: Router,
   ) {}
 
-  loadProducts$ = createEffect(() =>
+  loadProductsByCategory$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductsActions.loadProducts),
+      ofType(ProductsActions.loadProductsByCategory),
       mergeMap((action) => {
-        return this.productsServices.getProducts().pipe(
+        return this.productsServices.getProductsByCategory(action.id).pipe(
           map((response) => {
-            return ProductsActions.loadProductsSuccess({
+            return ProductsActions.loadProductsByCategorySuccess({
               product: response.data,
             });
           }),
           catchError((error) => {
-            return of(ProductsActions.loadProductsFail({ error }));
+            return of(ProductsActions.loadProductsByCategoryFail({ error }));
           })
         );
       })

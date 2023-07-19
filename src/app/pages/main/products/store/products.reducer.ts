@@ -6,13 +6,13 @@ export const productsReducer = createReducer<any>(
     initialState,
     //products
     on(
-        ProductsActions.loadProducts,
+        ProductsActions.loadProductsByCategory,
         (state, props):any => ({
             ...state
         })
     ),
     on(
-        ProductsActions.loadProductsSuccess,
+        ProductsActions.loadProductsByCategorySuccess,
         (state, props):any => ({
             ...state,
             data:props.product
@@ -20,7 +20,7 @@ export const productsReducer = createReducer<any>(
     )
     ,
     on(
-        ProductsActions.loadProductsFail,
+        ProductsActions.loadProductsByCategoryFail,
         (state, props):any => ({
             ...state,
             data:props.error

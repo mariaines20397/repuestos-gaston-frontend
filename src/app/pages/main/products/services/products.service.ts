@@ -16,8 +16,8 @@ export class ProductsService {
     private router: Router,
     ) { }
 
-  getProducts():Observable<any>{
-    const finalUrl='localhost:8080/products';
+  getProductsByCategory(id:number):Observable<any>{
+    const finalUrl=`localhost:8080/products/categories/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({

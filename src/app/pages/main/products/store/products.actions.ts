@@ -1,12 +1,12 @@
 import { createAction, props } from "@ngrx/store";
 import { Product } from "../model/product.model";
 
-//products
-export const loadProducts = createAction('[Products] loadProducts',
-props<{product:any}>());
-export const loadProductsSuccess = createAction('[Products] loadProductsSuccess',
+//productsByCategory
+export const loadProductsByCategory = createAction('[ProductsByCategory] loadProducts',
+props<{id:number}>());
+export const loadProductsByCategorySuccess = createAction('[ProductsByCategory] loadProductsByCategorySuccess',
 props<{product:Product[]}>());
-export const loadProductsFail = createAction('[Products] loadProductsFail',
+export const loadProductsByCategoryFail = createAction('[ProductsByCategory] loadProductsByCategoryFail',
 props<{error:any}>());
 
 //GetById

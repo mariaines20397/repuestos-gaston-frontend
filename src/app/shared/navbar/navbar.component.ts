@@ -10,6 +10,20 @@ import Swal from 'sweetalert2';
 })
 export class NavbarComponent implements OnInit {
   isLogin: boolean = false;
+  categories:any[]=[
+    {
+      id:1,
+      name:'Accesorios'
+    },
+    {
+      id:2,
+      name:'Caños de escape'
+    },
+    {
+      id:3,
+      name:'Aceites'
+    }
+  ]
   constructor(
     private router: Router, 
     // public authService: AuthService
@@ -26,6 +40,10 @@ export class NavbarComponent implements OnInit {
         // includesLogin ? this.isLogin = true : this.isLogin = false;
       }
     });
+  }
+
+  redirectProducts(id:number){
+    this.router.navigate([`/products/categories/${id}`])
   }
   // logout() {
   //   const username = this.authService.usuario.username;

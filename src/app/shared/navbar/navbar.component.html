@@ -24,10 +24,8 @@
           >
           Categorias
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Accesorios</a></li>
-            <li><a class="dropdown-item" href="#">Caños de escape</a></li>
-            <li><a class="dropdown-item" href="#">Aceites</a></li>
+          <ul class="dropdown-menu" >
+            <li *ngFor="let data of categories" (click)="redirectProducts(data.id)"><a class="dropdown-item">{{data.name}}</a></li>
           </ul>
         </li>
         
