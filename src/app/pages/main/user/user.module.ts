@@ -5,6 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromUserReducer from './store/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user.effects';
+import { UserRoutingModule } from './user-routing.module';
 
 
 
@@ -12,6 +13,7 @@ import { UserEffects } from './store/user.effects';
   declarations: [UserComponent],
   imports: [
     CommonModule,
+    UserRoutingModule,
     StoreModule.forFeature(
       'user',
       fromUserReducer.userReducer
