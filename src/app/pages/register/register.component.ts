@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from './model/users.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as RegisterActions from './store/register.actions';
 import Swal from 'sweetalert2';
+import { User } from '../main/user/model/users.model';
 
 @Component({
   selector: 'app-register',

@@ -1,12 +1,12 @@
 // import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../register/model/users.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as LoginActions from './store/login.actions';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { User } from '../main/user/model/users.model';
 
 @Component({
   selector: 'app-login',

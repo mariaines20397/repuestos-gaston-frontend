@@ -1,14 +1,20 @@
-<div class="card mb-3" style="max-width: 540px;" *ngFor="let data of productosMostrar">
+<div class="title">
+  <h3>{{nameProduct}}</h3>
+<span>{{productosMostrar.length}} resultados</span>
+</div>
+<div class="productos">
+  <div class="card" *ngFor="let data of productosMostrar">
     <div class="row no-gutters" (click)="productById(data.id)">
-      <div class="col-md-4">
+      <div class="col-md-6 divImg">
         <img src={{data.img}} class="card-img" alt="Imagen de producto">
       </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="card-body">
-          <h5 class="card-title">{{data.name}}</h5>
-          <p class="card-text">${{data.price}}</p>
+          <h2 class="card-title">{{data.name}}</h2>
           <p class="card-text">{{data.descriptions}}</p>
+          <p class="card-text-price">${{data.price}}</p>
         </div>
       </div>
     </div>
   </div>
+</div>

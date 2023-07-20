@@ -12,10 +12,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductsComponent implements OnInit{
   product={nombre:'producto 1'}
   categoryId!:number;
-  productosMostrar:any[]=[]
+  productosMostrar:any[]=[];
+  nameProduct:string = '';
   listProductsByCategory:any[]=[
     {
       id:1,
+      name:'Accesorios para Motos',
       products:[
         {
           id:1,
@@ -42,6 +44,7 @@ export class ProductsComponent implements OnInit{
     },
     {
       id:2,
+      name:'Caños de escape',
       products:[
         {
           id:1,
@@ -68,6 +71,7 @@ export class ProductsComponent implements OnInit{
     },
     {
       id:3,
+      name:'Aceites para Motos',
       products:[
         {
           id:1,
@@ -110,6 +114,7 @@ export class ProductsComponent implements OnInit{
   productosPorCategorias(){
     this.listProductsByCategory.forEach(data=>{
       if (data.id == this.categoryId) {
+        this.nameProduct = data.name;
         data.products.forEach((e:any)=>{
 
           this.productosMostrar.push(e)
