@@ -25,7 +25,7 @@
           Categorias
           </a>
           <ul class="dropdown-menu" >
-            <li *ngFor="let data of categories" (click)="redirectProducts(data.id)"><a class="dropdown-item">{{data.name}}</a></li>
+            <li *ngFor="let data of categories"><a class="dropdown-item" href="/products/categories/{{data.id}}">{{data.name}}</a></li>
           </ul>
         </li>
         

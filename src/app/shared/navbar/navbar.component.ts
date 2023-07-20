@@ -42,9 +42,6 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  redirectProducts(id:number){
-    this.router.navigate([`/products/categories/${id}`])
-  }
   // logout() {
   //   const username = this.authService.usuario.username;
   //   this.authService.logout();

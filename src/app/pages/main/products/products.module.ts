@@ -7,12 +7,14 @@ import * as fromProductReducer from './store/products.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductsEffects } from './store/products.effects';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductsComponent } from './products.component';
 
 
 
 @NgModule({
   declarations: [
-    ProductComponent
+    ProductComponent,
+    ProductsComponent
   ],
   imports: [
     CommonModule,
