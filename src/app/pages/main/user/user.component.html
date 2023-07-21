@@ -1,1 +1,69 @@
-<p>user works!</p>
+<div class="profile">
+  <div class="card mb-3" style="max-width: 540px">
+    <div class="row no-gutters">
+      <div class="col-md-3 photoProfile">
+        <img
+          src="./assets/svg/userProfile.svg"
+          class="card-img"
+          alt="foto de perfil"
+        />
+      </div>
+      <div class="col-md-8 card-text">
+        <div class="card-body">
+          <h5 class="card-title">María Inés Toledo</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="title">
+    <h5>Datos personales</h5>
+  </div>
+  <div
+    class="card mb-3"
+    style="max-width: 540px"
+    *ngFor="let data of datosUsuario"
+  >
+    <div class="row no-gutters row-line">
+      <div class="col-md-3 card-text-title">
+        <p class="card-text">Usuario</p>
+      </div>
+      <div class="col-md-8 card-text">
+        <div class="card-body">
+          <p class="card-text">{{ data.usuario }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row no-gutters row-line">
+      <div class="col-md-3 card-text-title">
+        <p class="card-text">E-mail</p>
+      </div>
+      <div class="col-md-8 card-text">
+        <div class="card-body">
+          <p class="card-text">{{ data.email }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row no-gutters row-line">
+      <div class="col-md-3 card-text-title">
+        <p class="card-text">Teléfono</p>
+      </div>
+      <div class="col-md-8 card-text">
+        <div class="card-body">
+          <p class="card-text">{{ data.telefono }}</p>
+          <p class="card-text" *ngIf="data.telefono == null"></p>
+        </div>
+      </div>
+    </div>
+    <div class="row no-gutters row-line">
+      <div class="col-md-3 card-text-title">
+        <p class="card-text">Documento</p>
+      </div>
+      <div class="col-md-8 card-text">
+        <div class="card-body">
+          <p class="card-text">{{ data.documento }}</p>
+          <p class="card-text" *ngIf="data.documento == null"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
