@@ -26,6 +26,11 @@ const routes: Routes = [
         path:'users/profile',
         loadChildren:() => import('./user/user.module').then((m)=> m.UserModule),
         // canActivate:[AuthGuard],
+      },
+      {
+        path:'search',
+        loadChildren:() => import('./products/products.module').then((m)=> m.ProductsModule),
+        // canActivate:[AuthGuard],
       }
     ]
   },

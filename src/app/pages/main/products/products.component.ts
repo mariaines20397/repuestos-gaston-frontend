@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductsComponent implements OnInit{
   product={nombre:'producto 1'}
   categoryId!:number;
+  filtrado:string | null = null;
   productosMostrar:any[]=[];
   nameProduct:string = '';
   listProductsByCategory:any[]=[
@@ -107,6 +108,11 @@ export class ProductsComponent implements OnInit{
    }
   ngOnInit(): void {
     this.categoryId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
+    this.routeActive.queryParams.subscribe(data=>{
+      if (data['filtrar'] !== null && data['filtrar']!==undefined) {
+        this.filtrado=data['filtrar']
+      }
+    })
     this.store.dispatch(ProductsActions.loadProductsByCategory({id:this.categoryId}));
  this.productosPorCategorias()
   }

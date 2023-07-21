@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import Swal from 'sweetalert2';
@@ -10,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class NavbarComponent implements OnInit {
   isLogin: boolean = false;
+  searchForm:FormGroup;
   categories:any[]=[
     {
       id:1,
@@ -26,8 +28,14 @@ export class NavbarComponent implements OnInit {
   ]
   constructor(
     private router: Router, 
+    private formBuilder: FormBuilder,
+
     // public authService: AuthService
-    ) {}
+    ) {
+      this.searchForm = this.formBuilder.group({
+        search: new FormControl(null)
+      });
+    }
   ngOnInit(): void {
     this.isHome();
   }
@@ -40,6 +48,13 @@ export class NavbarComponent implements OnInit {
         // includesLogin ? this.isLogin = true : this.isLogin = false;
       }
     });
+  }
+  search(){
+    const filtrar = this.searchForm.value.search;
+    this.router.navigate(['/search'],{
+      queryParams:{filtrar}
+    })    
+    
   }
 
   // logout() {

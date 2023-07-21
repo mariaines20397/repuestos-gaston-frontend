@@ -4,13 +4,15 @@
     <a class="navbar-brand" href="/home"
       ><img class="logo-login" src="../../../assets/img/logo.png" alt="" srcset=""
     /></a>
-    <div *ngIf="!isLogin" class="search">
-      <input type="search" class="buscador" placeholder="Busca productos" name="">
-      <button type="button" class="btn lupa">
+    <form action="" [formGroup]="searchForm">
+    <div *ngIf="!isLogin" class="search" >
+      <input type="search" class="buscador form-control" formControlName="search" placeholder="Busca productos" name="">
+      <button type="button" class="btn lupa" (click)="search()">
         <img src="../../../assets/svg/search.svg" alt="" srcset="">
       </button>
 
     </div>
+  </form>
 </div>
     <div *ngIf="!isLogin" class="collapse navbar-collapse boxCategorias" id="navbarNavDropdown">
       <ul class="navbar-nav">

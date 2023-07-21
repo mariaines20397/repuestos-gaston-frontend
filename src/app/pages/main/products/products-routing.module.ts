@@ -13,6 +13,10 @@ const routes: Routes = [
   
   component:ProductComponent,
     },
+    {path:'', 
+  
+  component:ProductsComponent,
+    },
   
 ];
 
