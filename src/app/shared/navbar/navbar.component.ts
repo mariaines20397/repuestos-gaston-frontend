@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/core/services/auth.service';
 import Swal from 'sweetalert2';
-
+import { Search } from './model/search.model';
+import * as SearchActions from './store/search.actions'
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -29,7 +31,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router, 
     private formBuilder: FormBuilder,
-
+    private store:Store<{ filtrar:Search}>,
     // public authService: AuthService
     ) {
       this.searchForm = this.formBuilder.group({
@@ -54,7 +56,7 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/search'],{
       queryParams:{filtrar}
     })    
-    
+    this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
   }
 
   // logout() {

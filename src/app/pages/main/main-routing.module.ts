@@ -32,6 +32,12 @@ const routes: Routes = [
         loadChildren:() => import('./products/products.module').then((m)=> m.ProductsModule),
         // canActivate:[AuthGuard],
       }
+      ,
+      {
+        path:'carrito',
+        loadChildren:() => import('./carrito/carrito.module').then((m)=> m.CarritoModule),
+        // canActivate:[AuthGuard],
+      }
     ]
   },
 ];
