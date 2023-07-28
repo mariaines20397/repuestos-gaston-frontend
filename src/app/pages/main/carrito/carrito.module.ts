@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarritoRoutingModule } from './carrito-routing.module';
 import { CarritoComponent } from './carrito.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -11,7 +12,8 @@ import { CarritoComponent } from './carrito.component';
   ],
   imports: [
     CommonModule,
-    CarritoRoutingModule
+    CarritoRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class CarritoModule { }

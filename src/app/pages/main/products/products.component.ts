@@ -79,7 +79,8 @@ export class ProductsComponent implements OnInit{
           name:'Motul 5100',
           price:'1000',
           descriptions:'Aceite de motos sintético',
-          img:'./assets/img/productos/motul.png'
+          img:'./assets/img/productos/motul.png',
+         
         },
         {
           id:2,

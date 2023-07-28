@@ -1,0 +1,152 @@
+.product{
+    display: flex;
+    background: #ebebeb;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5%;
+    align-items: center;
+}
+.columns{
+    display: flex;
+    
+}
+.card-img{
+    width: 100%;
+}
+.divImg{
+    width: 10%;
+    display: flex;
+    max-height: 100%;
+    align-items: center;
+}
+.product .card{
+    max-width: 80%;
+}
+.divActions{
+    width: 35%;
+    padding: 16px;
+}
+.divDescription{
+    width: 35%;
+    align-self: center;
+}
+.cantidad{
+    width: 80px;
+    height: 60%;
+    border: none;
+    text-align: center;
+    border-bottom: 2px solid #ff5b36a4;
+}
+.cantidadForm{
+    display: flex;
+}
+.cantidadForm p{
+    padding: 5px;
+}
+.cantidadForm form{
+    display: flex;
+    width: 100%;
+}
+.divButtons{
+    display: flex;
+    flex-direction: column;
+}
+.btn-comprar{
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 5%;
+}
+.btn-carrito{
+    color: #1373fa;
+    font-weight: 700;
+    font-size: 18px;
+    background: lightblue;
+}
+.img-button{
+    display: none;
+}
+.btn-carrito p{
+    margin-bottom: 0;
+}
+.btn-carrito:hover p{
+    display: none;
+}
+.btn-carrito:hover .img-button{
+    display: inline;
+}
+.btn-comprar p{
+    margin-bottom: 0;
+}
+.btn-comprar:hover p{
+    display: none;
+}
+.btn-comprar:hover .img-button{
+    display: inline;
+}
+.divButtons{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.texts{
+    
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+.texts span{
+    font-size: 15px;
+}
+.card-title-stock{
+    color: red;
+    text-align: center;
+    padding-bottom: 10px;
+}
+.card-body-price{
+    width: 20%;
+    padding: 16px;
+}
+.productTotal{
+    display: flex;
+    justify-content: center;
+
+}
+.productTotal .card{
+    max-width: 80%;
+    width: 100%;
+    height: 8vh;
+    border-color: lightsalmon;
+}
+.productTotal .card:hover{
+    cursor: pointer;
+    background: lavenderblush;
+}
+
+.totalTitle{
+    width: 45%;
+}
+.totalTitle h4{
+    width: 100%;
+    text-align: center;
+}
+.totalMonto{
+    width: 20%;
+    padding: 16px;
+}
+.totalMonto h6{
+    width: 100%;
+}
+.monto{
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+}
+.carrito{
+    height: 57vh;
+}
+.finalizar{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+    max-width: 80%;
+    margin: auto;
+    margin-top: 3%;
+}
