@@ -59,48 +59,6 @@ export class HomeComponent implements OnInit{
       tile:'Motul 5100',
       subtitle:'Aceite para moto 4t',
       precio:1000
-    },
-    {
-      id:7,
-      img:'./assets/img/productos/motul.png',
-      tile:'Motul 5100',
-      subtitle:'Aceite para moto 4t',
-      precio:1000
-    },
-    {
-      id:8,
-      img:'./assets/img/productos/motul.png',
-      tile:'Motul 5100',
-      subtitle:'Aceite para moto 4t',
-      precio:1000
-    },
-    {
-      id:9,
-      img:'./assets/img/productos/motul.png',
-      tile:'Motul 5100',
-      subtitle:'Aceite para moto 4t',
-      precio:1000
-    },
-    {
-      id:10,
-      img:'./assets/img/productos/motul.png',
-      tile:'Motul 5100',
-      subtitle:'Aceite para moto 4t',
-      precio:1000
-    },
-    {
-      id:11,
-      img:'./assets/img/productos/motul.png',
-      tile:'Motul 5100',
-      subtitle:'Aceite para moto 4t',
-      precio:1000
-    },
-    {
-      id:12,
-      img:'./assets/img/productos/motul.png',
-      tile:'Motul 5100',
-      subtitle:'Aceite para moto 4t',
-      precio:1000
     }
   ]
   constructor(
