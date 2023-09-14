@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.sidebar{
+    border: 1px solid linear-gradient(#ff5b36a4, #ffa601);
+    /* width: 20vw; */
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    height: 100vh;
+    background: linear-gradient(#ff5b36a4, #ffa601);
+
+}
+.navbar-brand{
+    width: 15vw;
+    height: 20vh;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+.logo{
+    width: 15vw;
+    height: 10vh;
+}
+.section{
+    height: 10vh;
+    display: flex;
+    align-items: center;
+}
+.section:hover{
+    cursor: pointer;
+    background: rgba(211, 211, 211, 0.627);
+}
+.imgSection{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+a{
+    text-decoration: none;
+}
+.section h5{
+    color: black;
+}

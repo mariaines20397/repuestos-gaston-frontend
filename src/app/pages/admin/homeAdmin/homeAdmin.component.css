@@ -1,0 +1,26 @@
+.tablaProductos{
+  margin-top: 20px;
+}
+.cards{
+  display: flex;
+  justify-content: space-around;
+}
+.imgCards{
+  background: rgba(251, 91, 33, 0.846);
+  display: flex;
+  align-items: center;
+}
+.card{
+  border-radius: 15px;
+  cursor: pointer;
+}
+a{
+  text-decoration: none;
+}
+h5{
+  color: black;
+  font-weight: 600;
+}
+p{
+  color: black;
+}

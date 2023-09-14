@@ -1,0 +1,10 @@
+.admin{
+    display: flex;
+
+}
+.col-sidebar{
+    width: 25vw;
+}
+.col-router{
+    width: 75vw;
+}

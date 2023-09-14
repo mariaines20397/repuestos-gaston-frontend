@@ -1,19 +1,13 @@
 html, body {
-    height: 100%;
-    margin: 0;
+    height: 100vh;
+    margin: 10%;
   }
   
   .app-container {
     position: relative; /* Asegura que el .content-container ocupe el espacio correcto */
     min-height: 100vh;
   }
-  
-  .content-container {
-    padding-bottom: 50px; /* Ajusta el padding inferior para dejar espacio para el footer */
-  }
-  
-  
-  
+    
   .app-footer {
     position: fixed;
     left: 0;

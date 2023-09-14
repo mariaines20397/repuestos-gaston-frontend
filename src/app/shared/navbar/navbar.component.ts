@@ -13,6 +13,7 @@ import * as SearchActions from './store/search.actions'
 })
 export class NavbarComponent implements OnInit {
   isLogin: boolean = false;
+  isAdmin:boolean = false;
   searchForm:FormGroup;
   categories:any[]=[
     {
@@ -46,7 +47,7 @@ export class NavbarComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         const url = event.urlAfterRedirects;
         this.isLogin = url.includes('login') || url.includes('register');
-
+        this.isAdmin = url.includes('admin');
         // includesLogin ? this.isLogin = true : this.isLogin = false;
       }
     });

@@ -8,13 +8,15 @@ import { StoreModule } from '@ngrx/store';
 import * as fromSearchReducer from './navbar/store/search.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { SearchEffects } from './navbar/store/search.effects';
+import { SidebarAdminComponent } from './sidebar-admin/sidebar-admin.component';
 
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    SidebarAdminComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { SearchEffects } from './navbar/store/search.effects';
   ],
   exports:[
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    SidebarAdminComponent
   ]
 })
 export class SharedModule { }
