@@ -76,7 +76,9 @@
         </div>
         <div class="login-register">
             <a (click)="cancelar()">Volver</a>
-            <button class="btn btn-primary btn-login" [disabled]="productForm.invalid" (click)="agregarProducto()">
+            <button class="btn btn-primary btn-login" *ngIf="!router.url.includes('editarProducto')" [disabled]="productForm.invalid" (click)="agregar()">
                 Guardar producto</button>
+            <button class="btn btn-primary btn-login" *ngIf="router.url.includes('editarProducto')" [disabled]="productForm.invalid" (click)="editar(productoId)">
+                    Guardar producto</button>
         </div>
 </div>

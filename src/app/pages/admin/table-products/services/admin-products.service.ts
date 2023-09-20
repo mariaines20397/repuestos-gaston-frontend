@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../model/product.model';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminProductsService {
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient,
+  ) { }
 
   products: Product[] = [
     {
@@ -138,5 +142,96 @@ export class AdminProductsService {
 
   getProducts(): Product[] {
     return this.products;
+  }
+  getProductsByIdAdmin(id:number):Observable<any> {
+    const finalUrl=`localhost:8080/admin/products/${id}`;
+    return new Observable((obs)=>{
+      this.httpClient.get(finalUrl)
+      .subscribe({
+        next: (res) => {
+          // this.router.navigate(['/home']);
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+  getProductsAdmin():Observable<any> {
+    const finalUrl=`localhost:8080/admin/products`;
+    return new Observable((obs)=>{
+      this.httpClient.get(finalUrl)
+      .subscribe({
+        next: (res) => {
+          // this.router.navigate(['/home']);
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+
+  editProductAdmin(id:number, product:Product):Observable<any> {
+    const finalUrl=`localhost:8080/admin/products/${id}`;
+    return new Observable((obs)=>{
+      this.httpClient.put(finalUrl, product)
+      .subscribe({
+        next: (res) => {
+          // this.router.navigate(['/home']);
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+
+  deleteProductAdmin(id:number):Observable<any> {
+    const finalUrl=`localhost:8080/admin/products/${id}`;
+    return new Observable((obs)=>{
+      this.httpClient.delete(finalUrl)
+      .subscribe({
+        next: (res) => {
+          // this.router.navigate(['/home']);
+          // Swal.fire('¡Producto eliminado con éxito!','sucess');
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+
+  postPromotion(product?: Product): Observable<any> {
+    const finalUrl=`localhost:8080/admin/products}`;
+    return new Observable((obs) => {
+      this.httpClient.post(finalUrl, product).subscribe({
+        next: (res) => {
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          obs.error(error.error);
+          obs.complete();
+        },
+      });
+    });
   }
 }

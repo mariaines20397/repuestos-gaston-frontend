@@ -14,6 +14,7 @@ export class ProductComponent implements OnInit{
   producto:Product={};
   productos:Product[]=[];
   nombreProducto:string='';
+  productoId!:number;
   url:string='';
   constructor(
     private formBuilder: FormBuilder,
@@ -30,13 +31,13 @@ export class ProductComponent implements OnInit{
      });
    }
 ngOnInit(): void {
-  this.editarProducto();
+  if (this.router.url.includes('editarProducto')) {
+    this.productoId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
+    this.llenarFormulario();
+  }
 }
    cancelar(){
     this.router.navigate(['/admin/productos'])
-   }
-   agregarProducto(){
-
    }
 
    onFileSelected(event: any): void {
@@ -54,12 +55,10 @@ ngOnInit(): void {
   getProducts(){
     this.productos=this.productServices.getProducts();
   }
-  editarProducto(){
-    if (this.router.url.includes('editarProducto')) {
+  llenarFormulario(){
       this.getProducts();
-      const productoId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
       this.productos.forEach(producto=>{
-        if (producto.id == productoId) {
+        if (producto.id == this.productoId) {
           const {
             name,
             description,
@@ -79,6 +78,47 @@ ngOnInit(): void {
         }
       })
       
-    }
   }
+
+  editar(id:number){
+    const {
+      name,
+      description,
+      price,
+      stock,
+      imageUrl
+    } = this.productForm.value
+    const product={
+      name,
+      description,
+      price,
+      stock,
+      imageUrl
+    }
+    console.log(product);
+    
+    // this.store.dispatch(ProductosAdminActions.editProduct(id,product));
+  }
+
+  agregar(){
+    const {
+      name,
+      description,
+      price,
+      stock,
+      imageUrl
+    } = this.productForm.value
+    const product={
+      name,
+      description,
+      price,
+      stock,
+      imageUrl
+    }
+    console.log(product);
+    
+    // this.store.dispatch(ProductosAdminActions.createProduct(product));
+  }
+
+ 
 }
