@@ -1,0 +1,29 @@
+.productos{
+    margin: 5%;
+}
+h3{
+    padding-bottom: 15px;
+}
+.agregarProducto{
+   display: flex;
+   justify-content: space-between;
+}
+.agregarProducto button{
+    height: 20%;
+}
+.table-container {
+    max-height: 400px; 
+    overflow-y: auto; 
+}
+.acciones{
+    text-align: center;
+}
+.imagen{
+    width: 100%;
+}
+.imagenTabla{
+    width: 8vw;
+}
+.descripcionTabla{
+    width: 15vw;
+}

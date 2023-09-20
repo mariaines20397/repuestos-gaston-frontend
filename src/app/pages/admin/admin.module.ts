@@ -6,6 +6,9 @@ import { HomeAdminComponent } from './homeAdmin/homeAdmin.component';
 import { TableProductsComponent } from './table-products/table-products.component';
 import { TableUsersComponent } from './table-users/table-users.component';
 import { AdminComponent } from './admin.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProductComponent } from './table-products/product/product.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -14,12 +17,15 @@ import { AdminComponent } from './admin.component';
     AdminComponent,
     HomeAdminComponent,
     TableProductsComponent,
-    TableUsersComponent
+    TableUsersComponent,
+    ProductComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    SharedModule
+    SharedModule,
+    NgbPaginationModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

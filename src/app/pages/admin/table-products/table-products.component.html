@@ -1,1 +1,46 @@
-<p>table-products works!</p>
+<div class="productos">
+    <div class="card">
+        <div class="card-body">
+            <div class="agregarProducto">
+                <h3 class="card-title">Tabla de productos</h3>
+            <button type="button" class="btn btn-dark" (click)="agregar()">Agregar</button>
+            </div>
+            <div class="table-container">
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" class="imagenTabla">Imágen</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col" class="descripcionTabla">Descripción</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Stock</th>
+                        <th colspan="2" class="acciones">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr *ngFor="let producto of productos; let index = index">
+                        <th scope="row">{{index+1}}</th>
+                        <td class="imagenTabla">
+                          <img class="imagen" [src]="producto.imageUrl" alt="Imagen del producto" *ngIf="producto.imageUrl" />
+                        </td>
+                        <td>{{producto.name}}</td>
+                        <td class="descripcionTabla">{{producto.description}}</td>
+                        <td>${{producto.price}}</td>
+                        <td>{{producto.stock}} unidades</td>
+                        
+                        <td><button type="button" class="btn">
+                                <img src="../../../../assets/svg/edit.svg" (click)="editarProducto(producto.id!)" alt="" srcset="">
+                            </button>
+                            <button type="button" class="btn">
+                                <img src="../../../../assets/svg/trash.svg" alt="" srcset="">
+                            </button>
+                    </td>
+                      </tr>
+                    </tbody>
+                  </table>  
+                </div>  
+            </div>
+        </div>
+        <ngb-pagination [collectionSize]="productos.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination>
+</div>

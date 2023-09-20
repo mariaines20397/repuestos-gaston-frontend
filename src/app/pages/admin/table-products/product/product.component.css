@@ -1,0 +1,31 @@
+.productos{
+    margin-top: 5%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+h3{
+    padding-bottom: 15px;
+}
+.login-register{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 2%;
+}
+.login-register a{
+    padding-right: 30px;
+    cursor: pointer;
+}
+.inputsText{
+    margin-top: 1.5%;
+}
+.form-container{
+    max-height: 400px; 
+    overflow-y: auto; 
+}
+.imagenProducto{
+    width:20vw;
+}
+.imagen{
+    width: 100%;
+}

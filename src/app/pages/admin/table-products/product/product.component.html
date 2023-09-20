@@ -1,0 +1,82 @@
+<div class="productos">
+    <div class="card">
+        <div class="card-body">
+            <div class="agregarProducto">
+                <h3 *ngIf="!router.url.includes('editarProducto')" class="card-title">Agregar producto</h3>
+                <h3 *ngIf="router.url.includes('editarProducto')" class="card-title">Editar producto {{nombreProducto}}</h3>
+            </div>
+           <div class="form-container">
+            <form action="" [formGroup]="productForm">
+                <div class="inputsText">
+                    <span class="title-input">Nombre</span>
+                    <input class="text-input form-control" formControlName="name" type="text" name="" id="" autofocus>
+                    <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
+                        <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
+                            <span>Este campo es requerido.</span>
+                        </div>
+                        <div class="validatorText" *ngIf="productForm.get('name')?.hasError('maxlength')">
+                            <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputsText">
+                    <span class="title-input">Descripción</span>
+                    <textarea class="text-input form-control" formControlName="description" type="text" name="" id="" rows="3"></textarea>
+                    <div *ngIf="productForm.controls['description'].errors && productForm.get('description')?.touched">
+                        <div class="validatorText" *ngIf="productForm.get('description')?.hasError('required')">
+                            <span>Este campo es requerido.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputsText">
+                    <span class="title-input">Precio (indicar solo el monto)</span>
+                <input class="text-input form-control" formControlName="price" type="number" name="" id="">
+                <div *ngIf="productForm.controls['price'].errors && productForm.get('price')?.touched">
+                    <div class="validatorText" *ngIf="productForm.get('price')?.hasError('required')">
+                        <span>Este campo es requerido.</span>
+                    </div>
+                </div>
+                </div>
+                <div class="inputsText">
+                    <span class="title-input">Stock (indicar solo el valor)</span>
+                <input class="text-input form-control" formControlName="stock" type="number" name="" id="">
+                <div *ngIf="productForm.controls['stock'].errors && productForm.get('stock')?.touched">
+                    <div class="validatorText" *ngIf="productForm.get('stock')?.hasError('required')">
+                        <span>Este campo es requerido.</span>
+                    </div>
+                </div>
+                </div>
+                <div class="inputsText">
+                    <span class="title-input">Cargar imágen (.png .jpg . jpeg)</span>
+                <input 
+                class="text-input form-control" 
+                formControlName="imageUrl"
+                (change)="onFileSelected($event)" 
+                type="file" 
+                accept="image/png, image/jpeg">
+                <div *ngIf="productForm.controls['imageUrl'].errors && productForm.get('imageUrl')?.touched">
+                    <div class="validatorText" *ngIf="productForm.get('imageUrl')?.hasError('required')">
+                        <span>Este campo es requerido.</span>
+                    </div>
+                    <div class="validatorText" *ngIf="productForm.get('imageUrl')?.hasError('fileType')">
+                        <span>El archivo debe ser de tipo .png o .jpg.</span>
+                    </div>
+                </div>
+                </div>
+                <div class="inputsText imagenProducto" *ngIf="!router.url.includes('editarProducto') && producto.imageUrl">
+                    <img class="imagen" [src]="producto.imageUrl" alt="Imagen del producto"  />
+                </div>
+                <div class="inputsText imagenProducto" *ngIf="router.url.includes('editarProducto') && url">
+                    <img class="imagen" [src]="url" alt="Imagen del producto"  />
+                </div>
+                
+            </form>
+           </div>
+            </div>
+        </div>
+        <div class="login-register">
+            <a (click)="cancelar()">Volver</a>
+            <button class="btn btn-primary btn-login" [disabled]="productForm.invalid" (click)="agregarProducto()">
+                Guardar producto</button>
+        </div>
+</div>

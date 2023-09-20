@@ -5,6 +5,7 @@ import { AdminComponent } from './admin.component';
 import { HomeAdminComponent } from './homeAdmin/homeAdmin.component';
 import { TableProductsComponent } from './table-products/table-products.component';
 import { TableUsersComponent } from './table-users/table-users.component';
+import { ProductComponent } from './table-products/product/product.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,14 @@ const routes: Routes = [
       {
         path:'usuarios', 
         component: TableUsersComponent
+      },
+      {
+        path:'productos/agregarProducto', 
+        component: ProductComponent
+      },
+      {
+        path:'productos/editarProducto/:id', 
+        component: ProductComponent
       },
       
     ]
