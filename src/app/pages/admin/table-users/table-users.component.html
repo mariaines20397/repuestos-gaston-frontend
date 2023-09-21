@@ -1,1 +1,38 @@
-<p>table-users works!</p>
+<div class="usuarios">
+    <div class="card">
+        <div class="card-body">
+            <div class="agregarUsuario">
+                <h3 class="card-title">Tabla de usuarios</h3>
+            </div>
+            <div class="table-container">
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col" class="descripcionTabla">Apellido</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Email</th>
+                        <th colspan="2" class="acciones">Ver más</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr *ngFor="let user of users; let index = index">
+                        <th scope="row">{{index+1}}</th>
+                        <td>{{user.name}}</td>
+                        <td class="descripcionTabla">{{user.surname}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.email}}</td>
+                        
+                        <td class="acciones"><button type="button" class="btn">
+                                <img src="../../../../assets/svg/see-more.svg" (click)="ver(user.id!)" alt="" srcset="">
+                            </button>
+                    </td>
+                      </tr>
+                    </tbody>
+                  </table>  
+                </div>  
+            </div>
+        </div>
+        <ngb-pagination [collectionSize]="users.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination>
+</div>

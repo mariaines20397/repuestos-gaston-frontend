@@ -9,6 +9,7 @@ import { AdminComponent } from './admin.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductComponent } from './table-products/product/product.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserComponent } from './table-users/user/user.component';
 
 
 
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeAdminComponent,
     TableProductsComponent,
     TableUsersComponent,
-    ProductComponent
+    ProductComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,

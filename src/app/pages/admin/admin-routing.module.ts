@@ -6,6 +6,7 @@ import { HomeAdminComponent } from './homeAdmin/homeAdmin.component';
 import { TableProductsComponent } from './table-products/table-products.component';
 import { TableUsersComponent } from './table-users/table-users.component';
 import { ProductComponent } from './table-products/product/product.component';
+import { UserComponent } from './table-users/user/user.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
       {
         path:'productos/editarProducto/:id', 
         component: ProductComponent
+      },
+      {
+        path:'usuarios/ver/:id', 
+        component: UserComponent
       },
       
     ]
