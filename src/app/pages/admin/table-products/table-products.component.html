@@ -3,7 +3,16 @@
         <div class="card-body">
             <div class="agregarProducto">
                 <h3 class="card-title">Tabla de productos</h3>
-            <button type="button" class="btn btn-dark" (click)="agregar()">Agregar</button>
+                <form action="" [formGroup]="searchForm">
+                  <div class="search" >
+                    <input type="search" class="buscador form-control" formControlName="search" placeholder="Busca productos" name="">
+                    <button type="button" class="btn lupa" (click)="search()">
+                      <img src="../../../assets/svg/search.svg" alt="" srcset="">
+                    </button>
+              
+                  </div>
+                </form>
+                <button type="button" class="btn btn-dark" (click)="agregar()">Agregar</button>
             </div>
             <div class="table-container">
                 <table class="table table-hover">
@@ -12,6 +21,7 @@
                         <th scope="col">#</th>
                         <th scope="col" class="imagenTabla">Imágen</th>
                         <th scope="col">Nombre</th>
+                        <th scope="col">Categoría</th>
                         <th scope="col" class="descripcionTabla">Descripción</th>
                         <th scope="col">Precio</th>
                         <th scope="col">Stock</th>
@@ -25,9 +35,10 @@
                           <img class="imagen" [src]="producto.imageUrl" alt="Imagen del producto" *ngIf="producto.imageUrl" />
                         </td>
                         <td>{{producto.name}}</td>
+                        <td>{{producto.category?.name}}</td>
                         <td class="descripcionTabla">{{producto.description}}</td>
                         <td>${{producto.price}}</td>
-                        <td>{{producto.stock}} unidades</td>
+                        <td>{{producto.stock}} un.</td>
                         
                         <td><button type="button" class="btn">
                                 <img src="../../../../assets/svg/edit.svg" (click)="editarProducto(producto.id!)" alt="" srcset="">

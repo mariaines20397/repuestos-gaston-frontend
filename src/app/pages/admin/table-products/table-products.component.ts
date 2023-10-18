@@ -4,6 +4,9 @@ import { AdminProductsService } from './services/admin-products.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as ProductosAdminActions from './store/products.actions';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Search } from 'src/app/shared/navbar/model/search.model';
+import * as SearchActions from '../../../shared/navbar/store/search.actions'
 
 @Component({
   selector: 'app-table-products',
@@ -13,18 +16,25 @@ import * as ProductosAdminActions from './store/products.actions';
 export class TableProductsComponent implements OnInit{
   
   page = 1;
-  productos:Product[]=[]
+  productos:Product[]=[];
+  searchForm:FormGroup;
+
   constructor(
     private productServices:AdminProductsService,
     private router: Router,
-    private store:Store
-  ) { }
+    private formBuilder: FormBuilder,
+    private store:Store<{ filtrar:Search}>,
+  ) {
+    this.searchForm = this.formBuilder.group({
+      search: new FormControl(null)
+    });
+   }
   ngOnInit(): void {
     this.getProducts()
     // this.store.dispatch(ProductosAdminActions.loadProducts());
   }
   getProducts(){
-    this.productos=this.productServices.getProducts();
+    this.productos=this.productServices.getProducts();    
   }
   agregar(){
   this.router.navigate(['admin/productos/agregarProducto']);
@@ -35,4 +45,11 @@ export class TableProductsComponent implements OnInit{
   eliminar(id:number){
     // this.store.dispatch(ProductosAdminActions.deleteProduct(id));
  }
+ search(){
+  const filtrar = this.searchForm.value.search;
+  this.router.navigate(['/search'],{
+    queryParams:{filtrar}
+  })    
+  this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
+}
 }

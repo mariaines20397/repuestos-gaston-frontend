@@ -27,3 +27,7 @@ h3{
 .descripcionTabla{
     width: 15vw;
 }
+.search{
+    display: flex;
+    background: white;
+}
