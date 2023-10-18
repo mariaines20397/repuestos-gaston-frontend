@@ -6,13 +6,13 @@ export const userReducer = createReducer<any>(
     initialState,
     //user
     on(
-        UserActions.loadUser,
+        UserActions.loadUserById,
         (state, props):any => ({
             ...state
         })
     ),
     on(
-        UserActions.loadUserSuccess,
+        UserActions.loadUserByIdSuccess,
         (state, props):any => ({
             ...state,
             data:props.user
@@ -20,7 +20,29 @@ export const userReducer = createReducer<any>(
     )
     ,
     on(
-        UserActions.loadUserFail,
+        UserActions.loadUserByIdFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
+    ),
+    //edit user
+    on(
+        UserActions.editUser,
+        (state, props):any => ({
+            ...state
+        })
+    ),
+    on(
+        UserActions.editUserSuccess,
+        (state, props):any => ({
+            ...state,
+            data:props.user
+        })
+    )
+    ,
+    on(
+        UserActions.editUserFail,
         (state, props):any => ({
             ...state,
             data:props.error

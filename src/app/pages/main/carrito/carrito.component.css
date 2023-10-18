@@ -14,7 +14,7 @@
     width: 100%;
 }
 .divImg{
-    width: 10%;
+    width: 15%;
     display: flex;
     max-height: 100%;
     align-items: center;
@@ -23,11 +23,12 @@
     max-width: 80%;
 }
 .divActions{
-    width: 35%;
+    width: 40%;
     padding: 16px;
+    align-self: center;
 }
 .divDescription{
-    width: 35%;
+    width: 20%;
     align-self: center;
 }
 .cantidad{
@@ -46,6 +47,15 @@
 .cantidadForm form{
     display: flex;
     width: 100%;
+}
+.divSumCantidad{
+    width: 100%;
+}
+.minusPlus{
+    width: 50%;
+}
+.stock{
+    width: 50%;
 }
 .divButtons{
     display: flex;
@@ -103,6 +113,8 @@
 .card-body-price{
     width: 20%;
     padding: 16px;
+    align-self: center;
+    text-align: end;
 }
 .productTotal{
     display: flex;
@@ -112,7 +124,7 @@
 .productTotal .card{
     max-width: 80%;
     width: 100%;
-    height: 8vh;
+    height: 100%;
     border-color: lightsalmon;
 }
 .productTotal .card:hover{
@@ -130,13 +142,13 @@
 .totalMonto{
     width: 20%;
     padding: 16px;
+    text-align: center;
 }
 .totalMonto h6{
     width: 100%;
 }
 .monto{
     justify-content: space-between;
-    height: 100%;
     align-items: center;
 }
 .carrito{
@@ -149,4 +161,13 @@
     max-width: 80%;
     margin: auto;
     margin-top: 3%;
+}
+
+.btn-finalizarCompra{
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 5%;
+}
+.btn-finalizarCompra p{
+    margin-bottom: 0;
 }

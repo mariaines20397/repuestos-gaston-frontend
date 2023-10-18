@@ -40,10 +40,11 @@ export class ProductComponent implements OnInit{
     this.store.dispatch(ProductActions.loadProductById({id:this.productId}))
   }
   comprarAhora(){
-    this.router.navigate(['/carrito']);
+    // this.router.navigate(['/carrito']);
   }
   agregarCarrito(){
     console.log(this.cantidadForm.get('cantidad')!.value);
+    this.router.navigate(['/carrito']);
   }
   maxValueValidator(control: AbstractControl): ValidationErrors | null  {
     if (control.get('cantidad')?.value > this.stock) {

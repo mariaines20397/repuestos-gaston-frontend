@@ -55,12 +55,12 @@ export class ProductsService {
   }
 
   getProductById(id:number):Observable<any>{
-    const finalUrl=`localhost:8080/product/${id}`;
+    const finalUrl=`localhost:8080/products/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
         next: (res) => {
-          // this.router.navigate([`/product/${id}`]);
+          // this.router.navigate([`/products/${id}`]);
           obs.next(res);
           obs.complete();
         },

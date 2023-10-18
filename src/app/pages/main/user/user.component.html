@@ -1,4 +1,4 @@
-<div class="profile">
+<div class="profile" *ngFor="let data of datosUsuario">
   <div class="card mb-3" style="max-width: 540px">
     <div class="row no-gutters">
       <div class="col-md-3 photoProfile">
@@ -10,18 +10,20 @@
       </div>
       <div class="col-md-8 card-text">
         <div class="card-body">
-          <h5 class="card-title">María Inés Toledo</h5>
+          <h5 class="card-title">{{ data.name }}</h5>
         </div>
       </div>
     </div>
   </div>
   <div class="title">
     <h5>Datos personales</h5>
+    <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Editar datos personales">
+      <img src="../../../../assets/svg/edit.svg" (click)="editarUser(data.id!)" alt="" srcset="">
+  </button>
   </div>
   <div
     class="card mb-3"
     style="max-width: 540px"
-    *ngFor="let data of datosUsuario"
   >
     <div class="row no-gutters row-line">
       <div class="col-md-3 card-text-title">

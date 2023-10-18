@@ -25,7 +25,7 @@ constructor(
   private formBuilder: FormBuilder,
 ){
   this.carritoForm = this.formBuilder.group({
-    cantidad: new FormControl(5, [Validators.required]),
+    cantidad: new FormControl(1, [Validators.required]),
     subtotal: new FormControl(1000),
     total: new FormControl(1000),
   });
@@ -38,10 +38,10 @@ constructor(
   }
 
   resta(){
-    if (this.carritoForm.get('cantidad')!.value == 1) {
-      this.restaDisabled = true;
-    }else{
+    if (this.carritoForm.get('cantidad')!.value != 1) {
+      this.restaDisabled = false;
       const resultadoResta = this.carritoForm.get('cantidad')!.value - 1;
+      this.sumaDisabled = false;
       this.listProducts.forEach(data=>{
         this.carritoForm.get('cantidad')!.setValue(resultadoResta);
         this.subTotal(data.price);
@@ -52,9 +52,8 @@ constructor(
 
   suma(){
     this.listProducts.forEach(data=>{
-    if (this.carritoForm.get('cantidad')!.value == data.stock) {
-      this.sumaDisabled = true;
-    }else{
+    if (this.carritoForm.get('cantidad')!.value != data.stock) {
+      this.sumaDisabled = false;
       const resultadoSuma = this.carritoForm.get('cantidad')!.value + 1;
         this.carritoForm.get('cantidad')!.setValue(resultadoSuma);
         this.subTotal(data.price);

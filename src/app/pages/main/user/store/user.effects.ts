@@ -17,18 +17,36 @@ export class UserEffects {
     private router: Router,
   ) {}
 
-  loadUser$ = createEffect(() =>
+  loadUserById$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(UserActions.loadUser),
+      ofType(UserActions.loadUserById),
       mergeMap((action) => {
-        return this.userServices.getUser().pipe(
+        return this.userServices.getUserById(action.id).pipe(
           map((response) => {
-            return UserActions.loadUserSuccess({
+            return UserActions.loadUserByIdSuccess({
               user: response.data,
             });
           }),
           catchError((error) => {
-            return of(UserActions.loadUserFail({ error }));
+            return of(UserActions.loadUserByIdFail({ error }));
+          })
+        );
+      })
+    )
+  );
+
+  editUserd$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.editUser),
+      mergeMap((action) => {
+        return this.userServices.editUserById(action.id, action.user).pipe(
+          map((response) => {
+            return UserActions.editUserSuccess({
+              user: response.data,
+            });
+          }),
+          catchError((error) => {
+            return of(UserActions.editUserFail({ error }));
           })
         );
       })

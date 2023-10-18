@@ -1,7 +1,10 @@
 <div class="carrito">
   <div class="product">
-    <div class="card" *ngFor="let product of listProducts">
-      <div class="row">
+    <div class="card">
+      <div class="card-header">
+       <h5> <b>Productos</b></h5>
+      </div>
+      <div class="row card-body" *ngFor="let product of listProducts">
         <div class="divImg">
           <img
             src="{{product.img}}"
@@ -28,6 +31,7 @@
                     formControlName="cantidad"
                     [value]="carritoForm.get('cantidad')!.value"
                   />
+                  
                   <button class="btn" (click)="suma()" [disabled]="sumaDisabled">
                     <img src="./assets/svg/plus.svg" alt="Menos" srcset="" />
                   </button>
@@ -38,7 +42,13 @@
                     <small class="text-muted">{{product.stock}} stock disponibles</small>
                   </p>
                 </div>
+                
               </form>
+              <div class="texts" *ngIf="carritoForm.controls['cantidad'].errors && carritoForm.get('cantidad')?.touched">
+                <div class="validatorText" *ngIf="carritoForm.get('cantidad')?.hasError('required')">
+                    <span>Este campo es requerido</span>
+                </div>
+                </div>
             </div>
           </div>
         </div>
@@ -63,8 +73,11 @@
     </div>
   </div>
   <div class="finalizar">
-    <button class="success">
-      Finalizar compra
+    <!-- <button class="success" [disabled]="carritoForm.invalid">
+      Continuar compra
+    </button> -->
+    <button class="btn btn-primary btn-finalizarCompra" [disabled]="carritoForm.invalid">
+      <p>Continuar compra</p>      
     </button>
   </div>
 </div>
