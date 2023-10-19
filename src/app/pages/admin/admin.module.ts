@@ -10,6 +10,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductComponent } from './table-products/product/product.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './table-users/user/user.component';
+import { TableSalesComponent } from './table-sales/table-sales.component';
+import { SaleComponent } from './table-sales/sale/sale.component';
 
 
 
@@ -20,7 +22,9 @@ import { UserComponent } from './table-users/user/user.component';
     TableProductsComponent,
     TableUsersComponent,
     ProductComponent,
-    UserComponent
+    UserComponent,
+    TableSalesComponent,
+    SaleComponent
   ],
   imports: [
     CommonModule,

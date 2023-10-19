@@ -7,6 +7,7 @@ import { TableProductsComponent } from './table-products/table-products.componen
 import { TableUsersComponent } from './table-users/table-users.component';
 import { ProductComponent } from './table-products/product/product.component';
 import { UserComponent } from './table-users/user/user.component';
+import { TableSalesComponent } from './table-sales/table-sales.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path:'productos', 
         component: TableProductsComponent
+      },
+      {
+        path:'ventas', 
+        component: TableSalesComponent
       },
       {
         path:'usuarios', 

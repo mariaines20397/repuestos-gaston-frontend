@@ -1,0 +1,60 @@
+.sinConfirmar{
+    color: rgb(98, 95, 95);
+    background: lightgray;
+    font-weight: 600;
+    width: 50%;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+    margin: auto;
+}
+.porEntregar{
+    color: rgb(150, 150, 6);
+    background: rgb(242, 242, 169);
+    font-weight: 600;
+    width: 50%;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+    margin: auto;
+}
+.entregado{
+    color: green;
+    background: lightgreen;
+    font-weight: 600;
+    width: 50%;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+    margin: auto;
+}
+.productos{
+    margin: 5%;
+}
+h3{
+    padding-bottom: 15px;
+}
+.agregarProducto{
+   display: flex;
+   justify-content: space-between;
+}
+.agregarProducto button{
+    height: 20%;
+}
+.table-container {
+    max-height: 400px; 
+    overflow-y: auto; 
+}
+.acciones{
+    text-align: center;
+}
+.search{
+    display: flex;
+    background: white;
+}
+tbody tr td{
+    text-align: center;
+}
+thead tr th{
+    text-align: center;
+}
