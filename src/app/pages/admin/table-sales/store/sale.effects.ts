@@ -39,7 +39,6 @@ export class SaleEffects {
     this.actions$.pipe(
       ofType(SaleActions.loadSaleByIdUser),
       mergeMap((action) => {
-        console.log(action);
         return this.saleServices.getSalesByIdUser(action.id).pipe(
           map((response) => {
             return SaleActions.loadSaleByIdUserSuccess({

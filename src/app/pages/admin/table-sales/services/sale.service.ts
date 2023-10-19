@@ -22,7 +22,7 @@ export class SaleService {
         category: this.category,
         description: 'Lo que debes saber de este producto',
         price: 1000,
-        stock: 20,
+        cantidad: 5,
         imageUrl: 'assets/img/productos/motul.png'
   
       },
@@ -32,9 +32,9 @@ export class SaleService {
         category: this.category,
         description: 'Caño de escape de 4 tiempos',
         price: 1000,
-        stock: 20,
+        cantidad: 1,
         imageUrl: 'assets/img/productos/cañoEscape.jpg'
-      },
+      }
     ]
     this.ventas=[
       {

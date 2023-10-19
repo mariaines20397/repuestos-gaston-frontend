@@ -19,8 +19,8 @@
     margin: auto;
 }
 .entregado{
-    color: green;
-    background: lightgreen;
+    color: #448342;
+    background: rgba(144, 238, 144, 0.905);
     font-weight: 600;
     width: 50%;
     border-radius: 10px;

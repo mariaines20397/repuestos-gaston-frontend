@@ -47,9 +47,9 @@ export class TableProductsComponent implements OnInit{
  }
  search(){
   const filtrar = this.searchForm.value.search;
-  this.router.navigate(['/search'],{
-    queryParams:{filtrar}
-  })    
+  // this.router.navigate(['/search'],{
+  //   queryParams:{filtrar}
+  // })    
   this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
 }
 }

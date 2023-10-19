@@ -2,6 +2,7 @@ export class Product{
     id?:number;
     name?:string;
     description?:string;
+    cantidad?:number;
     price?:number;
     stock?:number;
     imageUrl?:string;

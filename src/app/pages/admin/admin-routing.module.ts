@@ -8,6 +8,7 @@ import { TableUsersComponent } from './table-users/table-users.component';
 import { ProductComponent } from './table-products/product/product.component';
 import { UserComponent } from './table-users/user/user.component';
 import { TableSalesComponent } from './table-sales/table-sales.component';
+import { SaleComponent } from './table-sales/sale/sale.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,14 @@ const routes: Routes = [
       {
         path:'usuarios/ver/:id', 
         component: UserComponent
+      },
+      {
+        path:'ventas/ver/:id', 
+        component: SaleComponent
+      },
+      {
+        path:'ventas/editarVenta/:id', 
+        component: SaleComponent
       },
       
     ]

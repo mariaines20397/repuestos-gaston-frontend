@@ -32,20 +32,20 @@ export class TableSalesComponent implements OnInit{
   }
    search(){
     const filtrar = this.searchForm.value.search;
-    this.router.navigate(['/search'],{
-      queryParams:{filtrar}
-    })    
+    // this.router.navigate(['/search'],{
+    //   queryParams:{filtrar}
+    // })    
     this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
   }
 
   getSales(){
     this.sales=this.saleServices.getSalesPrueba();    
   }
-  editarEstadoVenta(id:number){
-
-  }
   verDetalle(id:number){
-    
+    this.router.navigate([`admin/ventas/ver/${id}`]);
+  }
+  editarEstadoVenta(id:number){
+    this.router.navigate([`admin/ventas/editarVenta/${id}`]);
   }
 
 }
