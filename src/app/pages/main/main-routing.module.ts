@@ -37,8 +37,23 @@ const routes: Routes = [
         path:'carrito',
         loadChildren:() => import('./carrito/carrito.module').then((m)=> m.CarritoModule),
         // canActivate:[AuthGuard],
-      }
+      },
+      {
+        path:'login',
+        loadChildren:()=> import('../login/login.module').then((m)=> m.LoginModule),
+        // canActivate:[AuthGuard],
+      },
+      {
+        path:'register',
+        loadChildren:()=> import('../register/register.module').then((m)=> m.RegisterModule),
+        // canActivate:[AuthGuard],
+      },
     ]
+  },
+  {
+   path:'admin',
+   loadChildren:()=> import('../redirect-admin/redirect-admin.module').then((m)=> m.RedirectAdminModule),
+   // canActivate:[MainGuard],
   },
 ];
 

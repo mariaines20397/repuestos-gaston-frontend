@@ -19,7 +19,6 @@ import { RedirectAdminComponent } from './pages/redirect-admin/redirect-admin.co
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule,
     NgbModule,
     HttpClientModule,
     StoreModule.forRoot({}),
