@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar-admin.component.css']
 })
 export class SidebarAdminComponent {
-
+  public isCollapsed = true;
+  public isCollapsedVentas = true;
 }

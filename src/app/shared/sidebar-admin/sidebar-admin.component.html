@@ -1,50 +1,64 @@
 <div class="sidebar container">
     <div class="navbar-brand">
-        <a  href="admin"
-      ><img class="logo" src="../../../assets/img/logo.png" alt="" srcset=""
-    /></a>
+        <a href="admin"><img class="logo" src="../../../assets/img/logo.png" alt="" srcset="" /></a>
     </div>
     <hr>
-    <a href="admin">
-<div class="section">
-    
-    <img class="imgSection" src="../../../assets/svg/home.svg" alt="" srcset=""
-    />
-    <h5>Home</h5>
-</div></a>
-<hr>
-<a href="admin/dashboard/productos">
-<div class="section">
-    <img class="imgSection" src="../../../assets/svg/products.svg" alt="" srcset=""
-    />
-    <h5>Productos</h5>
-</div></a>
-<hr>
-<a href="admin/dashboard/productos">
-    <div class="section">
-        <img class="imgSection" src="../../../assets/svg/products.svg" alt="" srcset=""
-        />
-        <h5>Categorías</h5>
-    </div></a>
+    <a href="admin/dashboard">
+        <div class="section">
+            <img class="imgSection" src="../../../assets/svg/home.svg" alt="" srcset="" />
+            <h5>Home</h5>
+        </div>
+    </a>
     <hr>
-<a href="admin/dashboard/ventas">
     <div class="section">
-        <img class="imgSection" src="../../../assets/svg/sale.svg" alt="" srcset=""
-        />
-        <h5>Ventas</h5>
-    </div></a>
+        <button class="btn btn-products" (click)="isCollapsed = ! isCollapsed" [attr.aria-expanded]="!isCollapsed">
+            <img class="imgSection" src="../../../assets/svg/managementProducts.svg" alt="" srcset="" />
+            <h5>Gestión productos</h5>
+        </button>
+    </div>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+        <a href="admin/dashboard/productos">
+            <div class="section section-hijo">
+                <img class="imgSection" src="../../../assets/svg/products.svg" alt="" srcset="" />
+                <h5>Productos</h5>
+            </div>
+        </a>
+    </div>
     <hr>
-<a href="admin/dashboard/usuarios">
-<div class="section">
-    <img class="imgSection" src="../../../assets/svg/users.svg" alt="" srcset=""
-    />
-    <h5>Usuarios</h5>
-</div></a>
-<hr>
-<div class="section">
-    <img class="imgSection" src="../../../assets/svg/logout.svg" alt="" srcset=""
-    />
-    <h5>Cerrar sesión</h5>
-</div>
-<hr>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+        <div class="section section-hijo">
+            <img class="imgSection" src="../../../assets/svg/category.svg" alt="" srcset="" />
+            <h5>Categorías</h5>
+        </div>
+    </div>
+    <hr>
+
+    <div class="section">
+        <button class="btn btn-products" (click)="isCollapsedVentas = ! isCollapsedVentas"
+            [attr.aria-expanded]="!isCollapsedVentas">
+            <img class="imgSection" src="../../../assets/svg/managementSale.svg" alt="" srcset="" />
+            <h5>Gestión ventas</h5>
+        </button>
+    </div>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedVentas">
+        <a href="admin/dashboard/ventas">
+            <div class="section section-hijo">
+                <img class="imgSection" src="../../../assets/svg/sale.svg" alt="" srcset="" />
+                <h5>Ventas</h5>
+            </div>
+        </a>
+    </div>
+    <hr>
+    <a href="admin/dashboard/usuarios">
+        <div class="section">
+            <img class="imgSection" src="../../../assets/svg/users.svg" alt="" srcset="" />
+            <h5>Usuarios</h5>
+        </div>
+    </a>
+    <hr>
+    <div class="section">
+        <img class="imgSection" src="../../../assets/svg/logout.svg" alt="" srcset="" />
+        <h5>Cerrar sesión</h5>
+    </div>
+    <hr>
 </div>
