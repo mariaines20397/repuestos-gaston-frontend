@@ -14,7 +14,6 @@ import { TableSalesComponent } from './table-sales/table-sales.component';
 import { SaleComponent } from './table-sales/sale/sale.component';
 
 
-
 @NgModule({
   declarations: [
     AdminComponent,

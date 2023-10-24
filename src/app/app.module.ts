@@ -9,10 +9,12 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RedirectAdminComponent } from './pages/redirect-admin/redirect-admin.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RedirectAdminComponent
   ],
   imports: [
     BrowserModule,

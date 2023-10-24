@@ -19,7 +19,7 @@ const routes: Routes = [
    },
    {
     path:'admin',
-    loadChildren:()=> import('./pages/admin/admin.module').then((m)=> m.AdminModule),
+    loadChildren:()=> import('./pages/redirect-admin/redirect-admin.module').then((m)=> m.RedirectAdminModule),
     // canActivate:[MainGuard],
    }
 ];
