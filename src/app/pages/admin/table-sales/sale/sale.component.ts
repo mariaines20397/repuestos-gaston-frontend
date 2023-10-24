@@ -52,7 +52,7 @@ ngOnInit(): void {
 }
 
 cancelar(){
-  this.router.navigate(['/admin/ventas'])
+  this.router.navigate(['/admin/dashboard/ventas'])
  }
 
  getSales(){

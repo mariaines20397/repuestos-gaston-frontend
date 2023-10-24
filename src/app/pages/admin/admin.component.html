@@ -1,8 +1,10 @@
 <div class="admin">
-    <div class="col-sidebar">
-        <app-sidebar-admin></app-sidebar-admin>
+    <div [class]="cssClassMenu(menu)">
+        <!-- class="col-sidebar" -->
+        <app-sidebar-admin (changeMenu)="menu = $event"></app-sidebar-admin>
     </div>
-    <div class="col-router">
+    <div [class]="cssClassCol(menu)">
+        <!-- class="col-router" -->
         <router-outlet></router-outlet>
     </div>
 </div>

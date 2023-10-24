@@ -78,10 +78,10 @@ export class TableSalesComponent implements OnInit{
     this.sales=this.saleServices.getSalesPrueba();    
   }
   verDetalle(id:number){
-    this.router.navigate([`admin/ventas/ver/${id}`]);
+    this.router.navigate([`admin/dashboard/ventas/ver/${id}`]);
   }
   editarEstadoVenta(id:number){
-    this.router.navigate([`admin/ventas/editarVenta/${id}`]);
+    this.router.navigate([`admin/dashboard/ventas/editarVenta/${id}`]);
   }
   
 	// onSort(event: { column: SortColumn, direction: SortDirection } | Event) {

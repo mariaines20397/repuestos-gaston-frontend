@@ -37,7 +37,7 @@ ngOnInit(): void {
         // this.store.dispatch(ProductosAdminActions.loadUser(id));
 }
    cancelar(){
-    this.router.navigate(['/admin/usuarios'])
+    this.router.navigate(['/admin/dashboard/usuarios'])
    }
 
   getUsers(){

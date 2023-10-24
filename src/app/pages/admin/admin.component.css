@@ -8,3 +8,17 @@
 .col-router{
     width: 75vw;
 }
+
+.min-sidebar{
+    min-width: 70px;
+    max-width: 5vw;
+}
+.col-sidebar{
+    width: 94vw;
+}
+
+@media (min-width: 420px){
+    .app-sidebar{
+        min-width: 150px;
+    }
+}

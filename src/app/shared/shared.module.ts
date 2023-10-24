@@ -9,7 +9,7 @@ import * as fromSearchReducer from './navbar/store/search.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { SearchEffects } from './navbar/store/search.effects';
 import { SidebarAdminComponent } from './sidebar-admin/sidebar-admin.component';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -24,6 +24,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     CoreModule,
     ReactiveFormsModule,
     NgbCollapseModule,
+    NgbTooltipModule,
     StoreModule.forFeature(
       'search',
       fromSearchReducer.searchReducer

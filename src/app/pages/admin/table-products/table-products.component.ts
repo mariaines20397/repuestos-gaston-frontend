@@ -37,10 +37,10 @@ export class TableProductsComponent implements OnInit{
     this.productos=this.productServices.getProducts();    
   }
   agregar(){
-  this.router.navigate(['admin/productos/agregarProducto']);
+  this.router.navigate(['admin/dashboard/productos/agregarProducto']);
   }
   editarProducto(id:number){
-  this.router.navigate([`admin/productos/editarProducto/${id}`]);
+  this.router.navigate([`admin/dashboard/productos/editarProducto/${id}`]);
   }
   eliminar(id:number){
     // this.store.dispatch(ProductosAdminActions.deleteProduct(id));

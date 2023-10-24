@@ -37,7 +37,7 @@ ngOnInit(): void {
   }
 }
    cancelar(){
-    this.router.navigate(['/admin/productos'])
+    this.router.navigate(['/admin/dashboard/productos'])
    }
 
    onFileSelected(event: any): void {

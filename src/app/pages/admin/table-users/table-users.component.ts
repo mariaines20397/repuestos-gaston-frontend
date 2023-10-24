@@ -27,6 +27,6 @@ export class TableUsersComponent implements OnInit{
     this.users=this.usersServices.getUsers();
   }
   ver(id:number){
-  this.router.navigate([`admin/usuarios/ver/${id}`]);
+  this.router.navigate([`admin/dashboard/usuarios/ver/${id}`]);
   }
 }
