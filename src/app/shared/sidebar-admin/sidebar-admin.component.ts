@@ -8,11 +8,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class SidebarAdminComponent {
   public isCollapsed: boolean = true;
   public isCollapsedVentas: boolean = true;
-  public menu: boolean = false;
+  public menu: boolean = true;
   @Output() changeMenu = new EventEmitter<boolean>();
 
   disabledMenu(){
-    !this.menu ? this.menu = true : this.menu = false;
+    this.menu ? this.menu = false : this.menu = true;
     this.changeMenu.emit(this.menu);
   }
 }
