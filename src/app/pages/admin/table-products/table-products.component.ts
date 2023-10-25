@@ -18,7 +18,7 @@ export class TableProductsComponent implements OnInit{
   page = 1;
   productos:Product[]=[];
   searchForm:FormGroup;
-
+  
   constructor(
     private productServices:AdminProductsService,
     private router: Router,
@@ -51,5 +51,8 @@ export class TableProductsComponent implements OnInit{
   //   queryParams:{filtrar}
   // })    
   this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
+}
+mostrarData(producto:any){
+  this.productServices.disparadorProducto.emit(producto);
 }
 }

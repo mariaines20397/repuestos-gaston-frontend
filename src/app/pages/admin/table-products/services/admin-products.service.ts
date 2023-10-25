@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Categorie, Product } from '../model/product.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -8,7 +8,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AdminProductsService {
   category!: Categorie;
-  products:Product[]=[]
+  products:Product[]=[];
+  @Output() disparadorProducto:EventEmitter<any>= new EventEmitter();
   constructor(
     private httpClient: HttpClient,
   ) { 
@@ -44,7 +45,7 @@ export class AdminProductsService {
         imageUrl: 'assets/img/productos/casco.jpg'
       },
       {
-        id: 3,
+        id: 4,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',
@@ -54,7 +55,7 @@ export class AdminProductsService {
       }
       ,
       {
-        id: 3,
+        id: 5,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',
@@ -64,7 +65,7 @@ export class AdminProductsService {
       }
       ,
       {
-        id: 3,
+        id: 6,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',
@@ -74,7 +75,7 @@ export class AdminProductsService {
       }
       ,
       {
-        id: 3,
+        id: 7,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',
@@ -84,7 +85,7 @@ export class AdminProductsService {
       }
       ,
       {
-        id: 3,
+        id: 8,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',
@@ -93,7 +94,7 @@ export class AdminProductsService {
         imageUrl: 'assets/img/productos/casco.jpg'
       },
       {
-        id: 3,
+        id: 9,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',
@@ -102,7 +103,7 @@ export class AdminProductsService {
         imageUrl: 'assets/img/productos/casco.jpg'
       },
       {
-        id: 3,
+        id: 10,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',
@@ -111,7 +112,7 @@ export class AdminProductsService {
         imageUrl: 'assets/img/productos/casco.jpg'
       },
       {
-        id: 3,
+        id: 11,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',
@@ -120,7 +121,7 @@ export class AdminProductsService {
         imageUrl: 'assets/img/productos/casco.jpg'
       },
       {
-        id: 3,
+        id: 12,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',
@@ -129,7 +130,7 @@ export class AdminProductsService {
         imageUrl: 'assets/img/productos/casco.jpg'
       },
       {
-        id: 3,
+        id: 13,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',
@@ -138,7 +139,7 @@ export class AdminProductsService {
         imageUrl: 'assets/img/productos/casco.jpg'
       },
       {
-        id: 3,
+        id: 14,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',
@@ -147,7 +148,7 @@ export class AdminProductsService {
         imageUrl: 'assets/img/productos/casco.jpg'
       },
       {
-        id: 3,
+        id: 15,
         name: 'Casco',
         category: this.category,
         description: 'Casco clásico',

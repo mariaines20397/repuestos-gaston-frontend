@@ -1,7 +1,12 @@
 .productos{
-    margin-top: 5%;
-    margin-right: 5%;
-    margin-left: 5%;
+    height: 100%;
+}
+.card-productos{
+    height: 85%;
+}
+.agregarProducto{
+    display: flex;
+    justify-content: space-between;
 }
 h3{
     padding-bottom: 15px;

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../model/product.model';
 import { AdminProductsService } from '../services/admin-products.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product',
@@ -16,6 +17,9 @@ export class ProductComponent implements OnInit{
   nombreProducto:string='';
   productoId!:number;
   url:string='';
+  editarProducto:boolean = false;
+  agregarProducto:boolean = false;
+  @Input() mostrarProducto:Product = {};
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
@@ -30,14 +34,25 @@ export class ProductComponent implements OnInit{
       imageUrl: new FormControl(null, [Validators.required])
      });
    }
-ngOnInit(): void {
-  if (this.router.url.includes('editarProducto')) {
-    this.productoId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
-    this.llenarFormulario();
-  }
+ngOnInit(): void {            
+  this.productServices.disparadorProducto.subscribe(data=>{
+    this.agregarProducto = false;
+    this.editarProducto = false;
+    this.producto = data;
+    this.productForm.patchValue({
+      name:data.name,
+      description:data.description,
+      price: data.price,
+      stock: data.stock,
+      imageUrl: data.imageUrl
+    })    
+  })
 }
    cancelar(){
-    this.router.navigate(['/admin/dashboard/productos'])
+    this.agregarProducto = false;
+    this.editarProducto = false;
+    this.producto={}
+    this.productForm.reset();
    }
 
    onFileSelected(event: any): void {
@@ -55,70 +70,50 @@ ngOnInit(): void {
   getProducts(){
     this.productos=this.productServices.getProducts();
   }
-  llenarFormulario(){
-      this.getProducts();
-      this.productos.forEach(producto=>{
-        if (producto.id == this.productoId) {
-          const {
-            name,
-            description,
-            price,
-            stock,
-            imageUrl
-          } = producto
-          this.nombreProducto=name!;
-          this.url=imageUrl!;
-          this.productForm.patchValue({
-            name,
-            description,
-            price,
-            stock,
-            imageUrl
-          })
-        }
-      })
-      
-  }
-
-  editar(id:number){
-    const {
-      name,
-      description,
-      price,
-      stock,
-      imageUrl
-    } = this.productForm.value
-    const product={
-      name,
-      description,
-      price,
-      stock,
-      imageUrl
+eliminar(){
+  Swal.fire({
+    title: `¿Estas seguro que quieres eliminar el producto ${this.producto.name}?`,
+    showCancelButton: true,
+    confirmButtonText: 'Eliminar',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire('¡Producto eliminado con éxito!', '', 'success')
+      // this.productServices.deleteProductAdmin(this.producto.id!);
+    } else if (result.dismiss) {
+      Swal.fire('El producto no se eliminó', '', 'info')
     }
-    console.log(product);
-    
-    // this.store.dispatch(ProductosAdminActions.editProduct(id,product));
-  }
+  })
+}
 
+  editar(){
+    this.editarProducto = true;
+    this.agregarProducto = false;
+  }
   agregar(){
-    const {
-      name,
-      description,
-      price,
-      stock,
-      imageUrl
-    } = this.productForm.value
-    const product={
-      name,
-      description,
-      price,
-      stock,
-      imageUrl
-    }
-    console.log(product);
-    
-    // this.store.dispatch(ProductosAdminActions.createProduct(product));
+    this.agregarProducto = true;
+    this.editarProducto = false;
+    this.producto={}
+    this.productForm.reset();
   }
-
+guardarProducto(){
+  const {
+    name,
+    description,
+    price,
+    stock,
+    imageUrl
+  } = this.productForm.value
+  const product={
+    name,
+    description,
+    price,
+    stock,
+    imageUrl
+  }
+  console.log(product);
+  // this.editarProducto ?
+  // this.store.dispatch(ProductosAdminActions.editProduct({id:this.producto.id,product}))
+  // : this.store.dispatch(ProductosAdminActions.createProduct(product));
+}
  
 }
