@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 body{
-    font-family: 'Wix Madefor Text', sans-serif;
+    font-family: 'Proxima Nova,-apple-system','Roboto',Arial,sans-serif;
     background: #ebebeb;
+    color: rgba(0, 0, 0, 0.799);
 }
 .alert{
     padding: 0.5rem;

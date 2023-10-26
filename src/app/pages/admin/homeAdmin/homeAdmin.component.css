@@ -6,7 +6,7 @@
   justify-content: space-around;
 }
 .imgCards{
-  background: rgba(251, 91, 33, 0.846);
+  background: #eb7b61;
   display: flex;
   align-items: center;
 }
@@ -17,10 +17,12 @@
 a{
   text-decoration: none;
 }
-h5{
+h3{
   color: black;
   font-weight: 600;
+  font-size: 20px;
 }
 p{
   color: black;
+  font-size: 16px;
 }

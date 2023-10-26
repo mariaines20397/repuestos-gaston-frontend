@@ -3,9 +3,9 @@
         <div class="card-body">
             <div class="agregarProducto">
                 <div class="title">
-                    <h3 *ngIf="agregarProducto" class="card-title">Agregar producto</h3>
-                    <h3 *ngIf="editarProducto" class="card-title">Editar producto {{producto.id}}</h3>
-                    <h3 class="card-title" *ngIf="!editarProducto && !agregarProducto">Ver más del producto {{producto.id}}</h3>
+                    <h3 *ngIf="agregarProducto" class="card-title"><b>Agregar producto</b></h3>
+                    <h3 *ngIf="editarProducto" class="card-title"><b>Editar producto {{producto.id}}</b></h3>
+                    <h3 class="card-title" *ngIf="!editarProducto && !agregarProducto"><b>Ver más del producto {{producto.id}}</b></h3>
                 </div>
                 <div class="iconsTitle">
                     <button class="btn" (click)="editar()" *ngIf="producto.id" [disabled]="editarProducto">
@@ -25,7 +25,7 @@
                 <fieldset [disabled]="!editarProducto && !agregarProducto" class="container-class">
                 <div class="inputsText">
                     <span class="title-input">Nombre</span>
-                    <input class="text-input form-control" formControlName="name" type="text" name="" id="" autofocus>
+                    <input class="text-input-width form-control" formControlName="name" type="text" name="" id="" autofocus>
                     <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
                         <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
                             <span>Este campo es requerido.</span>
@@ -33,6 +33,26 @@
                         <div class="validatorText" *ngIf="productForm.get('name')?.hasError('maxlength')">
                             <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
                         </div>
+                    </div>
+                </div>
+                <div class="containerInputs">
+                    <div class="inputsText">
+                        <span class="title-input">Precio</span>
+                    <input class="text-input-width-product form-control" formControlName="price" type="number" name="" id="">
+                    <div *ngIf="productForm.controls['price'].errors && productForm.get('price')?.touched">
+                        <div class="validatorText" *ngIf="productForm.get('price')?.hasError('required')">
+                            <span>Este campo es requerido.</span>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="inputsText">
+                        <span class="title-input">Stock (unidades)</span>
+                    <input class="text-input-width-product form-control" formControlName="stock" type="number" name="" id="">
+                    <div *ngIf="productForm.controls['stock'].errors && productForm.get('stock')?.touched">
+                        <div class="validatorText" *ngIf="productForm.get('stock')?.hasError('required')">
+                            <span>Este campo es requerido.</span>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <div class="inputsText">
@@ -44,24 +64,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="inputsText">
-                    <span class="title-input">Precio (indicar solo el monto)</span>
-                <input class="text-input form-control" formControlName="price" type="number" name="" id="">
-                <div *ngIf="productForm.controls['price'].errors && productForm.get('price')?.touched">
-                    <div class="validatorText" *ngIf="productForm.get('price')?.hasError('required')">
-                        <span>Este campo es requerido.</span>
-                    </div>
-                </div>
-                </div>
-                <div class="inputsText">
-                    <span class="title-input">Stock (indicar solo el valor)</span>
-                <input class="text-input form-control" formControlName="stock" type="number" name="" id="">
-                <div *ngIf="productForm.controls['stock'].errors && productForm.get('stock')?.touched">
-                    <div class="validatorText" *ngIf="productForm.get('stock')?.hasError('required')">
-                        <span>Este campo es requerido.</span>
-                    </div>
-                </div>
-                </div>
+                
                 <div class="inputsText">
                     <span class="title-input">Cargar imágen (.png .jpg . jpeg)</span>
                 <input 
@@ -89,7 +92,7 @@
         </div>
         <div class="login-register" *ngIf="producto.id || agregarProducto">
             <a (click)="cancelar()">Limpiar</a>
-            <button class="btn btn-primary btn-login" [disabled]="productForm.invalid" (click)="guardarProducto()" >
+            <button class="btn btn-dark btn-login" [disabled]="productForm.invalid" (click)="guardarProducto()" >
                 Guardar producto</button>
         </div>
 </div>

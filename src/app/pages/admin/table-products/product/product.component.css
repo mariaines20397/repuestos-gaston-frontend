@@ -10,6 +10,7 @@
 }
 h3{
     padding-bottom: 15px;
+    font-size: 20px;
 }
 .login-register{
     display: flex;
@@ -22,7 +23,14 @@ h3{
     cursor: pointer;
 }
 .inputsText{
-    margin-top: 1.5%;
+    margin-top: 3.5%;
+    width: 100%;
+}
+.inputsText input{
+    height: 30px;
+    border-radius: 5px;
+    color: black;
+    font-size: 13.5px;
 }
 .form-container{
     max-height: 400px; 
@@ -33,4 +41,35 @@ h3{
 }
 .imagen{
     width: 100%;
+}
+span{
+    font-size: 13.5px;
+    margin-bottom: 1.5%;
+    display: block;
+}
+.text-input-width{
+    width: 45%;
+}
+.text-input-width-product{
+    width: 100%;
+}
+.text-input{
+    width: 95%;
+}
+
+.containerInputs{
+    display: flex;
+    /* justify-content: space-evenly; */
+}
+.containerInputs .inputsText{
+    padding-right: 4%;
+    /* justify-content: space-evenly; */
+}
+fieldset {
+    min-width: 0;
+    padding: 0;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin: 0;
+    border: 0;
 }

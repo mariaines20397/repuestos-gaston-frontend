@@ -18,6 +18,10 @@ export class LoginComponent implements OnInit{
     username:'usuario123',
     password:'123456'
   }
+  adminPrueba:User={
+    username:'admin',
+    password:'admin'
+  }
   loginForm:FormGroup;
   user:User;
 
@@ -51,7 +55,10 @@ export class LoginComponent implements OnInit{
         
         this.router.navigate(['/home']);
         // this.store.dispatch(LoginActions.loadLogin({user:this.user}));
-    }else{
+    }else if(this.user.username == this.adminPrueba.username &&
+      this.user.password == this.adminPrueba.password){
+        this.router.navigate(['/admin']);
+      }else{
       Swal.fire('¡Lo siento!', 'Usuario o contraseña incorrectas. Por favor vualve a intentarlo.', 'error');
     }
   }

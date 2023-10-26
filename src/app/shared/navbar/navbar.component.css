@@ -1,11 +1,6 @@
 nav{
-    background: linear-gradient(#ff5b36a4, #ffa601);
+    background: linear-gradient(#f78166, #efc068);
 }
-/* .logo{
-    width: 20vw;
-    height: 15vh;
-    border: 2px solid blue;
-} */
 .logo-login{
     width: 15vw;
     height: 10vh;
@@ -40,7 +35,7 @@ nav{
 
 .buscador::placeholder{
     padding-left: 10px;
-    color: lightgrey;
+    color: rgb(128, 125, 125);
 }
 .search{
     display: flex;
@@ -56,8 +51,11 @@ nav{
     padding-top: 5px;
     width: 95vw;
     justify-content: space-between;
-    /* border: 2px solid red; */
 }
 .nav-link{
-    color: #464646;
+    color: rgba(0, 0, 0, 0.799);
 }
+.dropdown-menu {
+    color: black;
+    font-size: 15px;
+  }

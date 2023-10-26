@@ -20,6 +20,7 @@
 }
 h3{
     padding-bottom: 15px;
+    font-size: 20px;
 }
 .agregarProducto{
    display: flex;
@@ -53,4 +54,44 @@ h3{
 .search{
     display: flex;
     background: white;
+}
+table th{
+    font-size: 15px;
+}
+table td{
+    font-size: 14px;
+}
+.buscador::placeholder{
+    padding-left: 10px;
+    color: rgb(128, 125, 125);
+    font-size: 13.5px;
+}
+ngb-pagination ::ng-deep ul > li:not(.active) > a {
+    background: rgb(208, 206, 206);
+  color: black;
+  border: 1px solid black;
+}
+
+ngb-pagination ::ng-deep ul > li.active > a {
+  background-color: black !important;
+  color: white;
+  border-color: black !important;
+}
+
+ngb-pagination ::ng-deep ul > li {
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Proxima Nova,-apple-system','Roboto',Arial,sans-serif;
+    font-size: 12px;
+  }
+  &:first-child a {
+    border-top-left-radius: 16px !important;
+    border-bottom-left-radius: 16px !important;
+  }
+  &:last-child a {
+    border-top-right-radius: 16px !important;
+    border-bottom-right-radius: 16px !important;
+  }
 }
