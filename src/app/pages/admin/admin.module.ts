@@ -6,7 +6,7 @@ import { HomeAdminComponent } from './homeAdmin/homeAdmin.component';
 import { TableProductsComponent } from './table-products/table-products.component';
 import { TableUsersComponent } from './table-users/table-users.component';
 import { AdminComponent } from './admin.component';
-import { NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule, NgbTooltipModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductComponent } from './table-products/product/product.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './table-users/user/user.component';
@@ -31,7 +31,8 @@ import { SaleComponent } from './table-sales/sale/sale.component';
     SharedModule,
     NgbPaginationModule,
     ReactiveFormsModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    NgbTypeaheadModule
   ]
 })
 export class AdminModule { }

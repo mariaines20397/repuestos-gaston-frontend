@@ -14,7 +14,7 @@ export class AdminProductsService {
     private httpClient: HttpClient,
   ) { 
     this.category=new Categorie()
-    this.category.name = 'Lubricante';
+    this.category.id = 2;
     this.products= [
       {
         id: 1,

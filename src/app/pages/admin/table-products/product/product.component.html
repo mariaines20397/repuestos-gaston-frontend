@@ -1,7 +1,7 @@
-<div class="productos">
-    <div class="card card-productos">
+<div class="div-general">
+    <div class="card card-tabla">
         <div class="card-body">
-            <div class="agregarProducto">
+            <div class="titleButtons">
                 <div class="title">
                     <h3 *ngIf="agregarProducto" class="card-title"><b>Agregar producto</b></h3>
                     <h3 *ngIf="editarProducto" class="card-title"><b>Editar producto {{producto.id}}</b></h3>
@@ -23,18 +23,45 @@
            <div class="form-container">
             <form action="" [formGroup]="productForm">
                 <fieldset [disabled]="!editarProducto && !agregarProducto" class="container-class">
-                <div class="inputsText">
-                    <span class="title-input">Nombre</span>
-                    <input class="text-input-width form-control" formControlName="name" type="text" name="" id="" autofocus>
-                    <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
-                        <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
-                            <span>Este campo es requerido.</span>
+                    <div class="containerInputs">
+                        <div class="inputsText">
+                            <span class="title-input">Nombre</span>
+                        <input class="text-input-width-product form-control" formControlName="name" type="text" name="" id="">
+                        <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
+                            <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
+                                <span>Este campo es requerido.</span>
+                            </div>
+                            <div class="validatorText" *ngIf="productForm.get('name')?.hasError('maxlength')">
+                                <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
+                            </div>
                         </div>
-                        <div class="validatorText" *ngIf="productForm.get('name')?.hasError('maxlength')">
-                            <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
+                        </div>
+                        <div class="inputsText">
+                            <span class="title-input">Categoría</span>
+                        <!-- <input class="text-input-width-product form-control" formControlName="stock" type="number" name="" id=""> -->
+                        
+                            <!-- <span class="title-input">Estado</span> -->
+                            <!-- <select class="selectForm" formControlName="category">
+                                <option *ngFor="let category of categoriesIds"  [value]="productForm.get('category.id')?.value" >{{category.name}}</option>
+                            </select> -->
+                            <select  class="selectForm" formControlName="category" [value]="productForm.get('category.id')?.value"> 
+                                <option *ngFor="let categoria of categoriesIds" [value]="categoria.id" 
+                                [selected]="categoria.id == productForm.get('category.id')?.value">
+                                    {{categoria.name}}
+                                </option> 
+                            </select>
+                            <div *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
+                                <div class="validatorText" *ngIf="productForm.get('category')?.hasError('required')">
+                                    <span>Este campo es requerido.</span>
+                                </div>
+                            </div>
+                        <div *ngIf="productForm.controls['stock'].errors && productForm.get('stock')?.touched">
+                            <div class="validatorText" *ngIf="productForm.get('stock')?.hasError('required')">
+                                <span>Este campo es requerido.</span>
+                            </div>
+                        </div>
                         </div>
                     </div>
-                </div>
                 <div class="containerInputs">
                     <div class="inputsText">
                         <span class="title-input">Precio</span>
@@ -90,7 +117,7 @@
            </div>
             </div>
         </div>
-        <div class="login-register" *ngIf="producto.id || agregarProducto">
+        <div class="formButtons" *ngIf="producto.id || agregarProducto">
             <a (click)="cancelar()">Limpiar</a>
             <button class="btn btn-dark btn-login" [disabled]="productForm.invalid" (click)="guardarProducto()" >
                 Guardar producto</button>

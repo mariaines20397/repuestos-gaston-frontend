@@ -84,25 +84,8 @@ export class TableSalesComponent implements OnInit{
     this.router.navigate([`admin/dashboard/ventas/editarVenta/${id}`]);
   }
   
-	// onSort(event: { column: SortColumn, direction: SortDirection } | Event) {
-  //   console.log(event);
-    
-	// 	// resetting other headers
-	// 	this.headers.forEach((header) => {
-	// 		if (header.sortable !== event.column) {
-	// 			header.direction = '';
-	// 		}
-	// 	});
-
-	// 	// sorting countries
-	// 	if (event.direction === '' || event.column === '') {
-	// 		this.sales = this.saleServices.getSalesPrueba();
-	// 	} else {
-	// 		this.sales = [...this.saleServices.getSalesPrueba()].sort((a, b) => {
-	// 			const res = compare(a[column  as keyof Sale], b[column  as keyof Sale]);
-	// 			return direction === 'asc' ? res : -res;
-	// 		});
-	// 	}
-  // }
+  mostrarData(sale:any){
+    this.saleServices.disparadorVenta.emit(sale.id);
+  }
 
 }

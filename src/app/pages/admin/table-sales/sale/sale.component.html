@@ -1,69 +1,132 @@
-<div class="productos">
-    <div class="card">
+<div class="div-general">
+    <div class="card card-tabla">
         <div class="card-body">
-            <div class="agregarProducto">
-                <h3 *ngIf="router.url.includes('ver')" class="card-title">Ver detalle de compra <b>N°
-                        {{numeroCompra}}</b></h3>
-                <h3 *ngIf="router.url.includes('editarVenta')" class="card-title">Editar estado de compra <b>N°
-                        {{numeroCompra}}</b></h3>
+            <div class="titleButtons">
+                <div class="title">
+                    <h3 *ngIf="agregarVenta" class="card-title"><b>Agregar venta</b></h3>
+                    <h3 *ngIf="editarVenta" class="card-title"><b>Editar venta {{this.saleForm.get('id')?.value}}</b></h3>
+                    <h3 class="card-title" *ngIf="!editarVenta && !agregarVenta"><b>Ver detalle de venta {{this.saleForm.get('id')?.value}}</b>
+                    </h3>
+                </div>
+                <div class="iconsTitle">
+                    <button class="btn" (click)="editar()" *ngIf="this.saleForm.get('id')?.value" [disabled]="editarVenta" placement="top"
+                        ngbTooltip="Editar estado de venta">
+                        <img src="../../../../../assets/svg/edit.svg" alt="" srcset="">
+                    </button>
+                    <button type="button" class="btn btn-dark" (click)="agregar()" [disabled]="agregarVenta"
+                        placement="top" ngbTooltip="Agregar venta">
+                        <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">
+                    </button>
+                </div>
             </div>
             <div class="form-container">
-                <form action="" [formGroup]="saleForm">
-                    <fieldset [disabled]="router.url.includes('ver')">
-                    <div class="inputsText">
-                        <span class="title-input">Productos comprados</span>
-                        <div class="productCarrito">
-                        <div *ngFor="let product of saleForm.get('carrito.products')?.value; let i = index">
-                            <div [formGroupName]="i">
-                                <div class="card" style="width: 18rem;">
-                                    <div class="card-header">
-                                        <b>{{product.name}}</b>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <ul class="col-6 list-group list-group-flush">
-                                                <li class="list-group-item">Cantidad</li>
-                                                <li class="list-group-item">Precio</li>
-                                                <li class="list-group-item"><b>Subtotal</b></li>
-                                            </ul>
-                                            <ul class="col-6 list-group list-group-flush">
-                                                <li class="list-group-item">{{product.cantidad}}</li>
-                                                <li class="list-group-item">{{product.price}}</li>
-                                                <li class="list-group-item"><b>$ {{product.cantidad * product.price}}</b></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                <form action="" [formGroup]="saleForm" *ngIf="!agregarVenta">
+                    <fieldset [disabled]="!editarVenta && !agregarVenta">
+                        <div class="containerProducts" *ngFor="let product of carrito.value; let i = index">
+                                <span class="spanTile"><b>Producto {{i+1}}</b></span>
+                        <div class="containerInputs">
+                            <div class="inputsText">
+                                <span class="title-input">Nombre</span>
+                                <input disabled id='typeahead-template' type='text' class="text-input-width-product form-control"
+                                    [ngbTypeahead]='search' [inputFormatter]='formatter'
+                                    [value]="product.name" />
+                            <!-- <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
+                                <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
+                                    <span>Este campo es requerido.</span>
                                 </div>
-                                
+                                <div class="validatorText" *ngIf="productForm.get('name')?.hasError('maxlength')">
+                                    <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
+                                </div>
+                            </div> -->
                             </div>
-                        </div></div>
-                    </div>
-                    <div class="inputsText">
-                        <span class="title-input">Total de la compra</span>
-                        <div class="totalCompra">
-                            <b>$ {{totalCompra}}</b>
-                        </div>
-                    </div>
-                    <div class="inputsText">
-                        <span class="title-input">Estado</span>
-                        <select class="selectForm" formControlName="state">
-                            <option *ngFor="let state of stateIds" [value]="state.id">{{state.name}}</option>
-                        </select>
-                        <div *ngIf="saleForm.controls['state'].errors && saleForm.get('state')?.touched">
-                            <div class="validatorText" *ngIf="saleForm.get('state')?.hasError('required')">
-                                <span>Este campo es requerido.</span>
+                            <div class="inputsText">
+                                <span class="title-input">Categoría</span>
+                                <input disabled id='typeahead-template' type='text' class="text-input-width-product form-control"
+                                [ngbTypeahead]='search' [inputFormatter]='formatter'
+                                [value]="product.category.name" />
+                                <!-- <div *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
+                                    <div class="validatorText" *ngIf="productForm.get('category')?.hasError('required')">
+                                        <span>Este campo es requerido.</span>
+                                    </div>
+                                </div>-->
                             </div>
                         </div>
+                        <div class="containerInputs">
+                            <div class="inputsText">
+                                <span class="title-input">Precio</span>
+                                <input disabled type='number' class="text-input-width-product form-control"
+                                    [value]="product.price" />
+                            <!-- <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
+                                <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
+                                    <span>Este campo es requerido.</span>
+                                </div>
+                                <div class="validatorText" *ngIf="productForm.get('name')?.hasError('maxlength')">
+                                    <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
+                                </div>
+                            </div> -->
+                            </div>
+                            <div class="inputsText">
+                                <span class="title-input">Cantidad</span>
+                                <input disabled type='number' class="text-input-width-product form-control"
+                                [value]="product.cantidad" />
+                                <!-- <div *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
+                                    <div class="validatorText" *ngIf="productForm.get('category')?.hasError('required')">
+                                        <span>Este campo es requerido.</span>
+                                    </div>
+                                </div>-->
+                            </div>
+                            
+                        </div>
+                        <div class="containerInputs">
+                            <div class="inputsText">
+                                <span class="title-input">Subtotal</span>
+                                <input disabled type='number' class="text-input-width-product form-control"
+                                    [value]="product.price * product.cantidad" />
+                            <!-- <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
+                                <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
+                                    <span>Este campo es requerido.</span>
+                                </div>
+                                <div class="validatorText" *ngIf="productForm.get('name')?.hasError('maxlength')">
+                                    <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
+                                </div>
+                            </div> -->
+                            </div>
+                            <!-- <div class="inputsText">
+                                <span class="title-input">Total</span>
+                                <input type='number' class="text-input-width-product form-control"
+                                [value]="totalCompra" />
+                            </div> -->
+                            
+                        </div>
                     </div>
-                </fieldset>
+                    <div class="containerInputs">
+                        <div class="inputsText">
+                            <span class="title-input">Total</span>
+                            <input disabled type='number' class="text-input-width-product form-control"
+                                [value]="totalCompra"/>
+                        </div>                        
+                    </div>
+                    <div class="containerInputs">
+                        <div class="inputsText">
+                            <span class="title-input">Estado</span>
+                            <select class="selectForm" formControlName="state">
+                                <option *ngFor="let state of stateIds" [value]="state.id">{{state.name}}</option>
+                            </select>
+                            <div *ngIf="saleForm.controls['state'].errors && saleForm.get('state')?.touched">
+                                <div class="validatorText" *ngIf="saleForm.get('state')?.hasError('required')">
+                                    <span>Este campo es requerido.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </fieldset>
                 </form>
             </div>
         </div>
     </div>
-    <div class="login-register">
-        <a (click)="cancelar()">Volver</a>
-        <button class="btn btn-primary btn-login" *ngIf="router.url.includes('editarVenta')"
-            [disabled]="saleForm.invalid" (click)="editar(numeroCompra)">
-            Guardar cambios</button>
-    </div>
+    <!-- <div class="formButtons" *ngIf="sale.id || agregarVenta">
+        <a (click)="cancelar()">Limpiar</a>
+        <button class="btn btn-dark btn-login" [disabled]="!agregarVenta && !editarVenta" (click)="guardarVenta()" >
+            Guardar venta</button>
+    </div> -->
 </div>

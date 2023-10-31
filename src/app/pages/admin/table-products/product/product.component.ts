@@ -10,54 +10,71 @@ import Swal from 'sweetalert2';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit{
-  productForm:FormGroup;
-  producto:Product={};
-  productos:Product[]=[];
-  nombreProducto:string='';
-  productoId!:number;
-  url:string='';
-  editarProducto:boolean = false;
-  agregarProducto:boolean = false;
-  @Input() mostrarProducto:Product = {};
+export class ProductComponent implements OnInit {
+  productForm: FormGroup;
+  producto: Product = {};
+  productos: Product[] = [];
+  nombreProducto: string = '';
+  productoId!: number;
+  url: string = '';
+  editarProducto: boolean = false;
+  agregarProducto: boolean = false;
+  categoriesIds: any[] = [{
+    id: 1,
+    name: 'Lubricante'
+  },
+  {
+    id: 2,
+    name: 'Accesorio',
+  },
+  {
+    id: 3,
+    name: 'Repuestos'
+  }]
+  @Input() mostrarProducto: Product = {};
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
-    private productServices:AdminProductsService,
+    private productServices: AdminProductsService,
     private routeActive: ActivatedRoute,
-   ){
-     this.productForm = this.formBuilder.group({
+  ) {
+    this.productForm = this.formBuilder.group({
       name: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+      category: this.formBuilder.group({ 
+        id: new FormControl(null), 
+        name: new FormControl(null) 
+      }),
       description: new FormControl(null, [Validators.required]),
       price: new FormControl(null, [Validators.required]),
       stock: new FormControl(null, [Validators.required]),
       imageUrl: new FormControl(null, [Validators.required])
-     });
-   }
-ngOnInit(): void {            
-  this.productServices.disparadorProducto.subscribe(data=>{
+    });
+  }
+  ngOnInit(): void {
+    this.productServices.disparadorProducto.subscribe(data => {
+      this.agregarProducto = false;
+      this.editarProducto = false;
+      this.producto = data;
+      this.productForm.patchValue({
+        name: data.name,
+        category: { id: data.category.id },
+        description: data.description,
+        price: data.price,
+        stock: data.stock,
+        imageUrl: data.imageUrl
+      })
+    })
+  }
+  cancelar() {
     this.agregarProducto = false;
     this.editarProducto = false;
-    this.producto = data;
-    this.productForm.patchValue({
-      name:data.name,
-      description:data.description,
-      price: data.price,
-      stock: data.stock,
-      imageUrl: data.imageUrl
-    })    
-  })
-}
-   cancelar(){
-    this.agregarProducto = false;
-    this.editarProducto = false;
-    this.producto={}
+    this.producto = {}
     this.productForm.reset();
-   }
+  }
 
-   onFileSelected(event: any): void {
+  onFileSelected(event: any): void {
     const file = event.target.files[0];
-  
+
     if (file) {
       if (!['image/png', 'image/jpeg'].includes(file.type)) {
         this.productForm.get('imagen')!.setErrors({ fileType: true });
@@ -67,53 +84,53 @@ ngOnInit(): void {
       this.producto.imageUrl = imageUrl;
     }
   }
-  getProducts(){
-    this.productos=this.productServices.getProducts();
+  getProducts() {
+    this.productos = this.productServices.getProducts();
   }
-eliminar(){
-  Swal.fire({
-    title: `¿Estas seguro que quieres eliminar el producto ${this.producto.name}?`,
-    showCancelButton: true,
-    confirmButtonText: 'Eliminar',
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire('¡Producto eliminado con éxito!', '', 'success')
-      // this.productServices.deleteProductAdmin(this.producto.id!);
-    } else if (result.dismiss) {
-      Swal.fire('El producto no se eliminó', '', 'info')
-    }
-  })
-}
+  eliminar() {
+    Swal.fire({
+      title: `¿Estas seguro que quieres eliminar el producto ${this.producto.name}?`,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('¡Producto eliminado con éxito!', '', 'success')
+        // this.productServices.deleteProductAdmin(this.producto.id!);
+      } else if (result.dismiss) {
+        Swal.fire('El producto no se eliminó', '', 'info')
+      }
+    })
+  }
 
-  editar(){
+  editar() {
     this.editarProducto = true;
     this.agregarProducto = false;
   }
-  agregar(){
+  agregar() {
     this.agregarProducto = true;
     this.editarProducto = false;
-    this.producto={}
+    this.producto = {}
     this.productForm.reset();
   }
-guardarProducto(){
-  const {
-    name,
-    description,
-    price,
-    stock,
-    imageUrl
-  } = this.productForm.value
-  const product={
-    name,
-    description,
-    price,
-    stock,
-    imageUrl
+  guardarProducto() {
+    const {
+      name,
+      description,
+      price,
+      stock,
+      imageUrl
+    } = this.productForm.value
+    const product = {
+      name,
+      description,
+      price,
+      stock,
+      imageUrl
+    }
+    console.log(product);
+    // this.editarProducto ?
+    // this.store.dispatch(ProductosAdminActions.editProduct({id:this.producto.id,product}))
+    // : this.store.dispatch(ProductosAdminActions.createProduct(product));
   }
-  console.log(product);
-  // this.editarProducto ?
-  // this.store.dispatch(ProductosAdminActions.editProduct({id:this.producto.id,product}))
-  // : this.store.dispatch(ProductosAdminActions.createProduct(product));
-}
- 
+
 }

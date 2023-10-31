@@ -1,4 +1,4 @@
-<div class="productos">
+<!-- <div class="productos">
     <div class="card">
         <div class="card-body">
             <div class="agregarProducto">
@@ -52,4 +52,59 @@
             </div>
         </div>
         <ngb-pagination [collectionSize]="sales.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination>
+</div> -->
+<div class="contenedor">
+  <div class="productos">
+    <div class="card card-productos">
+      <div class="card-body">
+        <div class="agregarProducto">
+          <h3 class="card-title"><b>Tabla de ventas</b></h3>
+          <form action="" [formGroup]="searchForm">
+            <div class="search">
+              <input type="search" class="buscador form-control" formControlName="search" placeholder="Busca n° venta"
+                name="">
+              <button type="button" class="btn lupa" (click)="search()">
+                <img src="../../../assets/svg/search.svg" alt="" srcset="">
+              </button>
+            </div>
+          </form>
+
+        </div>
+        <div class="table-container">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">N° de venta</th>
+                <th scope="col">Estado de la venta</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sale of sales; let index = index">
+                <td scope="row"><input type="radio" (change)="mostrarData(sale)" name="radioButton" [value]="sale" />
+                </td>
+                <td>{{sale.id}}</td>
+                <td *ngIf="sale.state == 0">
+                  <div class="sinConfirmar">Sin confirmar</div>
+                </td>
+                <td *ngIf="sale.state == 1">
+                  <div class="porEntregar">Por entregar</div>
+                </td>
+                <td *ngIf="sale.state == 2">
+                  <div class="entregado">Entregado</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="pagination">
+      <ngb-pagination [collectionSize]="sales.length" [(page)]="page" [pageSize]="10"
+        aria-label="Default pagination"></ngb-pagination>
+    </div>
+  </div>
+  <div class="form-productos">
+    <app-sale></app-sale>
+  </div>
 </div>

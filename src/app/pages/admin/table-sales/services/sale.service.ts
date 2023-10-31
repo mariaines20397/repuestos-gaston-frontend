@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Carrito, Sale } from '../model/sale.model';
 import { Categorie } from '../../table-products/model/product.model';
@@ -10,7 +10,9 @@ import { Categorie } from '../../table-products/model/product.model';
 export class SaleService {
   carrito!: Carrito;
   category!: Categorie;
-  ventas:Sale[]=[]
+  ventas:Sale[]=[];
+  @Output() disparadorVenta:EventEmitter<any>= new EventEmitter();
+
   constructor(private httpClient: HttpClient) {
     this.carrito= new Carrito();
     this.category=new Categorie();
