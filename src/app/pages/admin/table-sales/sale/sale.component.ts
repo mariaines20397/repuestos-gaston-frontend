@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Sale } from '../model/sale.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -44,6 +44,7 @@ export class SaleComponent implements OnInit {
     public router: Router,
     private saleServices: SaleService,
     private routeActive: ActivatedRoute,
+    private cd: ChangeDetectorRef
   ) {
     this.saleForm = this.formBuilder.group({
       id: [''],
@@ -53,17 +54,17 @@ export class SaleComponent implements OnInit {
       state: ['']
     });
   }
-  ngOnInit(): void {
+  ngOnInit(): void {   
     this.saleServices.disparadorVenta.subscribe(data => {
       this.agregarVenta = false;
       this.editarVenta = false;
       this.saleServices.getSalesPrueba().forEach(sale=>{
+        this.addProductsToCart(sale.carrito!.products);
         if (sale.id == data) {
         this.carrito.clear();
         sale.carrito?.products?.forEach(product=>{
           this.productosTypeahead.push(product.name);
         })
-        this.addProductsToCart(sale.carrito!.products);
         this.saleForm.patchValue({
           id: sale.id,
           carrito:sale.carrito,
@@ -84,24 +85,37 @@ export class SaleComponent implements OnInit {
     )
   )
   formatter = (result: any) => result.name;
-  addProductsToCart (products:any) {
+  addProductsToCart (products?:any) {
     this.totalCompra=0;
     this.subTotal=0;
-    products.forEach ((product:any, index:number) => {
+    if (products) {
+      products.forEach ((product:any, index:number) => {
+        this.carrito.push (
+          this.formBuilder.control(product)
+        )
+        this.subTotal= product.price * product.cantidad;
+        this.totalCompra+=this.subTotal;
+      });
+    }else{
       this.carrito.push (
-        this.formBuilder.control(product)
+        this.formBuilder.control({
+          name:[''],
+          category:[''],
+          cantidad:[''],
+          precio:['']
+        })
       )
-      this.subTotal= product.price * product.cantidad;
-      this.totalCompra+=this.subTotal;
-    });
+    }
   }
+  borrar(id:number) {
+    this.carrito.removeAt(id);
+  }
+
   cancelar() {
     this.agregarVenta = false;
     this.editarVenta = false;
-    this.sale = {};
-    this.productos = [];
     this.totalCompra = 0;
-    this.saleForm.reset();
+    this.carrito.clear();
   }
 
 
@@ -112,26 +126,27 @@ export class SaleComponent implements OnInit {
   agregar() {
     this.agregarVenta = true;
     this.editarVenta = false;
-    this.sale = {}
-    this.saleForm.reset();
+    this.carrito.clear();
+    this.addProductsToCart();
+    this.saleServices.getSalesPrueba().forEach(sale=>{
+      sale.carrito?.products?.forEach(product=>{
+        this.productosTypeahead.push(product.name);
+      })
+    })
   }
 
   guardarVenta() {
     const {
-      name,
-      description,
-      price,
-      stock,
-      imageUrl
+      id,
+      carrito,
+      state,
     } = this.saleForm.value
-    const product = {
-      name,
-      description,
-      price,
-      stock,
-      imageUrl
+    const sale = {
+      id,
+      carrito,
+      state
     }
-    console.log(product);
+    console.log(sale);
     // this.editarProducto ?
     // this.store.dispatch(ProductosAdminActions.editProduct({id:this.producto.id,product}))
     // : this.store.dispatch(ProductosAdminActions.createProduct(product));

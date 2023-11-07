@@ -124,3 +124,19 @@ fieldset {
     margin-left:7px;
     background:white;
 }
+.containerProducts .spanTile .spanTileBtn{
+    margin-top: -50px;
+    margin-left: 95px;
+    background: white;
+}
+.iconsTitle{
+    width: 50%;
+    display: flex;
+    justify-content: end;
+}
+.addProductInForm {
+    padding-right: 2%;
+}
+.addProductInForm button{
+    height: 100%;
+}
