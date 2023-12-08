@@ -3,6 +3,9 @@ import { User } from './model/users.model';
 import { AdminUsersService } from './services/admin-users.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Search } from 'src/app/shared/navbar/model/search.model';
+import * as SearchActions from '../../../shared/navbar/store/search.actions'
 
 @Component({
   selector: 'app-table-users',
@@ -11,22 +14,34 @@ import { Store } from '@ngrx/store';
 })
 export class TableUsersComponent implements OnInit{
   page = 1;
-  users:User[]=[];
-
+  usuarios:User[]=[];
+  searchForm:FormGroup;
+  
   constructor(
     private usersServices:AdminUsersService,
     private router: Router,
-    private store:Store
-  ) { }
-
+    private formBuilder: FormBuilder,
+    private store:Store<{ filtrar:Search}>,
+  ) {
+    this.searchForm = this.formBuilder.group({
+      search: new FormControl(null)
+    });
+   }
   ngOnInit(): void {
     this.getUsers()
-    // this.store.dispatch(UsersAdminActions.loadUsers());
+    // this.store.dispatch(ProductosAdminActions.loadProducts());
   }
   getUsers(){
-    this.users=this.usersServices.getUsers();
+    this.usuarios = this.usersServices.getUsers();   
   }
-  ver(id:number){
-  this.router.navigate([`admin/dashboard/usuarios/ver/${id}`]);
-  }
+ search(){
+  const filtrar = this.searchForm.value.search;
+  // this.router.navigate(['/search'],{
+  //   queryParams:{filtrar}
+  // })    
+  this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
+}
+mostrarData(usuario:any){
+  this.usersServices.disparadorUsuario.emit(usuario);
+}
 }

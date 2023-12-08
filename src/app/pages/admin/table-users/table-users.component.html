@@ -1,38 +1,46 @@
-<div class="usuarios">
-    <div class="card">
+<div class="contenedor">
+  <div class="productos">
+    <div class="card card-productos">
         <div class="card-body">
-            <div class="agregarUsuario">
-                <h3 class="card-title">Tabla de usuarios</h3>
+            <div class="agregarProducto">
+                <h3 class="card-title"><b>Tabla de productos</b></h3>
+                <form action="" [formGroup]="searchForm">
+                  <div class="search" >
+                    <input type="search" class="buscador form-control" formControlName="search" placeholder="Busca productos" name="">
+                    <button type="button" class="btn lupa" (click)="search()">
+                      <img src="../../../assets/svg/search.svg" alt="" srcset="">
+                    </button>
+                  </div>
+                </form>
+                
             </div>
             <div class="table-container">
-                <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col" class="descripcionTabla">Apellido</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Email</th>
-                        <th colspan="2" class="acciones">Ver más</th>
-                      </tr>
-                    </thead>
-                    <tbody >
-                      <tr *ngFor="let user of users; let index = index">
-                        <th scope="row">{{index+1}}</th>
-                        <td>{{user.name}}</td>
-                        <td class="descripcionTabla">{{user.surname}}</td>
-                        <td>{{user.username}}</td>
-                        <td>{{user.email}}</td>
-                        
-                        <td class="acciones"><button type="button" class="btn">
-                                <img src="../../../../assets/svg/see-more.svg" (click)="ver(user.id!)" alt="" srcset="">
-                            </button>
-                    </td>
-                      </tr>
-                    </tbody>
-                  </table>  
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col" class="descripcionTabla">Apellido</th>
+                    <th scope="col">Usuario</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let usuario of usuarios; let index = index">
+                    <td scope="row"><input type="radio" (change)="mostrarData(usuario)" name="radioButton" [value]="usuario"/></td>
+                    <td>{{usuario.name}}</td>
+                    <td class="descripcionTabla">{{usuario.surname}}</td>
+                    <td>{{usuario.username}}</td>
+                  </tr>
+                </tbody>
+              </table>
                 </div>  
             </div>
         </div>
-        <ngb-pagination [collectionSize]="users.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination>
+        <div class="pagination">
+          <ngb-pagination [collectionSize]="usuarios.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination>
+        </div>
+</div>
+<div class="form-productos">
+<app-user></app-user>
+</div>
 </div>

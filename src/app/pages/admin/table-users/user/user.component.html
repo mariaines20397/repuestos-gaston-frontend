@@ -1,50 +1,55 @@
-<div class="productos">
-    <div class="card">
+<div class="div-general">
+    <div class="card card-tabla">
         <div class="card-body">
-            <div class="agregarProducto">
-                <h3 class="card-title">Datos de usuario {{nombreUser}}</h3>
+            <div class="titleButtons">
+                <div class="title">
+                    <h3 class="card-title"><b>Ver más del usuario {{user.name}}</b></h3>
+                </div>
             </div>
            <div class="form-container">
             <form action="" [formGroup]="userForm">
-                <fieldset [disabled]="router.url.includes('ver')" class="container-class">
-                <div class="inputsText imagenProducto">
-                    <span class="title-input">Nombre</span>
-                    <input class="text-input form-control" formControlName="name" type="text" name="" id="" autofocus>
+                <fieldset disabled class="container-class">
+                    <div class="containerInputs">
+                        <div class="inputsText">
+                            <span class="title-input">Nombre</span>
+                    <input class="text-input-width-product form-control" formControlName="name" type="text" name="" id="" autofocus>
+                            
+                        </div>
+                        <div class="inputsText">
+                            <span class="title-input">D.N.I.</span>
+                            <input class="text-input-width-product form-control" formControlName="dni" type="number" name="" id="">
+                        </div>
+                    </div>
+                <div class="containerInputs">
+                    <div class="inputsText">
+                        <span class="title-input">Fecha cumpleaños</span>
+                    <input class="text-input-width-product form-control" formControlName="birthday" name="" id="">
                     
+                    </div>
+                    <div class="inputsText">
+                        <span class="title-input">Dirección</span>
+                    <input class="text-input-width-product form-control" formControlName="address" name="" id="">
+                    </div>
                 </div>
-                <div class="inputsText imagenProducto">
-                    <span class="title-input">Apellido</span>
-                <input class="text-input form-control" formControlName="surname" type="text" name="" id="">
-                
-                </div>
-                <div class="inputsText imagenProducto">
-                    <span class="title-input">D.N.I.</span>
-                <input class="text-input form-control" formControlName="dni" type="number" name="" id="">
-                
-                </div>
-                <div class="inputsText imagenProducto">
-                    <span class="title-input">Fecha cumpleaños</span>
-                    <input class="text-input form-control" formControlName="birthday" type="text" name="" id="">
-                </div>
-                <div class="inputsText imagenProducto" >
-                    <span class="title-input">Dirección</span>
-                    <input class="text-input form-control" formControlName="address" type="text" name="" id="">
-                </div>
-                <div class="inputsText imagenProducto">
+                <div class="containerInputs">
+                <div class="inputsText">
                     <span class="title-input">Usuario</span>
                     <input class="text-input form-control" formControlName="username" type="text" name="" id="">
                 </div>
-                <div class="inputsText imagenProducto">
+                
+                <div class="inputsText">
                     <span class="title-input">E-mail</span>
-                    <input class="text-input form-control" formControlName="email" type="text" name="" id="">
+                <input 
+                class="text-input form-control" 
+                formControlName="email">
                 </div>
+            </div>
             </fieldset>
             </form>
            </div>
             </div>
         </div>
-        <div class="login-register">
-            <a (click)="cancelar()">Volver</a>
-           
+        <div class="formButtons" >
+            <a *ngIf="user.id" (click)="cancelar()">Limpiar</a>
         </div>
 </div>

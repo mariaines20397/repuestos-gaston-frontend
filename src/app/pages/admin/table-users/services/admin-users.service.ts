@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { User } from '../model/users.model';
 import { Observable } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AdminUsersService {
-
+  @Output() disparadorUsuario:EventEmitter<any>= new EventEmitter();
   constructor(
     private httpClient: HttpClient,
   ) { }
