@@ -1,0 +1,46 @@
+<div class="contenedor">
+    <div class="productos">
+      <div class="card card-productos">
+          <div class="card-body">
+              <div class="agregarProducto">
+                  <h3 class="card-title"><b>Tabla de categorias</b></h3>
+                  <form action="" [formGroup]="searchForm">
+                    <div class="search" >
+                      <input type="search" class="buscador form-control" formControlName="search" placeholder="Busca categorias" name="">
+                      <button type="button" class="btn lupa" (click)="search()">
+                        <img src="../../../assets/svg/search.svg" alt="" srcset="">
+                      </button>
+                    </div>
+                  </form>
+                  
+              </div>
+              <div class="table-container">
+                  <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Cantidad de productos</th>
+                        </tr>
+                      </thead>
+                      <tbody >
+                        <tr *ngFor="let category of categories; let index = index">
+                          <td scope="row"><input type="radio" (change)="mostrarData(category)" name="radioButton" [value]="category"/></td>
+                          
+                          <td>{{category.name}}</td>
+                          <td>{{category.products?.length}} un.</td>
+                        </tr>
+                      </tbody>
+                    </table>  
+                  </div>  
+              </div>
+          </div>
+          <div class="pagination">
+            <ngb-pagination [collectionSize]="categories.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination>
+          </div>
+  </div>
+  <div class="form-productos">
+  <app-category></app-category>
+  </div>
+  </div>
+  

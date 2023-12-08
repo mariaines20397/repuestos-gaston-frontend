@@ -1,0 +1,61 @@
+<div class="div-general">
+    <div class="card card-tabla">
+        <div class="card-body">
+            <div class="titleButtons">
+                <div class="title">
+                    <h3 *ngIf="agregarCategoria" class="card-title"><b>Agregar categoría</b></h3>
+                    <h3 *ngIf="editarCategoria" class="card-title"><b>Editar categoría {{categoria.id}}</b></h3>
+                    <h3 class="card-title" *ngIf="!editarCategoria && !agregarCategoria"><b>Ver más de la categoria {{categoria.id}}</b></h3>
+                </div>
+                <div class="iconsTitle">
+                    <button class="btn" (click)="editar()" *ngIf="categoria.id" [disabled]="editarCategoria">
+                        <img src="../../../../../assets/svg/edit.svg" alt="" srcset="">
+                    </button>
+                    <button class="btn" (click)="eliminar()" *ngIf="categoria.id">
+                        <img src="../../../../../assets/svg/trash.svg" alt="" srcset="">
+                    </button>
+                    <button type="button" class="btn btn-dark" (click)="agregar()" [disabled]="agregarCategoria"
+                placement="top" ngbTooltip="Agregar categoria">
+                  <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">
+                </button>
+                </div>
+            </div>
+           <div class="form-container">
+            <form action="" [formGroup]="categoryForm">
+                <fieldset [disabled]="!editarCategoria && !agregarCategoria" class="container-class">
+                    <div class="containerInputs">
+                        <div class="inputsText">
+                            <span class="title-input">Nombre</span>
+                        <input class="text-input-width-product form-control" formControlName="name" type="text" name="" id="">
+                        <div *ngIf="categoryForm.controls['name'].errors && categoryForm.get('name')?.touched">
+                            <div class="validatorText" *ngIf="categoryForm.get('name')?.hasError('required')">
+                                <span>Este campo es requerido.</span>
+                            </div>
+                            <div class="validatorText" *ngIf="categoryForm.get('name')?.hasError('maxlength')">
+                                <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
+                            </div>
+                        </div>
+                        </div>
+                        
+                    </div>
+                    <div class="containerInputs" *ngIf="!agregarCategoria">
+                        <div class="inputsText">
+                            <span class="title-input">Productos</span>
+                           <div formArrayName="products" >
+                              <textarea disabled class="form-control" id="exampleFormControlTextarea1" rows="2"  >
+                                {{categoryForm.value.products}}
+                              </textarea>
+                          </div>
+                        </div>
+                    </div>
+            </fieldset>
+            </form>
+           </div>
+            </div>
+        </div>
+        <div class="formButtons" >
+            <a *ngIf="categoria.id || agregarCategoria" (click)="cancelar()">Limpiar</a>
+            <button class="btn btn-dark btn-login" *ngIf="editarCategoria || agregarCategoria" [disabled]="categoryForm.invalid" (click)="guardarCategoria()" >
+                Guardar categoria</button>
+        </div>
+</div>

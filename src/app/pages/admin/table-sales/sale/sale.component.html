@@ -5,7 +5,7 @@
                 <div class="title">
                     <h3 *ngIf="agregarVenta" class="card-title"><b>Agregar venta</b></h3>
                     <h3 *ngIf="editarVenta" class="card-title"><b>Editar venta {{this.saleForm.get('id')?.value}}</b></h3>
-                    <h3 class="card-title" *ngIf="!editarVenta && !agregarVenta"><b>Ver detalle de venta {{this.saleForm.get('id')?.value}}</b>
+                    <h3 class="card-title" *ngIf="!editarVenta && !agregarVenta"><b>Ver más de la venta {{this.saleForm.get('id')?.value}}</b>
                     </h3>
                 </div>
                 <div class="iconsTitle">
@@ -17,7 +17,6 @@
                         <button *ngIf="agregarVenta" type="button" class="btn btn-dark" (click)="addProductsToCart()"
                     placement="top" ngbTooltip="Agregar producto">
                     Agregar producto
-                    <!-- <img src="../../../assets/svg/plusWhite.svg" alt="" srcset=""> -->
                 </button>
                     </div>
                     <button type="button" class="btn btn-dark" (click)="agregar()" [disabled]="agregarVenta"
@@ -237,9 +236,9 @@
             </div>
         </div>
     </div>
-    <div class="formButtons" *ngIf="this.saleForm.get('id')?.value || agregarVenta">
-        <a (click)="cancelar()">Limpiar</a>
-        <button class="btn btn-dark btn-login" [disabled]="!agregarVenta && !editarVenta" (click)="guardarVenta()" >
+    <div class="formButtons" >
+        <a *ngIf="this.saleForm.get('id')?.value || agregarVenta" (click)="cancelar()">Limpiar</a>
+        <button class="btn btn-dark btn-login"  *ngIf="editarVenta || agregarVenta"  [disabled]="!agregarVenta && !editarVenta" (click)="guardarVenta()" >
             Guardar venta</button>
     </div>
 </div>

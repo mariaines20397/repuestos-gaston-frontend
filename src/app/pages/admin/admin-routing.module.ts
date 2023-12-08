@@ -9,6 +9,8 @@ import { ProductComponent } from './table-products/product/product.component';
 import { UserComponent } from './table-users/user/user.component';
 import { TableSalesComponent } from './table-sales/table-sales.component';
 import { SaleComponent } from './table-sales/sale/sale.component';
+import { CategoryComponent } from './table-categories/category/category.component';
+import { TableCategoriesComponent } from './table-categories/table-categories.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,10 @@ const routes: Routes = [
         component: TableProductsComponent
       },
       {
+        path:'categorias', 
+        component: TableCategoriesComponent
+      },
+      {
         path:'ventas', 
         component: TableSalesComponent
       },
@@ -43,6 +49,14 @@ const routes: Routes = [
       {
         path:'productos/editarProducto/:id', 
         component: ProductComponent
+      },
+      {
+        path:'categorias/agregarCategoria', 
+        component: CategoryComponent
+      },
+      {
+        path:'categorias/editarCategoria/:id', 
+        component: CategoryComponent
       },
       {
         path:'usuarios/ver/:id', 

@@ -49,15 +49,17 @@
     </div>
     <hr>
     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-        <div class="section section-hijo"  *ngIf="menu">
-            <button class="btn btn-products" placement="end" ngbTooltip="Categorias">
-                <img class="imgSection" src="../../../assets/svg/category-min.svg" alt="" srcset="" />
-            </button>
-        </div>
-        <div class="section section-hijo"  *ngIf="!menu">
-            <img class="imgSection" src="../../../assets/svg/category.svg" alt="" srcset="" />
-            <h5>Categorías</h5>
-        </div>
+        <a href="admin/dashboard/categorias">
+            <div class="section section-hijo"  *ngIf="menu">
+                <button class="btn btn-products" placement="end" ngbTooltip="Categorias">
+                    <img class="imgSection" src="../../../assets/svg/category-min.svg" alt="" srcset="" />
+                </button>
+            </div>
+            <div class="section section-hijo"  *ngIf="!menu">
+                <img class="imgSection" src="../../../assets/svg/category.svg" alt="" srcset="" />
+                <h5>Categorías</h5>
+            </div>
+        </a>
     </div>
     <hr>
 

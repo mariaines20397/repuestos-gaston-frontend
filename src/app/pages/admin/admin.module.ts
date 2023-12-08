@@ -12,6 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './table-users/user/user.component';
 import { TableSalesComponent } from './table-sales/table-sales.component';
 import { SaleComponent } from './table-sales/sale/sale.component';
+import { TableCategoriesComponent } from './table-categories/table-categories.component';
+import { CategoryComponent } from './table-categories/category/category.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { SaleComponent } from './table-sales/sale/sale.component';
     ProductComponent,
     UserComponent,
     TableSalesComponent,
-    SaleComponent
+    SaleComponent,
+    TableCategoriesComponent,
+    CategoryComponent
   ],
   imports: [
     CommonModule,

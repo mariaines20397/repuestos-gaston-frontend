@@ -155,6 +155,22 @@ export class AdminProductsService {
         price: 500,
         stock: 20,
         imageUrl: 'assets/img/productos/casco.jpg'
+      },
+      {
+        id: 15,
+        name: 'Casco',
+        description: 'Casco clásico',
+        price: 500,
+        stock: 20,
+        imageUrl: 'assets/img/productos/casco.jpg'
+      },
+      {
+        id: 15,
+        name: 'Casco Nuevo',
+        description: 'Casco clásico',
+        price: 500,
+        stock: 20,
+        imageUrl: 'assets/img/productos/casco.jpg'
       }
     ]
   }
