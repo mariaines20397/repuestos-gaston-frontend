@@ -10,11 +10,13 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RedirectAdminComponent } from './pages/redirect-admin/redirect-admin.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RedirectAdminComponent
+    RedirectAdminComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

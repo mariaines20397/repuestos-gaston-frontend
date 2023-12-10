@@ -30,7 +30,7 @@ h3{
     height: 20%;
 }
 .table-container {
-    max-height: 420px; 
+    max-height: 85%;
     overflow-y: auto; 
 }
 .pagination{

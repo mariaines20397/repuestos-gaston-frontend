@@ -12,6 +12,9 @@
     width: 100%;
     height: 85%;
 }
+.card-body{
+    height: 100%;
+}
 .form-productos{
     width: 45%;
     height: 100%;
@@ -30,7 +33,7 @@ h3{
     height: 20%;
 }
 .table-container {
-    max-height: 420px; 
+    max-height: 85%; 
     overflow-y: auto; 
 }
 .pagination{
