@@ -44,20 +44,20 @@ export class RegisterComponent {
         surname,
         email
       }
-      Swal.fire(
-        {title:'¡Usuario registrado!', 
-        html:'<p>Todo esta listo. Ahora inicia sesión para vivir la experiencia de Repuestos Gastón</p>',
-        icon:'success',
-        confirmButtonText:'Iniciar Sesión',
-        showConfirmButton: true,
-      }).then((result)=>{
-        if (result.isConfirmed) {
-          this.router.navigateByUrl('/login')
-        }
-      });
+      // Swal.fire(
+      //   {title:'¡Usuario registrado!', 
+      //   html:'<p>Todo esta listo. Ahora inicia sesión para vivir la experiencia de Repuestos Gastón</p>',
+      //   icon:'success',
+      //   confirmButtonText:'Iniciar Sesión',
+      //   showConfirmButton: true,
+      // }).then((result)=>{
+      //   if (result.isConfirmed) {
+      //     this.router.navigateByUrl('/login')
+      //   }
+      // });
 
 
-    // this.store.dispatch(RegisterActions.loadRegister({user:this.user}))
+    this.store.dispatch(RegisterActions.loadRegister({user:this.user}))
     console.log(this.user);
   }
 }

@@ -10,14 +10,31 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class ProductsService {
 
   private httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
-
+  private urlEndpoint: string = 'localhost:8080/products'
   constructor(
     private httpClient: HttpClient,
     private router: Router,
     ) { }
-
+    getProducts():Observable<any>{
+      const finalUrl=`${this.urlEndpoint}/`;
+      return new Observable((obs)=>{
+        this.httpClient.get(finalUrl)
+        .subscribe({
+          next: (res) => {
+            // this.router.navigate([`/products/${id}`]);
+            obs.next(res);
+            obs.complete();
+          },
+          error: (error) => {
+            // Swal.fire('¡Lo siento!', error,'error');
+            obs.error(error);
+            obs.complete();
+          }
+        })
+      })
+    }
   getProductsByCategory(id:number):Observable<any>{
-    const finalUrl=`localhost:8080/products/categories/${id}`;
+    const finalUrl=`${this.urlEndpoint}/categories/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
@@ -36,7 +53,7 @@ export class ProductsService {
   }
 
   postProducts(product:any):Observable<any>{
-    const finalUrl='localhost:8080/products';
+    const finalUrl= `${this.urlEndpoint}/`;
 
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl, product).subscribe({
@@ -55,7 +72,7 @@ export class ProductsService {
   }
 
   getProductById(id:number):Observable<any>{
-    const finalUrl=`localhost:8080/products/${id}`;
+    const finalUrl=`${this.urlEndpoint}/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
