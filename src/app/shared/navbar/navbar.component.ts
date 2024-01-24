@@ -14,6 +14,8 @@ import * as SearchActions from './store/search.actions'
 export class NavbarComponent implements OnInit {
   isLogin: boolean = false;
   isAdmin:boolean = false;
+  isSearch:boolean = false;
+  isMenu:boolean = false;
   searchForm:FormGroup;
   categories:any[]=[
     {
@@ -59,7 +61,22 @@ export class NavbarComponent implements OnInit {
     })    
     this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
   }
-
+  selectSearch():boolean{
+    this.isSearch = !this.isSearch;
+    return this.isSearch;
+  }
+  selectMenu():boolean{
+    this.isMenu = !this.isMenu;
+    return this.isMenu;
+  }
+  register(){
+    this.isMenu = false;
+    this.router.navigate(['/register']);
+  }
+  login(){
+    this.isMenu = false;
+    this.router.navigate(['/login']);
+  }
   // logout() {
   //   const username = this.authService.usuario.username;
   //   this.authService.logout();
