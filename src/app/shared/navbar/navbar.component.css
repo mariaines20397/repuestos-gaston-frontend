@@ -108,8 +108,7 @@ nav{
         display: none;
     }
     .form-mobile{
-        margin: auto;
-        margin-top: 5%;
+        padding: 5%;
     }
     .buscador{
         width: 100%;
