@@ -1,10 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-body{
+
+body, html{
     font-family: 'Proxima Nova,-apple-system','Roboto',Arial,sans-serif;
     background: #ebebeb;
     color: rgba(0, 0, 0, 0.799);
-    height: 100%;
-    /* width: 95%; */
+    max-width: auto;
+    max-height: auto;
+     box-sizing: border-box;
+   overflow: auto;
 }
 .alert{
     padding: 0.5rem;

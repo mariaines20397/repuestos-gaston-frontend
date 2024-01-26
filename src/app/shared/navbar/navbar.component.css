@@ -1,7 +1,8 @@
 nav{
     background: linear-gradient(#f78166, #efc068);
+    /* max-width: auto; */
 }
-.logo-login{
+/* .logo-login{
     width: 15vw;
     height: 10vh;
 }
@@ -70,8 +71,94 @@ nav{
   }
   .open-menu-mobile{
     display: none;
+  } */
+  /*Web and Tablet*/
+  @media (min-width: 750px) {
+    .logo-login{
+        width: 15vw;
+        height: 10vh;
+    }
+    .logo-login-mobile{
+        display: none;
+    }
+    .lupa-mobile{
+        display: none;
+    }
+    .iconos-mobile{
+        display: none;
+    }
+    .navbar-brand{
+        width: 20vw;
+    }
+    .boxs{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .boxSearch{
+        display: flex;
+        width: 70vw;
+        height: 8vh;
+        padding-left: 20px;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .buscador{
+        width: 40vw;
+        height: 7vh;
+        border: none;
+    }
+    .buscador:focus{
+        padding-left: 10px;
+    
+    }
+    
+    .buscador::placeholder{
+        padding-left: 10px;
+        color: rgb(128, 125, 125);
+    }
+    .search{
+        display: flex;
+        background: white;
+    }
+    .lupa{
+        border-left: 1px solid lightgrey;
+        border-radius: 0;
+    }
+    .boxCategorias{
+        display: flex;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+        width: 95vw;
+        justify-content: space-between;
+    }
+    .nav-link{
+        color: rgba(0, 0, 0, 0.799);
+    }
+    .nav-link{
+        display: flex;
+        width: 100%;
+    justify-content: center;
+    align-items: center;
+    }
+    .navbar-nav{
+        flex-direction: row;
+        width: 40vw;
+    justify-content: space-between;
+    }
+    .dropdown-menu {
+        color: black;
+        font-size: 15px;
+      }
+      .open-menu-mobile{
+        display: none;
+      }
   }
-  @media (max-width: 1000px) {
+  /*Mobile*/
+  @media (max-width: 750px) {
     /* nav{
         max-width: 100%;
     } */
@@ -91,11 +178,12 @@ nav{
     .boxSearch{
         width: 100%;
         padding-left: 0;
+        display: flex;
+        justify-content: space-between;
     }
     .iconos-mobile{
         display: flex;
-        /* width: 20%; */
-        justify-content: space-between;
+        width: 30%;
     }
     .navbar-brand{
         width: 45%;
@@ -125,7 +213,7 @@ nav{
         background: #ebebeb;
         color: rgba(0, 0, 0, 0.799);
          z-index: 2;
-         width: 84%;
+         width: 100vw;
          height: auto;
         display: flex;
         flex-direction: column;

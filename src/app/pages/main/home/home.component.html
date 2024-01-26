@@ -1,6 +1,13 @@
 <!-- <body> -->
-<ngb-carousel class="carousel">
-  <ng-template *ngFor="let img of carousel" ngbSlide>
+<ngb-carousel class="carouselDesktop">
+  <ng-template *ngFor="let img of carousel" ngbSlide class="carousel-desktop">
+    <div class="picsum-img-wrapper">
+      <img src="{{ img }}" alt="Random first slide" />
+    </div>
+  </ng-template>
+</ngb-carousel>
+<ngb-carousel class="carouselMobile">
+  <ng-template *ngFor="let img of carouselMobile" ngbSlide class="carousel-mobile">
     <div class="picsum-img-wrapper">
       <img src="{{ img }}" alt="Random first slide" />
     </div>
