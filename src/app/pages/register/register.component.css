@@ -6,12 +6,9 @@
     overflow-y: auto;
 }
 .card{
-    /* display: flex;
-    flex-direction: column; */
     margin: 5vh 0vw;
     position: relative;
     width: 28rem;
-    /* overflow: auto; */
     height:115vh;
     max-height: 200vh;
     padding: 3vh 4vw;
@@ -40,4 +37,11 @@ h4{
 }
 .btn-register{
     margin: 5vh 0vw 2vh;
+}
+
+/*Mobile*/
+@media (max-width: 750px) {
+.card{
+    margin: 5vh 3vw;
+}
 }
