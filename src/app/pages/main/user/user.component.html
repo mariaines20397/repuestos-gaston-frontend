@@ -22,7 +22,7 @@
   </button>
   </div>
   <div
-    class="card mb-3"
+    class="card mb-3 desktop"
     style="max-width: 540px"
   >
     <div class="row no-gutters row-line">
@@ -68,4 +68,53 @@
       </div>
     </div>
   </div>
+
+  <div
+    class="card mb-3 mobile"
+    style="max-width: 540px"
+  >
+    <div>
+      <div class="col-md-3 card-text-title">
+        <p class="card-text">Usuario</p>
+      </div>
+      <div class="col-md-8 card-text">
+        <div class="card-body">
+          <p class="card-text">{{ data.usuario }}</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-md-3 card-text-title">
+        <p class="card-text">E-mail</p>
+      </div>
+      <div class="col-md-8 card-text">
+        <div class="card-body">
+          <p class="card-text">{{ data.email }}</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-md-3 card-text-title">
+        <p class="card-text">Teléfono</p>
+      </div>
+      <div class="col-md-8 card-text">
+        <div class="card-body">
+          <p class="card-text">{{ data.telefono }}</p>
+          <p class="card-text" *ngIf="data.telefono == null"></p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-md-3 card-text-title">
+        <p class="card-text">Documento</p>
+      </div>
+      <div class="col-md-8 card-text">
+        <div class="card-body">
+          <p class="card-text">{{ data.documento }}</p>
+          <p class="card-text" *ngIf="data.documento == null"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </div>

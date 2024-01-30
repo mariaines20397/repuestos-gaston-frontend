@@ -1,23 +1,50 @@
 .productos{
-    margin-top: 5%;
-    margin-right: 5%;
-    margin-left: 5%;
+    margin: 5%;
 }
 h3{
-    padding-bottom: 15px;
+    text-align: center;
 }
-.login-register{
+/* .login-register{
     display: flex;
     justify-content: end;
     align-items: center;
     margin-top: 2%;
-}
+}*/
 .login-register a{
     padding-right: 30px;
     cursor: pointer;
+} 
+.login-register{
+    display: flex;
+align-items: center;
+justify-content: end;
+margin-top: 2%;
+width: 90%;
+margin-bottom: 2%;
 }
-.inputsText{
+.validatorText{
+    font-size: 15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+/* .inputsText{
     margin-top: 1.5%;
+} */
+.inputsText{
+    height: 18vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 90%;
+    margin: auto;
+}
+.inputsText span{
+    font-weight: 600;
+    font-size: 18px;
+}
+.inputsText input{
+    font-size: 20px;
+    border: 0.2px solid rgba(60, 58, 58, 0.585);
 }
 .form-container{
     max-height: 400px; 
@@ -28,4 +55,78 @@ h3{
 }
 .imagen{
     width: 100%;
+}
+/*Tablet*/
+@media (min-width: 750px) and (max-width: 1100px){
+    h3{
+        text-align: center;
+    }
+    .inputsText{
+        height: 18vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 90%;
+    margin: auto;
+    }
+    .inputsText span{
+        font-weight: 600;
+        font-size: 18px;
+    }
+    .inputsText input{
+        font-size: 20px;
+        border: 0.2px solid rgba(60, 58, 58, 0.585);
+    }
+    .login-register{
+        display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-top: 5%;
+    width: 90%;
+    margin-bottom: 5%;
+    }
+    .validatorText{
+        font-size: 15px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+}
+/*Mobile*/
+@media (max-width: 750px) {
+    .form-container{
+        max-height: 500px; 
+        overflow-y: auto; 
+    }
+    h3{
+        text-align: center;
+    }
+    .inputsText{
+        height: 15vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 90%;
+    margin: auto;
+    }
+    .inputsText span{
+        font-weight: 600;
+        font-size: 16px;
+    }
+    .inputsText input{
+        font-size: 18px;
+        border: 0.2px solid rgba(60, 58, 58, 0.585);
+    }
+    .login-register{
+        display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-top: 5%;
+    width: 90%;
+    margin-bottom: 5%;
+    }
+    .validatorText{
+        font-size: 15px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
 }

@@ -1,6 +1,12 @@
 .profile{
     background: #ebebeb;
 }
+.mobile{
+    display: none;
+}
+.desktop{
+    display: block;
+}
 .card-img{
     width: 80%;
     height: 80%;
@@ -43,4 +49,59 @@
 }
 .title h5{
     font-weight: 700;
+}
+/*Tablet*/
+@media (min-width: 750px) and (max-width: 1100px){
+    .mobile{
+        display: none;
+    }
+    .desktop{
+        display: block;
+    }
+}
+/*Mobile*/
+@media (max-width: 750px) {
+    .profile{
+        margin: 20px;
+    }
+    .card-title{
+        text-align: center;
+        font-weight: 700;
+    }
+    .title{
+        margin: auto;
+        width: 100%;
+        padding-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .title h5{
+        font-weight: 700;
+        margin: 0;
+    }
+    .card-text-title {
+        background: lightgray;
+        font-weight: 600;
+        height: 5vh;
+        margin: 5px;
+    }
+    .card-body {
+        width: 70%;
+    }
+    .card-body p{
+        color: black;
+
+    }
+    .card-text{
+        display: flex;
+        align-items: center;
+    }
+    .desktop{
+        display: none;
+    }
+    .mobile{
+        display: block;
+    }
+
 }

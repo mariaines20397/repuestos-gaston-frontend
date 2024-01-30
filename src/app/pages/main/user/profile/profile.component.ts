@@ -15,8 +15,9 @@ export class ProfileComponent implements OnInit{
   datosUsuario:any[]=[
     {
       id:1,
-      name:'María Inés Toledo',
-      usuario:'mariainestoledo',
+      name:'María Inés',
+      surname:'Toledo',
+      username:'mariainestoledo',
       email:'mariainestoledo20397@gmail.com',
       telefono:3804590089,
       documento:39905178
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit{
      this.userForm = this.formBuilder.group({
       name: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       surname: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+      username: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       dni: new FormControl(null, [Validators.required]),
       birthday: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required]),
@@ -56,6 +58,7 @@ export class ProfileComponent implements OnInit{
       surname,
       dni,
       birthday,
+      username,
       password,
       address
     } = this.userForm.value
@@ -64,6 +67,7 @@ export class ProfileComponent implements OnInit{
       surname,
       dni,
       birthday,
+      username,
       password,
       address
     }
@@ -78,15 +82,17 @@ export class ProfileComponent implements OnInit{
         const {
           name,
           surname,
+          username,
           dni,
           birthday,
           password,
           address
         } = user
-        this.nombreUsuario=name!;
+        this.nombreUsuario=`${name} ${surname}`!;
         this.userForm.patchValue({
           name,
           surname,
+          username,
           dni,
           birthday,
           password,

@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <div class="agregarProducto">
-                <h3 class="card-title">Editar datos personales de {{nombreUsuario}}</h3>
+                <h3 class="card-title">Editar datos personales de <b>{{nombreUsuario}}</b></h3>
             </div>
            <div class="form-container">
             <form action="" [formGroup]="userForm">
@@ -28,6 +28,24 @@
                     </div>
                 </div>
                 <div class="inputsText">
+                    <span class="title-input">Nombre de usuario</span>
+                <input class="text-input form-control" formControlName="username" type="text" name="" id="">
+                <div *ngIf="userForm.controls['username'].errors && userForm.get('username')?.touched">
+                    <div class="validatorText" *ngIf="userForm.get('username')?.hasError('required')">
+                        <span>Este campo es requerido.</span>
+                    </div>
+                </div>
+                </div>
+                <div class="inputsText">
+                    <span class="title-input">Contraseña</span>
+                <input class="text-input form-control" formControlName="password" type="password" name="" id="">
+                <div *ngIf="userForm.controls['password'].errors && userForm.get('password')?.touched">
+                    <div class="validatorText" *ngIf="userForm.get('password')?.hasError('required')">
+                        <span>Este campo es requerido.</span>
+                    </div>
+                </div>
+                </div>
+                <div class="inputsText">
                     <span class="title-input">DNI (sin puntos)</span>
                 <input class="text-input form-control" formControlName="dni" type="number" name="" id="">
                 <div *ngIf="userForm.controls['dni'].errors && userForm.get('dni')?.touched">
@@ -46,15 +64,6 @@
                 </div>
                 </div>
                 <div class="inputsText">
-                    <span class="title-input">Contraseña</span>
-                <input class="text-input form-control" formControlName="password" type="text" name="" id="">
-                <div *ngIf="userForm.controls['password'].errors && userForm.get('password')?.touched">
-                    <div class="validatorText" *ngIf="userForm.get('password')?.hasError('required')">
-                        <span>Este campo es requerido.</span>
-                    </div>
-                </div>
-                </div>
-                <div class="inputsText">
                     <span class="title-input">Dirección</span>
                 <input class="text-input form-control" formControlName="address" type="text" name="" id="">
                 <div *ngIf="userForm.controls['address'].errors && userForm.get('address')?.touched">
@@ -65,12 +74,14 @@
                 </div>
                 
             </form>
+            <div class="login-register">
+                <a (click)="cancelar(userId)">Volver</a>
+                <button class="btn btn-primary btn-login" [disabled]="userForm.invalid" (click)="editar(userId)">
+                        Guardar usuario</button>
+            </div>
            </div>
             </div>
+            
         </div>
-        <div class="login-register">
-            <a (click)="cancelar(userId)">Volver</a>
-            <button class="btn btn-primary btn-login" [disabled]="userForm.invalid" (click)="editar(userId)">
-                    Guardar usuario</button>
-        </div>
+        
 </div>
