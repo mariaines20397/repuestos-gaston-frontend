@@ -1,95 +1,322 @@
 *{
     background: #ebebeb;
 }
-.carousel{
-    height: 60vh;
+ngb-pagination{
     width: 100%;
 }
-.carousel img{
-    height: 60vh;
-    width: 100%;
+ngb-pagination ::ng-deep ul > li:not(.active) > a {
+    background: rgb(208, 206, 206);
+  color: black;
+  border: 1px solid black;
 }
 
-.formasPago{
+ngb-pagination ::ng-deep ul > li.active > a {
+  background-color: black !important;
+  color: white;
+  border-color: black !important;
+}
+
+ngb-pagination ::ng-deep ul > li {
+  a {
     display: flex;
-    width: 60vw;
     justify-content: center;
     align-items: center;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding-left: 20px;
-    border-radius: 5px;
-    background: white;
+    font-family: 'Proxima Nova,-apple-system','Roboto',Arial,sans-serif;
+  }
+  &:first-child a {
+    border-top-left-radius: 16px !important;
+    border-bottom-left-radius: 16px !important;
+  }
+  &:last-child a {
+    border-top-right-radius: 16px !important;
+    border-bottom-right-radius: 16px !important;
+  }
 }
-.formasPago .card{
-    flex-direction: row;
-    align-items: center;
-    border: none;
-    background: white;
-    height: 15vh;
-    width: 20vw;
-}
-.formasPago .card-img{
-    background: white;
-
-}
-.formasPago .card-body{
-    background: white;
+/*Web*/
+@media (min-width: 1100px){
+    .carouselDesktop{
+        display: block;
+        height: 60vh;
+        width: 100%;
+    }
+    .carouselDesktop img{
+        display: block;
+        height: 60vh;
+        width: 100%;
+    }
+    .carousel-desktop{
+        display: block;
+    }
+    .carouselMobile{
+        display: none;
+    }
+    .carouselMobile img{
+        display: none;
+    }
+    .carousel-mobile{
+        display: none;
+    }
+    .formasPago{
+        display: flex;
+        width: 80vw;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding-left: 20px;
+        border-radius: 5px;
+        background: white;
+    }
+    .formasPago .card{
+        flex-direction: row;
+        align-items: center;
+        border: none;
+        background: white;
+        height: 15vh;
+        width: 30vw;
+    }
+    .formasPago .card-img{
+        background: white;
     
+    }
+    .formasPago .card-body{
+        background: white;
+        
+    }
+    .formasPago .card-text{
+        background: white;
+    }
+    .productos{
+        display: grid;
+        justify-content: space-around;
+        grid-template-columns: repeat(3,20%);
+        grid-row-gap: 5%;
+        justify-items: center;
+        align-items: center;
+    }
+    .productos .card{
+        border: none;
+        transition: transform 0.3s ease;
+    }
+    .productos .card:hover{
+        cursor: pointer;
+        transform: scale(1.06);
+    }
+    .productos .card-img-top{
+        background: white;
+    }
+    .productos .card-body{
+        border-top: 1px solid lightgray;
+        background: white;
+    }
+    .productos .card-title{
+        font-weight: 600;
+        font-size: 20px;
+        background: white;
+    }
+    .productos .card-subtitle{
+        background: white;
+    }
+    .productos .card-text{
+        font-weight: 600;
+        font-size: 20px;
+        background: white;
+    }
+    .card a{
+        text-decoration: none;
+        color: black;
+    }
+    p{
+        font-size: 16px;
+    }
+    h5{
+        font-size: 16px;
+    }
+    h6{
+        font-size: 14px;
+    }
 }
-.formasPago .card-text{
-    background: white;
+/*Tablet*/
+@media (min-width: 750px) and (max-width: 1100px){
+    .carouselDesktop{
+        display: block;
+        height: 60vh;
+        width: 100%;
+    }
+    .carouselDesktop img{
+        display: block;
+        height: 60vh;
+        width: 100%;
+    }
+    .carousel-desktop{
+        display: block;
+    }
+    .carouselMobile{
+        display: none;
+    }
+    .carouselMobile img{
+        display: none;
+    }
+    .carousel-mobile{
+        display: none;
+    }
+    .formasPago{
+        display: flex;
+        width: 80vw;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding-left: 20px;
+        border-radius: 5px;
+        background: white;
+    }
+    .formasPago .card{
+        flex-direction: row;
+        align-items: center;
+        border: none;
+        background: white;
+        height: 15vh;
+        width: 30vw;
+    }
+    .formasPago .card-img{
+        background: white;
+    
+    }
+    .formasPago .card-body{
+        background: white;
+        
+    }
+    .formasPago .card-text{
+        background: white;
+    }
+    .productos{
+        display: grid;
+        justify-content: space-around;
+        grid-template-columns: repeat(2,20%);
+        grid-row-gap: 5%;
+        justify-items: center;
+        align-items: center;
+    }
+    .productos .card{
+        border: none;
+        transition: transform 0.3s ease;
+    }
+    .productos .card:hover{
+        cursor: pointer;
+        transform: scale(1.06);
+    }
+    .productos .card-img-top{
+        background: white;
+    }
+    .productos .card-body{
+        border-top: 1px solid lightgray;
+        background: white;
+    }
+    .productos .card-title{
+        font-weight: 600;
+        font-size: 20px;
+        background: white;
+    }
+    .productos .card-subtitle{
+        background: white;
+    }
+    .productos .card-text{
+        font-weight: 600;
+        font-size: 20px;
+        background: white;
+    }
+    .card a{
+        text-decoration: none;
+        color: black;
+    }
+    p{
+        font-size: 16px;
+    }
+    h5{
+        font-size: 16px;
+    }
+    h6{
+        font-size: 14px;
+    }
 }
-.productos{
-    display: grid;
-    justify-content: space-around;
-    grid-template-columns: repeat(3,20%);
-    /* grid-template-rows: 40%; */
-    grid-row-gap: 5%;
-    justify-items: center;
-    align-items: center;
-    /* min-height: 100vh; */
-}
-.productos .card{
-    border: none;
-    transition: transform 0.3s ease;
-    /* margin-bottom: 20px; */
-}
-.productos .card:hover{
-    cursor: pointer;
-    transform: scale(1.06);
-}
-.productos .card-img-top{
-    background: white;
-}
-.productos .card-body{
-    border-top: 1px solid lightgray;
-    background: white;
-}
-.productos .card-title{
-    font-weight: 600;
-    font-size: 20px;
-    background: white;
-}
-.productos .card-subtitle{
-    background: white;
-}
-.productos .card-text{
-    font-weight: 600;
-    font-size: 20px;
-    background: white;
-}
-.card a{
-    text-decoration: none;
-    color: black;
-}
-p{
-    font-size: 16px;
-}
-h5{
-    font-size: 16px;
-}
-h6{
-    font-size: 14px;
+/*Mobile*/
+@media (max-width: 750px) {
+    .carouselDesktop{
+        display: none;
+    }
+    .carouselDesktop img{
+        display: none;
+    }
+    .carousel-desktop{
+        display: none;
+    }
+    .carousel-mobile{
+        display: block;
+    }
+    .carouselMobile{
+        display: block;
+        height: 100vh;
+    width: 100%;
+    }
+    .carouselMobile img{
+        display: block;
+        height: 100vh;
+        width: 100%;
+    }
+    .formasPago{
+        display: none;
+    }
+    .productos{
+        display: grid;
+        justify-content: space-around;
+        grid-template-columns: repeat(1,80%);
+        grid-row-gap: 3%;
+        justify-items: center;
+        align-items: center;
+        margin-top: 6%;
+    }
+    .productos .card{
+        border: none;
+        transition: transform 0.3s ease;
+    }
+    .productos .card:hover{
+        cursor: pointer;
+        transform: scale(1.06);
+    }
+    .productos .card-img-top{
+        background: white;
+    }
+    .productos .card-body{
+        border-top: 1px solid lightgray;
+        background: white;
+    }
+    .productos .card-title{
+        font-weight: 600;
+        font-size: 20px;
+        background: white;
+    }
+    .productos .card-subtitle{
+        background: white;
+    }
+    .productos .card-text{
+        font-weight: 600;
+        font-size: 20px;
+        background: white;
+    }
+    .card a{
+        text-decoration: none;
+        color: black;
+    }
+    p{
+        font-size: 16px;
+    }
+    h5{
+        font-size: 16px;
+    }
+    h6{
+        font-size: 14px;
+    }
 }

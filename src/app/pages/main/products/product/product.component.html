@@ -1,17 +1,75 @@
 <div class="product">
   <div class="card">
     <div class="columns">
-      <div class="divImg">
-        <img
-          src="./assets/img/productos/motul.png"
-          class="card-img"
-          alt="Motul"
-        />
-      </div>
+      
+      <div class="imgDescription">
+        <div class="imgCardActions">
+          <div class="divImg">
+         <img
+           src="./assets/img/productos/motul.png"
+           class="card-img"
+           alt="Motul"
+         />
+       </div>
+       <div class="cardActions">
+         <div class="card-body">
+           <h4 class="card-title"><b>{{title}}</b></h4>
+           <h3 class="card-title">${{price}}</h3>
+         </div>
+         <div class="divActions">
+           <h6 *ngIf="stock > 0" class="card-title isStock"><b>Stock disponible</b></h6>
+           <h6 *ngIf="stock == 0" class="card-title-stock isNotStock"><b>Lo siento, por el momento no tenemos stock disponible de este producto.</b></h6>
+           <div *ngIf="stock > 0" class="cantidadForm">
+             <form action="" [formGroup]="cantidadForm" class="cantidadTablet">
+               <div class="inputCantidad">
+                 <p>Cantidad</p>
+                 <input
+                 type="number"
+                 class="cantidad"
+                 formControlName="cantidad"
+                 [value]="cantidadForm.get('cantidad')!.value"
+               />
+               <p>unidades</p>
+               </div>
+               
+               <p class="card-text">
+                 <small class="text-muted unidadesStock">({{ stock }} disponibles)</small>
+               </p>
+               
+             </form>
+             
+           </div>
+           <div class="texts" *ngIf="cantidadForm.controls['cantidad'].errors && cantidadForm.get('cantidad')?.touched">
+             <div class="validatorText" *ngIf="cantidadForm.get('cantidad')?.hasError('required')">
+                 <span>Este campo es requerido.</span>
+             </div>
+             <div class="validatorText" *ngIf="cantidadForm.get('cantidad')?.hasError('minValueExceeded')">
+                 <span>La cantidad mínima permitida es 1 unidad.</span>
+             </div>
+             <div class="validatorText" *ngIf="cantidadForm.get('cantidad')?.hasError('maxValueExceeded')">
+               <span>No hay stock suficiente.</span>
+           </div>
+         </div>
+           <div class="divButtons" *ngIf="stock > 0">
+             <button class="btn btn-primary btn-comprar" (click)="comprarAhora()" [disabled]="cantidadForm.invalid">
+               <p>Comprar ahora</p>
+               <img src="./assets/svg/shop.svg" class="img-button" alt="Canasto" />
+             </button>
+             <button class="btn btn-carrito" (click)="agregarCarrito()" [disabled]="cantidadForm.invalid">
+               <p>Agregar al carrito</p>
+               <img
+                 src="./assets/svg/cartPlus.svg"
+                 class="img-button"
+                 alt="Carrito"
+               />
+               
+             </button>
+           </div>
+         </div>
+       </div>
+        </div>
       <div class="divDescription">
         <div class="card-body">
-          <h4 class="card-title"><b>{{title}}</b></h4>
-          <h3 class="card-title">${{price}}</h3>
           <p>Lo que debes saber de este producto</p>
           <li>Aceite de moto de 4T</li>
           <li>Alta densidad</li>
@@ -22,53 +80,9 @@
           <li>Alta densidad</li>
         </div>
       </div>
-      <div class="divActions">
-        <h6 *ngIf="stock > 0" class="card-title"><b>Stock disponible</b></h6>
-        <h6 *ngIf="stock == 0" class="card-title-stock"><b>Lo siento, por el momento no tenemos stock disponible de este producto.</b></h6>
-        <div *ngIf="stock > 0" class="cantidadForm">
-          <p>Cantidad</p>
-          <form action="" [formGroup]="cantidadForm">
-            <input
-              type="number"
-              class="cantidad"
-              formControlName="cantidad"
-              [value]="cantidadForm.get('cantidad')!.value"
-            />
-            <p>unidades</p>
-            <p class="card-text">
-              <small class="text-muted">({{ stock }} disponibles)</small>
-            </p>
-            
-          </form>
-          
-        </div>
-        <div class="texts" *ngIf="cantidadForm.controls['cantidad'].errors && cantidadForm.get('cantidad')?.touched">
-          <div class="validatorText" *ngIf="cantidadForm.get('cantidad')?.hasError('required')">
-              <span>Este campo es requerido.</span>
-          </div>
-          <div class="validatorText" *ngIf="cantidadForm.get('cantidad')?.hasError('minValueExceeded')">
-              <span>La cantidad mínima permitida es 1.</span>
-          </div>
-          <div class="validatorText" *ngIf="cantidadForm.get('cantidad')?.hasError('maxValueExceeded')">
-            <span>No hay stock suficiente.</span>
-        </div>
       </div>
-        <div class="divButtons" *ngIf="stock > 0">
-          <button class="btn btn-primary btn-comprar" (click)="comprarAhora()" [disabled]="cantidadForm.invalid">
-            <p>Comprar ahora</p>
-            <img src="./assets/svg/shop.svg" class="img-button" alt="Canasto" />
-          </button>
-          <button class="btn btn-carrito" (click)="agregarCarrito()" [disabled]="cantidadForm.invalid">
-            <p>Agregar al carrito</p>
-            <img
-              src="./assets/svg/cartPlus.svg"
-              class="img-button"
-              alt="Carrito"
-            />
-            
-          </button>
-        </div>
-      </div>
+     
+      
     </div>
   </div>
 </div>

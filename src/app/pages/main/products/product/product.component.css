@@ -1,102 +1,299 @@
-.product{
-    display: flex;
-    background: #ebebeb;
-    justify-content: center;
-    max-height: 70vh;
-    margin-top: 5%;
-    align-items: center;
-}
-.columns{
-    display: flex;
-    
-}
-.card-img{
-    width: 100%;
-}
-.divImg{
-    
-    width: 30%;
-    display: flex;
-    max-height: 100%;
-    align-items: center;
-}
-.card{
-    max-width: 80%;
-}
-.divActions{
-    width: 35%;
-    padding: 16px;
-}
-.divDescription{
-    width: 35%;
-}
-.cantidad{
-    width: 80px;
-    height: 30px;
-    border: none;
-    text-align: center;
-    border-bottom: 2px solid #ff5b36a4;
-}
-.cantidadForm{
-    display: flex;
-}
-.cantidadForm p{
-    padding: 5px;
-}
-.cantidadForm form{
-    display: flex;
-    width: 100%;
-}
-.divButtons{
-    display: flex;
+/*Web*/
+@media (min-width: 1100px){
+    .imgCardActions{
+        display: flex;
+    }
+    .cardActions{
+        display: flex;
+        flex-direction: column;
+    }
+    .divDescription{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    .card-body{
+        display: flex;
     flex-direction: column;
+    justify-content: center;
+    }
+    .product{
+        display: flex;
+        background: #ebebeb;
+        justify-content: center;
+        margin: 5%;
+        align-items: center;
+    }
+    .cantidadForm{
+        display: flex;
+        margin-top: 3%;
+    }
+    .cantidadTablet{
+        display: flex;
+    }
+    .divActions{
+        padding: 16px;
+        height: 65vh;
+    }
+    .isStock{
+        font-size: 18px;
+        color: green;
+    }
+    .isNotStock{
+        font-size: 18px;
+        color: red;
+    }
+    .inputCantidad{
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .inputCantidad p{
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .unidadesStock{
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+    .inputCantidad input{
+        width: 20%;
+        text-align: center;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .texts{
+        padding-bottom: 10px;
+        padding-top: 10px;
+        width: 80%;
+    }
+    .texts span{
+        font-size: 15px;
+    }
+    .divButtons{
+        display: flex;
+        height: 20vh;
+    justify-content: space-evenly;
+    flex-direction: column;
+    margin-top: 10%;
+    }
+    .divButtons button{
+        display: flex;
+        height: 7vh;
+        width: 90%;
+        justify-content: space-evenly;
+        align-self: center;
+        align-items: center;
+    }
+    .divButtons button p{
+        margin: 0;
+        font-size: 19px;
+        font-weight: 700;
+    }
+    .btn-carrito{
+        color: #1373fa;
+        font-weight: 700;
+        font-size: 19px;
+        background: lightblue;
+    }
+    .btn-comprar{
+        color: #ffffff;
+        background: rgb(26, 103, 128);
+    }
+    .cantidadTablet{
+        flex-direction: column;
+    }
 }
-.btn-comprar{
-    font-weight: 700;
-    font-size: 18px;
-    margin-bottom: 5%;
-}
-.btn-carrito{
-    color: #1373fa;
-    font-weight: 700;
-    font-size: 18px;
-    background: lightblue;
-}
-.img-button{
-    display: none;
-}
-.btn-carrito p{
-    margin-bottom: 0;
-}
-.btn-carrito:hover p{
-    display: none;
-}
-.btn-carrito:hover .img-button{
-    display: inline;
-}
-.btn-comprar p{
-    margin-bottom: 0;
-}
-.btn-comprar:hover p{
-    display: none;
-}
-.btn-comprar:hover .img-button{
-    display: inline;
-}
-.divButtons{
-    margin-left: 15px;
-    margin-right: 15px;
-}
-.texts{
+/*Tablet*/
+@media (min-width: 750px) and (max-width: 1100px){
+    /* .imgDescription{
+        display: flex;
+        justify-content: center;
+    } */
+    .imgCardActions{
+        display: flex;
+    }
+    .cardActions{
+        display: flex;
+        flex-direction: column;
+    }
+    .divDescription{
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 15px;
+    }
+    .card-body{
+        display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-bottom: 0;
+    }
+    .product{
+        display: flex;
+        background: #ebebeb;
+        justify-content: center;
+        margin: 5%;
+        align-items: center;
+    }
+    .cantidadForm{
+        display: flex;
+        margin-top: 3%;
+    }
+    .cantidadTablet{
+        display: flex;        
+    flex-direction: column;
+    }
+    .divActions{
+        padding-left: 16px;
+        padding-right: 16px;
     
-    padding-left: 15px;
-    padding-bottom: 10px;
+    }
+    .isStock{
+        font-size: 18px;
+        color: green;
+    }
+    .isNotStock{
+        font-size: 18px;
+        color: red;
+    }
+    .inputCantidad{
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .inputCantidad p{
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .unidadesStock{
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+    .inputCantidad input{
+        width: 20%;
+        text-align: center;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .texts{
+        padding-bottom: 10px;
+        padding-top: 10px;
+        width: 80%;
+    }
+    .texts span{
+        font-size: 15px;
+    }
+    .divButtons{
+        display: flex;
+        height: 20vh;
+    justify-content: space-evenly;
+    flex-direction: column;
+    }
+    .divButtons button{
+        display: flex;
+        height: 6.5vh;
+        width: 100%;
+        justify-content: space-evenly;
+        align-self: center;
+        align-items: center;
+    }
+    .divButtons button p{
+        margin: 0;
+        font-size: 19px;
+        font-weight: 700;
+    }
+    .btn-carrito{
+        color: #1373fa;
+        font-weight: 700;
+        font-size: 19px;
+        background: lightblue;
+    }
+    .btn-comprar{
+        color: #ffffff;
+        background: rgb(26, 103, 128);
+    }
 }
-.texts span{
-    font-size: 15px;
-}
-.card-title-stock{
-    color: red;
+/*Mobile*/
+@media (max-width: 750px) {
+    .product{
+        display: flex;
+        background: #ebebeb;
+        flex-direction: column;
+        justify-content: center;
+        margin: 5%;
+        align-items: center;
+    }
+    .divActions{
+        padding-left: 16px;
+    padding-right: 16px;
+    }
+    .isStock{
+        font-size: 18px;
+        color: green;
+    }
+    .isNotStock{
+        font-size: 18px;
+        color: red;
+    }
+    .inputCantidad{
+        display: flex;
+        align-items: flex-start;
+    }
+    .inputCantidad p{
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .unidadesStock{
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .inputCantidad input{
+        width: 20%;
+        text-align: center;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .texts{
+        padding-bottom: 10px;
+        width: 80%;
+    margin: auto;
     text-align: center;
-    padding-bottom: 10px;
+    }
+    .texts span{
+        font-size: 18px;
+    }
+    .divButtons{
+        display: flex;
+        flex-direction: column;
+        height: 20vh;
+    justify-content: space-evenly;
+    margin: 5%;
+    }
+    .divButtons button{
+        display: flex;
+        height: 7vh;
+        width: 90%;
+        justify-content: space-evenly;
+        align-self: center;
+        align-items: center;
+    }
+    .divButtons button p{
+        margin: 0;
+        font-size: 19px;
+        font-weight: 700;
+    }
+    .btn-carrito{
+        color: #1373fa;
+        font-weight: 700;
+        font-size: 19px;
+        background: lightblue;
+    }
+    .btn-comprar{
+        color: #ffffff;
+        background: rgb(26, 103, 128);
+    }
 }

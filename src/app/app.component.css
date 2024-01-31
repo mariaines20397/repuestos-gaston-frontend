@@ -1,10 +1,12 @@
+
+/* 
 html, body {
-    height: 100vh;
-    margin: 10%;
-  }
+  height: 100vh;
+  width: 100vw;
+}
   
   .app-container {
-    position: relative; /* Asegura que el .content-container ocupe el espacio correcto */
+    position: relative; 
     min-height: 100vh;
   }
     
@@ -13,7 +15,7 @@ html, body {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 50px; /* Establece la altura del footer */
+    height: 50px; 
   }
   .mobile{
     display: none;
@@ -51,7 +53,7 @@ html, body {
     .router{
       display: none;
     }
-  }
+  } */
 
   /* @media (max-width: 800px) {
     .mobile{

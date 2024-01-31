@@ -22,7 +22,6 @@ export class UserComponent implements OnInit{
                   surname:new FormControl(null),
                   dni:new FormControl(null),
                   birthday:new FormControl(null),
-                  address:new FormControl(null),
                   username:new FormControl(null),
                   email:new FormControl(null),
            });
@@ -43,7 +42,6 @@ export class UserComponent implements OnInit{
       surname: data.surname,
       dni:data.dni,
       birthday: data.birthday,
-      address: data.address,
       username: data.username,
       email: data.email
     })

@@ -1,18 +1,30 @@
-<nav  class="navbar navbar-expand-lg bg-body-tertiary" *ngIf="!isAdmin">
+<nav *ngIf="!isAdmin">
   <div class="container-fluid boxs">
     <div class="boxSearch">
-    <a class="navbar-brand" href="/home"
-      ><img class="logo-login" src="../../../assets/img/logo.png" alt="" srcset=""
-    /></a>
-    <form action="" [formGroup]="searchForm">
-    <div *ngIf="!isLogin" class="search" >
-      <input type="search" class="buscador form-control" formControlName="search" placeholder="Busca productos" name="">
-      <button type="button" class="btn lupa" (click)="search()">
-        <img src="../../../assets/svg/search.svg" alt="" srcset="">
+    <a class="navbar-brand" href="/home">
+      <img class="logo-login" src="../../../assets/img/logo.png" alt="" srcset=""/>
+      <img class="logo-login-mobile" src="../../../assets/img/logo.png" alt="" srcset=""/>
+    </a>
+    <form action="" [formGroup]="searchForm" class="formSearch">
+      <div *ngIf="!isLogin" class="search" >
+        <input type="search" class="buscador form-control" (keydown.enter)="search()" formControlName="search" placeholder="Busca productos" name="">
+        <button type="button" class="btn lupa" (click)="search()">
+          <img src="../../../assets/svg/search.svg" alt="" srcset="">
+        </button>
+  
+      </div>
+    </form>
+    <div class="iconos-mobile">
+      <button class="btn" (click)="selectSearch()">
+        <img class="lupa-mobile" src="../../../assets/svg/search-mobile.svg" alt="" srcset="">
+      </button>
+      <button class="btn" (click)="selectMenu()">
+        <img class="menu-mobile" src="../../../assets/svg/menu.svg" alt="" srcset="">
+        
       </button>
 
     </div>
-  </form>
+    
 </div>
     <div *ngIf="!isLogin" class="collapse navbar-collapse boxCategorias" id="navbarNavDropdown">
       <ul class="navbar-nav">
@@ -33,7 +45,7 @@
         
         
       </ul>
-      <ul class="navbar-nav navbar-right">
+      <ul class="navbar-nav navbar-right" id="navbar-user">
         <!-- *ngIf="!authService.autenticado()" -->
         <li>
           <a class="nav-link" href="/register">Creá tu cuenta</a>
@@ -80,5 +92,58 @@
        </li> -->
      </ul>
     </div>
+  </div>
+  <div class="form-mobile" *ngIf="isSearch">
+    <form action="" [formGroup]="searchForm">
+    <div *ngIf="!isLogin" class="search" >
+      <input type="search" (keydown.enter)="search()" class="buscador form-control" formControlName="search" placeholder="Busca productos" name="">
+      <button type="button" class="btn lupa" (click)="search()">
+        <img src="../../../assets/svg/search.svg" alt="" srcset="">
+      </button>
+
+    </div>
+  </form>
+  </div>
+  <div class="menu" *ngIf="isMenu">
+    <div class="open-menu-mobile" >
+      <div class="buttons-menu-mobile">
+       <button class="btn btn-dark btn-ingreso" (click)="login()">Ingresar</button>
+     <button class="btn btn-outline-dark btn-register" (click)="register()">Registrarse</button>
+     
+   </div>
+   <div class="user-menu-mobile">
+     <ul class="navbar-nav navbar-right navbar-user-mobile">
+      <li class="nav-item dropdown">
+       
+       <a
+         class="nav-link dropdown-toggle"
+         href="#"
+         role="button"
+         data-bs-toggle="dropdown"
+         aria-expanded="false"
+       >
+      
+       <img src="../../../assets/svg/user-mobile.svg" alt="user" class="user" srcset="">
+   <h3>María Inés Toledo</h3>
+       </a>
+       <ul class="dropdown-menu">
+         <li><a class="dropdown-item" href="/users/profile/1">Perfil</a></li>
+         <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+       </ul>
+     </li>
+     </ul>
+ 
+ </div> 
+ <div class="category-mobile">
+  <hr>
+  <h5 class="text-muted">Categorias</h5>
+  <hr>
+  <p *ngFor="let data of categories">
+
+    <a href="/products/categories/{{data.id}}">{{data.name}}</a>
+  </p>
+  
+ </div>
+   </div>
   </div>
 </nav>
