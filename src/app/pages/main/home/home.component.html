@@ -1,4 +1,5 @@
 <!-- <body> -->
+  
 <ngb-carousel class="carouselDesktop">
   <ng-template *ngFor="let img of carousel" ngbSlide class="carousel-desktop">
     <div class="picsum-img-wrapper">
@@ -69,4 +70,6 @@
       </div>
    </div>
   </div>
+  <ngb-pagination [collectionSize]="productos.length" [(page)]="page" [pageSize]="3" size="sm" />
+
 </div>

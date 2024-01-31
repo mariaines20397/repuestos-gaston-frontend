@@ -40,8 +40,7 @@ export class ProfileComponent implements OnInit{
       username: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       dni: new FormControl(null, [Validators.required]),
       birthday: new FormControl(null, [Validators.required]),
-      password: new FormControl(null, [Validators.required]),
-      address: new FormControl(null, [Validators.required])
+      password: new FormControl(null, [Validators.required])
      });
    }
    ngOnInit(): void {
@@ -60,7 +59,7 @@ export class ProfileComponent implements OnInit{
       birthday,
       username,
       password,
-      address
+      
     } = this.userForm.value
     const user={
       name,
@@ -69,7 +68,7 @@ export class ProfileComponent implements OnInit{
       birthday,
       username,
       password,
-      address
+      
     }
     console.log(user);
     
@@ -86,7 +85,7 @@ export class ProfileComponent implements OnInit{
           dni,
           birthday,
           password,
-          address
+          
         } = user
         this.nombreUsuario=`${name} ${surname}`!;
         this.userForm.patchValue({
@@ -96,7 +95,7 @@ export class ProfileComponent implements OnInit{
           dni,
           birthday,
           password,
-          address
+          
         })
       }
     })

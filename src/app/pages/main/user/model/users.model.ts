@@ -4,7 +4,6 @@ export class User{
     surname?:string;
     dni?:number;
     birthday?:string;
-    address?:string;
     username?:string;
     password?:string;
     email?:string;

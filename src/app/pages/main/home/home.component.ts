@@ -5,13 +5,13 @@ import { Product } from '../products/model/product.model';
 import * as HomeActions from './store/home.actions';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
+  page = 1;
   carousel:string[]=[
     './assets/img/carousel/carousel1.png',
     './assets/img/carousel/carousel2.png',
@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit{
   carouselMobile:string[]=[
     './assets/img/carousel/carousel1-mobile.png'
   ]
+  totalProductos: number = 0;
   productos:any[]=[
     {
       id:1,
@@ -73,9 +74,14 @@ export class HomeComponent implements OnInit{
       _config.interval = 4000;
       _config.pauseOnHover = true;
       _config.showNavigationArrows = false;
+      
+      
   }
   ngOnInit(): void {
     this.store.dispatch(HomeActions.loadHome());
+    this.totalProductos = this.productos.length;
+    console.log(this.productos.length);
+
   }
 
   getProduct(id:number){
