@@ -7,7 +7,7 @@
     </a>
     <form action="" [formGroup]="searchForm" class="formSearch">
       <div *ngIf="!isLogin" class="search" >
-        <input type="search" class="buscador form-control" formControlName="search" placeholder="Busca productos" name="">
+        <input type="search" class="buscador form-control" (keydown.enter)="search()" formControlName="search" placeholder="Busca productos" name="">
         <button type="button" class="btn lupa" (click)="search()">
           <img src="../../../assets/svg/search.svg" alt="" srcset="">
         </button>
@@ -96,7 +96,7 @@
   <div class="form-mobile" *ngIf="isSearch">
     <form action="" [formGroup]="searchForm">
     <div *ngIf="!isLogin" class="search" >
-      <input type="search" class="buscador form-control" formControlName="search" placeholder="Busca productos" name="">
+      <input type="search" (keydown.enter)="search()" class="buscador form-control" formControlName="search" placeholder="Busca productos" name="">
       <button type="button" class="btn lupa" (click)="search()">
         <img src="../../../assets/svg/search.svg" alt="" srcset="">
       </button>

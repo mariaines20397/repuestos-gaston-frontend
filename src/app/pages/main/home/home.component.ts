@@ -74,6 +74,7 @@ export class HomeComponent implements OnInit{
       _config.interval = 4000;
       _config.pauseOnHover = true;
       _config.showNavigationArrows = false;
+      _config.showNavigationIndicators = false;
       
       
   }

@@ -92,6 +92,9 @@ nav{
       .open-menu-mobile{
         display: none;
       }
+      .form-mobile{
+        display: none;
+    }
   }
   /*Tablet*/
   @media (min-width: 750px) and (max-width: 1000px) {
@@ -177,6 +180,9 @@ nav{
       .open-menu-mobile{
         display: none;
       }
+      .form-mobile{
+        display: none;
+    }
   }
   /*Mobile*/
   @media (max-width: 750px) {
@@ -211,6 +217,7 @@ nav{
         display: none;
     }
     .form-mobile{
+        display: block;
         padding: 5%;
     }
     .buscador{
