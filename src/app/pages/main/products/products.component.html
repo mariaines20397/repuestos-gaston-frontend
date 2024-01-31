@@ -5,7 +5,7 @@
   </div>
   <div class="productos">
     <div class="card" *ngFor="let data of productosMostrar">
-      <div class="row no-gutters" (click)="productById(data.id)">
+      <div class="card-products" (click)="productById(data.id)">
         <div class="col-md-6 divImg">
           <img src={{data.img}} class="card-img" alt="Imagen de producto">
         </div>
@@ -13,7 +13,7 @@
           <div class="card-body">
             <h2 class="card-title">{{data.name}}</h2>
             <p class="card-text">{{data.descriptions}}</p>
-            <p class="card-text-price">${{data.price}}</p>
+            <p class="card-text-price"><b>${{data.price}}</b></p>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
   </div>
   <div class="productos">
     <div class="card" *ngFor="let data of productosMostrar">
-      <div class="row no-gutters" (click)="productById(data.id)">
+      <div class="card-products" (click)="productById(data.id)">
         <div class="col-md-6 divImg">
           <img src={{data.img}} class="card-img" alt="Imagen de producto">
         </div>
