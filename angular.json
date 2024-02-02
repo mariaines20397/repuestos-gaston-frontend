@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "repuestosGaston-front:build:production"
+              "buildTarget": "repuestosGaston-front:build:production"
             },
             "development": {
-              "browserTarget": "repuestosGaston-front:build:development"
+              "buildTarget": "repuestosGaston-front:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "repuestosGaston-front:build"
+            "buildTarget": "repuestosGaston-front:build"
           }
         },
         "test": {
