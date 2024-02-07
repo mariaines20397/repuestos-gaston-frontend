@@ -14,7 +14,7 @@ export class LoginEffects {
     constructor(
         private actions$: Actions,
         private loginServices: LoginService,
-        // private authService : AuthService,
+        private authService : AuthService,
         private router: Router
     ){}
 
@@ -26,15 +26,9 @@ export class LoginEffects {
             .pipe(
                 map((response)=>{
                     console.log(response.data );
-                    // this.authService.login(response.data).subscribe(res=>{
-                    //     //Con res se obtiene el token
-                    //     console.log(res);
-                    //     this.authService.guardarUsuario(res.access_token);
-                    //     this.authService.guardarToken(res.access_token);
-                    //     let usuario = this.authService.usuario;
-                    //     this.router.navigate(['/home']);
-                    //     Swal.fire('¡Bienvenido!', `Hola ${usuario.username} has iniciado sesión con éxito`, 'success');
-                    //   })
+                    
+                    this.router.navigate(['/home']);
+                    Swal.fire('¡Bienvenido!', `Hola ${response.data.username} has iniciado sesión con éxito`, 'success');
                     return LoginActions.loadLoginSuccess({
                         user:response.data 
                     });

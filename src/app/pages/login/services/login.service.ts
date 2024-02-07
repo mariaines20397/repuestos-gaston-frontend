@@ -8,18 +8,20 @@ import Swal from 'sweetalert2'
   providedIn: 'root'
 })
 export class LoginService {
-
+  private url = 'http://localhost:8080';
   constructor(
     private httpClient: HttpClient,
     private router: Router
   ) { }
 
   postLogin(user:object):Observable<any>{
-    const finalUrl='localhost:8080/login';
+    const finalUrl= `${this.url}/login`;
 
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,user).subscribe({
         next: (res) => {
+          console.log(res);
+          
           this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();

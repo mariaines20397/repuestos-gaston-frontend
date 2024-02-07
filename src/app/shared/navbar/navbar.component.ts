@@ -6,6 +6,9 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import Swal from 'sweetalert2';
 import { Search } from './model/search.model';
 import * as SearchActions from './store/search.actions'
+import { User } from 'src/app/pages/main/user/model/users.model';
+import { Subscription } from 'rxjs';
+import { loadLoginSuccess } from 'src/app/pages/login/store/login.actions';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -31,15 +34,21 @@ export class NavbarComponent implements OnInit {
       name:'Aceites'
     }
   ]
+  private subscriptions = new Subscription();
   constructor(
     private router: Router, 
     private formBuilder: FormBuilder,
-    private store:Store<{ filtrar:Search}>,
-    // public authService: AuthService
+    private store:Store<{ filtrar:Search, login: User}>,
+    public authService: AuthService
     ) {
       this.searchForm = this.formBuilder.group({
         search: new FormControl(null)
       });
+      this.subscriptions.add(
+        this.store
+          .select('login')
+          .subscribe((login) => console.log(login))
+      );
     }
   ngOnInit(): void {
     this.isHome();
@@ -77,14 +86,19 @@ export class NavbarComponent implements OnInit {
     this.isMenu = false;
     this.router.navigate(['/login']);
   }
-  // logout() {
-  //   const username = this.authService.usuario.username;
-  //   this.authService.logout();
-  //   Swal.fire(
-  //     '¡Hasta pronto!',
-  //     `${username} has cerrado sesión con éxito`,
-  //     'success'
-  //   );
-  //   this.router.navigate(['/login']);
-  // }
+  logout() {
+    const username = this.authService.usuario.username;
+    loadLoginSuccess({
+      user:[{
+          jwt:undefined
+      }]
+  });
+    // this.authService.logout();
+    Swal.fire(
+      '¡Hasta pronto!',
+      `${username} has cerrado sesión con éxito`,
+      'success'
+    );
+    this.router.navigate(['/login']);
+  }
 }

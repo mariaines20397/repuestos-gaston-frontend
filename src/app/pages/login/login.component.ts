@@ -52,9 +52,9 @@ export class LoginComponent implements OnInit{
     
     if (this.user.username == this.usuarioPrueba.username &&
       this.user.password == this.usuarioPrueba.password) {
-        
-        this.router.navigate(['/home']);
-        // this.store.dispatch(LoginActions.loadLogin({user:this.user}));
+        // this.user.jwt = 'jwtNuevo'
+        // this.router.navigate(['/home']);
+        this.store.dispatch(LoginActions.loadLogin({user:this.user}));
     }else if(this.user.username == this.adminPrueba.username &&
       this.user.password == this.adminPrueba.password){
         this.router.navigate(['/admin']);

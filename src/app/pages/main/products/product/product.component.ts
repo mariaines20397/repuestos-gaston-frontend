@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../model/product.model';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../store/products.actions';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class ProductComponent implements OnInit{
     private formBuilder: FormBuilder,
     private routeActive: ActivatedRoute,
     private router: Router,
+    private authService: AuthService,
     private store:Store<{ product:Product}>
   ){
     this.cantidadForm = this.formBuilder.group({
@@ -40,11 +42,15 @@ export class ProductComponent implements OnInit{
     this.store.dispatch(ProductActions.loadProductById({id:this.productId}))
   }
   comprarAhora(){
-    // this.router.navigate(['/carrito']);
+    this.authService.autenticado() ?
+    this.router.navigate(['/carrito']):
+    this.router.navigate(['/login']);
   }
   agregarCarrito(){
-    console.log(this.cantidadForm.get('cantidad')!.value);
-    this.router.navigate(['/carrito']);
+    this.authService.autenticado() ?
+    (console.log(this.cantidadForm.get('cantidad')!.value),
+      this.router.navigate(['/carrito'])):
+    this.router.navigate(['/login']);
   }
   maxValueValidator(control: AbstractControl): ValidationErrors | null  {
     if (control.get('cantidad')?.value > this.stock) {
@@ -61,5 +67,4 @@ export class ProductComponent implements OnInit{
 
     return null; 
   }
-
 }

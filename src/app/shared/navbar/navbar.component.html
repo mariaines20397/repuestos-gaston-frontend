@@ -46,14 +46,13 @@
         
       </ul>
       <ul class="navbar-nav navbar-right" id="navbar-user">
-        <!-- *ngIf="!authService.autenticado()" -->
-        <li>
+        <li  *ngIf="authService.autenticado() == false">
           <a class="nav-link" href="/register">Creá tu cuenta</a>
         </li>
-       <li>
+       <li  *ngIf="!!authService.autenticado() == false">
          <a class="nav-link" href="/login">Ingresá</a>
        </li>
-       <li class="nav-item dropdown">
+       <li class="nav-item dropdown"  *ngIf="authService.autenticado()">
         
         <a
           class="nav-link dropdown-toggle"
@@ -67,7 +66,7 @@
         </a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/users/profile/1">Perfil</a></li>
-          <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+          <li><a class="dropdown-item" (click)="logout()">Cerrar Sesión</a></li>
         </ul>
       </li>
        <!-- *ngIf="authService.autenticado()" -->
@@ -106,12 +105,12 @@
   </div>
   <div class="menu" *ngIf="isMenu">
     <div class="open-menu-mobile" >
-      <div class="buttons-menu-mobile">
+      <div class="buttons-menu-mobile" *ngIf="authService.autenticado() == false">
        <button class="btn btn-dark btn-ingreso" (click)="login()">Ingresar</button>
      <button class="btn btn-outline-dark btn-register" (click)="register()">Registrarse</button>
      
    </div>
-   <div class="user-menu-mobile">
+   <div class="user-menu-mobile" *ngIf="authService.autenticado()">
      <ul class="navbar-nav navbar-right navbar-user-mobile">
       <li class="nav-item dropdown">
        

@@ -11,6 +11,7 @@ import { TableSalesComponent } from './table-sales/table-sales.component';
 import { SaleComponent } from './table-sales/sale/sale.component';
 import { CategoryComponent } from './table-categories/category/category.component';
 import { TableCategoriesComponent } from './table-categories/table-categories.component';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -71,7 +72,7 @@ const routes: Routes = [
         component: SaleComponent
       },
       
-    ]
+    ],
   },
 ];
 
