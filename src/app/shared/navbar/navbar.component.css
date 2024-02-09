@@ -3,6 +3,12 @@ nav{
 }
   /*Web*/
   @media (min-width: 1000px){
+    .btn-cart{
+        padding-left: 0;
+    }
+    p{
+        margin: 0;
+    }
     .logo-login{
         width: 15vw;
         height: 10vh;
@@ -98,6 +104,12 @@ nav{
   }
   /*Tablet*/
   @media (min-width: 750px) and (max-width: 1000px) {
+    .btn-cart{
+        padding-left: 0;
+    }
+    p{
+        margin: 0;
+    }
     .logo-login{
         width: 15vw;
         height: 10vh;
@@ -186,6 +198,7 @@ nav{
   }
   /*Mobile*/
   @media (max-width: 750px) {
+
     .logo-login{
         display: none;
     }
@@ -204,7 +217,6 @@ nav{
     }
     .iconos-mobile{
         display: flex;
-        width: 30%;
     }
     .navbar-brand{
         width: 45%;

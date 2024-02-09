@@ -22,21 +22,23 @@
         <img class="menu-mobile" src="../../../assets/svg/menu.svg" alt="" srcset="">
         
       </button>
-
+      <button class="btn btn-cart" (click)="cart()">
+        <img src="../../../assets/svg/cart-min.svg" alt="cart" class="user" srcset=""></button>
+    
     </div>
     
 </div>
     <div *ngIf="!isLogin" class="collapse navbar-collapse boxCategorias" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown nav-menu-item">
           <a
-            class="nav-link dropdown-toggle"
+            class="nav-link dropdown-toggle nav-menu-categoria"
             href="#"
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-          Categorias
+          <p>Categorias</p>
           </a>
           <ul class="dropdown-menu" >
             <li *ngFor="let data of categories"><a class="dropdown-item" href="/products/categories/{{data.id}}">{{data.name}}</a></li>
@@ -45,7 +47,7 @@
         
         
       </ul>
-      <ul class="navbar-nav navbar-right" id="navbar-user">
+      <ul class="navbar-nav navbar-right" id="navbar-user" >
         <!-- *ngIf="!authService.autenticado()" -->
         <li>
           <a class="nav-link" href="/register">Creá tu cuenta</a>
@@ -63,13 +65,18 @@
           aria-expanded="false"
         >
         <img src="../../../assets/svg/user.svg" alt="user" class="user" srcset="">
-        María Inés
+        <p>María Inés</p>
         </a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/users/profile/1">Perfil</a></li>
           <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
         </ul>
       </li>
+<li>
+  <button class="btn btn-cart" (click)="cart()">
+    <img src="../../../assets/svg/cart.svg" alt="cart" class="user" srcset=""></button>
+
+</li>
        <!-- *ngIf="authService.autenticado()" -->
        <!-- <li class="dropdown" >
          <a
@@ -91,6 +98,8 @@
          </div>
        </li> -->
      </ul>
+     
+
     </div>
   </div>
   <div class="form-mobile" *ngIf="isSearch">
