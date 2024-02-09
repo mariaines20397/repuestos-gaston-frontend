@@ -1,59 +1,85 @@
-<div class="carrito">
-  <div class="product">
-    <div class="card">
-      <div class="card-header">
-       <h5> <b>Productos</b></h5>
-      </div>
-      <div class="row card-body" *ngFor="let product of listProducts">
-        <div class="divImg">
-          <img
-            src="{{product.img}}"
-            class="card-img"
-            alt={{product.name}}
-          />
-        </div>
-        <div class="divDescription">
-          <div class="card-body">
-            <h6 class="card-title"><b>{{product.name}}</b></h6>
-          </div>
-        </div>
-        <div class="divActions">
-          <div class="cantidadForm">
-            <div class="divSumCantidad">
-              <form action="" [formGroup]="carritoForm">
-                <div class="minusPlus">
-                  <button class="btn" (click)="resta()" [disabled]="restaDisabled">
-                    <img src="./assets/svg/minus.svg" alt="Menos" srcset="" />
-                  </button>
-                  <input
-                    type="number"
-                    class="cantidad"
-                    formControlName="cantidad"
-                    [value]="carritoForm.get('cantidad')!.value"
-                  />
-                  
-                  <button class="btn" (click)="suma()" [disabled]="sumaDisabled">
-                    <img src="./assets/svg/plus.svg" alt="Menos" srcset="" />
-                  </button>
-                </div>
+<div class="carritoTablet" *ngIf="listProducts.length > 0">
+  <div class="titleCarrito">
+    <h3>Carrito</h3>
+    <!-- <button class="btn"  ngbTooltip="Limpiar carrito">
+      <img src="../../../assets/svg/cartClean-min.svg" alt="user" class="user" srcset="">
+    </button> -->
 
-                <div class="stock">
-                  <p class="card-text">
-                    <small class="text-muted">{{product.stock}} stock disponibles</small>
-                  </p>
+    <a (click)="clean()">Limpiar carrito</a>
+  </div>
+  <div class="product">
+    <div class="card" *ngFor="let product of listProducts">
+      <!-- <div class="card-header">
+       <h5> <b>Productos</b></h5>
+      </div> -->
+      <div class="trash" >
+        <img src="../../../assets/svg/trash-min.svg" (click)="deleteProduct(product)" placement="top" ngbTooltip="Eliminar producto del carrito" alt="user" class="user" srcset="">
+
+      </div>
+      <div class="carritoProducts" >
+        <div class="row card-body" >
+          <div class="infoPrice">
+            <div class="infoProduct">
+              <div class="divImg">
+                <img
+                  src="{{product.img}}"
+                  class="card-img"
+                  alt={{product.name}}
+                />
+              </div>
+              <div class="divDescription">
+                <div class="card-body">
+                  <h4 class="card-title"><b>{{product.name}}</b></h4>
                 </div>
-                
-              </form>
-              <div class="texts" *ngIf="carritoForm.controls['cantidad'].errors && carritoForm.get('cantidad')?.touched">
-                <div class="validatorText" *ngIf="carritoForm.get('cantidad')?.hasError('required')">
-                    <span>Este campo es requerido</span>
+              </div>
+            </div>           
+                <div class="divSumCantidad">
+                  <form action="" [formGroup]="carritoForm">
+                    <div class="minusPlus">
+                      <button class="btn" (click)="resta()" [disabled]="restaDisabled">
+                        <img src="./assets/svg/minus.svg" alt="Menos" srcset="" />
+                      </button>
+                      <input
+                        type="number"
+                        class="cantidad"
+                        formControlName="cantidad"
+                      />
+                      
+                      <button class="btn" (click)="suma()" [disabled]="sumaDisabled">
+                        <img src="./assets/svg/plus.svg" alt="Menos" srcset="" />
+                      </button>
+                    </div>
+    
+                    <div class="stock">
+                      <p class="card-text">
+                        <small class="text-muted">{{product.stock}} stock disponibles</small>
+                      </p>
+                    </div>
+                    
+                  </form>
+                  <div class="texts" *ngIf="carritoForm.controls['cantidad'].errors && carritoForm.get('cantidad')?.touched">
+                    <div class="validatorText" *ngIf="carritoForm.get('cantidad')?.hasError('required')">
+                        <span>Este campo es requerido</span>
+                    </div>
+                    <div class="validatorText" *ngIf="carritoForm.get('cantidad')?.hasError('minValueExceeded')">
+                      <span>La cantidad mínima permitida es 1 unidad.</span>
+                  </div>
+                  <div class="validatorText" *ngIf="carritoForm.get('cantidad')?.hasError('maxValueExceeded')">
+                    <span>No hay stock suficiente.</span>
                 </div>
                 </div>
-            </div>
+              </div>
+            
           </div>
+          
         </div>
-        <div class="card-body-price">
-          <h3 class="card-title">${{carritoForm.get('subtotal')!.value}}</h3>
+        <div class="card-footer subtotal">
+          <div class="title">
+            <h3><b>Subtotal</b></h3>
+          </div>
+          <div class="card-body-price">
+            <h3 class="card-title"><b>${{carritoForm.get('subtotal')!.value}}</b></h3>
+          </div>
         </div>
       </div>
     </div>
@@ -62,14 +88,9 @@
   
   <div class="productTotal">
     <div class="card">
-      <div class="row monto">
-        <div class="totalTitle">
-          <h4 class="card-title"><b>Total</b></h4>
-        </div>
-        <div class="totalMonto">
-          <h4 class="card-title"><b>${{carritoForm.get('total')!.value}}</b></h4>
-        </div>
-      </div>
+          <h2 class="card-title"><b>Total</b></h2>
+          <h2 class="card-title"><b>${{carritoForm.get('total')!.value}}</b></h2>
+        
     </div>
   </div>
   <div class="finalizar">
@@ -77,7 +98,123 @@
       Continuar compra
     </button> -->
     <button class="btn btn-primary btn-finalizarCompra" [disabled]="carritoForm.invalid">
-      <p>Continuar compra</p>      
+      Continuar compra 
+    </button>
+  </div>
+  
+</div>
+<div class="carritoMobile" *ngIf="listProducts.length > 0">
+  <div class="titleCarrito">
+    <h3>Carrito</h3>
+    <!-- <button class="btn"  ngbTooltip="Limpiar carrito">
+      <img src="../../../assets/svg/cartClean-min.svg" alt="user" class="user" srcset="">
+    </button> -->
+
+    <a (click)="clean()">Limpiar carrito</a>
+  </div>
+  <div class="product" *ngIf="listProducts.length > 0">
+    <div class="card" *ngFor="let product of listProducts">
+      <!-- <div class="card-header">
+       <h5> <b>Productos</b></h5>
+      </div> -->
+      <div class="trash">
+        <img src="../../../assets/svg/trash-min.svg" (click)="deleteProduct(product)" alt="user" class="user" srcset="">
+
+      </div>
+      <div class="carritoProducts" >
+        <div class="row card-body" >
+          <div class="infoPrice">
+            <div class="infoProduct">
+              <div class="divImg">
+                <img
+                  src="{{product.img}}"
+                  class="card-img"
+                  alt={{product.name}}
+                />
+              </div>
+              <div class="divDescription">
+                <div class="card-body">
+                  <h6 class="card-title"><b>{{product.name}}</b></h6>
+                </div>
+              </div>
+            </div>           
+                <div class="divSumCantidad">
+                  <form action="" [formGroup]="carritoForm">
+                    <div class="minusPlus">
+                      <button class="btn" (click)="resta()" [disabled]="restaDisabled">
+                        <img src="./assets/svg/minus.svg" alt="Menos" srcset="" />
+                      </button>
+                      <input
+                        type="number"
+                        class="cantidad"
+                        formControlName="cantidad"
+                      />
+                      
+                      <button class="btn" (click)="suma()" [disabled]="sumaDisabled">
+                        <img src="./assets/svg/plus.svg" alt="Menos" srcset="" />
+                      </button>
+                    </div>
+    
+                    <div class="stock">
+                      <p class="card-text">
+                        <small class="text-muted">{{product.stock}} stock disponibles</small>
+                      </p>
+                    </div>
+                    
+                  </form>
+                  <div class="texts" *ngIf="carritoForm.controls['cantidad'].errors && carritoForm.get('cantidad')?.touched">
+                    <div class="validatorText" *ngIf="carritoForm.get('cantidad')?.hasError('required')">
+                        <span>Este campo es requerido</span>
+                    </div>
+                    <div class="validatorText" *ngIf="carritoForm.get('cantidad')?.hasError('minValueExceeded')">
+                      <span>La cantidad mínima permitida es 1 unidad.</span>
+                  </div>
+                  <div class="validatorText" *ngIf="carritoForm.get('cantidad')?.hasError('maxValueExceeded')">
+                    <span>No hay stock suficiente.</span>
+                </div>
+                </div>
+              </div>
+            
+          </div>
+          
+        </div>
+        <div class="card-footer subtotal">
+          <div class="title">
+            <h3><b>Subtotal</b></h3>
+          </div>
+          <div class="card-body-price">
+            <h3 class="card-title"><b>${{carritoForm.get('subtotal')!.value}}</b></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+  </div>
+  
+  <div class="productTotal" *ngIf="listProducts.length > 0">
+    <div class="card">
+          <h2 class="card-title"><b>Total</b></h2>
+          <h2 class="card-title"><b>${{carritoForm.get('total')!.value}}</b></h2>
+        
+    </div>
+  </div>
+  <div class="finalizar" *ngIf="listProducts.length > 0">
+    <!-- <button class="success" [disabled]="carritoForm.invalid">
+      Continuar compra
+    </button> -->
+    <button class="btn btn-primary btn-finalizarCompra" [disabled]="carritoForm.invalid">
+      Continuar compra 
     </button>
   </div>
 </div>
+<div class="notProducts" *ngIf="listProducts.length == 0">
+  <div class="titleCarrito">
+    <h3>Carrito</h3>
+    </div>
+    <div class="message">
+      <div class="imgMessage">
+        <img src="../../../assets/svg/cartClean-min.svg" alt="user" class="user" srcset="">
+      </div>
+        <h4>No hay productos agregados en el carrito</h4>
+    </div>
+  </div>

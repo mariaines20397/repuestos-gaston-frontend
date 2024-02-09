@@ -86,6 +86,9 @@ export class NavbarComponent implements OnInit {
     this.isMenu = false;
     this.router.navigate(['/login']);
   }
+  cart(){
+    this.router.navigate(['/carrito']);
+  }
   logout() {
     const username = this.authService.usuario.username;
     loadLoginSuccess({
