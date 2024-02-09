@@ -22,7 +22,7 @@
         <img class="menu-mobile" src="../../../assets/svg/menu.svg" alt="" srcset="">
         
       </button>
-      <button class="btn btn-cart" (click)="cart()">
+      <button class="btn btn-cart" (click)="cart()" *ngIf="authService.autenticado()">
         <img src="../../../assets/svg/cart-min.svg" alt="cart" class="user" srcset=""></button>
     
     </div>
@@ -71,7 +71,7 @@
           <li><a class="dropdown-item" (click)="logout()">Cerrar Sesión</a></li>
         </ul>
       </li>
-<li>
+<li *ngIf="authService.autenticado()">
   <button class="btn btn-cart" (click)="cart()">
     <img src="../../../assets/svg/cart.svg" alt="cart" class="user" srcset=""></button>
 

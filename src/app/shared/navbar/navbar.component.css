@@ -182,8 +182,8 @@ nav{
     }
     .navbar-nav{
         flex-direction: row;
-        width: 40vw;
-    justify-content: space-between;
+        width: 22%;
+        justify-content: space-between;
     }
     .dropdown-menu {
         color: black;
