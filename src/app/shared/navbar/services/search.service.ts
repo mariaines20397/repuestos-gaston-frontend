@@ -51,7 +51,7 @@ export class SearchService {
           this.router.navigate(['/home']);
           Swal.fire(
             '¡Hasta pronto!',
-            `${user.username} has cerrado sesión con éxito`,
+            `${user.Username} has cerrado sesión con éxito`,
             'success'
           );
           obs.next(res);

@@ -16,7 +16,9 @@ export class AuthService {
     private http:HttpClient,
     private store:Store<{ user: User}>,
   ) {
-    this.subscriptions.add(this.store.select('user').subscribe((user) => (this.user = user)));
+    this.subscriptions.add(this.store.select('user').subscribe((user) => {console.log(user);
+      this.user = user
+    }));
    }
 
   
@@ -84,11 +86,9 @@ export class AuthService {
   //   sessionStorage.setItem('token', this._token);
   // }
 
-  obtenerDatoToken(accessToken:string):any{
-    console.log(accessToken);
-    
-    if (!accessToken != null) {
-      console.log(JSON.parse(atob(accessToken?.split('.')[1])));
+  obtenerDatoToken(accessToken?:string):any{
+    if (accessToken != null) {
+      console.log(JSON.parse(atob(accessToken.split('.')[1])));
       
       return JSON.parse(atob(accessToken?.split('.')[1]));
     }
@@ -96,7 +96,8 @@ export class AuthService {
   }
 
   autenticado():boolean{
-    let payload = this.obtenerDatoToken(this.user.jwt!);
+
+    let payload = this.obtenerDatoToken(this.user?.jwt);
     // let payload = {
     //   user_name :['Maria Ines']
     // };

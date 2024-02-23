@@ -21,7 +21,7 @@ export class RegisterComponent {
    private store:Store<{ user:User}>
   ){
     this.registerForm = this.formBuilder.group({
-      username: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+      Username: new FormControl(null, [Validators.required, Validators.minLength(10)]),
       password: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       surname: new FormControl(null, [Validators.required]),
@@ -31,14 +31,14 @@ export class RegisterComponent {
 
   register(){
       const {
-        username,
+        Username,
         password,
         name,
         surname,
         email
       } = this.registerForm.value
       this.user = {
-        username,
+        Username,
         password,
         name,
         surname,

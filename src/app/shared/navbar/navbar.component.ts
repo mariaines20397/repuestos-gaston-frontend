@@ -93,10 +93,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/carrito']);
   }
   logout() {
-    const username = this.authService.usuario.username;
+    const username = this.authService.usuario.Username;
     loadLoginSuccess({
       user:{
-          username:undefined,
+          Username:undefined,
           jwt:undefined
       }
   });

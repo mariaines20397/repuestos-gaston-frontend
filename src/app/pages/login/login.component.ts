@@ -14,16 +14,16 @@ import { User } from '../main/user/model/users.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
-  usuarioPrueba:User={
-    username:'usuario123',
-    password:'123456'
-  }
-  adminPrueba:User={
-    username:'admin',
-    password:'admin'
-  }
+  // usuarioPrueba:User={
+  //   username:'usuario123',
+  //   password:'123456'
+  // }
+  // adminPrueba:User={
+  //   username:'admin',
+  //   password:'admin'
+  // }
   loginForm:FormGroup;
-  user:User;
+  user:any;
 
   constructor(
    private formBuilder: FormBuilder,
