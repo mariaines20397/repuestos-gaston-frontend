@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/pages/main/user/model/users.model';
 
 @Injectable({
@@ -10,11 +10,14 @@ import { User } from 'src/app/pages/main/user/model/users.model';
 export class AuthService {
   private _usuario!:User | null;
   private _token!:string | null;
-
+  private subscriptions = new Subscription();
+  user: User = {};
   constructor(
     private http:HttpClient,
-    private store:Store<{ login: User}>,
-  ) { }
+    private store:Store<{ user: User}>,
+  ) {
+    this.subscriptions.add(this.store.select('user').subscribe((user) => (this.user = user)));
+   }
 
   
   public get usuario() : User {
@@ -81,22 +84,26 @@ export class AuthService {
   //   sessionStorage.setItem('token', this._token);
   // }
 
-  // obtenerDatoToken(accessToken:string):any{
-  //   if (!accessToken != null) {
-  //     return JSON.parse(atob(accessToken?.split('.')[1]));
-  //   }
-  //   return null;
-  // }
+  obtenerDatoToken(accessToken:string):any{
+    console.log(accessToken);
+    
+    if (!accessToken != null) {
+      console.log(JSON.parse(atob(accessToken?.split('.')[1])));
+      
+      return JSON.parse(atob(accessToken?.split('.')[1]));
+    }
+    return null;
+  }
 
   autenticado():boolean{
-    // let payload = this.obtenerDatoToken(this.token!);
-    let payload = {
-      user_name :['Maria Ines']
-    };
+    let payload = this.obtenerDatoToken(this.user.jwt!);
+    // let payload = {
+    //   user_name :['Maria Ines']
+    // };
     // let payload = {
     //     user_name :[]
     //   };
-    if (payload != null && payload.user_name && payload.user_name.length > 0) {
+    if (payload != null) {
       return true;
     }
     return false;

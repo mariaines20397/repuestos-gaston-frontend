@@ -35,5 +35,23 @@ export class SearchEffects {
     )
   );
 
+  loadLogout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SearchActions.loadLogout),
+      mergeMap((action) => {
+        return this.searchServices.logout(action.user).pipe(
+          map((response) => {
+            return SearchActions.loadLogoutSuccess({
+              message: response,
+            });
+          }),
+          catchError((error) => {
+            return of(SearchActions.loadLogoutFail({ error }));
+          })
+        );
+      })
+    )
+  );
+
  
 }

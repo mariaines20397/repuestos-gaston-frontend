@@ -33,12 +33,13 @@ export class NavbarComponent implements OnInit {
       id:3,
       name:'Aceites'
     }
-  ]
+  ];
+  user: User = {};
   private subscriptions = new Subscription();
   constructor(
     private router: Router, 
     private formBuilder: FormBuilder,
-    private store:Store<{ filtrar:Search, login: User}>,
+    private store:Store<{ filtrar:Search, login: User, user: User}>,
     public authService: AuthService
     ) {
       this.searchForm = this.formBuilder.group({
@@ -49,6 +50,8 @@ export class NavbarComponent implements OnInit {
           .select('login')
           .subscribe((login) => console.log(login))
       );
+      this.subscriptions.add(this.store.select('user').subscribe(user => (this.user = user)));
+
     }
   ngOnInit(): void {
     this.isHome();
@@ -92,9 +95,10 @@ export class NavbarComponent implements OnInit {
   logout() {
     const username = this.authService.usuario.username;
     loadLoginSuccess({
-      user:[{
+      user:{
+          username:undefined,
           jwt:undefined
-      }]
+      }
   });
     // this.authService.logout();
     Swal.fire(

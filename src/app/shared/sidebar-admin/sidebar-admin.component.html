@@ -1,5 +1,4 @@
 <div class="sidebar container">
-    
     <div *ngIf="!menu" class="navbar-brand">
         <a href="admin/dashboard"><img class="logo" src="../../../assets/img/logo.png" alt="" srcset="" /></a>
     </div>
@@ -22,74 +21,45 @@
         </div>
     </a>
     <hr>
-    <div class="section" *ngIf="menu">
-        <button class="btn btn-products" (click)="isCollapsed = ! isCollapsed" [attr.aria-expanded]="!isCollapsed"
-        placement="end" ngbTooltip="Gestión productos">
-            <img class="imgSection" src="../../../assets/svg/managementProducts-min.svg" alt="" srcset="" />
-        </button>
-    </div>
-    <div class="section"  *ngIf="!menu">
-        <button class="btn btn-products" (click)="isCollapsed = ! isCollapsed" [attr.aria-expanded]="!isCollapsed">
-            <img class="imgSection" src="../../../assets/svg/managementProducts.svg" alt="" srcset="" />
-            <h5>Gestión productos</h5>
-        </button>
-    </div>
-    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-        <a href="admin/dashboard/productos">
-            <div class="section section-hijo"  *ngIf="menu">
-                <button class="btn btn-products" placement="end" ngbTooltip="Productos">
-                    <img class="imgSection" src="../../../assets/svg/products-min.svg" alt="" srcset="" />
-                </button>
-            </div>
-            <div class="section section-hijo"  *ngIf="!menu">
-                <img class="imgSection" src="../../../assets/svg/products.svg" alt="" srcset="" />
-                <h5>Productos</h5>
-            </div>
-        </a>
-    </div>
+    <a href="admin/dashboard/productos">
+        <div class="section" *ngIf="menu">
+            <button class="btn btn-products" placement="end" ngbTooltip="Gestión productos">
+                <img class="imgSection" src="../../../assets/svg/managementProducts-min.svg" alt="" srcset="" />
+            </button>
+        </div>
+        <div class="section"  *ngIf="!menu">
+            <button class="btn btn-products">
+                <img class="imgSection" src="../../../assets/svg/managementProducts.svg" alt="" srcset="" />
+                <h5>Gestión productos</h5>
+            </button>
+        </div>
+    </a>
     <hr>
-    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-        <a href="admin/dashboard/categorias">
-            <div class="section section-hijo"  *ngIf="menu">
-                <button class="btn btn-products" placement="end" ngbTooltip="Categorias">
-                    <img class="imgSection" src="../../../assets/svg/category-min.svg" alt="" srcset="" />
-                </button>
-            </div>
-            <div class="section section-hijo"  *ngIf="!menu">
-                <img class="imgSection" src="../../../assets/svg/category.svg" alt="" srcset="" />
-                <h5>Categorías</h5>
-            </div>
-        </a>
-    </div>
+    <a href="admin/dashboard/categorias">
+        <div class="section"  *ngIf="menu">
+            <button class="btn btn-products" placement="end" ngbTooltip="Gestión categorias">
+                <img class="imgSection" src="../../../assets/svg/category-min.svg" alt="" srcset="" />
+            </button>
+        </div>
+        <div class="section"  *ngIf="!menu">
+            <img class="imgSection" src="../../../assets/svg/category.svg" alt="" srcset="" />
+            <h5>Gestión categorías</h5>
+        </div>
+    </a>
     <hr>
-
-    <div class="section"  *ngIf="menu">
-        <button class="btn btn-products" (click)="isCollapsedVentas = ! isCollapsedVentas"
-            [attr.aria-expanded]="!isCollapsedVentas"
-            placement="end" ngbTooltip="Gestión ventas">
-            <img class="imgSection" src="../../../assets/svg/managementSale-min.svg" alt="" srcset="" />
-        </button>
-    </div>
-    <div class="section"  *ngIf="!menu">
-        <button class="btn btn-products" (click)="isCollapsedVentas = ! isCollapsedVentas"
-            [attr.aria-expanded]="!isCollapsedVentas">
-            <img class="imgSection" src="../../../assets/svg/managementSale.svg" alt="" srcset="" />
-            <h5>Gestión ventas</h5>
-        </button>
-    </div>
-    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedVentas">
-        <a href="admin/dashboard/ventas">
-            <div class="section section-hijo"  *ngIf="menu">
-                <button class="btn btn-products" placement="end" ngbTooltip="Ventas">
-                    <img class="imgSection" src="../../../assets/svg/sale-min.svg" alt="" srcset="" />
-                </button>
-            </div>
-            <div class="section section-hijo"  *ngIf="!menu">
-                <img class="imgSection" src="../../../assets/svg/sale.svg" alt="" srcset="" />
-                <h5>Ventas</h5>
-            </div>
-        </a>
-    </div>
+    <a href="admin/dashboard/ventas">
+        <div class="section"  *ngIf="menu">
+            <button class="btn btn-products" placement="end" ngbTooltip="Gestión ventas">
+                <img class="imgSection" src="../../../assets/svg/managementSale-min.svg" alt="" srcset="" />
+            </button>
+        </div>
+        <div class="section"  *ngIf="!menu">
+            <button class="btn btn-products">
+                <img class="imgSection" src="../../../assets/svg/managementSale.svg" alt="" srcset="" />
+                <h5>Gestión ventas</h5>
+            </button>
+        </div>
+    </a>
     <hr>
     <a href="admin/dashboard/usuarios">
         <div class="section"  *ngIf="menu">
@@ -114,3 +84,46 @@
     </div>
     <hr>
 </div>
+    <!-- <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+        <a href="admin/dashboard/productos">
+            <div class="section section-hijo"  *ngIf="menu">
+                <button class="btn btn-products" placement="end" ngbTooltip="Productos">
+                    <img class="imgSection" src="../../../assets/svg/products-min.svg" alt="" srcset="" />
+                </button>
+            </div>
+            <div class="section section-hijo"  *ngIf="!menu">
+                <img class="imgSection" src="../../../assets/svg/products.svg" alt="" srcset="" />
+                <h5>Productos</h5>
+            </div>
+        </a>
+    </div> -->
+    <!-- <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+        <a href="admin/dashboard/categorias">
+            <div class="section section-hijo"  *ngIf="menu">
+                <button class="btn btn-products" placement="end" ngbTooltip="Categorias">
+                    <img class="imgSection" src="../../../assets/svg/category-min.svg" alt="" srcset="" />
+                </button>
+            </div>
+            <div class="section section-hijo"  *ngIf="!menu">
+                <img class="imgSection" src="../../../assets/svg/category.svg" alt="" srcset="" />
+                <h5>Categorías</h5>
+            </div>
+        </a>
+    </div>
+    <hr> -->
+    
+    
+    <!-- <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedVentas">
+        <a href="admin/dashboard/ventas">
+            <div class="section section-hijo"  *ngIf="menu">
+                <button class="btn btn-products" placement="end" ngbTooltip="Ventas">
+                    <img class="imgSection" src="../../../assets/svg/sale-min.svg" alt="" srcset="" />
+                </button>
+            </div>
+            <div class="section section-hijo"  *ngIf="!menu">
+                <img class="imgSection" src="../../../assets/svg/sale.svg" alt="" srcset="" />
+                <h5>Ventas</h5>
+            </div>
+        </a>
+    </div> -->
+    

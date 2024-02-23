@@ -1,20 +1,27 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { User } from '../../user/model/users.model';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  private httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
   private urlEndpoint: string = 'localhost:8080/products'
+  private subscriptions = new Subscription();
+  user: User = {};
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    ) { }
+    private store: Store<{ user: User }>
+    ) {
+      this.subscriptions.add(this.store.select('user').subscribe((user) => (this.user = user)));
+
+     }
     getProducts():Observable<any>{
       const finalUrl=`${this.urlEndpoint}/`;
       return new Observable((obs)=>{
@@ -36,7 +43,7 @@ export class ProductsService {
   getProductsByCategory(id:number):Observable<any>{
     const finalUrl=`${this.urlEndpoint}/categories/${id}`;
     return new Observable((obs)=>{
-      this.httpClient.get(finalUrl)
+      this.httpClient.get(finalUrl )
       .subscribe({
         next: (res) => {
           // this.router.navigate(['/home']);
@@ -74,7 +81,7 @@ export class ProductsService {
   getProductById(id:number):Observable<any>{
     const finalUrl=`${this.urlEndpoint}/${id}`;
     return new Observable((obs)=>{
-      this.httpClient.get(finalUrl)
+      this.httpClient.get(finalUrl )
       .subscribe({
         next: (res) => {
           // this.router.navigate([`/products/${id}`]);

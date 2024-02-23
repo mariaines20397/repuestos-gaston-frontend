@@ -50,17 +50,17 @@ export class LoginComponent implements OnInit{
     }
     console.log(this.user);
     
-    if (this.user.username == this.usuarioPrueba.username &&
-      this.user.password == this.usuarioPrueba.password) {
-        // this.user.jwt = 'jwtNuevo'
-        // this.router.navigate(['/home']);
-        this.store.dispatch(LoginActions.loadLogin({user:this.user}));
-    }else if(this.user.username == this.adminPrueba.username &&
-      this.user.password == this.adminPrueba.password){
-        this.router.navigate(['/admin']);
-      }else{
-      Swal.fire('¡Lo siento!', 'Usuario o contraseña incorrectas. Por favor vualve a intentarlo.', 'error');
-    }
+    this.store.dispatch(LoginActions.loadLogin({user:this.user}));
+    // if (this.user.username == this.usuarioPrueba.username &&
+    //   this.user.password == this.usuarioPrueba.password) {
+    //     // this.user.jwt = 'jwtNuevo'
+    //     // this.router.navigate(['/home']);
+    // }else if(this.user.username == this.adminPrueba.username &&
+    //   this.user.password == this.adminPrueba.password){
+    //     this.router.navigate(['/admin']);
+    //   }else{
+    //   Swal.fire('¡Lo siento!', 'Usuario o contraseña incorrectas. Por favor vualve a intentarlo.', 'error');
+    // }
   }
 
   register():void{
