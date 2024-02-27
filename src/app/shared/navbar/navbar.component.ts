@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit {
       name:'Aceites'
     }
   ];
-  user: User = {};
+  user: any = {};
   private subscriptions = new Subscription();
   constructor(
     private router: Router, 
@@ -48,9 +48,9 @@ export class NavbarComponent implements OnInit {
       this.subscriptions.add(
         this.store
           .select('login')
-          .subscribe((login) => console.log(login))
+          .subscribe((login) => this.user = login)
       );
-      this.subscriptions.add(this.store.select('user').subscribe(user => (this.user = user)));
+      // this.subscriptions.add(this.store.select('user').subscribe(user => (this.user = user)));
 
     }
   ngOnInit(): void {

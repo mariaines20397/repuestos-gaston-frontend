@@ -51,7 +51,7 @@
         <li  *ngIf="authService.autenticado() == false">
           <a class="nav-link" href="/register">Creá tu cuenta</a>
         </li>
-       <li  *ngIf="!!authService.autenticado() == false">
+       <li  *ngIf="authService.autenticado() == false">
          <a class="nav-link" href="/login">Ingresá</a>
        </li>
        <li class="nav-item dropdown"  *ngIf="authService.autenticado()">
@@ -64,7 +64,8 @@
           aria-expanded="false"
         >
         <img src="../../../assets/svg/user.svg" alt="user" class="user" srcset="">
-        <p>{{user.Username}}</p>
+
+        <p>{{user.data.Username}}</p>
         </a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/users/profile/1">Perfil</a></li>

@@ -11,14 +11,17 @@ export class AuthService {
   private _usuario!:User | null;
   private _token!:string | null;
   private subscriptions = new Subscription();
-  user: User = {};
+  user: any = {};
   constructor(
     private http:HttpClient,
-    private store:Store<{ user: User}>,
+    private store:Store<{ login: User}>,
   ) {
-    this.subscriptions.add(this.store.select('user').subscribe((user) => {console.log(user);
-      this.user = user
-    }));
+    this.subscriptions.add(
+      this.store
+        .select('login')
+        .subscribe((login) => this.user = login)
+    );
+    
    }
 
   
@@ -88,16 +91,13 @@ export class AuthService {
 
   obtenerDatoToken(accessToken?:string):any{
     if (accessToken != null) {
-      console.log(JSON.parse(atob(accessToken.split('.')[1])));
-      
       return JSON.parse(atob(accessToken?.split('.')[1]));
     }
     return null;
   }
 
   autenticado():boolean{
-
-    let payload = this.obtenerDatoToken(this.user?.jwt);
+    let payload = this.obtenerDatoToken(this.user?.data?.jwt);
     // let payload = {
     //   user_name :['Maria Ines']
     // };
