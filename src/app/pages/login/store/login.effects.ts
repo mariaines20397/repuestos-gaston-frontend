@@ -25,8 +25,6 @@ export class LoginEffects {
             return this.loginServices.postLogin(action.user)
             .pipe(
                 map((response)=>{
-                    console.log(response);
-                    
                     this.router.navigate(['/home']);
                     Swal.fire('¡Bienvenido!', `Hola ${response.Username} has iniciado sesión con éxito`, 'success');
                     return LoginActions.loadLoginSuccess({
