@@ -10,11 +10,14 @@ import { User } from 'src/app/pages/main/user/model/users.model';
 export class AuthInterceptorService implements HttpInterceptor{
 
   private subscriptions = new Subscription();
-  user: User = {};
+  user: any = {};
 
-  constructor(private store: Store<{ user: User }>) {
-    this.subscriptions.add(this.store.select('user').subscribe((user) => (this.user = user)));
-  }
+  constructor(private store: Store<{ login: User }>) {
+    this.subscriptions.add(
+      this.store
+        .select('login')
+        .subscribe((login) => this.user = login)
+    );  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
   // intercept(request: HttpRequest<unknown>, next: HttpHandler): any {
@@ -37,7 +40,7 @@ export class AuthInterceptorService implements HttpInterceptor{
 
   getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      Authorization: 'Bearer ',
+      Authorization: this.user ? `Bearer ${this.user?.data?.jwt}` : 'Bearer ',
       'Content-Type': 'application/json',
       
     });
