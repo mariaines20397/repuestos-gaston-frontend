@@ -21,12 +21,12 @@
             </div>
 
             <span class="title-input">Nombre de usuario</span>
-            <input class="text-input form-control" formControlName="Username" type="text" >
-            <div *ngIf="registerForm.controls['Username'].errors && registerForm.get('Username')?.touched">
-                <div class="validatorText" *ngIf="registerForm.get('Username')?.hasError('required')">
+            <input class="text-input form-control" formControlName="username" type="text" >
+            <div *ngIf="registerForm.controls['username'].errors && registerForm.get('username')?.touched">
+                <div class="validatorText" *ngIf="registerForm.get('username')?.hasError('required')">
                     <span>Este campo es requerido.</span>
                 </div>
-                <div class="validatorText" *ngIf="registerForm.get('Username')?.hasError('minlength')">
+                <div class="validatorText" *ngIf="registerForm.get('username')?.hasError('minlength')">
                     <span>El nombre de usuario debe tener como mínimo 10 caracteres.</span>
                 </div>
             </div>

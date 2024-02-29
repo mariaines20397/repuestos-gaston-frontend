@@ -12,18 +12,19 @@ export class AuthInterceptorService implements HttpInterceptor{
   private subscriptions = new Subscription();
   user: any = {};
 
-  constructor(private store: Store<{ login: User }>) {
+  constructor(private store: Store<{ user: User }>) {
     this.subscriptions.add(
       this.store
-        .select('login')
-        .subscribe((login) => this.user = login)
+        .select('user')
+        .subscribe((user) => this.user = user)
     );  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
   // intercept(request: HttpRequest<unknown>, next: HttpHandler): any {
     return next.handle(request.clone({ headers: this.getHeaders() })).pipe(
       catchError((err) => {
-        console.log('Entro al interceptor');
+        console.log(err);
+        console.log('entro al interceptor');
         
         // if (err instanceof HttpErrorResponse && err.status === 401) {
           // return this.cognitoService.refreshUserSession().pipe(
@@ -40,7 +41,7 @@ export class AuthInterceptorService implements HttpInterceptor{
 
   getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      Authorization: this.user ? `Bearer ${this.user?.data?.jwt}` : 'Bearer ',
+      Authorization: this.user?.data?.jwt ? `Bearer ${this.user?.data?.jwt}` : 'Bearer ',
       'Content-Type': 'application/json',
       
     });

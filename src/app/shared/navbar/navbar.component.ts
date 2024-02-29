@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router, 
     private formBuilder: FormBuilder,
-    private store:Store<{ filtrar:Search, login: User, user: User}>,
+    private store:Store<{ filtrar:Search, user: User}>,
     public authService: AuthService
     ) {
       this.searchForm = this.formBuilder.group({
@@ -47,8 +47,8 @@ export class NavbarComponent implements OnInit {
       });
       this.subscriptions.add(
         this.store
-          .select('login')
-          .subscribe((login) => this.user = login)
+          .select('user')
+          .subscribe((user) => this.user = user )
       );
       // this.subscriptions.add(this.store.select('user').subscribe(user => (this.user = user)));
 

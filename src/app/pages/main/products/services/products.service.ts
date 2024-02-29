@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 })
 export class ProductsService {
 
-  private urlEndpoint: string = 'localhost:8080/products'
+  private urlEndpoint: string = 'http://localhost:8080/products'
   private subscriptions = new Subscription();
   user: User = {};
   constructor(

@@ -32,7 +32,7 @@ export class LoginEffects {
                     });
                 }),
                 catchError((error) => {
-                    if (error.status == 400) {
+                    if (error.status == 403) {
                         Swal.fire('¡Lo siento!', 'Usuario o contraseña incorrectas. Por favor vualve a intentarlo.', 'error');
                     }
                     return of(LoginActions.loadLoginFail({ error }));

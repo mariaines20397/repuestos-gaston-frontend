@@ -27,7 +27,6 @@ export class LoginService {
           obs.complete();
         },
         error: (error) => {
-          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }

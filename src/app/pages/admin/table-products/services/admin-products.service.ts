@@ -181,7 +181,7 @@ export class AdminProductsService {
     return this.products;
   }
   getProductsByIdAdmin(id:number):Observable<any> {
-    const finalUrl=`localhost:8080/admin/products/${id}`;
+    const finalUrl=`http://localhost:8080/admin/products/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
@@ -199,7 +199,7 @@ export class AdminProductsService {
     })
   }
   getProductsAdmin():Observable<any> {
-    const finalUrl=`localhost:8080/admin/products`;
+    const finalUrl=`http://localhost:8080/admin/products`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
@@ -218,7 +218,7 @@ export class AdminProductsService {
   }
 
   editProductAdmin(id:number, product:Product):Observable<any> {
-    const finalUrl=`localhost:8080/admin/products/${id}`;
+    const finalUrl=`http://localhost:8080/admin/products/${id}`;
     return new Observable((obs)=>{
       this.httpClient.put(finalUrl, product)
       .subscribe({
@@ -237,7 +237,7 @@ export class AdminProductsService {
   }
 
   deleteProductAdmin(id:number):Observable<any> {
-    const finalUrl=`localhost:8080/admin/products/${id}`;
+    const finalUrl=`http://localhost:8080/admin/products/${id}`;
     return new Observable((obs)=>{
       this.httpClient.delete(finalUrl)
       .subscribe({
@@ -257,7 +257,7 @@ export class AdminProductsService {
   }
 
   postPromotion(product?: Product): Observable<any> {
-    const finalUrl=`localhost:8080/admin/products}`;
+    const finalUrl=`http://localhost:8080/admin/products}`;
     return new Observable((obs) => {
       this.httpClient.post(finalUrl, product).subscribe({
         next: (res) => {

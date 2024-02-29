@@ -11,14 +11,14 @@ export class HomeService {
 
   private httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
   // private httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
-  private url = 'localhost:8080/v1'
+  private url = 'http://localhost:8080/v1'
   constructor(
     private httpClient: HttpClient,
     ) { }
 
 
   getProducts():Observable<any>{
-    const finalUrl=`${this.url}/products/getAll`;
+    const finalUrl=`${this.url}/product/getAll`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({

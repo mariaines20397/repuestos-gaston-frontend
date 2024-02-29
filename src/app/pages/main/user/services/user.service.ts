@@ -31,7 +31,7 @@ export class UserService {
     return false;    
   }
   getUserById(id:number):Observable<any>{
-    const finalUrl=`localhost:8080/user/profile/${id}`;
+    const finalUrl=`http://localhost:8080/user/profile/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
@@ -51,7 +51,7 @@ export class UserService {
   }
 
   editUserById(id:number, user:User):Observable<any>{
-    const finalUrl=`localhost:8080/user/profile/edit/${id}`;
+    const finalUrl=`http://localhost:8080/user/profile/edit/${id}`;
     return new Observable((obs)=>{
       this.httpClient.put(finalUrl, user)
       .subscribe({

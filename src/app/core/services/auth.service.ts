@@ -14,12 +14,12 @@ export class AuthService {
   user: any = {};
   constructor(
     private http:HttpClient,
-    private store:Store<{ login: User}>,
+    private store:Store<{ user: User}>,
   ) {
     this.subscriptions.add(
       this.store
-        .select('login')
-        .subscribe((login) => this.user = login)
+        .select('user')
+        .subscribe((user) => this.user = user)
     );
     
    }

@@ -13,7 +13,7 @@ import { User } from '../main/user/model/users.model';
 })
 export class RegisterComponent {
   registerForm:FormGroup;
-  user:User = {};
+  user:any = {};
   // passwordRepeat:any;
   constructor(
     private formBuilder: FormBuilder,
@@ -21,7 +21,7 @@ export class RegisterComponent {
    private store:Store<{ user:User}>
   ){
     this.registerForm = this.formBuilder.group({
-      Username: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+      username: new FormControl(null, [Validators.required, Validators.minLength(10)]),
       password: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       surname: new FormControl(null, [Validators.required]),
@@ -31,14 +31,14 @@ export class RegisterComponent {
 
   register(){
       const {
-        Username,
+        username,
         password,
         name,
         surname,
         email
       } = this.registerForm.value
       this.user = {
-        Username,
+        username,
         password,
         name,
         surname,

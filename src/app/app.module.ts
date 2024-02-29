@@ -12,6 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RedirectAdminComponent } from './pages/redirect-admin/redirect-admin.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthInterceptorService, authProvider } from './core/interceptors/auth-interceptor.service';
+import { metaReducers, reducers } from './pages/login/store/app.state';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,15 @@ import { AuthInterceptorService, authProvider } from './core/interceptors/auth-i
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(
+      reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+      },
+    }
+    ),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument()
   ],

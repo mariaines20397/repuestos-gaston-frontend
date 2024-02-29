@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, throwError } from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/pages/main/user/model/users.model';
 import Swal from 'sweetalert2';
 
@@ -11,8 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class SearchService {
   filters: string = '';
-  private httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
-  finalUrl=`localhost:8080`;
+  finalUrl=`http://localhost:8080`;
 
   constructor(
     private httpClient: HttpClient,
