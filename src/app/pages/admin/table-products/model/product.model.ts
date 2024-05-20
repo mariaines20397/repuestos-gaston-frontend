@@ -5,7 +5,7 @@ export class Product{
     cantidad?:number;
     price?:number;
     stock?:number;
-    imageUrl?:string;
+    imageUrl?:number[] | string;
     category?:Categorie;
 }
 

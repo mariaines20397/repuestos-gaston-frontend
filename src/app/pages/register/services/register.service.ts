@@ -12,7 +12,7 @@ export class RegisterService {
   ) { }
 
   postRegister(user:object):Observable<any>{
-    const finalUrl='http://localhost:8080/v1/user/createUser';
+    const finalUrl='http://localhost:8080/v1/user/';
 
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,user)

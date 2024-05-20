@@ -19,6 +19,7 @@ export class ProductComponent implements OnInit {
   url: string = '';
   editarProducto: boolean = false;
   agregarProducto: boolean = false;
+  arrayBytes = '';
   categoriesIds: any[] = [{
     id: 1,
     name: 'Lubricante'
@@ -72,18 +73,35 @@ export class ProductComponent implements OnInit {
     this.productForm.reset();
   }
 
-  onFileSelected(event: any): void {
+  async onFileSelected(event: any): Promise<void> {
     const file = event.target.files[0];
-
+    this.arrayBytes = await this.leerArchivoComoBase64(file);
     if (file) {
       if (!['image/png', 'image/jpeg'].includes(file.type)) {
         this.productForm.get('imagen')!.setErrors({ fileType: true });
         return;
       }
       const imageUrl = URL.createObjectURL(file);
-      this.producto.imageUrl = imageUrl;
+      this.producto.imageUrl = this.arrayBytes;
     }
-  }
+}
+
+private async leerArchivoComoBase64(archivo: File): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (typeof reader.result === 'string') {
+                resolve(reader.result.split(',')[1]); // Extraer el base64 de la cadena de datos
+            } else {
+                reject(new Error('Error al leer el archivo'));
+            }
+        };
+        reader.onerror = () => {
+            reject(new Error('Error al leer el archivo'));
+        };
+        reader.readAsDataURL(archivo);
+    });
+}
   getProducts() {
     this.productos = this.productServices.getProducts();
   }
@@ -117,15 +135,14 @@ export class ProductComponent implements OnInit {
       name,
       description,
       price,
-      stock,
-      imageUrl
+      stock
     } = this.productForm.value
     const product = {
       name,
       description,
       price,
       stock,
-      imageUrl
+      imageUrl:this.arrayBytes
     }
     console.log(product);
     // this.editarProducto ?
