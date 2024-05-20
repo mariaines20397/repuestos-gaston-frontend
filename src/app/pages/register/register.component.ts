@@ -13,7 +13,7 @@ import { User } from '../main/user/model/users.model';
 })
 export class RegisterComponent {
   registerForm:FormGroup;
-  user:User = {};
+  user:any = {};
   // passwordRepeat:any;
   constructor(
     private formBuilder: FormBuilder,

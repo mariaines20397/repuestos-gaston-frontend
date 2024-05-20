@@ -23,6 +23,8 @@ export class RegisterEffects {
             return this.registerServices.postRegister(action.user)
             .pipe(
                 map((response)=>{
+                    console.log(response);
+                    
                     Swal.fire(
                         {title:'¡Usuario registrado!', 
                         html:'<p>Todo esta listo. Ahora inicia sesión para vivir la experiencia de Repuestos Gastón</p>',
@@ -34,9 +36,7 @@ export class RegisterEffects {
                           this.router.navigateByUrl('/login')
                         }
                       });    
-                    return RegisterActions.loadRegisterSuccess({
-                        user:response.data 
-                    });
+                    return RegisterActions.loadRegisterSuccess();
                 }),
                 catchError((error) => {
                     Swal.fire('¡Lo siento!', 'Algo salió mal... Por favor, vuelve a intentarlo.','error');

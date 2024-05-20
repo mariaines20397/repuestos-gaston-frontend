@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit{
     './assets/img/carousel/carousel3.png'
   ]
   carouselMobile:string[]=[
-    './assets/img/carousel/carousel1-mobile.png'
+    './assets/img/carousel/carousel1-mobile.png',
+    './assets/img/carousel/carousel2-mobile.png',
+    './assets/img/carousel/carousel3-mobile.png'
   ]
   totalProductos: number = 0;
   productos:any[]=[

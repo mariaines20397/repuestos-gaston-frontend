@@ -13,8 +13,7 @@ export const registerReducer = createReducer<any>(
     on(
         RegisterActions.loadRegisterSuccess,
         (state, props):any => ({
-            ...state,
-            data:props.user
+            ...state
         })
     )
     ,

@@ -107,7 +107,7 @@ export class AdminUsersService {
     return this.users;
   }
   getUserByIdAdmin(id:number):Observable<any> {
-    const finalUrl=`localhost:8080/admin/users/${id}`;
+    const finalUrl=`http://localhost:8080/admin/users/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
@@ -125,7 +125,7 @@ export class AdminUsersService {
     })
   }
   getUsersAdmin():Observable<any> {
-    const finalUrl=`localhost:8080/admin/users`;
+    const finalUrl=`http://localhost:8080/admin/users`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({

@@ -1,5 +1,5 @@
 import 'tslib';
-import { NgModule } from "@angular/core";
+import { LOCALE_ID, NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RedirectAdminComponent } from './pages/redirect-admin/redirect-admin.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { AuthInterceptorService, authProvider } from './core/interceptors/auth-interceptor.service';
+import { metaReducers, reducers } from './pages/login/store/app.state';
 
 @NgModule({
   declarations: [
@@ -23,11 +25,19 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(
+      reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+      },
+    }
+    ),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument()
   ],
-  providers: [],
+  providers: [authProvider, { provide: LOCALE_ID, useValue: 'es-MX' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

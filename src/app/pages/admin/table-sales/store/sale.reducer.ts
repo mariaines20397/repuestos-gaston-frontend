@@ -2,7 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 import * as SaleActions from './sale.actions';
 
 export const initialState: any={}
-export const usersReducer = createReducer<any>(
+export const salesReducer = createReducer<any>(
     initialState,
     //load sales
     on(

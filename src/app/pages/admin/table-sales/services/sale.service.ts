@@ -61,7 +61,7 @@ export class SaleService {
     return this.ventas;
   }
   getSales():Observable<any> {
-    const finalUrl=`localhost:8080/admin/sales`;
+    const finalUrl=`http://localhost:8080/admin/sales`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
@@ -80,7 +80,7 @@ export class SaleService {
   }
 
   getSalesByIdUser(id:number):Observable<any> {
-    const finalUrl=`localhost:8080/admin/sales/${id}`;
+    const finalUrl=`http://localhost:8080/admin/sales/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({

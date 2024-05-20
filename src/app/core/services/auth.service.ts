@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/pages/main/user/model/users.model';
 
 @Injectable({
@@ -9,10 +10,19 @@ import { User } from 'src/app/pages/main/user/model/users.model';
 export class AuthService {
   private _usuario!:User | null;
   private _token!:string | null;
-
+  private subscriptions = new Subscription();
+  user: any = {};
   constructor(
-    private http:HttpClient
-  ) { }
+    private http:HttpClient,
+    private store:Store<{ user: User}>,
+  ) {
+    this.subscriptions.add(
+      this.store
+        .select('user')
+        .subscribe((user) => this.user = user)
+    );
+    
+   }
 
   
   public get usuario() : User {
@@ -35,26 +45,26 @@ export class AuthService {
     return null;
   }
 
-  login(user:User): Observable<any>{
-    const urlAuth = 'http://localhost:8080/oauth/token';
-    const credenciales = btoa('angularapp'+':'+'12345');
-    const httpHeaders = new HttpHeaders({
-      'Content-Type':'application/x-www-form-urlencoded',
-      'Authorization':'Basic '+ credenciales});
-    let params = new URLSearchParams();
-    params.set('grant_type','password');
-    params.set('username', user.username!);
-    params.set('password', user.password!);
+  // login(user:User): Observable<any>{
+  //   const urlAuth = 'http://localhost:8080/oauth/token';
+  //   const credenciales = btoa('angularapp'+':'+'12345');
+  //   const httpHeaders = new HttpHeaders({
+  //     'Content-Type':'application/x-www-form-urlencoded',
+  //     'Authorization':'Basic '+ credenciales});
+  //   let params = new URLSearchParams();
+  //   params.set('grant_type','password');
+  //   params.set('username', user.username!);
+  //   params.set('password', user.password!);
 
-    return this.http.post(urlAuth, params.toString(), {headers:httpHeaders});
-  }
+  //   return this.http.post(urlAuth, params.toString(), {headers:httpHeaders});
+  // }
 
-  logout():void{
-    this._token = null;
-    this._usuario = null;
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('usuario');
-  }
+  // logout():void{
+  //   this._token = null;
+  //   this._usuario = null;
+  //   sessionStorage.removeItem('token');
+  //   sessionStorage.removeItem('usuario');
+  // }
 
   tieneRol(rol:string):boolean{
     if (this.usuario.roles?.includes(rol)) {
@@ -63,32 +73,38 @@ export class AuthService {
     return false;
   }
 
-  guardarUsuario(accessToken:string):void{
-    let payload = this.obtenerDatoToken(accessToken);
-    this._usuario = new User();
-    this._usuario.username = payload.user_name;
-    this._usuario.surname = payload.surname;
-    this._usuario.email = payload.email;
-    this._usuario.name = payload.name;
-    this._usuario.roles = payload.authorities;
-    sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
-  }
+  // guardarUsuario(accessToken:string):void{
+  //   let payload = this.obtenerDatoToken(accessToken);
+  //   this._usuario = new User();
+  //   this._usuario.username = payload.user_name;
+  //   this._usuario.surname = payload.surname;
+  //   this._usuario.email = payload.email;
+  //   this._usuario.name = payload.name;
+  //   this._usuario.roles = payload.authorities;
+  //   sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
+  // }
 
-  guardarToken(accessToken:string):void{
-    this._token = accessToken;
-    sessionStorage.setItem('token', this._token);
-  }
+  // guardarToken(accessToken:string):void{
+  //   this._token = accessToken;
+  //   sessionStorage.setItem('token', this._token);
+  // }
 
-  obtenerDatoToken(accessToken:string):any{
-    if (!accessToken != null) {
+  obtenerDatoToken(accessToken?:string):any{
+    if (accessToken != null) {
       return JSON.parse(atob(accessToken?.split('.')[1]));
     }
     return null;
   }
 
   autenticado():boolean{
-    let payload = this.obtenerDatoToken(this.token!);
-    if (payload != null && payload.user_name && payload.user_name.length > 0) {
+    let payload = this.obtenerDatoToken(this.user?.data?.jwt);
+    // let payload = {
+    //   user_name :['Maria Ines']
+    // };
+    // let payload = {
+    //     user_name :[]
+    //   };
+    if (payload != null) {
       return true;
     }
     return false;

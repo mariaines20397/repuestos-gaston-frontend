@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { MainGuard } from 'src/app/core/guards/main.guard';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
       {
         path:'users/profile',
         loadChildren:() => import('./user/user.module').then((m)=> m.UserModule),
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
       },
       {
         path:'search',
@@ -36,24 +37,25 @@ const routes: Routes = [
       {
         path:'carrito',
         loadChildren:() => import('./carrito/carrito.module').then((m)=> m.CarritoModule),
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
       },
       {
         path:'login',
         loadChildren:()=> import('../login/login.module').then((m)=> m.LoginModule),
-        // canActivate:[AuthGuard],
+        canActivate:[MainGuard],
       },
       {
         path:'register',
         loadChildren:()=> import('../register/register.module').then((m)=> m.RegisterModule),
-        // canActivate:[AuthGuard],
+        canActivate:[MainGuard],
       },
     ]
   },
   {
    path:'admin',
    loadChildren:()=> import('../redirect-admin/redirect-admin.module').then((m)=> m.RedirectAdminModule),
-   // canActivate:[MainGuard],
+  canActivate:[AuthGuard],
+   //  canActivate:[MainGuard],
   },
 ];
 

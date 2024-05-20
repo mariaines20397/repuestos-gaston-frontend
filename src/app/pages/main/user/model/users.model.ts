@@ -4,8 +4,9 @@ export class User{
     surname?:string;
     dni?:number;
     birthday?:string;
-    username?:string;
+    Username?:string;
     password?:string;
     email?:string;
+    jwt?:string;
     roles?: string[] = [];
 }

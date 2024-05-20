@@ -12,16 +12,19 @@ export class RegisterService {
   ) { }
 
   postRegister(user:object):Observable<any>{
-    const finalUrl='localhost:8080/register';
+    const finalUrl='http://localhost:8080/v1/user/';
 
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,user)
       .subscribe({
         next: (res) => {
+          console.log(res);
+          
           obs.next(res);
           obs.complete();
         },
         error: (error) => {
+          console.log(error);
           obs.error(error);
           obs.complete();
         }

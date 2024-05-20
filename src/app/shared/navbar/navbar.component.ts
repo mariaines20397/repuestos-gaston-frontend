@@ -6,6 +6,9 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import Swal from 'sweetalert2';
 import { Search } from './model/search.model';
 import * as SearchActions from './store/search.actions'
+import { User } from 'src/app/pages/main/user/model/users.model';
+import { Subscription } from 'rxjs';
+import { loadLoginSuccess } from 'src/app/pages/login/store/login.actions';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -30,16 +33,25 @@ export class NavbarComponent implements OnInit {
       id:3,
       name:'Aceites'
     }
-  ]
+  ];
+  user: any = {};
+  private subscriptions = new Subscription();
   constructor(
     private router: Router, 
     private formBuilder: FormBuilder,
-    private store:Store<{ filtrar:Search}>,
-    // public authService: AuthService
+    private store:Store<{ filtrar:Search, user: User}>,
+    public authService: AuthService
     ) {
       this.searchForm = this.formBuilder.group({
         search: new FormControl(null)
       });
+      this.subscriptions.add(
+        this.store
+          .select('user')
+          .subscribe((user) => this.user = user )
+      );
+      // this.subscriptions.add(this.store.select('user').subscribe(user => (this.user = user)));
+
     }
   ngOnInit(): void {
     this.isHome();
@@ -80,14 +92,20 @@ export class NavbarComponent implements OnInit {
   cart(){
     this.router.navigate(['/carrito']);
   }
-  // logout() {
-  //   const username = this.authService.usuario.username;
-  //   this.authService.logout();
-  //   Swal.fire(
-  //     '¡Hasta pronto!',
-  //     `${username} has cerrado sesión con éxito`,
-  //     'success'
-  //   );
-  //   this.router.navigate(['/login']);
-  // }
+  logout() {
+    const username = this.authService.usuario.Username;
+    loadLoginSuccess({
+      user:{
+          Username:undefined,
+          jwt:undefined
+      }
+  });
+    // this.authService.logout();
+    Swal.fire(
+      '¡Hasta pronto!',
+      `${username} has cerrado sesión con éxito`,
+      'success'
+    );
+    this.router.navigate(['/login']);
+  }
 }
