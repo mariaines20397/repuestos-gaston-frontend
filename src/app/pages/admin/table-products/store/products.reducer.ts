@@ -2,7 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 import * as ProductsActions from "./products.actions";
 
 export const initialState: any={}
-export const productsReducer = createReducer<any>(
+export const productsAdminReducer = createReducer<any>(
     initialState,
     //load products
     on(
@@ -102,8 +102,7 @@ export const productsReducer = createReducer<any>(
   on(
     ProductsActions.createProductSuccess,
     (state, props) => ({
-      ...state,
-      data: props.product,
+      ...state
     })
   ),
   on(

@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class UsersEffects {
+export class UsersAdminEffects {
   constructor(
     private actions$: Actions,
     private userServices: AdminUsersService,

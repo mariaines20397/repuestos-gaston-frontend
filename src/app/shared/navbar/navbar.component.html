@@ -41,7 +41,8 @@
           <p>Categorias</p>
           </a>
           <ul class="dropdown-menu" >
-            <li *ngFor="let data of categories"><a class="dropdown-item" href="/products/categories/{{data.id}}">{{data.name}}</a></li>
+            <li *ngFor="let data of this.category.data">
+              <a class="dropdown-item" onclick="filterProductsByCategory(data.category_id)" href="/products/categories/{{data.category_id}}">{{data.name}}</a></li>
           </ul>
         </li>
         
@@ -147,9 +148,8 @@
   <hr>
   <h5 class="text-muted">Categorias</h5>
   <hr>
-  <p *ngFor="let data of categories">
-
-    <a href="/products/categories/{{data.id}}">{{data.name}}</a>
+  <p *ngFor="let data of this.category.data">
+    <a href="/products/categories/{{data.category_id}}">{{data.name}}</a>
   </p>
   
  </div>

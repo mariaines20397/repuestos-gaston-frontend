@@ -41,7 +41,7 @@ export class ProductsService {
       })
     }
   getProductsByCategory(id:number):Observable<any>{
-    const finalUrl=`${this.urlEndpoint}/categories/${id}`;
+    const finalUrl=`http://localhost:8080/v1/product/filter/${id}/category`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl )
       .subscribe({

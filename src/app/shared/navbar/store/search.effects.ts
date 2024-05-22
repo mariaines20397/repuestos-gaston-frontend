@@ -23,8 +23,10 @@ export class SearchEffects {
       mergeMap((action) => {
         return this.searchServices.getProductsByFilter(action.filter).pipe(
           map((response) => {
+            console.log(response);
+            
             return SearchActions.loadSearchSuccess({
-              product: response.data,
+              product: response.content,
             });
           }),
           catchError((error) => {

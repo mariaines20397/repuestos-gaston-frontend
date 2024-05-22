@@ -40,8 +40,10 @@ export class AuthInterceptorService implements HttpInterceptor{
   }
 
   getHeaders(): HttpHeaders {
+    console.log(this.user);
+    
     return new HttpHeaders({
-      Authorization: this.user?.data?.jwt ? `Bearer ${this.user?.data?.jwt}` : 'Bearer ',
+      Authorization: this.user?.data?.jwt ? `Bearer ${this.user.data.jwt}` : '',
       'Content-Type': 'application/json',
       
     });

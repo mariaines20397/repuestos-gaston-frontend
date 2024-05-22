@@ -29,7 +29,7 @@ const routes: Routes = [
         canActivate:[AuthGuard],
       },
       {
-        path:'search',
+        path:'search/:filtrar',
         loadChildren:() => import('./products/products.module').then((m)=> m.ProductsModule),
         // canActivate:[AuthGuard],
       }

@@ -1,11 +1,9 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as ProductsActions from './products.actions';
-import { catchError, map, mergeMap, of, throwError } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { ProductsService } from '../services/products.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { AuthService } from 'src/app/core/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class ProductsEffects {
   constructor(
     private actions$: Actions,
-    private productsServices: ProductsService,
-    private router: Router,
+    private productsServices: ProductsService
   ) {}
 
   loadProductsByCategory$ = createEffect(() =>
@@ -24,7 +21,7 @@ export class ProductsEffects {
         return this.productsServices.getProductsByCategory(action.id).pipe(
           map((response) => {
             return ProductsActions.loadProductsByCategorySuccess({
-              product: response.data,
+              product: response.content,
             });
           }),
           catchError((error) => {
@@ -39,9 +36,7 @@ export class ProductsEffects {
     this.actions$.pipe(
       ofType(ProductsActions.loadProductById),
       mergeMap((action) => {
-        console.log(action);
         return this.productsServices.getProductById(action.id).pipe(
-          
           map((response) => {
             return ProductsActions.loadProductByIdSuccess({
               product: response.data,

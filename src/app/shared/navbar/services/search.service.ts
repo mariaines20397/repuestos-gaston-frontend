@@ -19,12 +19,12 @@ export class SearchService {
 
   getProductsByFilter(filters:string):Observable<any>{
     let queryParams: any = null;
-    if (filters) {
-      // filters = filters.filter(([_, value]) => value != null || value != undefined)
-      queryParams = new HttpParams({ fromObject: { filters} });
-    }
+    // if (filters) {
+    //   // filters = filters.filter(([_, value]) => value != null || value != undefined)
+    //   queryParams = new HttpParams({ fromObject: { filters} });
+    // }
     return new Observable((obs)=>{
-      this.httpClient.get(`${this.finalUrl}/search`,{params:queryParams})
+      this.httpClient.get(`${this.finalUrl}/v1/product/filter/${filters}/name`)
       .subscribe({
         next: (res) => {
           // this.router.navigate(['/home']);

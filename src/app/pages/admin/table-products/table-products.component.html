@@ -26,10 +26,10 @@
                       </tr>
                     </thead>
                     <tbody >
-                      <tr *ngFor="let producto of productos; let index = index">
+                      <tr *ngFor="let producto of this.productAdmin.data; let index = index">
                         <td scope="row"><input type="radio" (change)="mostrarData(producto)" name="radioButton" [value]="producto"/></td>
                         <td class="imagenTabla">
-                          <img class="imagen" [src]="producto.imageUrl" alt="Imagen del producto" *ngIf="producto.imageUrl" />
+                          <img class="imagen" [src]="mostrarImg(producto.image)" alt="Imagen del producto" *ngIf="producto.image" />
                         </td>
                         <td>{{producto.name}}</td>
                         <td>${{producto.price}}</td>
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="pagination">
-          <ngb-pagination [collectionSize]="productos.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination>
+          <ngb-pagination [collectionSize]="this.productAdmin.data.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination>
         </div>
 </div>
 <div class="form-productos">

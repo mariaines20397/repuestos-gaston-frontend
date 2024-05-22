@@ -9,6 +9,13 @@ import * as SearchActions from './store/search.actions'
 import { User } from 'src/app/pages/main/user/model/users.model';
 import { Subscription } from 'rxjs';
 import { loadLoginSuccess } from 'src/app/pages/login/store/login.actions';
+import * as HomeActions from 'src/app/pages/main/home/store/home.actions';
+import * as CategoriasActions from 'src/app/shared/navbar/store/categories.actions';
+import * as ProductsActions from 'src/app/pages/main/products/store/products.actions';
+import { getAllCategories, getAllCategory } from 'src/app/pages/admin/table-categories/model/category.model';
+import { Product } from 'src/app/pages/main/products/model/product.model';
+
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -19,27 +26,15 @@ export class NavbarComponent implements OnInit {
   isAdmin:boolean = false;
   isSearch:boolean = false;
   isMenu:boolean = false;
+  category: any = {};
   searchForm:FormGroup;
-  categories:any[]=[
-    {
-      id:1,
-      name:'Accesorios'
-    },
-    {
-      id:2,
-      name:'Caños de escape'
-    },
-    {
-      id:3,
-      name:'Aceites'
-    }
-  ];
   user: any = {};
   private subscriptions = new Subscription();
+
   constructor(
     private router: Router, 
     private formBuilder: FormBuilder,
-    private store:Store<{ filtrar:Search, user: User}>,
+    private store:Store<{ filtrar:Search, user: User, category: getAllCategory }>,
     public authService: AuthService
     ) {
       this.searchForm = this.formBuilder.group({
@@ -50,11 +45,20 @@ export class NavbarComponent implements OnInit {
           .select('user')
           .subscribe((user) => this.user = user )
       );
+      this.subscriptions.add(
+        this.store
+          .select('category')
+          .subscribe((category) => this.category = category)
+      );
       // this.subscriptions.add(this.store.select('user').subscribe(user => (this.user = user)));
+      // this.store.dispatch(HomeActions.loadCategories());
+      this.store.dispatch(CategoriasActions.loadCategories());
 
     }
   ngOnInit(): void {
     this.isHome();
+    console.log(this.category);
+    
   }
   isHome() {
     this.router.events.subscribe((event) => {
@@ -68,9 +72,7 @@ export class NavbarComponent implements OnInit {
   }
   search(){
     const filtrar = this.searchForm.value.search;
-    this.router.navigate(['/search'],{
-      queryParams:{filtrar}
-    })    
+    this.router.navigate([`/search/${filtrar}`])    
     this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
   }
   selectSearch():boolean{
@@ -107,5 +109,9 @@ export class NavbarComponent implements OnInit {
       'success'
     );
     this.router.navigate(['/login']);
+  }
+
+  filterProductsByCategory(id:number){
+    this.store.dispatch(ProductsActions.loadProductsByCategory({id}));
   }
 }

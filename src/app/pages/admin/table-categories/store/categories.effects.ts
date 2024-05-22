@@ -1,6 +1,6 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as CategoriesActions from './categories.actions';
-import { catchError, map, mergeMap, of, throwError } from 'rxjs';
+import { catchError, map, mergeMap, of, retry, throwError } from 'rxjs';
 import { AdminCategoriesService } from '../services/admin-categories.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,23 +10,28 @@ import { AuthService } from 'src/app/core/services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriesEffects {
+export class CategoriesAdminEffects {
   constructor(
     private actions$: Actions,
     private categoriesServices: AdminCategoriesService,
     private router: Router,
   ) {}
 
-  loadCategories$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CategoriesActions.loadCategories),
+  loadCategories$ = createEffect(() =>    
+    this.actions$.pipe(      
+      ofType(CategoriesActions.loadCategories),      
       mergeMap((action) => {
+        console.log(action);
+        console.log('entro aca');
         return this.categoriesServices.getCategoriesAdmin().pipe(
           map((response) => {
+            console.log(response);
+            
             return CategoriesActions.loadCategoriesSuccess({
-              category: response.data,
+              category: response.content,
             });
           }),
+          retry({ count: 2, delay: 100 }),
           catchError((error) => {
             return of(CategoriesActions.loadCategoriesFail({ error }));
           })

@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductsEffects {
+export class ProductsAdminEffects {
   constructor(
     private actions$: Actions,
     private productsServices: AdminProductsService,
@@ -24,7 +24,7 @@ export class ProductsEffects {
         return this.productsServices.getProductsAdmin().pipe(
           map((response) => {
             return ProductsActions.loadProductsSuccess({
-              product: response.data,
+              product: response.content,
             });
           }),
           catchError((error) => {
@@ -43,7 +43,7 @@ export class ProductsEffects {
         return this.productsServices.getProductsByIdAdmin(action.id).pipe(
           map((response) => {
             return ProductsActions.loadProductByIdSuccess({
-              product: response.data,
+              product: response,
             });
           }),
           catchError((error) => {
@@ -99,9 +99,7 @@ createProduct$ = createEffect(() =>
       console.log(action);
       return this.productsServices.postPromotion(action.product).pipe(
         map((response) => {
-          return ProductsActions.createProductSuccess({
-            product: response.data,
-          });
+          return ProductsActions.createProductSuccess();
         }),
         catchError((error) => {
           return of(ProductsActions.createProductFail({ error }));

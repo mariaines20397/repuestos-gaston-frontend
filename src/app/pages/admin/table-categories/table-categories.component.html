@@ -24,19 +24,19 @@
                         </tr>
                       </thead>
                       <tbody >
-                        <tr *ngFor="let category of categories; let index = index">
+                        <!-- <tr *ngFor="let category of categories; let index = index">
                           <td scope="row"><input type="radio" (change)="mostrarData(category)" name="radioButton" [value]="category"/></td>
                           
                           <td>{{category.name}}</td>
                           <td>{{category.products?.length}} un.</td>
-                        </tr>
+                        </tr> -->
                       </tbody>
                     </table>  
                   </div>  
               </div>
           </div>
           <div class="pagination">
-            <ngb-pagination [collectionSize]="categories.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination>
+            <!-- <ngb-pagination [collectionSize]="categories.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination> -->
           </div>
   </div>
   <div class="form-productos">

@@ -4,16 +4,16 @@
             <div class="titleButtons">
                 <div class="title">
                     <h3 *ngIf="agregarProducto" class="card-title"><b>Agregar producto</b></h3>
-                    <h3 *ngIf="editarProducto" class="card-title"><b>Editar producto {{producto.id}}</b></h3>
-                    <h3 class="card-title" *ngIf="!editarProducto && !agregarProducto"><b>Ver más del producto {{producto.id}}</b></h3>
+                    <h3 *ngIf="editarProducto" class="card-title"><b>Editar producto {{this.product?.data[0].product_id}}</b></h3>
+                    <h3 class="card-title" *ngIf="!editarProducto && !agregarProducto"><b>Ver más del producto {{this.product?.data[0].product_id}}</b></h3>
                 </div>
                 <div class="iconsTitle">
-                    <button class="btn" (click)="editar()" *ngIf="producto.id" [disabled]="editarProducto">
+                    <!-- <button class="btn" (click)="editar()" *ngIf="producto.id" [disabled]="editarProducto">
                         <img src="../../../../../assets/svg/edit.svg" alt="" srcset="">
                     </button>
                     <button class="btn" (click)="eliminar()" *ngIf="producto.id">
                         <img src="../../../../../assets/svg/trash.svg" alt="" srcset="">
-                    </button>
+                    </button> -->
                     <button type="button" class="btn btn-dark" (click)="agregar()" [disabled]="agregarProducto"
                 placement="top" ngbTooltip="Agregar producto">
                   <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">
@@ -44,12 +44,19 @@
                             <!-- <select class="selectForm" formControlName="category">
                                 <option *ngFor="let category of categoriesIds"  [value]="productForm.get('category.id')?.value" >{{category.name}}</option>
                             </select> -->
-                            <select  class="selectForm" formControlName="category" [value]="productForm.get('category.id')?.value"> 
-                                <option *ngFor="let categoria of categoriesIds" [value]="categoria.id" 
-                                [selected]="categoria.id == productForm.get('category.id')?.value">
+                            <!-- <select  class="selectForm" formControlName="category" [value]="productForm.get('category.category_id')?.value"> 
+                                <option *ngFor="let categoria of this.category.data" [value]="categoria.category_id" 
+                                [selected]="categoria.category_id == productForm.get('category.category_id')?.value">
                                     {{categoria.name}}
                                 </option> 
-                            </select>
+                            </select> -->
+                            <div formGroupName="category">
+                                <select class="selectForm" formControlName="category_id">
+                                  <option *ngFor="let categoria of this.category.data" [value]="categoria.category_id">
+                                    {{categoria.name}}
+                                  </option>
+                                </select>
+                              </div>
                             <div *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
                                 <div class="validatorText" *ngIf="productForm.get('category')?.hasError('required')">
                                     <span>Este campo es requerido.</span>
@@ -110,7 +117,7 @@
                 </div>
                 </div>
                 <div class="inputsText imagenProducto">
-                    <img class="imagen" *ngIf="producto.imageUrl" [src]="producto.imageUrl" alt="Imagen del producto"  />
+                    <img class="imagen" *ngIf="this.product?.data[0].image" [src]="mostrarImg(this.product?.data[0].image)" alt="Imagen del producto"  />
                 </div>
             </fieldset>
             </form>
@@ -118,7 +125,7 @@
             </div>
         </div>
         <div class="formButtons" >
-            <a *ngIf="producto.id || agregarProducto" (click)="cancelar()">Limpiar</a>
+            <a *ngIf="this.product?.data[0].product_id || agregarProducto" (click)="cancelar()">Limpiar</a>
             <button class="btn btn-dark btn-login" *ngIf="editarProducto || agregarProducto" [disabled]="productForm.invalid" (click)="guardarProducto()" >
                 Guardar producto</button>
         </div>

@@ -1,10 +1,10 @@
 import { createAction, props } from "@ngrx/store";
-import { Category } from "../model/category.model";
+import { Category, getAllCategory } from "../model/category.model";
 
 //load categories
 export const loadCategories = createAction('[AdminCategories] loadCategories');
 export const loadCategoriesSuccess = createAction('[AdminCategories] loadCategoriesSuccess',
-props<{category:Category[]}>());
+props<{category:any}>());
 export const loadCategoriesFail = createAction('[AdminCategories] loadCategoriesFail',
 props<{error:any}>());
 

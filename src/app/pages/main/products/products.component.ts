@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as ProductsActions from './store/products.actions';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from './model/product.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -10,122 +11,51 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit{
-  product={nombre:'producto 1'}
-  categoryId!:number;
-  filtrado:string | null = null;
-  productosMostrar:any[]=[];
-  nameProduct:string = '';
-  listProductsByCategory:any[]=[
-    {
-      id:1,
-      name:'Accesorios para Motos',
-      products:[
-        {
-          id:1,
-          name:'Casco',
-          price:'1000',
-          descriptions:'Casco talle 2',
-          img:'./assets/img/productos/casco.jpg'
-        },
-        {
-          id:2,
-          name:'Guantes',
-          price:'900',
-          descriptions:'Guantes térmicos para moto',
-          img:'./assets/img/productos/casco.jpg'
-        },
-        {
-          id:3,
-          name:'Antiparras',
-          price:'1100',
-          descriptions:'Antiparras para moto',
-          img:'./assets/img/productos/casco.jpg'
-        }
-      ]
-    },
-    {
-      id:2,
-      name:'Caños de escape',
-      products:[
-        {
-          id:1,
-          name:'Caño de escape YBR',
-          price:'1000',
-          descriptions:'Caño de escape de 4 tiempos',
-          img:'./assets/img/productos/cañoEscape.jpg'
-        },
-        {
-          id:2,
-          name:'Caño de escape 110',
-          price:'900',
-          descriptions:'Caño de escape 2 tiempos',
-          img:'./assets/img/productos/cañoEscape.jpg'
-        },
-        {
-          id:3,
-          name:'Caño de escape 125',
-          price:'1100',
-          descriptions:'Caño de escape sin ruido',
-          img:'./assets/img/productos/cañoEscape.jpg'
-        }
-      ]
-    },
-    {
-      id:3,
-      name:'Aceites para Motos',
-      products:[
-        {
-          id:1,
-          name:'Motul 5100',
-          price:'1000',
-          descriptions:'Aceite de motos sintético',
-          img:'./assets/img/productos/motul.png',
-         
-        },
-        {
-          id:2,
-          name:'Motul 500',
-          price:'900',
-          descriptions:'Aceite 4T',
-          img:'./assets/img/productos/motul.png'
-        },
-        {
-          id:3,
-          name:'AMA',
-          price:'1100',
-          descriptions:'Aceite sintético',
-          img:'./assets/img/productos/motul.png'
-        }
-      ]
-    }
-  ]
+  private subscriptions = new Subscription();
+  private categoryId!:number;
+  private category: any = {};
+  public nameSearch!:string;
+  public products: any = [];
+  public search: any = {};
+  public nameCategory:string = '';
+  
   constructor(
-    private store:Store<{ products:any}>,
+    private store:Store<{ products:Product, category:any, search: any}>,
     private routeActive: ActivatedRoute,
-    private route:Router ,
-
-    // public authService: AuthService
+    private route:Router 
    ){
+    this.subscriptions.add(
+      this.store
+        .select('products')
+        .subscribe((products) => this.products = products)
+    );
+    this.subscriptions.add(
+      this.store
+        .select('category')
+        .subscribe((category) => {
+          this.category = category.data
+          this.productosPorCategorias();
+        })
+    );
+    this.subscriptions.add(
+      this.store
+        .select('search')
+        .subscribe((search) => {
+          this.search = search
+          console.log(this.search);
+        })
+    );
    }
   ngOnInit(): void {
     this.categoryId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
-    this.routeActive.queryParams.subscribe(data=>{
-      if (data['filtrar'] !== null && data['filtrar']!==undefined) {
-        this.filtrado=data['filtrar']
-      }
-    })
-    this.store.dispatch(ProductsActions.loadProductsByCategory({id:this.categoryId}));
- this.productosPorCategorias()
+    this.nameSearch = this.routeActive.snapshot.paramMap.get('filtrar')!;
+    this.store.dispatch(ProductsActions.loadProductsByCategory({id:this.categoryId}));  
   }
 
   productosPorCategorias(){
-    this.listProductsByCategory.forEach(data=>{
-      if (data.id == this.categoryId) {
-        this.nameProduct = data.name;
-        data.products.forEach((e:any)=>{
-
-          this.productosMostrar.push(e)
-        })
+    this.category?.forEach((data:any)=>{
+      if (data.category_id == this.categoryId) {
+        this.nameCategory = data.name;
       }
     })
   }

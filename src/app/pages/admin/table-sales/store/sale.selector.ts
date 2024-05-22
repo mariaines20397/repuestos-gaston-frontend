@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
-export const selectSalesFeatureState =
-createFeatureSelector<any>('sales');
+export const selectSalesAdminFeatureState =
+createFeatureSelector<any>('salesAdmin');
 export const selectSalesState = createSelector(
-    selectSalesFeatureState,
+    selectSalesAdminFeatureState,
     (state) => state
 );

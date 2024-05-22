@@ -3,7 +3,11 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { Product } from '../products/model/product.model';
 import * as HomeActions from './store/home.actions';
+import * as CategoriasAdminActions from 'src/app/pages/admin/table-categories/store/categories.actions';
+
 import { Router } from '@angular/router';
+import { getAllCategories, getAllCategory } from 'src/app/pages/admin/table-categories/model/category.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit{
   page = 1;
+  category: any = {};
   carousel:string[]=[
     './assets/img/carousel/carousel1.png',
     './assets/img/carousel/carousel2.png',
@@ -70,21 +75,25 @@ export class HomeComponent implements OnInit{
   constructor(
     private _config: NgbCarouselConfig,
     private router: Router,
-    private store:Store<{ product:Product}>,
+    private store:Store<{ product:Product }>,
 
     ) {
       _config.interval = 4000;
       _config.pauseOnHover = true;
       _config.showNavigationArrows = false;
       _config.showNavigationIndicators = false;
-      
+      // this.subscriptions.add(
+       
+      // );
+      this.store.dispatch(HomeActions.loadHome());
+     
       
   }
   ngOnInit(): void {
-    this.store.dispatch(HomeActions.loadHome());
+   
     this.totalProductos = this.productos.length;
     console.log(this.productos.length);
-
+    console.log(this.category);
   }
 
   getProduct(id:number){

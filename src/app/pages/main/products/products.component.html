@@ -1,10 +1,10 @@
-<div *ngIf="!filtrado">
+<div *ngIf="!nameSearch">
   <div class="title">
-    <h3>{{nameProduct}}</h3>
-  <span>{{productosMostrar.length}} resultados</span>
+      <h3>{{nameCategory}}</h3>
+  <span>{{products?.data?.length}} resultados</span>
   </div>
   <div class="productos">
-    <div class="card" *ngFor="let data of productosMostrar">
+    <div class="card" *ngFor="let data of products.data">
       <div class="card-products" (click)="productById(data.id)">
         <div class="col-md-6 divImg">
           <img src={{data.img}} class="card-img" alt="Imagen de producto">
@@ -21,13 +21,13 @@
   </div>
 </div>
 
-<div *ngIf="filtrado">
+<div *ngIf="nameSearch">
   <div class="title">
-    <h3>{{filtrado | titlecase}}</h3>
-  <span>{{productosMostrar.length}} resultados</span>
+    <h3>{{nameSearch | titlecase}}</h3>
+  <span>{{search?.data?.length}} resultados</span>
   </div>
   <div class="productos">
-    <div class="card" *ngFor="let data of productosMostrar">
+    <div class="card" *ngFor="let data of search?.data">
       <div class="card-products" (click)="productById(data.id)">
         <div class="col-md-6 divImg">
           <img src={{data.img}} class="card-img" alt="Imagen de producto">

@@ -38,8 +38,7 @@ export const createProduct = createAction(
     props<{ product: Product }>()
   );
   export const createProductSuccess = createAction(
-    '[AdminProducts] createProductSuccess',
-    props<{ product: Product }>()
+    '[AdminProducts] createProductSuccess'
   );
   export const createProductFail = createAction(
     '[AdminProducts] createProductFail',

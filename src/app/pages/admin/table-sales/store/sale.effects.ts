@@ -10,7 +10,7 @@ import { SaleService } from '../services/sale.service';
 @Injectable({
   providedIn: 'root',
 })
-export class SaleEffects {
+export class SaleAdminEffects {
   constructor(
     private actions$: Actions,
     private saleServices: SaleService,

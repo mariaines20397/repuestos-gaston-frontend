@@ -20,11 +20,11 @@ import * as fromAdminProductReducer from './table-products/store/products.reduce
 import * as fromAdminCategoryReducer from './table-categories/store/categories.reducer';
 import * as fromAdminSaleReducer from './table-sales/store/sale.reducer';
 import * as fromAdminUserReducer from './table-users/store/users.reducer';
-import { ProductsEffects } from './table-products/store/products.effects';
+import { ProductsAdminEffects } from './table-products/store/products.effects';
 import { EffectsModule } from '@ngrx/effects';
-import { CategoriesEffects } from './table-categories/store/categories.effects';
-import { SaleEffects } from './table-sales/store/sale.effects';
-import { UsersEffects } from './table-users/store/users.effects';
+import { CategoriesAdminEffects } from './table-categories/store/categories.effects';
+import { SaleAdminEffects } from './table-sales/store/sale.effects';
+import { UsersAdminEffects } from './table-users/store/users.effects';
 
 @NgModule({
   declarations: [
@@ -48,25 +48,25 @@ import { UsersEffects } from './table-users/store/users.effects';
     NgbTooltipModule,
     NgbTypeaheadModule,
     StoreModule.forFeature(
-      'product',
-      fromAdminProductReducer.productsReducer
+      'productAdmin',
+      fromAdminProductReducer.productsAdminReducer
     ),
-    EffectsModule.forFeature([ProductsEffects]),
+    EffectsModule.forFeature([ProductsAdminEffects]),
     StoreModule.forFeature(
-      'category',
-      fromAdminCategoryReducer.categoriesReducer
+      'categoryAdmin',
+      fromAdminCategoryReducer.categoriesAdminReducer
     ),
-    EffectsModule.forFeature([CategoriesEffects]),
+    EffectsModule.forFeature([CategoriesAdminEffects]),
     StoreModule.forFeature(
-      'sales',
-      fromAdminSaleReducer.salesReducer
+      'salesAdmin',
+      fromAdminSaleReducer.salesAdminReducer
     ),
-    EffectsModule.forFeature([SaleEffects]),
+    EffectsModule.forFeature([SaleAdminEffects]),
     StoreModule.forFeature(
-      'user',
-      fromAdminUserReducer.usersReducer
+      'userAdmin',
+      fromAdminUserReducer.usersAdminReducer
     ),
-    EffectsModule.forFeature([UsersEffects])
+    EffectsModule.forFeature([UsersAdminEffects])
   ]
 })
 export class AdminModule { }
