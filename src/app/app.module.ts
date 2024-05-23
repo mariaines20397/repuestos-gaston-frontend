@@ -30,5 +30,5 @@ import { metaReducers, reducers } from './pages/login/store/app.state';
             },
         }),
         EffectsModule.forRoot([]),
-        StoreDevtoolsModule.instrument()], providers: [authProvider, { provide: LOCALE_ID, useValue: 'es-MX' }, provideHttpClient(withInterceptorsFromDi())] })
+        StoreDevtoolsModule.instrument({connectInZone: true})], providers: [authProvider, { provide: LOCALE_ID, useValue: 'es-MX' }, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
