@@ -1,132 +1,149 @@
-<div class="div-general">
-    <div class="card card-tabla">
-        <div class="card-body">
-            <div class="titleButtons">
-                <div class="title">
-                    <h3 *ngIf="agregarProducto" class="card-title"><b>Agregar producto</b></h3>
-                    <h3 *ngIf="editarProducto" class="card-title"><b>Editar producto {{this.product?.data[0].product_id}}</b></h3>
-                    <h3 class="card-title" *ngIf="!editarProducto && !agregarProducto"><b>Ver más del producto {{this.product?.data[0].product_id}}</b></h3>
-                </div>
-                <div class="iconsTitle">
-                    <!-- <button class="btn" (click)="editar()" *ngIf="producto.id" [disabled]="editarProducto">
-                        <img src="../../../../../assets/svg/edit.svg" alt="" srcset="">
+<div class="contenedor">
+    <div class="productos">
+        <div class="card card-tabla">
+            <div class="card-body">
+                <div class="titleButtons">
+                    <button class="btn" (click)="back()" placement="top" ngbTooltip="Volver">
+                        <img src="../../../../../assets/svg/back.svg" alt="" srcset="">
                     </button>
-                    <button class="btn" (click)="eliminar()" *ngIf="producto.id">
-                        <img src="../../../../../assets/svg/trash.svg" alt="" srcset="">
-                    </button> -->
-                    <button type="button" class="btn btn-dark" (click)="agregar()" [disabled]="agregarProducto"
-                placement="top" ngbTooltip="Agregar producto">
-                  <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">
-                </button>
+                    <div class="title">
+                        <h3 *ngIf="this.router.url.includes('add')" class="card-title"><b>Agregar producto</b></h3>
+                        <h3 *ngIf="this.router.url.includes('edit')" class="card-title"><b>Editar producto</b></h3>
+                        <h3 *ngIf="this.router.url.includes('view')" class="card-title"><b>Ver más del producto</b></h3>
+                    </div>
+                    <div class="iconsTitle">
+                        <button class="btn" (click)="editar()" *ngIf="!this.router.url.includes('add')" [disabled]="this.router.url.includes('edit')"
+                            placement="top" ngbTooltip="Editar producto">
+                            <img src="../../../../../assets/svg/edit.svg" alt="" srcset="">
+                        </button>
+                    </div>
                 </div>
-            </div>
-           <div class="form-container">
-            <form action="" [formGroup]="productForm">
-                <fieldset [disabled]="!editarProducto && !agregarProducto" class="container-class">
-                    <div class="containerInputs">
-                        <div class="inputsText">
-                            <span class="title-input">Nombre</span>
-                        <input class="text-input-width-product form-control" formControlName="name" type="text" name="" id="">
-                        <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
-                            <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
-                                <span>Este campo es requerido.</span>
-                            </div>
-                            <div class="validatorText" *ngIf="productForm.get('name')?.hasError('maxlength')">
-                                <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="inputsText">
-                            <span class="title-input">Categoría</span>
-                        <!-- <input class="text-input-width-product form-control" formControlName="stock" type="number" name="" id=""> -->
-                        
-                            <!-- <span class="title-input">Estado</span> -->
-                            <!-- <select class="selectForm" formControlName="category">
-                                <option *ngFor="let category of categoriesIds"  [value]="productForm.get('category.id')?.value" >{{category.name}}</option>
-                            </select> -->
-                            <!-- <select  class="selectForm" formControlName="category" [value]="productForm.get('category.category_id')?.value"> 
-                                <option *ngFor="let categoria of this.category.data" [value]="categoria.category_id" 
-                                [selected]="categoria.category_id == productForm.get('category.category_id')?.value">
-                                    {{categoria.name}}
-                                </option> 
-                            </select> -->
-                            <div formGroupName="category">
-                                <select class="selectForm" formControlName="category_id">
-                                  <option *ngFor="let categoria of this.category.data" [value]="categoria.category_id">
-                                    {{categoria.name}}
-                                  </option>
-                                </select>
-                              </div>
-                            <div *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
-                                <div class="validatorText" *ngIf="productForm.get('category')?.hasError('required')">
-                                    <span>Este campo es requerido.</span>
+                <div class="form-container">
+                    <form action="" [formGroup]="productForm">
+                        <fieldset [disabled]="this.router.url.includes('view')" class="container-class">
+                            <div class="containerInputs">
+                                <div class="inputsText">
+                                    <span class="title-input">Nombre</span>
+                                    <input class="text-input-width-product form-control" formControlName="name"
+                                        type="text" name="" id="">
+                                    <div
+                                        *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
+                                        <div class="validatorText"
+                                            *ngIf="productForm.get('name')?.hasError('required')">
+                                            <span>Este campo es requerido.</span>
+                                        </div>
+                                        <div class="validatorText"
+                                            *ngIf="productForm.get('name')?.hasError('maxlength')">
+                                            <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inputsText">
+                                    <span class="title-input">Categoría</span>
+                                    <div formGroupName="category">
+                                        <select class="selectForm" formControlName="category_id"
+                                            [value]="productForm.get('category_id')?.value">
+                                            <option *ngFor="let categoria of this.category.data"
+                                                [value]="categoria.category_id"
+                                                [selected]="categoria.category_id == productForm.get('category.category_id')?.value">
+                                                {{categoria.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div
+                                        *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
+                                        <div class="validatorText"
+                                            *ngIf="productForm.get('category')?.hasError('required')">
+                                            <span>Este campo es requerido.</span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        *ngIf="productForm.controls['stock'].errors && productForm.get('stock')?.touched">
+                                        <div class="validatorText"
+                                            *ngIf="productForm.get('stock')?.hasError('required')">
+                                            <span>Este campo es requerido.</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        <div *ngIf="productForm.controls['stock'].errors && productForm.get('stock')?.touched">
-                            <div class="validatorText" *ngIf="productForm.get('stock')?.hasError('required')">
-                                <span>Este campo es requerido.</span>
+                            <div class="containerInputs">
+                                <div class="inputsText">
+                                    <span class="title-input">Precio</span>
+                                    <input class="text-input-width-product form-control" formControlName="price"
+                                        type="number" name="" id="">
+                                    <div
+                                        *ngIf="productForm.controls['price'].errors && productForm.get('price')?.touched">
+                                        <div class="validatorText"
+                                            *ngIf="productForm.get('price')?.hasError('required')">
+                                            <span>Este campo es requerido.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inputsText">
+                                    <span class="title-input">Stock (unidades)</span>
+                                    <input class="text-input-width-product form-control" formControlName="stock"
+                                        type="number" name="" id="">
+                                    <div
+                                        *ngIf="productForm.controls['stock'].errors && productForm.get('stock')?.touched">
+                                        <div class="validatorText"
+                                            *ngIf="productForm.get('stock')?.hasError('required')">
+                                            <span>Este campo es requerido.</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        </div>
-                    </div>
-                <div class="containerInputs">
-                    <div class="inputsText">
-                        <span class="title-input">Precio</span>
-                    <input class="text-input-width-product form-control" formControlName="price" type="number" name="" id="">
-                    <div *ngIf="productForm.controls['price'].errors && productForm.get('price')?.touched">
-                        <div class="validatorText" *ngIf="productForm.get('price')?.hasError('required')">
-                            <span>Este campo es requerido.</span>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="inputsText">
-                        <span class="title-input">Stock (unidades)</span>
-                    <input class="text-input-width-product form-control" formControlName="stock" type="number" name="" id="">
-                    <div *ngIf="productForm.controls['stock'].errors && productForm.get('stock')?.touched">
-                        <div class="validatorText" *ngIf="productForm.get('stock')?.hasError('required')">
-                            <span>Este campo es requerido.</span>
-                        </div>
-                    </div>
+                            <div class="containerInputs">
+                                <div class="inputsText">
+                                    <span class="title-input">Código de barra</span>
+                                    <input class="text-input-width-product form-control" formControlName="bar_code"
+                                        type="number" name="" id="">
+                                    <div
+                                        *ngIf="productForm.controls['bar_code'].errors && productForm.get('bar_code')?.touched">
+                                        <div class="validatorText"
+                                            *ngIf="productForm.get('bar_code')?.hasError('required')">
+                                            <span>Este campo es requerido.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inputsText">
+                                    <span class="title-input">Descripción</span>
+                                    <textarea class="text-input form-control" formControlName="description" type="text"
+                                        name="" id="" rows="3"></textarea>
+                                    <div
+                                        *ngIf="productForm.controls['description'].errors && productForm.get('description')?.touched">
+                                        <div class="validatorText"
+                                            *ngIf="productForm.get('description')?.hasError('required')">
+                                            <span>Este campo es requerido.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inputsText">
+                                <span class="title-input">Cargar imágen (.png .jpg . jpeg)</span>
+                                <input class="text-input form-control" formControlName="image"
+                                    (change)="onFileSelected($event)" type="file" accept="image/png, image/jpeg">
+                                <div *ngIf="productForm.controls['image'].errors && productForm.get('image')?.touched">
+                                    <div class="validatorText" *ngIf="productForm.get('image')?.hasError('required')">
+                                        <span>Este campo es requerido.</span>
+                                    </div>
+                                    <div class="validatorText" *ngIf="productForm.get('image')?.hasError('fileType')">
+                                        <span>El archivo debe ser de tipo .png o .jpg.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inputsText imagenProducto">
+                                <img class="imagen" *ngIf="this.product.data?.image && !this.router.url.includes('add')"
+                                    [src]="mostrarImg(this.product.data?.image)" alt="Imagen del producto" />
+                            </div>
+                        </fieldset>
+                    </form>
+                    <div class="formButtons">
+                        <button class="btn btn-dark btn-login" *ngIf="!this.router.url.includes('view')"
+                            [disabled]="productForm.invalid" (click)="guardarProducto()">
+                            Guardar producto</button>
                     </div>
                 </div>
-                <div class="inputsText">
-                    <span class="title-input">Descripción</span>
-                    <textarea class="text-input form-control" formControlName="description" type="text" name="" id="" rows="3"></textarea>
-                    <div *ngIf="productForm.controls['description'].errors && productForm.get('description')?.touched">
-                        <div class="validatorText" *ngIf="productForm.get('description')?.hasError('required')">
-                            <span>Este campo es requerido.</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="inputsText">
-                    <span class="title-input">Cargar imágen (.png .jpg . jpeg)</span>
-                <input 
-                class="text-input form-control" 
-                formControlName="imageUrl"
-                (change)="onFileSelected($event)" 
-                type="file" 
-                accept="image/png, image/jpeg">
-                <div *ngIf="productForm.controls['imageUrl'].errors && productForm.get('imageUrl')?.touched">
-                    <div class="validatorText" *ngIf="productForm.get('imageUrl')?.hasError('required')">
-                        <span>Este campo es requerido.</span>
-                    </div>
-                    <div class="validatorText" *ngIf="productForm.get('imageUrl')?.hasError('fileType')">
-                        <span>El archivo debe ser de tipo .png o .jpg.</span>
-                    </div>
-                </div>
-                </div>
-                <div class="inputsText imagenProducto">
-                    <img class="imagen" *ngIf="this.product?.data[0].image" [src]="mostrarImg(this.product?.data[0].image)" alt="Imagen del producto"  />
-                </div>
-            </fieldset>
-            </form>
-           </div>
             </div>
         </div>
-        <div class="formButtons" >
-            <a *ngIf="this.product?.data[0].product_id || agregarProducto" (click)="cancelar()">Limpiar</a>
-            <button class="btn btn-dark btn-login" *ngIf="editarProducto || agregarProducto" [disabled]="productForm.invalid" (click)="guardarProducto()" >
-                Guardar producto</button>
-        </div>
+    </div>
 </div>

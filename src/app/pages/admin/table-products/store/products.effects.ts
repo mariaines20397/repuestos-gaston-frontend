@@ -42,6 +42,8 @@ export class ProductsAdminEffects {
         console.log(action);
         return this.productsServices.getProductsByIdAdmin(action.id).pipe(
           map((response) => {
+            console.log(response);
+            
             return ProductsActions.loadProductByIdSuccess({
               product: response,
             });
@@ -61,9 +63,13 @@ export class ProductsAdminEffects {
       console.log(action);
       return this.productsServices.editProductAdmin(action.id, action.product).pipe(
         map((response) => {
-          return ProductsActions.editProductSuccess({
-            product: response.data,
-          });
+          Swal.fire('Producto guardado', `Producto modificado con éxito.`, 'success')
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/admin/dashboard/product']);
+            } 
+          })
+          return ProductsActions.editProductSuccess();
         }),
         catchError((error) => {
           return of(ProductsActions.editProductFail({ error }));
@@ -80,9 +86,12 @@ deleteProduct$ = createEffect(() =>
       console.log(action);
       return this.productsServices.deleteProductAdmin(action.id).pipe(
         map((response) => {
-          return ProductsActions.deleteProductSuccess({
-            product: response.data,
-          });
+          Swal.fire('¡Producto eliminado con éxito!', '', 'success').then((result)=> {
+            if (result.isConfirmed) {
+              location.reload();
+            }
+          })
+          return ProductsActions.deleteProductSuccess();
         }),
         catchError((error) => {
           return of(ProductsActions.deleteProductFail({ error }));
@@ -96,9 +105,14 @@ createProduct$ = createEffect(() =>
   this.actions$.pipe(
     ofType(ProductsActions.createProduct),
     mergeMap((action) => {
-      console.log(action);
       return this.productsServices.postPromotion(action.product).pipe(
         map((response) => {
+           Swal.fire('Producto guardado', `Producto ${action.product.name} agregado con éxito.`, 'success')
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/admin/dashboard/product']);
+            } 
+          })
           return ProductsActions.createProductSuccess();
         }),
         catchError((error) => {

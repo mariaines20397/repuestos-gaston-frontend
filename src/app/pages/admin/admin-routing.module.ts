@@ -28,8 +28,20 @@ const routes: Routes = [
         component: HomeAdminComponent
       },
       {
-        path:'productos', 
+        path:'product', 
         component: TableProductsComponent
+      },
+      {
+        path:'product/edit/:id', 
+        component: ProductComponent
+      },
+      {
+        path:'product/add', 
+        component: ProductComponent
+      },
+      {
+        path:'product/view/:id', 
+        component: ProductComponent
       },
       {
         path:'categorias', 

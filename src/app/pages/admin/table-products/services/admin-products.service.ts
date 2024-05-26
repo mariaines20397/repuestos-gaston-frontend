@@ -229,9 +229,11 @@ export class AdminProductsService {
     })
   }
 
-  editProductAdmin(id:number, product:Product):Observable<any> {
-    const finalUrl=`http://localhost:8080/admin/products/${id}`;
+  editProductAdmin(id:number, product:any):Observable<any> {
+    const finalUrl=`http://localhost:8080/v1/product/${id}`;
     return new Observable((obs)=>{
+      console.log(product);
+      
       this.httpClient.put(finalUrl, product)
       .subscribe({
         next: (res) => {
@@ -249,7 +251,7 @@ export class AdminProductsService {
   }
 
   deleteProductAdmin(id:number):Observable<any> {
-    const finalUrl=`http://localhost:8080/admin/products/${id}`;
+    const finalUrl=`http://localhost:8080/v1/product/${id}`;
     return new Observable((obs)=>{
       this.httpClient.delete(finalUrl)
       .subscribe({
@@ -274,7 +276,6 @@ export class AdminProductsService {
       console.log(product);
       this.httpClient.post(finalUrl, product).subscribe({
         next: (res) => {
-          console.log(res);
           obs.next(res);
           obs.complete();
         },

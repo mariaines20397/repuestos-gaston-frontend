@@ -3,7 +3,7 @@ import { Product } from "src/app/pages/main/products/model/product.model";
 import { User } from "src/app/pages/main/user/model/users.model";
 
 //search
-export const loadSearch = createAction('[Search] loadProducts',
+export const loadSearch = createAction('[Search] loadSearch',
 props<{filter:string}>());
 export const loadSearchSuccess = createAction('[Search] loadSearchSuccess',
 props<{product:Product[]}>());

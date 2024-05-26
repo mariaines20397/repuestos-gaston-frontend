@@ -19,28 +19,20 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  productForm: FormGroup;
-  category: any = {};
+  public productForm: FormGroup;
+  public category: any = {};
+  public product: any = {};
   private subscriptions = new Subscription();
-  product: any = {};
-  productos: Product[] = [];
-  nombreProducto: string = '';
-  productoId!: number;
-  idCategory!: number;
-  url: string = '';
-  editarProducto: boolean = false;
-  agregarProducto: boolean = false;
-  viewProduct: boolean = false;
-  arrayBytes = '';
-  @Input() mostrarProducto: Product = {};
+  private productId!: number;
+  private idCategory!: number;
+  private arrayBytes = '';
+
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
-    private productServices: AdminProductsService,
     private sanitizer: DomSanitizer,
-    private adminCategoryServices: AdminCategoriesService,
     private routeActive: ActivatedRoute,
-    private store:Store<{ productAdmin:Product, category: getAllCategory}>
+    private store:Store<{ productAdmin:any, category: getAllCategory}>
   ) {
     this.productForm = this.formBuilder.group({
       name: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
@@ -49,80 +41,59 @@ export class ProductComponent implements OnInit {
         name: new FormControl(null) 
       }),
       description: new FormControl(null, [Validators.required]),
+      bar_code: new FormControl(null, [Validators.required]),
       price: new FormControl(null, [Validators.required]),
       stock: new FormControl(null, [Validators.required]),
-      imageUrl: new FormControl(null, [Validators.required])
+      image: new FormControl(null, [Validators.required])
     });
     this.subscriptions.add(
       this.store
       .select('category')
       .subscribe((category) => this.category = category)
     );
-    // this.subscriptions.add(
-    //   this.store
-    //   .select('productAdmin')
-    //   .subscribe((productAdmin) => {
-    //     this.product = productAdmin;
-    //     this.idCategory = this.getCategoryId(this.product.data[0]);
-    //     console.log(this.product[0]);
-    //     console.log(this.product.data[0]);
-    //   })
-    // );
-    this.store.dispatch(CategoriasActions.loadCategories());
-  }
-  ngOnInit(): void {
-    this.productServices.disparadorProducto.subscribe(data => {
-      this.agregarProducto = false;
-      this.editarProducto = false;
-      // this.store.dispatch(ProductosAdminActions.loadProductById(data.product_id));
-      console.log(this.product);
-      data == true ? this.viewProduct = true : this.viewProduct = false;
-      if (this.viewProduct) {
-        this.subscriptions.add(
-          this.store
-          .select('productAdmin')
+    this.store
+          .select(state => state.productAdmin)
           .subscribe((productAdmin) => {
             this.product = productAdmin;
-            this.idCategory = this.getCategoryId(this.product.data[0]);
-            console.log(this.product[0]);
-            console.log(this.product.data[0]);
+            this.idCategory = this.getCategoryId(this.product);
+            this.getByProduct(this.product);
           })
-        );
-      }
-      // // this.producto = data;
-      this.productForm.patchValue({
-        name: this.product.data[0].name,
-        category: { category_id: this.idCategory },
-        description: this.product.data[0].description,
-        price: this.product.data[0].price,
-        stock: this.product.data[0].stock,
-        image: this.product.data[0].image
-      })
-      console.log(this.productForm.value);
-      console.log(this.idCategory);
-      
-    })
-
+    this.store.dispatch(CategoriasActions.loadCategories());
   }
+
+  ngOnInit(): void { 
+   this.productId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
+   if (this.productId) {
+     this.store.dispatch(ProductosAdminActions.loadProductById({id:this.productId}));
+   }
+  }
+
+  getByProduct(product:any){
+    this.productForm.patchValue({
+      name: product.data?.name,
+      category: { category_id: this.getCategoryId(product), name: product.data?.category },
+      description: product.data?.description,
+      price: product.data?.price,
+      bar_code: product.data?.bar_code,
+      stock: product.data?.stock,
+      image: this.mostrarImg(product.data?.image)
+    })
+  }
+
   mostrarImg(image:any){
     return this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image}`);
   }
+
   getCategoryId(product:any) : number{
     let id = 0;
-    this.category.data.forEach((data:any)=>{
-      if (product.category == data.name) {
-        id= data.category_id;
+    this.category.data?.forEach((data:any)=>{
+      if (product.data?.category == data.name) {
+        id = data.category_id;
       }
     })
     return id;
   }
-  cancelar() {
-    this.agregarProducto = false;
-    this.editarProducto = false;
-    this.product = {}
-    this.productForm.reset();
-  }
-
+ 
   async onFileSelected(event: any): Promise<void> {
     const file = event.target.files[0];
     this.arrayBytes = await this.leerArchivoComoBase64(file);
@@ -132,7 +103,7 @@ export class ProductComponent implements OnInit {
         return;
       }
       const imageUrl = URL.createObjectURL(file);
-      this.product.imageUrl = this.arrayBytes;
+      this.product.image = this.arrayBytes;
     }
 }
 
@@ -152,10 +123,7 @@ private async leerArchivoComoBase64(archivo: File): Promise<string> {
         reader.readAsDataURL(archivo);
     });
 }
-  getProducts() {
-    this.productos = this.productServices.getProducts();
-  }
-  eliminar() {
+public eliminar() : void {
     Swal.fire({
       title: `¿Estas seguro que quieres eliminar el producto ${this.product.name}?`,
       showCancelButton: true,
@@ -163,29 +131,26 @@ private async leerArchivoComoBase64(archivo: File): Promise<string> {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire('¡Producto eliminado con éxito!', '', 'success')
-        // this.productServices.deleteProductAdmin(this.producto.id!);
       } else if (result.dismiss) {
         Swal.fire('El producto no se eliminó', '', 'info')
       }
     })
   }
 
-  editar() {
-    this.editarProducto = true;
-    this.agregarProducto = false;
+ public editar(): void {
+    this.router.navigate([`/admin/dashboard/product/edit/${this.productId}`]);
   }
-  agregar() {
-    console.log(this.category);
-    this.agregarProducto = true;
-    this.editarProducto = false;
-    this.product = {}
-    this.productForm.reset();
+ 
+ public back() : void{
+    this.router.navigate(['/admin/dashboard/product'])
   }
-  guardarProducto() {
+  public guardarProducto(): void {
+    const productEdit:any = {}
     const {
       name,
       description,
       category,
+      bar_code,
       price,
       stock
     } = this.productForm.value
@@ -195,14 +160,22 @@ private async leerArchivoComoBase64(archivo: File): Promise<string> {
       id_category:parseInt(category.category_id),
       price,
       stock,
-      image:this.arrayBytes,
-      bar_code:123
+      image:this.product.image,
+      bar_code
     }
-    console.log(product);
-    // console.log(categoriesIds);
-    this.editarProducto ?
-    this.store.dispatch(ProductosAdminActions.editProduct({id:this.product.id!,product}))
-    : this.store.dispatch(ProductosAdminActions.createProduct({product}));
+if (this.router.url.includes('edit')) {
+ productEdit.bar_code = product.bar_code == this.product.data.bar_code ? null : product.bar_code;
+ productEdit.description = product.description == this.product.data.description ? null : product.description;
+ productEdit.id_category = product.id_category == this.getCategoryId(this.product) ? null : product.id_category;
+ productEdit.image = product.image == this.product.data.image ? null : product.image;
+ productEdit.name = product.name == this.product.data.name ? null : product.name;
+ productEdit.price = product.price == this.product.data.price ? null : product.price;
+ productEdit.stock = product.stock == this.product.data.stock ? null : product.stock;
+}
+
+    this.router.url.includes('add') ?
+    this.store.dispatch(ProductosAdminActions.createProduct({product}))
+    : this.store.dispatch(ProductosAdminActions.editProduct({id:this.product.data.product_id!,product:productEdit}));
   }
 
 }

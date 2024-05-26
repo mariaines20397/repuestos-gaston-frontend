@@ -10,17 +10,15 @@ props<{error:any}>());
 
 //edit products
 export const editProduct = createAction('[AdminProducts] editProduct',
-props<{id:number, product:Product}>());
-export const editProductSuccess = createAction('[AdminProducts] editProductSuccess',
-props<{product:Product[]}>());
+props<{id:number, product:any}>());
+export const editProductSuccess = createAction('[AdminProducts] editProductSuccess');
 export const editProductFail = createAction('[AdminProducts] editProductFail',
 props<{error:any}>());
 
 //delete products
 export const deleteProduct = createAction('[AdminProducts] deleteProduct',
 props<{id:number}>());
-export const deleteProductSuccess = createAction('[AdminProducts] deleteProductSuccess',
-props<{product:Product}>());
+export const deleteProductSuccess = createAction('[AdminProducts] deleteProductSuccess');
 export const deleteProductFail = createAction('[AdminProducts] deleteProductFail',
 props<{error:any}>());
 

@@ -59,8 +59,7 @@ export const productsAdminReducer = createReducer<any>(
   on(
     ProductsActions.editProductSuccess,
     (state, props): any => ({
-      ...state,
-      data: props.product,
+      ...state
     })
   ),
   on(
@@ -80,8 +79,7 @@ export const productsAdminReducer = createReducer<any>(
   on(
     ProductsActions.deleteProductSuccess,
     (state, props): any => ({
-      ...state,
-      data: state.data.filter((product:any) => product.id !== props.product.id),
+      ...state
     })
   ),
   on(

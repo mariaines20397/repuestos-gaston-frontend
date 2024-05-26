@@ -9,8 +9,7 @@ import { Search } from 'src/app/shared/navbar/model/search.model';
 import * as SearchActions from '../../../shared/navbar/store/search.actions'
 import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
-import { getAllCategories, getAllCategory } from '../table-categories/model/category.model';
-import * as CategoriasActions from 'src/app/shared/navbar/store/categories.actions';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-table-products',
@@ -25,7 +24,6 @@ export class TableProductsComponent implements OnInit{
   productAdmin: any = {}
   imageSource: any = {}
   private subscriptions = new Subscription();
-
   
   constructor(
     private productServices:AdminProductsService,
@@ -50,31 +48,49 @@ export class TableProductsComponent implements OnInit{
    }
   ngOnInit(): void {
     this.getProducts()
-    // this.store.dispatch(ProductosAdminActions.loadProducts());
   }
   getProducts(){
     this.productos=this.productServices.getProducts();    
   }
   agregar(){
-  this.router.navigate(['admin/dashboard/productos/agregarProducto']);
+  this.router.navigate(['admin/dashboard/product/add']);
   }
   editarProducto(id:number){
-  this.router.navigate([`admin/dashboard/productos/editarProducto/${id}`]);
+  this.router.navigate([`admin/dashboard/product/edit/${id}`]);
+  this.store.dispatch(ProductosAdminActions.loadProductById({id}));
   }
-  eliminar(id:number){
-    // this.store.dispatch(ProductosAdminActions.deleteProduct(id));
+  verProducto(id:number){
+    this.router.navigate([`admin/dashboard/product/view/${id}`]);
+    this.store.dispatch(ProductosAdminActions.loadProductById({id}));
+
+  }
+  eliminarProducto(product:any){
+    Swal.fire({
+      title: `¿Estas seguro que quieres eliminar el producto ${product.name}?`,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      icon:'question'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.store.dispatch(ProductosAdminActions.deleteProduct({id:product.product_id}));
+      } 
+    })
+    
  }
  search(){
   const filtrar = this.searchForm.value.search;
+  console.log(filtrar);
+  
   this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
 }
 mostrarData(producto:any){
   console.log(producto);
+  this.router.navigate([`/admin/dashboard/productos/${producto.product_id}`])
   this.store.dispatch(ProductosAdminActions.loadProductById({id:producto.product_id}));
-  this.productServices.disparadorProducto.emit(true);
 }
 
 mostrarImg(image:any){
   return this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image}`);
 }
+
 }

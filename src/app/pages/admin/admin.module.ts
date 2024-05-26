@@ -25,6 +25,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { CategoriesAdminEffects } from './table-categories/store/categories.effects';
 import { SaleAdminEffects } from './table-sales/store/sale.effects';
 import { UsersAdminEffects } from './table-users/store/users.effects';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { UsersAdminEffects } from './table-users/store/users.effects';
     ReactiveFormsModule,
     NgbTooltipModule,
     NgbTypeaheadModule,
+    NgbDropdownModule,
     StoreModule.forFeature(
       'productAdmin',
       fromAdminProductReducer.productsAdminReducer
