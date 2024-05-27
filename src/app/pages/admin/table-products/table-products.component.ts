@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product, getAllProduct } from './model/product.model';
+import { Pegeable, Product, getAllProduct } from './model/product.model';
 import { AdminProductsService } from './services/admin-products.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -23,14 +23,14 @@ export class TableProductsComponent implements OnInit{
   searchForm:FormGroup;
   productAdmin: any = {}
   imageSource: any = {}
+  pagination: any = {}
   private subscriptions = new Subscription();
   
   constructor(
-    private productServices:AdminProductsService,
     private router: Router,
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer,
-    private store:Store<{ filtrar:Search, productAdmin: getAllProduct }>,
+    private store:Store<{ search:Search, productAdmin: getAllProduct }>,
   ) {
     this.searchForm = this.formBuilder.group({
       search: new FormControl(null)
@@ -44,14 +44,21 @@ export class TableProductsComponent implements OnInit{
       
       })
     );
-    this.store.dispatch(ProductosAdminActions.loadProducts());
+    this.subscriptions.add(
+      this.store
+      .select('search')
+      .subscribe((search) => {
+        this.productAdmin = search
+      console.log(this.productAdmin);
+      
+      })
+    );
+    console.log(this.productAdmin.pageable);
+    
+    this.store.dispatch(ProductosAdminActions.loadProducts({}));
    }
-  ngOnInit(): void {
-    this.getProducts()
-  }
-  getProducts(){
-    this.productos=this.productServices.getProducts();    
-  }
+  ngOnInit(): void {}
+
   agregar(){
   this.router.navigate(['admin/dashboard/product/add']);
   }
@@ -62,6 +69,12 @@ export class TableProductsComponent implements OnInit{
   verProducto(id:number){
     this.router.navigate([`admin/dashboard/product/view/${id}`]);
     this.store.dispatch(ProductosAdminActions.loadProductById({id}));
+
+  }
+  pageChange(evento:any){
+console.log(evento);
+// this.productAdmin?.pageable?.pageNumber = evento - 1
+console.log(this.productAdmin.pageable.pageNumber);
 
   }
   eliminarProducto(product:any){
@@ -79,9 +92,11 @@ export class TableProductsComponent implements OnInit{
  }
  search(){
   const filtrar = this.searchForm.value.search;
-  console.log(filtrar);
-  
-  this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
+  if (filtrar == "") {
+    this.store.dispatch(ProductosAdminActions.loadProducts({}));
+  }else{
+    this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
+  }
 }
 mostrarData(producto:any){
   console.log(producto);

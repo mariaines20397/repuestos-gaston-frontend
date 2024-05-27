@@ -1,10 +1,10 @@
 import { createAction, props } from "@ngrx/store";
-import { Product } from "../model/product.model";
+import { Pegeable, Product } from "../model/product.model";
 
 //load products
-export const loadProducts = createAction('[AdminProducts] loadProducts');
+export const loadProducts = createAction('[AdminProducts] loadProducts',props<{pagination?:any}>());
 export const loadProductsSuccess = createAction('[AdminProducts] loadProductsSuccess',
-props<{product:Product[]}>());
+props<{product:Product[], pageable:Pegeable, totalElements:number, totalPages: number}>());
 export const loadProductsFail = createAction('[AdminProducts] loadProductsFail',
 props<{error:any}>());
 

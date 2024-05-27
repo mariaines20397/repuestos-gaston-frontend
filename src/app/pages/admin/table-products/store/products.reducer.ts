@@ -8,14 +8,21 @@ export const productsAdminReducer = createReducer<any>(
     on(
         ProductsActions.loadProducts,
         (state, props):any => ({
-            ...state
+            ...state,
+            pagination:props.pagination
         })
     ),
     on(
         ProductsActions.loadProductsSuccess,
-        (state, props):any => ({
+        (state, props):any => (
+          console.log(props),
+          
+          {          
             ...state,
-            data:props.product
+            data:props.product,
+            pegeable:props.pageable,
+            totalPages:props.totalPages,
+            totalElements:props.totalElements
         })
     )
     ,

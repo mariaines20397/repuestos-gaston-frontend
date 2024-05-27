@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Categorie, Product } from '../model/product.model';
 import { Observable, Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Category } from '../../table-categories/model/category.model';
 import { Store } from '@ngrx/store';
 
@@ -210,12 +210,19 @@ export class AdminProductsService {
       })
     })
   }
-  getProductsAdmin():Observable<any> {
+  getProductsAdmin(pagination?:any):Observable<any> {
+    let queryParams: any = new HttpParams();
+    if (pagination) {
+      pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
+      queryParams = new HttpParams({fromObject:{ ...pagination}});
+    }
     const finalUrl=`http://localhost:8080/v1/product/`;
     return new Observable((obs)=>{
-      this.httpClient.get(finalUrl)
+      this.httpClient.get(finalUrl,{params:queryParams})
       .subscribe({
         next: (res) => {
+          console.log(res);
+          
           // this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();

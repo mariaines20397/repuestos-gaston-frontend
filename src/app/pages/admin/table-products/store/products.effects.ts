@@ -21,10 +21,18 @@ export class ProductsAdminEffects {
     this.actions$.pipe(
       ofType(ProductsActions.loadProducts),
       mergeMap((action) => {
-        return this.productsServices.getProductsAdmin().pipe(
+        const getProducts = action.pagination ? 
+         this.productsServices.getProductsAdmin(action.pagination)
+         : this.productsServices.getProductsAdmin();
+        return getProducts.pipe(
           map((response) => {
+            console.log(response);
+            
             return ProductsActions.loadProductsSuccess({
               product: response.content,
+              pageable: response.pageable,
+              totalPages: response.totalPages,
+              totalElements:response.totalElements
             });
           }),
           catchError((error) => {
