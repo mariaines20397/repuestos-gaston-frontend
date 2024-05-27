@@ -10,13 +10,17 @@ export const searchReducer = createReducer<any>(
         (state, props):any => ({
             ...state,
             filter: props.filter,
+            pageable:props.pageable,
         })
     ),
     on(
         SearchActions.loadSearchSuccess,
         (state, props):any => ({
             ...state,
-            data:props.product
+            data:props.product,
+            pageable:props.pageable,
+            totalPages:props.totalPages,
+            totalElements:props.totalElements
         })
     )
     ,

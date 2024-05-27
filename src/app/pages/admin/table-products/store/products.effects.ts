@@ -21,8 +21,8 @@ export class ProductsAdminEffects {
     this.actions$.pipe(
       ofType(ProductsActions.loadProducts),
       mergeMap((action) => {
-        const getProducts = action.pagination ? 
-         this.productsServices.getProductsAdmin(action.pagination)
+        const getProducts = action.pageable ? 
+         this.productsServices.getProductsAdmin(action.pageable)
          : this.productsServices.getProductsAdmin();
         return getProducts.pipe(
           map((response) => {

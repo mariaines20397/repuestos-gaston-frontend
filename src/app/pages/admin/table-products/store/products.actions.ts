@@ -2,7 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import { Pegeable, Product } from "../model/product.model";
 
 //load products
-export const loadProducts = createAction('[AdminProducts] loadProducts',props<{pagination?:any}>());
+export const loadProducts = createAction('[AdminProducts] loadProducts',props<{pageable?:Pegeable}>());
 export const loadProductsSuccess = createAction('[AdminProducts] loadProductsSuccess',
 props<{product:Product[], pageable:Pegeable, totalElements:number, totalPages: number}>());
 export const loadProductsFail = createAction('[AdminProducts] loadProductsFail',

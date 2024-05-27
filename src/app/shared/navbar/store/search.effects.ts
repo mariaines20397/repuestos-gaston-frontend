@@ -27,6 +27,9 @@ export class SearchEffects {
             
             return SearchActions.loadSearchSuccess({
               product: response.content,
+              pageable: response.pageable,
+              totalPages: response.totalPages,
+              totalElements:response.totalElements
             });
           }),
           catchError((error) => {

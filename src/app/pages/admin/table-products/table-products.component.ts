@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Pegeable, Product, getAllProduct } from './model/product.model';
-import { AdminProductsService } from './services/admin-products.service';
+import { Product, getAllProduct } from './model/product.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as ProductosAdminActions from './store/products.actions';
@@ -17,8 +16,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./table-products.component.css']
 })
 export class TableProductsComponent implements OnInit{
-  
-  page = 1;
   productos:Product[]=[];
   searchForm:FormGroup;
   productAdmin: any = {}
@@ -39,26 +36,24 @@ export class TableProductsComponent implements OnInit{
       this.store
       .select('productAdmin')
       .subscribe((productAdmin) => {
-        this.productAdmin = productAdmin
-      console.log(this.productAdmin);
-      
+        this.productAdmin = productAdmin;
       })
     );
     this.subscriptions.add(
       this.store
       .select('search')
       .subscribe((search) => {
-        this.productAdmin = search
-      console.log(this.productAdmin);
-      
+        this.productAdmin = search;      
       })
     );
-    console.log(this.productAdmin.pageable);
-    
-    this.store.dispatch(ProductosAdminActions.loadProducts({}));
+    this.productAdmin.pageable = {
+      size:2,
+      page:0
+    };
+    this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
+
    }
   ngOnInit(): void {}
-
   agregar(){
   this.router.navigate(['admin/dashboard/product/add']);
   }
@@ -72,9 +67,12 @@ export class TableProductsComponent implements OnInit{
 
   }
   pageChange(evento:any){
-console.log(evento);
-// this.productAdmin?.pageable?.pageNumber = evento - 1
-console.log(this.productAdmin.pageable.pageNumber);
+this.productAdmin.pageable = {
+  size:2,
+  page:evento == 0 ? evento : (evento - 1)
+};
+this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
+
 
   }
   eliminarProducto(product:any){
@@ -92,10 +90,14 @@ console.log(this.productAdmin.pageable.pageNumber);
  }
  search(){
   const filtrar = this.searchForm.value.search;
+  this.productAdmin.pageable = {
+    size:2,
+    page:0
+  };
   if (filtrar == "") {
-    this.store.dispatch(ProductosAdminActions.loadProducts({}));
+    this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
   }else{
-    this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
+    this.store.dispatch(SearchActions.loadSearch({filter:filtrar, pageable:this.productAdmin.pageable}));
   }
 }
 mostrarData(producto:any){

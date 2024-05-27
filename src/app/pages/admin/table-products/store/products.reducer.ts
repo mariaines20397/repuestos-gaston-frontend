@@ -9,7 +9,7 @@ export const productsAdminReducer = createReducer<any>(
         ProductsActions.loadProducts,
         (state, props):any => ({
             ...state,
-            pagination:props.pagination
+            pageable:props.pageable
         })
     ),
     on(
@@ -20,7 +20,7 @@ export const productsAdminReducer = createReducer<any>(
           {          
             ...state,
             data:props.product,
-            pegeable:props.pageable,
+            pageable:props.pageable,
             totalPages:props.totalPages,
             totalElements:props.totalElements
         })
