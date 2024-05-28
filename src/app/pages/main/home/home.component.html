@@ -60,13 +60,13 @@
 </div>
 
 <div class="productos">
-  <div class="card" *ngFor="let producto of productos" style="width: 18rem">
-    <div (click)="getProduct(producto.id)">
-      <img src="{{ producto.img }}" class="card-img-top" />
+  <div class="card" *ngFor="let producto of this.products.data" style="width: 18rem">
+    <div (click)="verProducto(producto.product_id)">
+      <img [src]="mostrarImg(producto.image)" class="card-img-top" />
       <div class="card-body">
-        <h5 class="card-title">{{ producto.tile }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ producto.subtitle }}</h6>
-        <p class="card-text">$ {{ producto.precio }}</p>
+        <h5 class="card-title">{{ producto.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ producto.description }}</h6>
+        <p class="card-text">$ {{ producto.price }}</p>
       </div>
    </div>
   </div>

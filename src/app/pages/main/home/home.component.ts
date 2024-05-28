@@ -4,10 +4,12 @@ import { Store } from '@ngrx/store';
 import { Product } from '../products/model/product.model';
 import * as HomeActions from './store/home.actions';
 import * as CategoriasAdminActions from 'src/app/pages/admin/table-categories/store/categories.actions';
+import * as ProductosAdminActions from 'src/app/pages/admin/table-products/store/products.actions';
 
 import { Router } from '@angular/router';
 import { getAllCategories, getAllCategory } from 'src/app/pages/admin/table-categories/model/category.model';
 import { Subscription } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class HomeComponent implements OnInit{
   page = 1;
+  products:any={}
   category: any = {};
   carousel:string[]=[
     './assets/img/carousel/carousel1.png',
@@ -75,7 +78,8 @@ export class HomeComponent implements OnInit{
   constructor(
     private _config: NgbCarouselConfig,
     private router: Router,
-    private store:Store<{ product:Product }>,
+    private store:Store<{ home:Product }>,
+    private sanitizer: DomSanitizer,
 
     ) {
       _config.interval = 4000;
@@ -85,7 +89,18 @@ export class HomeComponent implements OnInit{
       // this.subscriptions.add(
        
       // );
-      this.store.dispatch(HomeActions.loadHome());
+        this.store
+        .select('home')
+        .subscribe((home) => {
+          this.products = home;
+          console.log(this.products);
+          
+        })
+        this.products.pageable = {
+          size:3,
+          page:0
+        };
+      this.store.dispatch(HomeActions.loadHome({pageable:this.products.pageable}));
      
       
   }
@@ -95,10 +110,13 @@ export class HomeComponent implements OnInit{
     console.log(this.productos.length);
     console.log(this.category);
   }
-
-  getProduct(id:number){
-    this.router.navigate(['/products/' + id]);
-  }
  
+  mostrarImg(image:any){
+    return this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image}`);
+  }
+  verProducto(id:number){
+    this.router.navigate([`/products/${id}`]);
+    this.store.dispatch(ProductosAdminActions.loadProductById({id}));
 
+  }
 }

@@ -16,6 +16,7 @@ export class ProductComponent implements OnInit{
   cantidadForm:FormGroup;
   productId!:number;
   stock:number = 8;
+  product:any={}
   title:string = 'Motul 5100';
   price:number = parseInt('1.000');
   constructor(
@@ -23,7 +24,7 @@ export class ProductComponent implements OnInit{
     private routeActive: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private store:Store<{ product:Product}>
+    private store:Store<{ product:Product, productAdmin:any}>
   ){
     this.cantidadForm = this.formBuilder.group({
       cantidad: new FormControl(1, [
@@ -36,6 +37,14 @@ export class ProductComponent implements OnInit{
     {
       validators: [this.maxValueValidator.bind(this)],
     });
+    this.store
+    .select(state => state.productAdmin)
+    .subscribe((productAdmin) => {
+      this.product = productAdmin;
+      console.log(this.product);
+      
+      //this.getByProduct(this.product);
+    })
   }
   ngOnInit(): void {
     this.productId = parseInt(this.routeActive.snapshot.paramMap.get('id')!)

@@ -16,8 +16,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./table-products.component.css']
 })
 export class TableProductsComponent implements OnInit{
-  productos:Product[]=[];
   searchForm:FormGroup;
+  page = 0;
   productAdmin: any = {}
   imageSource: any = {}
   pagination: any = {}
@@ -36,7 +36,11 @@ export class TableProductsComponent implements OnInit{
       this.store
       .select('productAdmin')
       .subscribe((productAdmin) => {
-        this.productAdmin = productAdmin;
+        if (productAdmin) {
+          this.productAdmin = productAdmin;
+        } else {
+          this.productAdmin = { data: [] };
+        }
       })
     );
     this.subscriptions.add(
@@ -50,10 +54,12 @@ export class TableProductsComponent implements OnInit{
       size:2,
       page:0
     };
+    
     this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
-
    }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.productAdmin.pageable);
+  }
   agregar(){
   this.router.navigate(['admin/dashboard/product/add']);
   }
@@ -67,13 +73,17 @@ export class TableProductsComponent implements OnInit{
 
   }
   pageChange(evento:any){
-this.productAdmin.pageable = {
-  size:2,
-  page:evento == 0 ? evento : (evento - 1)
-};
+    console.log(evento);
+    if (!Number.isNaN(evento)) {
+     this.productAdmin.pageable = {
+        size:2,
+       page: evento != 0 ? evento - 1 : 0 
+      };
+    }
+console.log(this.productAdmin.pageable);
+console.log(this.productAdmin);
+
 this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
-
-
   }
   eliminarProducto(product:any){
     Swal.fire({
@@ -94,6 +104,8 @@ this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdm
     size:2,
     page:0
   };
+  console.log(this.productAdmin.pageable);
+  
   if (filtrar == "") {
     this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
   }else{
@@ -101,7 +113,6 @@ this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdm
   }
 }
 mostrarData(producto:any){
-  console.log(producto);
   this.router.navigate([`/admin/dashboard/productos/${producto.product_id}`])
   this.store.dispatch(ProductosAdminActions.loadProductById({id:producto.product_id}));
 }

@@ -35,7 +35,7 @@ export class ProductComponent implements OnInit {
     private store:Store<{ productAdmin:any, category: getAllCategory}>
   ) {
     this.productForm = this.formBuilder.group({
-      name: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+      name: new FormControl("", [Validators.required, Validators.maxLength(50)]),
       category: this.formBuilder.group({ 
         category_id: new FormControl(null), 
         name: new FormControl(null) 

@@ -18,10 +18,16 @@ export class HomeEffects {
     this.actions$.pipe(
       ofType(HomeActions.loadHome),
       mergeMap((action) => {
-        return this.homeServices.getProducts().pipe(
+        const getProducts = action.pageable ? 
+        this.homeServices.getProducts(action.pageable)
+         : this.homeServices.getProducts();
+        return getProducts.pipe(
           map((response) => {
             return HomeActions.loadHomeSuccess({
-              products: response.data,
+              products: response.content,
+              pageable: response.pageable,
+              totalPages: response.totalPages,
+              totalElements:response.totalElements
             });
           }),
           catchError((error) => {

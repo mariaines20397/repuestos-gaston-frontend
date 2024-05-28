@@ -30,7 +30,6 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let producto of this.productAdmin.data; let index = index">
-                     
                         <td scope="row" class="colMenu">
                           <div ngbDropdown class="d-inline-block dropdownMenu" >
                             <button class="btn" id="dropdown1" ngbDropdownToggle>
@@ -52,18 +51,20 @@
                         <td>${{producto.price}}</td>
                        <td>{{producto.stock}} un.</td>
                       </tr>
-                      <tr *ngIf="!(this.productAdmin.data && this.productAdmin.data.length > 0)">
-                        <td colspan="5" class="not-found">
-                          No hay productos para mostrar
-                        </td>
-                      </tr>
+                      <ng-container *ngIf="!this.productAdmin.data || this.productAdmin.data.length == 0">
+                        <tr>
+                          <td colspan="5" class="not-found">
+                            No hay productos para mostrar
+                          </td>
+                        </tr>
+                    </ng-container>
                     </tbody>
                   </table>  
                 </div>  
             </div>
         </div>
         <div class="pagination">
-          <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.productAdmin?.totalElements" [page]="this.productAdmin.pageable?.pageNumber + 1" [pageSize]="this.productAdmin?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
+          <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.productAdmin?.totalElements" [page]="this.productAdmin.pageable.pageNumber + 1" [pageSize]="this.productAdmin?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
         </div>
 </div>
 </div>

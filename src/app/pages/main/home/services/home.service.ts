@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -17,10 +17,15 @@ export class HomeService {
     ) { }
 
 
-  getProducts():Observable<any>{
-    const finalUrl=`${this.url}/product/getAll`;
+  getProducts(pagination?:any):Observable<any>{
+    let queryParams: any = new HttpParams();
+    if (pagination) {
+      pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
+      queryParams = new HttpParams({fromObject:{ ...pagination}});
+    }
+    const finalUrl=`${this.url}/product/`;
     return new Observable((obs)=>{
-      this.httpClient.get(finalUrl)
+      this.httpClient.get(finalUrl,{params:queryParams})
       .subscribe({
         next: (res) => {
           // this.router.navigate(['/home']);

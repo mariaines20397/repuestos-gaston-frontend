@@ -34,14 +34,18 @@ export const homeReducer = createReducer<any>(
     on(
         HomeActions.loadHome,
         (state, props):any => ({
-            ...state
+            ...state,
+            pageable:props.pageable
         })
     ),
     on(
         HomeActions.loadHomeSuccess,
         (state, props):any => ({
             ...state,
-            data:props.products
+            data:props.products,
+            pageable:props.pageable,
+            totalPages:props.totalPages,
+            totalElements:props.totalElements
         })
     )
     ,
