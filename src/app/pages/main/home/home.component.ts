@@ -3,12 +3,8 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { Product } from '../products/model/product.model';
 import * as HomeActions from './store/home.actions';
-import * as CategoriasAdminActions from 'src/app/pages/admin/table-categories/store/categories.actions';
 import * as ProductosAdminActions from 'src/app/pages/admin/table-products/store/products.actions';
-
 import { Router } from '@angular/router';
-import { getAllCategories, getAllCategory } from 'src/app/pages/admin/table-categories/model/category.model';
-import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -117,6 +113,14 @@ export class HomeComponent implements OnInit{
   verProducto(id:number){
     this.router.navigate([`/products/${id}`]);
     this.store.dispatch(ProductosAdminActions.loadProductById({id}));
-
+  }
+  pageChange(evento:any){
+    if (!Number.isNaN(evento)) {
+     this.products.pageable = {
+        size:3,
+       page: evento != 0 ? evento - 1 : 0 
+      };
+    }
+this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.products.pageable}));
   }
 }

@@ -5,21 +5,23 @@
       <div class="imgDescription">
         <div class="imgCardActions">
           <div class="divImg">
-         <img
+       <!--  <img
            src="./assets/img/productos/motul.png"
            class="card-img"
            alt="Motul"
-         />
+         />-->
+         <img class="imagen" [src]="mostrarImg(this.product.image)" alt="Imagen del producto" *ngIf="this.product.image" />
+
        </div>
        <div class="cardActions">
          <div class="card-body">
-           <h4 class="card-title"><b>{{title}}</b></h4>
-           <h3 class="card-title">${{price}}</h3>
+           <h4 class="card-title"><b>{{this.product.name}}</b></h4>
+           <h3 class="card-title">${{this.product.price}}</h3>
          </div>
          <div class="divActions">
-           <h6 *ngIf="stock > 0" class="card-title isStock"><b>Stock disponible</b></h6>
-           <h6 *ngIf="stock == 0" class="card-title-stock isNotStock"><b>Lo siento, por el momento no tenemos stock disponible de este producto.</b></h6>
-           <div *ngIf="stock > 0" class="cantidadForm">
+           <h6 *ngIf="this.product.stock > 0" class="card-title isStock"><b>Stock disponible</b></h6>
+           <h6 *ngIf="this.product.stock == 0" class="card-title-stock isNotStock"><b>Lo siento, por el momento no tenemos stock disponible de este producto.</b></h6>
+           <div *ngIf="this.product.stock > 0" class="cantidadForm">
              <form action="" [formGroup]="cantidadForm" class="cantidadTablet">
                <div class="inputCantidad">
                  <p>Cantidad</p>
@@ -33,7 +35,7 @@
                </div>
                
                <p class="card-text">
-                 <small class="text-muted unidadesStock">({{ stock }} disponibles)</small>
+                 <small class="text-muted unidadesStock">({{ this.product.stock }} disponibles)</small>
                </p>
                
              </form>
@@ -50,7 +52,7 @@
                <span>No hay stock suficiente.</span>
            </div>
          </div>
-           <div class="divButtons" *ngIf="stock > 0">
+           <div class="divButtons" *ngIf="this.product.stock > 0">
              <button class="btn btn-primary btn-comprar" (click)="comprarAhora()" [disabled]="cantidadForm.invalid">
                <p>Comprar ahora</p>
                <img src="./assets/svg/shop.svg" class="img-button" alt="Canasto" />
@@ -71,13 +73,7 @@
       <div class="divDescription">
         <div class="card-body">
           <p>Lo que debes saber de este producto</p>
-          <li>Aceite de moto de 4T</li>
-          <li>Alta densidad</li>
-          <li>Alta densidad</li>
-          <li>Alta densidad</li>
-          <li>Alta densidad</li>
-          <li>Alta densidad</li>
-          <li>Alta densidad</li>
+          <li>{{this.product.description}}</li>
         </div>
       </div>
       </div>

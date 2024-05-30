@@ -8,14 +8,18 @@ export const productsReducer = createReducer<any>(
     on(
         ProductsActions.loadProductsByCategory,
         (state, props):any => ({
-            ...state
+            ...state,
+            pageable:props.pageable
         })
     ),
     on(
         ProductsActions.loadProductsByCategorySuccess,
         (state, props):any => ({
             ...state,
-            data:props.product
+            data:props.product,
+            pageable:props.pageable,
+            totalPages:props.totalPages,
+            totalElements:props.totalElements
         })
     )
     ,

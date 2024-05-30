@@ -37,26 +37,4 @@ export class HomeEffects {
       })
     )
   );
-  // loadCategories$ = createEffect(() =>    
-  //   this.actions$.pipe(      
-  //     ofType(CategoriesActions.loadCategories),      
-  //     mergeMap((action) => {
-  //       console.log(action);
-  //       console.log('entro aca');
-  //       return this.homeServices.getCategoriesAdmin().pipe(
-  //         map((response) => {
-  //           console.log(response);
-            
-  //           return CategoriesActions.loadCategoriesSuccess({
-  //             category: response.content,
-  //           });
-  //         }),
-  //         retry({ count: 2, delay: 100 }),
-  //         catchError((error) => {
-  //           return of(CategoriesActions.loadCategoriesFail({ error }));
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
 }

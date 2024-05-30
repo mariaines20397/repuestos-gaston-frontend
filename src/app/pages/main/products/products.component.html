@@ -18,6 +18,7 @@
         </div>
       </div>
     </div>
+    <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.category?.totalElements" [page]="this.category.pageable.pageNumber + 1" [pageSize]="this.category?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
   </div>
 </div>
 
@@ -27,10 +28,12 @@
   <span>{{search?.data?.length}} resultados</span>
   </div>
   <div class="productos">
-    <div class="card" *ngFor="let data of search?.data">
-      <div class="card-products" (click)="productById(data.id)">
+    <div class="card" *ngFor="let data of this.search.data">
+      <div class="card-products" (click)="productById(data.product_id)">
         <div class="col-md-6 divImg">
-          <img src={{data.img}} class="card-img" alt="Imagen de producto">
+       <!--   <img src={{data.img}} class="card-img" alt="Imagen de producto">-->
+       <img class="imagen" [src]="mostrarImg(data.image)" alt="Imagen del producto" *ngIf="data.image" />
+
         </div>
         <div class="col-md-6">
           <div class="card-body">
@@ -41,5 +44,7 @@
         </div>
       </div>
     </div>
+    <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.search?.totalElements" [page]="this.search.pageable.pageNumber + 1" [pageSize]="this.search?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
+
   </div>
 </div>

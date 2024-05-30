@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product, getAllProduct } from './model/product.model';
+import { getAllProduct } from './model/product.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as ProductosAdminActions from './store/products.actions';
@@ -57,9 +57,7 @@ export class TableProductsComponent implements OnInit{
     
     this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
    }
-  ngOnInit(): void {
-    console.log(this.productAdmin.pageable);
-  }
+  ngOnInit(): void {}
   agregar(){
   this.router.navigate(['admin/dashboard/product/add']);
   }
@@ -70,19 +68,14 @@ export class TableProductsComponent implements OnInit{
   verProducto(id:number){
     this.router.navigate([`admin/dashboard/product/view/${id}`]);
     this.store.dispatch(ProductosAdminActions.loadProductById({id}));
-
   }
   pageChange(evento:any){
-    console.log(evento);
     if (!Number.isNaN(evento)) {
      this.productAdmin.pageable = {
         size:2,
        page: evento != 0 ? evento - 1 : 0 
       };
     }
-console.log(this.productAdmin.pageable);
-console.log(this.productAdmin);
-
 this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
   }
   eliminarProducto(product:any){
@@ -104,8 +97,6 @@ this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdm
     size:2,
     page:0
   };
-  console.log(this.productAdmin.pageable);
-  
   if (filtrar == "") {
     this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
   }else{

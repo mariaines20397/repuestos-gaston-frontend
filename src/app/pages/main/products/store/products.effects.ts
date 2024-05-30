@@ -18,10 +18,16 @@ export class ProductsEffects {
     this.actions$.pipe(
       ofType(ProductsActions.loadProductsByCategory),
       mergeMap((action) => {
-        return this.productsServices.getProductsByCategory(action.id).pipe(
+        const getProductsByCategory = action.pageable ? 
+        this.productsServices.getProductsByCategory(action.id,action.pageable)
+         : this.productsServices.getProductsByCategory(action.id);
+        return getProductsByCategory.pipe(
           map((response) => {
             return ProductsActions.loadProductsByCategorySuccess({
               product: response.content,
+              pageable: response.pageable,
+              totalPages: response.totalPages,
+              totalElements:response.totalElements
             });
           }),
           catchError((error) => {
@@ -39,7 +45,7 @@ export class ProductsEffects {
         return this.productsServices.getProductById(action.id).pipe(
           map((response) => {
             return ProductsActions.loadProductByIdSuccess({
-              product: response.data,
+              product: response,
             });
           }),
           catchError((error) => {

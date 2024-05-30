@@ -5,6 +5,8 @@ import { Product } from '../model/product.model';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../store/products.actions';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,23 +16,21 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class ProductComponent implements OnInit{
   cantidadForm:FormGroup;
+  private subscriptions = new Subscription();
   productId!:number;
-  stock:number = 8;
   product:any={}
-  title:string = 'Motul 5100';
-  price:number = parseInt('1.000');
   constructor(
     private formBuilder: FormBuilder,
     private routeActive: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private store:Store<{ product:Product, productAdmin:any}>
+    private sanitizer: DomSanitizer,
+    private store:Store<{ product:any, productAdmin:any}>
   ){
     this.cantidadForm = this.formBuilder.group({
       cantidad: new FormControl(1, [
         Validators.required, 
         Validators.minLength(1)
-        // this.maxValueValidator.bind(this)
       ]
       ),
     },
@@ -41,14 +41,18 @@ export class ProductComponent implements OnInit{
     .select(state => state.productAdmin)
     .subscribe((productAdmin) => {
       this.product = productAdmin;
-      console.log(this.product);
-      
-      //this.getByProduct(this.product);
     })
+    this.subscriptions.add(
+    this.store
+    .select('product')
+    .subscribe((product) => {
+      this.product = product.data;
+    })
+  )
   }
   ngOnInit(): void {
-    this.productId = parseInt(this.routeActive.snapshot.paramMap.get('id')!)
-    this.store.dispatch(ProductActions.loadProductById({id:this.productId}))
+    this.productId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
+    this.store.dispatch(ProductActions.loadProductById({id:this.productId}));
   }
   comprarAhora(){
     this.authService.autenticado() ?
@@ -62,7 +66,7 @@ export class ProductComponent implements OnInit{
     this.router.navigate(['/login']);
   }
   maxValueValidator(control: AbstractControl): ValidationErrors | null  {
-    if (control.get('cantidad')?.value > this.stock) {
+    if (control.get('cantidad')?.value > this.product.stock) {
       control.get('cantidad')?.setErrors({ maxValueExceeded: true });      
       return {
         maxValueExceeded: true 
@@ -75,5 +79,8 @@ export class ProductComponent implements OnInit{
     }
 
     return null; 
+  }
+  mostrarImg(image:any){
+    return this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image}`);
   }
 }

@@ -70,6 +70,6 @@
       </div>
    </div>
   </div>
-  <ngb-pagination [collectionSize]="productos.length" [(page)]="page" [pageSize]="3" size="sm" />
+  <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.products?.totalElements" [page]="this.products.pageable.pageNumber + 1" [pageSize]="this.products?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
 
 </div>

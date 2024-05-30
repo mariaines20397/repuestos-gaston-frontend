@@ -8,6 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProductsEffects } from './store/products.effects';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductsComponent } from './products.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -20,8 +21,9 @@ import { ProductsComponent } from './products.component';
     CommonModule,
     ProductsRoutingModule,
     ReactiveFormsModule,
+    NgbPaginationModule,
     StoreModule.forFeature(
-      'products',
+      'product',
       fromProductReducer.productsReducer
     ),
     EffectsModule.forFeature([ProductsEffects])
