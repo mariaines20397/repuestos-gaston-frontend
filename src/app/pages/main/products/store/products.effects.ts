@@ -23,6 +23,8 @@ export class ProductsEffects {
          : this.productsServices.getProductsByCategory(action.id);
         return getProductsByCategory.pipe(
           map((response) => {
+            console.log(response);
+            
             return ProductsActions.loadProductsByCategorySuccess({
               product: response.content,
               pageable: response.pageable,

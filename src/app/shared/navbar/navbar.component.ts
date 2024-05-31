@@ -112,6 +112,6 @@ export class NavbarComponent implements OnInit {
   }
 
   filterProductsByCategory(id:number){
-    this.store.dispatch(ProductsActions.loadProductsByCategory({id}));
+    this.router.navigate([`/products/categories/${id}`]);
   }
 }

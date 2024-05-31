@@ -1,10 +1,10 @@
-<div *ngIf="!nameSearch">
+<div *ngIf="categoryId">
   <div class="title">
       <h3>{{nameCategory}}</h3>
   <span>{{products?.data?.length}} resultados</span>
   </div>
   <div class="productos">
-    <div class="card" *ngFor="let data of products.data">
+    <div class="card" *ngFor="let data of this.products.data">
       <div class="card-products" (click)="productById(data.id)">
         <div class="col-md-6 divImg">
           <img src={{data.img}} class="card-img" alt="Imagen de producto">
@@ -44,7 +44,8 @@
         </div>
       </div>
     </div>
-    <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.search?.totalElements" [page]="this.search.pageable.pageNumber + 1" [pageSize]="this.search?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
-
+    <div class="pagination">
+      <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.search?.totalElements" [page]="this.search.pageable.pageNumber + 1" [pageSize]="this.search?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
+    </div>
   </div>
 </div>

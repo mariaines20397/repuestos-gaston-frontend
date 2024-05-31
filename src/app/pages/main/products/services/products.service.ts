@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -23,9 +23,14 @@ export class ProductsService {
 
      }
   getProductsByCategory(id:number,pagination?:any):Observable<any>{
+    let queryParams: any = new HttpParams();
+    if (pagination) {
+      pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
+      queryParams = new HttpParams({fromObject:{ ...pagination}});
+    }
     const finalUrl=`${this.urlEndpoint}/filter/${id}/category`;
     return new Observable((obs)=>{
-      this.httpClient.get(finalUrl )
+      this.httpClient.get(finalUrl,{params:queryParams} )
       .subscribe({
         next: (res) => {
           // this.router.navigate(['/home']);

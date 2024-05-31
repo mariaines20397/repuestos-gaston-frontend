@@ -13,7 +13,7 @@ import * as SearchActions from 'src/app/shared/navbar/store/search.actions'
 })
 export class ProductsComponent implements OnInit{
   private subscriptions = new Subscription();
-  private categoryId!:number;
+  public categoryId!:number;
   public category: any = {};
   public nameSearch!:string;
   public products: any = [];
@@ -21,21 +21,27 @@ export class ProductsComponent implements OnInit{
   public nameCategory:string = '';
   
   constructor(
-    private store:Store<{ products:Product, category:any, search: any}>,
+    private store:Store<{ product:any, category:any, search: any}>,
     private routeActive: ActivatedRoute,
     private route:Router,
     private sanitizer: DomSanitizer
    ){
     this.subscriptions.add(
       this.store
-        .select('products')
-        .subscribe((products) => this.products = products)
+        .select('product')
+        .subscribe((product) => {
+          this.products = product
+        console.log(this.products);
+        
+        })
     );
     this.subscriptions.add(
       this.store
         .select('category')
         .subscribe((category) => {
-          this.category = category.data
+          this.category = category.data;
+          console.log(this.category);
+          
           this.productosPorCategorias();
         })
     );
@@ -52,6 +58,8 @@ export class ProductsComponent implements OnInit{
     this.categoryId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
     this.nameSearch = this.routeActive.snapshot.paramMap.get('filtrar')!;
     if (this.categoryId) {
+      console.log(this.categoryId);
+      
       this.store.dispatch(ProductsActions.loadProductsByCategory({id:this.categoryId,pageable:this.category.pageable})); 
     }
     if (this.nameSearch) {   
