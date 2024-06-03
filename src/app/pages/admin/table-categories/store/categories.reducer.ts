@@ -10,7 +10,8 @@ export const categoriesAdminReducer = createReducer<any>(
       (state, props):any => (
         console.log(props),
         {
-          ...state
+          ...state,
+          pageable:props.pageable
       })
   ),
   on(
@@ -20,7 +21,10 @@ export const categoriesAdminReducer = createReducer<any>(
         
         {
           ...state,
-          data:props.category
+          data:props.category,
+          pageable:props.pageable,
+          totalPages:props.totalPages,
+          totalElements:props.totalElements
       })
   )
   ,
@@ -64,8 +68,7 @@ export const categoriesAdminReducer = createReducer<any>(
   on(
     CategoriesActions.editCategorySuccess,
     (state, props): any => ({
-      ...state,
-      data: props.category,
+      ...state
     })
   ),
   on(
@@ -85,8 +88,7 @@ export const categoriesAdminReducer = createReducer<any>(
   on(
     CategoriesActions.deleteCategorySuccess,
     (state, props): any => ({
-      ...state,
-      data: props.category
+      ...state
     })
   ),
   on(
@@ -107,8 +109,7 @@ export const categoriesAdminReducer = createReducer<any>(
   on(
     CategoriesActions.createCategorySuccess,
     (state, props) => ({
-      ...state,
-      data: props.category,
+      ...state
     })
   ),
   on(

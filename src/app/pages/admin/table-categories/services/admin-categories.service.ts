@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Category } from '../model/category.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -91,7 +91,7 @@ export class AdminCategoriesService {
     return this.categories;
   }
   getCategoriesByIdAdmin(id:number):Observable<any> {
-    const finalUrl=`http://localhost:8080/admin/categories/${id}`;
+    const finalUrl=`http://localhost:8080/v1/category/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
@@ -109,7 +109,12 @@ export class AdminCategoriesService {
     })
   }
 
-  getCategoriesAdmin():Observable<any> {
+  getCategoriesAdmin(pagination?:any):Observable<any> {
+    let queryParams: any = new HttpParams();
+    if (pagination) {
+      pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
+      queryParams = new HttpParams({fromObject:{ ...pagination}});
+    }
     const finalUrl=`http://localhost:8080/v1/category/`;
     console.log('entro aca');
     return new Observable((obs)=>{
@@ -134,7 +139,7 @@ export class AdminCategoriesService {
   }
 
   editCategoryAdmin(id:number, category:Category):Observable<any> {
-    const finalUrl=`http://localhost:8080/admin/categories/${id}`;
+    const finalUrl=`http://localhost:8080/v1/category/${id}`;
     return new Observable((obs)=>{
       this.httpClient.put(finalUrl, category)
       .subscribe({
@@ -153,7 +158,7 @@ export class AdminCategoriesService {
   }
 
   deleteCategoryAdmin(id:number):Observable<any> {
-    const finalUrl=`http://localhost:8080/admin/categories/${id}`;
+    const finalUrl=`http://localhost:8080/v1/category/${id}`;
     return new Observable((obs)=>{
       this.httpClient.delete(finalUrl)
       .subscribe({
@@ -173,7 +178,7 @@ export class AdminCategoriesService {
   }
 
   postCategory(category?: Category): Observable<any> {
-    const finalUrl=`http://localhost:8080/admin/categories}`;
+    const finalUrl=`http://localhost:8080/v1/category/`;
     return new Observable((obs) => {
       this.httpClient.post(finalUrl, category).subscribe({
         next: (res) => {

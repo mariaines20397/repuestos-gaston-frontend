@@ -21,14 +21,18 @@ export class CategoriesAdminEffects {
     this.actions$.pipe(      
       ofType(CategoriesActions.loadCategories),      
       mergeMap((action) => {
-        console.log(action);
-        console.log('entro aca');
-        return this.categoriesServices.getCategoriesAdmin().pipe(
+        const getCategory = action.pageable ? 
+        this.categoriesServices.getCategoriesAdmin(action.pageable)
+        : this.categoriesServices.getCategoriesAdmin();
+        return getCategory.pipe(
           map((response) => {
             console.log(response);
             
             return CategoriesActions.loadCategoriesSuccess({
               category: response.content,
+              pageable:response.pageable,
+              totalPages: response.totalPages,
+              totalElements: response.totalElements
             });
           }),
           retry({ count: 2, delay: 100 }),
@@ -48,7 +52,7 @@ export class CategoriesAdminEffects {
         return this.categoriesServices.getCategoriesByIdAdmin(action.id).pipe(
           map((response) => {
             return CategoriesActions.loadCategoryByIdSuccess({
-              category: response.data,
+              category: response,
             });
           }),
           catchError((error) => {
@@ -66,9 +70,13 @@ export class CategoriesAdminEffects {
       console.log(action);
       return this.categoriesServices.editCategoryAdmin(action.id, action.category).pipe(
         map((response) => {
-          return CategoriesActions.editCategorySuccess({
-            category: response.data,
-          });
+          Swal.fire('Categoría guardada', `Categoría modificada con éxito.`, 'success')
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/admin/dashboard/category']);
+            } 
+          })
+          return CategoriesActions.editCategorySuccess();
         }),
         catchError((error) => {
           return of(CategoriesActions.editCategoryFail({ error }));
@@ -85,9 +93,12 @@ deleteCategories$ = createEffect(() =>
       console.log(action);
       return this.categoriesServices.deleteCategoryAdmin(action.id).pipe(
         map((response) => {
-          return CategoriesActions.deleteCategorySuccess({
-            category: response.data,
-          });
+          Swal.fire('Cateogría eliminada con éxito!', '', 'success').then((result)=> {
+            if (result.isConfirmed) {
+              location.reload();
+            }
+          })
+          return CategoriesActions.deleteCategorySuccess();
         }),
         catchError((error) => {
           return of(CategoriesActions.deleteCategoryFail({ error }));
@@ -104,9 +115,13 @@ createCategory$ = createEffect(() =>
       console.log(action);
       return this.categoriesServices.postCategory(action.category).pipe(
         map((response) => {
-          return CategoriesActions.createCategorySuccess({
-            category: response.data,
-          });
+          Swal.fire('Categoría guardada', `Categoría ${action.category.name} agregada con éxito.`, 'success')
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/admin/dashboard/category']);
+            } 
+          })
+          return CategoriesActions.createCategorySuccess();
         }),
         catchError((error) => {
           return of(CategoriesActions.createCategoryFail({ error }));

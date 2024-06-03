@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from './model/category.model';
+import { Category, getAllCategory } from './model/category.model';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { AdminCategoriesService } from './services/admin-categories.service';
 import { Router } from '@angular/router';
 import { Search } from 'src/app/shared/navbar/model/search.model';
 import { Store } from '@ngrx/store';
 import * as SearchActions from '../../../shared/navbar/store/search.actions'
+import * as CategoryActions from './store/categories.actions'
+import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-table-categories',
@@ -16,42 +18,76 @@ export class TableCategoriesComponent implements OnInit{
   page = 1;
   categories:Category[]=[];
   searchForm:FormGroup;
-  
+  private subscriptions = new Subscription();
+  categoryAdmin: any = {}
   constructor(
-    private categoriesServices:AdminCategoriesService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private store:Store<{ filtrar:Search}>,
+    private store:Store<{ filtrar:Search, categoryAdmin: getAllCategory}>,
   ) {
     this.searchForm = this.formBuilder.group({
       search: new FormControl(null)
     });
+    this.subscriptions.add(
+      this.store
+      .select('categoryAdmin')
+      .subscribe((categoryAdmin) => {
+          this.categoryAdmin = categoryAdmin;
+        
+      })
+    );
+    this.categoryAdmin.pageable = {
+      size:2,
+      page:0
+    };
+    
+    this.store.dispatch(CategoryActions.loadCategories({pageable:this.categoryAdmin.pageable}));
+   
    }
 
-   ngOnInit(): void {
-    this.getCategories()
-    // this.store.dispatch(ProductosAdminActions.loadProducts());
-  }
-  getCategories(){
-    this.categories=this.categoriesServices.getCategories();    
-  }
+   ngOnInit(): void { }
   agregar(){
-    this.router.navigate(['admin/dashboard/categorias/agregarCategoria']);
+    this.router.navigate(['admin/dashboard/category/add']);
     }
     editarCategoria(id:number){
-    this.router.navigate([`admin/dashboard/categorias/editarCategoria/${id}`]);
-    }
-    eliminar(id:number){
-      // this.store.dispatch(ProductosAdminActions.deleteProduct(id));
+    this.router.navigate([`admin/dashboard/category/edit/${id}`]);
+    this.store.dispatch(CategoryActions.loadCategoryById({id}));
+  }
+  verCategoria(id:number){
+    this.router.navigate([`admin/dashboard/category/view/${id}`]);
+    this.store.dispatch(CategoryActions.loadCategoryById({id}));
+  }
+  eliminarCategoria(category:any){
+      Swal.fire({
+        title: `¿Estas seguro que quieres eliminar la categoría ${category.name}?`,
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar',
+        icon:'question'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.store.dispatch(CategoryActions.deleteCategory({id:category.category_id}));
+        } 
+      })
    }
    search(){
     const filtrar = this.searchForm.value.search;
-    // this.router.navigate(['/search'],{
-    //   queryParams:{filtrar}
-    // })    
-    this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
+    this.categoryAdmin.pageable = {
+      size:2,
+      page:0
+    };
+    if (filtrar == "") {
+      this.store.dispatch(CategoryActions.loadCategories({pageable:this.categoryAdmin.pageable}));
+    }else{
+      this.store.dispatch(SearchActions.loadSearch({filter:filtrar, pageable:this.categoryAdmin.pageable}));
+    }  
   }
-  mostrarData(categoria:any){
-    this.categoriesServices.disparadorCategoria.emit(categoria);
+  pageChange(evento:any){
+    if (!Number.isNaN(evento)) {
+     this.categoryAdmin.pageable = {
+        size:2,
+       page: evento != 0 ? evento - 1 : 0 
+      };
+    }
+this.store.dispatch(CategoryActions.loadCategories({pageable:this.categoryAdmin.pageable}));
   }
 }

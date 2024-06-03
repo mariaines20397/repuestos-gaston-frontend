@@ -123,19 +123,6 @@ private async leerArchivoComoBase64(archivo: File): Promise<string> {
         reader.readAsDataURL(archivo);
     });
 }
-public eliminar() : void {
-    Swal.fire({
-      title: `¿Estas seguro que quieres eliminar el producto ${this.product.name}?`,
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('¡Producto eliminado con éxito!', '', 'success')
-      } else if (result.dismiss) {
-        Swal.fire('El producto no se eliminó', '', 'info')
-      }
-    })
-  }
 
  public editar(): void {
     this.router.navigate([`/admin/dashboard/product/edit/${this.productId}`]);

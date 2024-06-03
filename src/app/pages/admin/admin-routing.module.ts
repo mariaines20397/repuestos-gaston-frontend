@@ -44,8 +44,20 @@ const routes: Routes = [
         component: ProductComponent
       },
       {
-        path:'categorias', 
+        path:'category', 
         component: TableCategoriesComponent
+      },
+      {
+        path:'category/edit/:id', 
+        component: CategoryComponent
+      },
+      {
+        path:'category/add', 
+        component: CategoryComponent
+      },
+      {
+        path:'category/view/:id', 
+        component: CategoryComponent
       },
       {
         path:'ventas', 

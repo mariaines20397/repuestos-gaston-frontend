@@ -1,26 +1,25 @@
 import { createAction, props } from "@ngrx/store";
-import { Category, getAllCategory } from "../model/category.model";
+import { Category, Pegeable, getAllCategory } from "../model/category.model";
+import { Categorie } from "../../table-products/model/product.model";
 
 //load categories
-export const loadCategories = createAction('[AdminCategories] loadCategories');
+export const loadCategories = createAction('[AdminCategories] loadCategories',props<{pageable?:Pegeable}>());
 export const loadCategoriesSuccess = createAction('[AdminCategories] loadCategoriesSuccess',
-props<{category:any}>());
+props<{category:any[], pageable:Pegeable, totalElements:number, totalPages: number}>());
 export const loadCategoriesFail = createAction('[AdminCategories] loadCategoriesFail',
 props<{error:any}>());
 
 //edit category
 export const editCategory = createAction('[AdminCategories] editCategory',
-props<{id:number, category:Category}>());
-export const editCategorySuccess = createAction('[AdminCategories] editCategorySuccess',
-props<{category:Category[]}>());
+props<{id:number, category:any}>());
+export const editCategorySuccess = createAction('[AdminCategories] editCategorySuccess');
 export const editCategoryFail = createAction('[AdminCategories] editCategoryFail',
 props<{error:any}>());
 
 //delete category
 export const deleteCategory = createAction('[AdminCategories] deleteCategory',
 props<{id:number}>());
-export const deleteCategorySuccess = createAction('[AdminCategories] deleteCategorySuccess',
-props<{category:Category}>());
+export const deleteCategorySuccess = createAction('[AdminCategories] deleteCategorySuccess');
 export const deleteCategoryFail = createAction('[AdminCategories] deleteCategoryFail',
 props<{error:any}>());
 
@@ -38,8 +37,7 @@ export const createCategory = createAction(
     props<{ category: Category }>()
   );
   export const createCategorySuccess = createAction(
-    '[AdminCategories] createCategorySuccess',
-    props<{ category: Category }>()
+    '[AdminCategories] createCategorySuccess'
   );
   export const createCategoryFail = createAction(
     '[AdminCategories] createCategoryFail',

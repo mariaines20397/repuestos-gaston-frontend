@@ -12,7 +12,10 @@
                       </button>
                     </div>
                   </form>
-                  
+                  <button type="button" class="btn btn-dark" (click)="agregar()"
+                placement="start" ngbTooltip="Agregar categoria">
+                  <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">
+                </button>
               </div>
               <div class="table-container">
                   <table class="table table-hover">
@@ -24,12 +27,31 @@
                         </tr>
                       </thead>
                       <tbody >
-                        <!-- <tr *ngFor="let category of categories; let index = index">
-                          <td scope="row"><input type="radio" (change)="mostrarData(category)" name="radioButton" [value]="category"/></td>
-                          
+                        <tr *ngFor="let category of this.categoryAdmin.data; let index = index">
+                          <td scope="row" class="colMenu">
+                            <div ngbDropdown class="d-inline-block dropdownMenu" >
+                              <button class="btn" id="dropdown1" ngbDropdownToggle>
+                                <img class="imgSection" src="../../../../assets/svg/menuAdmin.svg" alt="" srcset="" />
+                              </button>
+                              <div ngbDropdownMenu aria-labelledby="dropdown1">
+                                  <button ngbDropdownItem class="btn" (click)="verCategoria(category.category_id)">Ver más</button>
+                                  <hr>
+                                  <button ngbDropdownItem class="btn" (click)="editarCategoria(category.category_id)">Editar</button>
+                                  <hr>
+                                  <button ngbDropdownItem class="btn" (click)="eliminarCategoria(category)">Eliminar</button>
+                                </div>
+                            </div>
+                          </td>                          
                           <td>{{category.name}}</td>
                           <td>{{category.products?.length}} un.</td>
-                        </tr> -->
+                        </tr>
+                        <ng-container *ngIf="!this.categoryAdmin.data || this.categoryAdmin.data.length == 0">
+                          <tr>
+                            <td colspan="5" class="not-found">
+                              No hay productos para mostrar
+                            </td>
+                          </tr>
+                      </ng-container>
                       </tbody>
                     </table>  
                   </div>  
@@ -37,10 +59,8 @@
           </div>
           <div class="pagination">
             <!-- <ngb-pagination [collectionSize]="categories.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination> -->
+            <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.categoryAdmin?.totalElements" [page]="this.categoryAdmin.pageable.pageNumber + 1" [pageSize]="this.categoryAdmin?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
           </div>
-  </div>
-  <div class="form-productos">
-  <app-category></app-category>
   </div>
   </div>
   
