@@ -7,6 +7,7 @@ import * as ProductActions from '../store/products.actions';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -19,13 +20,14 @@ export class ProductComponent implements OnInit{
   private subscriptions = new Subscription();
   productId!:number;
   product:any={}
+  isAuthenticated:any={}
   constructor(
     private formBuilder: FormBuilder,
     private routeActive: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
     private sanitizer: DomSanitizer,
-    private store:Store<{ product:any, productAdmin:any}>
+    private store:Store<{ product:any, productAdmin:any, carrito:any}>
   ){
     this.cantidadForm = this.formBuilder.group({
       cantidad: new FormControl(1, [
@@ -53,17 +55,32 @@ export class ProductComponent implements OnInit{
   ngOnInit(): void {
     this.productId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
     this.store.dispatch(ProductActions.loadProductById({id:this.productId}));
+    this.isAuthenticated = localStorage.getItem('user');
   }
   comprarAhora(){
     this.authService.autenticado() ?
     this.router.navigate(['/carrito']):
     this.router.navigate(['/login']);
   }
-  agregarCarrito(){
-    this.authService.autenticado() ?
-    (console.log(this.cantidadForm.get('cantidad')!.value),
-      this.router.navigate(['/carrito'])):
-    this.router.navigate(['/login']);
+  agregarCarrito(product:any){
+    
+    if (this.authService.autenticado()) {
+      const amount = this.cantidadForm.get('cantidad')!.value;
+      const productAdd = {
+        amount,
+        idProduct: product.product_id
+      }
+      console.log(product);
+      console.log(productAdd);
+      this.store.dispatch(ProductActions.addProductToCart({product:productAdd}));
+    }else{
+      Swal.fire('Inicia sesión', `Para agregar un producto al carrito haz click en continuar e inicia sesión.`, 'info')
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/login']);
+            } 
+          })
+    }
   }
   maxValueValidator(control: AbstractControl): ValidationErrors | null  {
     if (control.get('cantidad')?.value > this.product.stock) {

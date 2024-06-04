@@ -1,4 +1,4 @@
-<div class="carritoTablet" *ngIf="listProducts.length > 0">
+<div class="carritoTablet" *ngIf="this.carrito.length > 0">
   <div class="titleCarrito">
     <h3>Carrito</h3>
     <!-- <button class="btn"  ngbTooltip="Limpiar carrito">
@@ -8,7 +8,7 @@
     <a (click)="clean()">Limpiar carrito</a>
   </div>
   <div class="product">
-    <div class="card" *ngFor="let product of listProducts">
+    <div class="card" *ngFor="let product of this.carrito">
       <!-- <div class="card-header">
        <h5> <b>Productos</b></h5>
       </div> -->
@@ -21,11 +21,8 @@
           <div class="infoPrice">
             <div class="infoProduct">
               <div class="divImg">
-                <img
-                  src="{{product.img}}"
-                  class="card-img"
-                  alt={{product.name}}
-                />
+                <img class="card-img" [src]="mostrarImg(product?.image)" alt="Imagen del producto" *ngIf="product?.image" />
+
               </div>
               <div class="divDescription">
                 <div class="card-body">
@@ -36,16 +33,17 @@
                 <div class="divSumCantidad">
                   <form action="" [formGroup]="carritoForm">
                     <div class="minusPlus">
-                      <button class="btn" (click)="resta()" [disabled]="restaDisabled">
+                      <button class="btn" (click)="resta(product.product_id)" [disabled]="restaDisabled">
                         <img src="./assets/svg/minus.svg" alt="Menos" srcset="" />
                       </button>
                       <input
                         type="number"
                         class="cantidad"
+                        [value]="product.amount"
                         formControlName="cantidad"
                       />
                       
-                      <button class="btn" (click)="suma()" [disabled]="sumaDisabled">
+                      <button class="btn" (click)="suma(product.product_id)" [disabled]="sumaDisabled">
                         <img src="./assets/svg/plus.svg" alt="Menos" srcset="" />
                       </button>
                     </div>
@@ -78,7 +76,7 @@
             <h3><b>Subtotal</b></h3>
           </div>
           <div class="card-body-price">
-            <h3 class="card-title"><b>${{carritoForm.get('subtotal')!.value}}</b></h3>
+            <h3 class="card-title"><b>${{product.sub_total_price}}</b></h3>
           </div>
         </div>
       </div>
@@ -89,7 +87,7 @@
   <div class="productTotal">
     <div class="card">
           <h2 class="card-title"><b>Total</b></h2>
-          <h2 class="card-title"><b>${{carritoForm.get('total')!.value}}</b></h2>
+          <h2 class="card-title"><b>${{this.total_price}}</b></h2>
         
     </div>
   </div>
@@ -103,7 +101,7 @@
   </div>
   
 </div>
-<div class="carritoMobile" *ngIf="listProducts.length > 0">
+<div class="carritoMobile" *ngIf="this.carrito.length > 0">
   <div class="titleCarrito">
     <h3>Carrito</h3>
     <!-- <button class="btn"  ngbTooltip="Limpiar carrito">
@@ -112,8 +110,8 @@
 
     <a (click)="clean()">Limpiar carrito</a>
   </div>
-  <div class="product" *ngIf="listProducts.length > 0">
-    <div class="card" *ngFor="let product of listProducts">
+  <div class="product" *ngIf="this.carrito.length > 0">
+    <div class="card" *ngFor="let product of this.carrito">
       <!-- <div class="card-header">
        <h5> <b>Productos</b></h5>
       </div> -->
@@ -126,11 +124,7 @@
           <div class="infoPrice">
             <div class="infoProduct">
               <div class="divImg">
-                <img
-                  src="{{product.img}}"
-                  class="card-img"
-                  alt={{product.name}}
-                />
+                <img class="card-img" [src]="mostrarImg(product?.image)" alt="Imagen del producto" *ngIf="product?.image" />
               </div>
               <div class="divDescription">
                 <div class="card-body">
@@ -141,16 +135,17 @@
                 <div class="divSumCantidad">
                   <form action="" [formGroup]="carritoForm">
                     <div class="minusPlus">
-                      <button class="btn" (click)="resta()" [disabled]="restaDisabled">
+                      <button class="btn" (click)="resta(product.product_id)" [disabled]="restaDisabled">
                         <img src="./assets/svg/minus.svg" alt="Menos" srcset="" />
                       </button>
                       <input
                         type="number"
+                        [value]="product.amount"
                         class="cantidad"
                         formControlName="cantidad"
                       />
                       
-                      <button class="btn" (click)="suma()" [disabled]="sumaDisabled">
+                      <button class="btn" (click)="suma(product.product_id)" [disabled]="sumaDisabled">
                         <img src="./assets/svg/plus.svg" alt="Menos" srcset="" />
                       </button>
                     </div>
@@ -183,7 +178,7 @@
             <h3><b>Subtotal</b></h3>
           </div>
           <div class="card-body-price">
-            <h3 class="card-title"><b>${{carritoForm.get('subtotal')!.value}}</b></h3>
+            <h3 class="card-title"><b>${{product.sub_total_price}}</b></h3>
           </div>
         </div>
       </div>
@@ -191,14 +186,14 @@
     <hr />
   </div>
   
-  <div class="productTotal" *ngIf="listProducts.length > 0">
+  <div class="productTotal" *ngIf="this.carrito.length > 0">
     <div class="card">
           <h2 class="card-title"><b>Total</b></h2>
-          <h2 class="card-title"><b>${{carritoForm.get('total')!.value}}</b></h2>
+          <h2 class="card-title"><b>${{this.total_price}}</b></h2>
         
     </div>
   </div>
-  <div class="finalizar" *ngIf="listProducts.length > 0">
+  <div class="finalizar" *ngIf="this.carrito.length > 0">
     <!-- <button class="success" [disabled]="carritoForm.invalid">
       Continuar compra
     </button> -->
@@ -207,13 +202,14 @@
     </button>
   </div>
 </div>
-<div class="notProducts" *ngIf="listProducts.length == 0">
+<div class="notProducts" *ngIf="this.carrito.length == 0">
   <div class="titleCarrito">
     <h3>Carrito</h3>
     </div>
     <div class="message">
       <div class="imgMessage">
         <img src="../../../assets/svg/cartClean-min.svg" alt="user" class="user" srcset="">
+      
       </div>
         <h4>No hay productos agregados en el carrito</h4>
     </div>

@@ -51,5 +51,27 @@ export const productsReducer = createReducer<any>(
             ...state,
             data:props.error
         })
+    ),
+    //addProductToCart
+    on(
+        ProductsActions.addProductToCart,
+        (state, props):any => ({
+            ...state,
+            data:props.product
+        })
+    ),
+    on(
+        ProductsActions.addProductToCartSuccess,
+        (state, props):any => ({
+            ...state
+        })
     )
+    ,
+    on(
+        ProductsActions.addProductToCartFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
+    ),
 )

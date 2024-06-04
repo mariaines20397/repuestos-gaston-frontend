@@ -9,9 +9,9 @@ import { Store } from '@ngrx/store';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService {
+export class CarritoService {
 
-  private urlEndpoint: string = 'http://localhost:8080/v1/product'
+  private urlEndpoint: string = 'http://localhost:8080/v1/carts'
   private subscriptions = new Subscription();
   user: User = {};
   constructor(
@@ -22,17 +22,15 @@ export class ProductsService {
       this.subscriptions.add(this.store.select('user').subscribe((user) => (this.user = user)));
 
      }
-  getProductsByCategory(id:number,pagination?:any):Observable<any>{
-    let queryParams: any = new HttpParams();
-    if (pagination) {
-      pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
-      queryParams = new HttpParams({fromObject:{ ...pagination}});
-    }
-    const finalUrl=`${this.urlEndpoint}/filter/${id}/category`;
+  addProduct(product?: any):Observable<any>{
+    console.log(product);
+    
+    const finalUrl=`${this.urlEndpoint}/addProduct`;
     return new Observable((obs)=>{
-      this.httpClient.get(finalUrl,{params:queryParams} )
+      this.httpClient.post(finalUrl,product)
       .subscribe({
         next: (res) => {
+          console.log(res);
           // this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();
@@ -46,8 +44,8 @@ export class ProductsService {
     })
   }
 
-  getProductById(id:number):Observable<any>{
-    const finalUrl=`${this.urlEndpoint}/${id}`;
+  getCartById():Observable<any>{
+    const finalUrl=`${this.urlEndpoint}/id`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl )
       .subscribe({
@@ -64,16 +62,52 @@ export class ProductsService {
       })
     })
   }
-  addProductToCart(product?: any):Observable<any>{
-    console.log(product);
-    
-    const finalUrl=`http://localhost:8080/v1/carts/addProduct`;
+
+  removeProduct(id?:number):Observable<any>{
+    const finalUrl=`${this.urlEndpoint}/removeProduct/${id}`;
+    return new Observable((obs)=>{
+      this.httpClient.delete(finalUrl )
+      .subscribe({
+        next: (res) => {
+          // this.router.navigate([`/products/${id}`]);
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+
+  decreaseProduct(product?:any):Observable<any>{
+    const finalUrl=`${this.urlEndpoint}/decreaseProduct`;
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,product)
       .subscribe({
         next: (res) => {
-          console.log(res);
-          // this.router.navigate(['/home']);
+          // this.router.navigate([`/products/${id}`]);
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+
+  cleanCart():Observable<any>{
+    const finalUrl=`${this.urlEndpoint}/clearShoppingCart`;
+    return new Observable((obs)=>{
+      this.httpClient.post(finalUrl,{body:''})
+      .subscribe({
+        next: (res) => {
+          // this.router.navigate([`/products/${id}`]);
           obs.next(res);
           obs.complete();
         },

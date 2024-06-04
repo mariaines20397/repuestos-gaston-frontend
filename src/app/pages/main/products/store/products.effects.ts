@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class ProductsEffects {
   constructor(
     private actions$: Actions,
-    private productsServices: ProductsService
+    private productsServices: ProductsService,
+    private router: Router
   ) {}
 
   loadProductsByCategory$ = createEffect(() =>
@@ -52,6 +53,23 @@ export class ProductsEffects {
           }),
           catchError((error) => {
             return of(ProductsActions.loadProductByIdFail({ error }));
+          })
+        );
+      })
+    )
+  );
+  addProductToCart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductsActions.addProductToCart),
+      mergeMap((action) => {
+        return this.productsServices.addProductToCart(action.product).pipe(
+          map((response) => {
+            console.log(response);
+            this.router.navigate(['/carrito']);
+            return ProductsActions.addProductToCartSuccess();
+          }),
+          catchError((error) => {
+            return of(ProductsActions.addProductToCartFail({ error }));
           })
         );
       })

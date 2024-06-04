@@ -17,3 +17,10 @@ export const loadProductByIdSuccess = createAction('[ProductById] loadProductByI
 props<{product:Product}>());
 export const loadProductByIdFail = createAction('[ProductById] loadProductByIdFail',
 props<{error:any}>());
+
+//addProductToCart
+export const addProductToCart = createAction('[ProductCart] addProductToCart',
+props<{product:any}>());
+export const addProductToCartSuccess = createAction('[ProductCart] addProductToCartSuccess');
+export const addProductToCartFail = createAction('[ProductCart] addProductToCartFail',
+props<{error:any}>());
