@@ -8,14 +8,18 @@ export const usersAdminReducer = createReducer<any>(
     on(
         UsersActions.loadUsers,
         (state, props):any => ({
-            ...state
+            ...state,
+            pageable:props.pageable
         })
     ),
     on(
         UsersActions.loadUsersSuccess,
         (state, props):any => ({
             ...state,
-            data:props.user
+            data:props.user,
+            pageable:props.pageable,
+            totalPages:props.totalPages,
+            totalElements:props.totalElements
         })
     )
     ,

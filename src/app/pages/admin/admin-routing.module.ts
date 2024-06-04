@@ -64,27 +64,11 @@ const routes: Routes = [
         component: TableSalesComponent
       },
       {
-        path:'usuarios', 
+        path:'user', 
         component: TableUsersComponent
       },
       {
-        path:'productos/agregarProducto', 
-        component: ProductComponent
-      },
-      {
-        path:'productos/editarProducto/:id', 
-        component: ProductComponent
-      },
-      {
-        path:'categorias/agregarCategoria', 
-        component: CategoryComponent
-      },
-      {
-        path:'categorias/editarCategoria/:id', 
-        component: CategoryComponent
-      },
-      {
-        path:'usuarios/ver/:id', 
+        path:'user/view/:id', 
         component: UserComponent
       },
       {

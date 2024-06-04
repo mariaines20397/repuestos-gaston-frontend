@@ -15,8 +15,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./table-categories.component.css']
 })
 export class TableCategoriesComponent implements OnInit{
-  page = 1;
-  categories:Category[]=[];
+ 
   searchForm:FormGroup;
   private subscriptions = new Subscription();
   categoryAdmin: any = {}

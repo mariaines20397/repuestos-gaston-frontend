@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { User } from '../model/users.model';
 import { Observable } from 'rxjs';
@@ -107,7 +107,7 @@ export class AdminUsersService {
     return this.users;
   }
   getUserByIdAdmin(id:number):Observable<any> {
-    const finalUrl=`http://localhost:8080/admin/users/${id}`;
+    const finalUrl=`http://localhost:8080/v1/users/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
@@ -124,8 +124,13 @@ export class AdminUsersService {
       })
     })
   }
-  getUsersAdmin():Observable<any> {
-    const finalUrl=`http://localhost:8080/admin/users`;
+  getUsersAdmin(pagination?:any):Observable<any> {
+    let queryParams: any = new HttpParams();
+    if (pagination) {
+      pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
+      queryParams = new HttpParams({fromObject:{ ...pagination}});
+    }
+    const finalUrl=`http://localhost:8080/v1/users/`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({

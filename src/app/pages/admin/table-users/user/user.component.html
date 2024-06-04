@@ -1,51 +1,65 @@
-<div class="div-general">
-    <div class="card card-tabla">
-        <div class="card-body">
-            <div class="titleButtons">
-                <div class="title">
-                    <h3 class="card-title"><b>Ver más del usuario {{user.name}}</b></h3>
-                </div>
-            </div>
-           <div class="form-container">
-            <form action="" [formGroup]="userForm">
-                <fieldset disabled class="container-class">
-                    <div class="containerInputs">
-                        <div class="inputsText">
-                            <span class="title-input">Nombre</span>
-                    <input class="text-input-width-product form-control" formControlName="name" type="text" name="" id="" autofocus>
-                            
-                        </div>
-                        <div class="inputsText">
-                            <span class="title-input">D.N.I.</span>
-                            <input class="text-input-width-product form-control" formControlName="dni" type="number" name="" id="">
-                        </div>
+<div class="contenedor">
+    <div class="productos">
+        <div class="card card-tabla">
+            <div class="card-body">
+                <div class="titleButtons">
+                    <button class="btn" (click)="back()" placement="top" ngbTooltip="Volver">
+                        <img src="../../../../../assets/svg/back.svg" alt="" srcset="">
+                    </button>
+                    <div class="title">
+                        <h3><b>Ver más del usuario</b></h3>
                     </div>
-                <div class="containerInputs">
-                    <div class="inputsText">
-                        <span class="title-input">Fecha cumpleaños</span>
-                    <input class="text-input-width-product form-control" formControlName="birthday" name="" id="">
-                    
+                    <div class="iconsTitle">
                     </div>
                 </div>
-                <div class="containerInputs">
-                <div class="inputsText">
-                    <span class="title-input">Usuario</span>
-                    <input class="text-input form-control" formControlName="username" type="text" name="" id="">
-                </div>
-                
-                <div class="inputsText">
-                    <span class="title-input">E-mail</span>
-                <input 
-                class="text-input form-control" 
-                formControlName="email">
+                <div class="form-container">
+                    <form action="" [formGroup]="userForm">
+                        <fieldset [disabled] class="container-class">
+                            <div class="containerInputs">
+                                <div class="inputsText">
+                                    <span class="title-input">Nombre</span>
+                                    <input class="text-input-width-product form-control" formControlName="name"
+                                        type="text" name="" id="">
+                                   
+                                </div>
+                                <div class="inputsText">
+                                    <span class="title-input">Apellido</span>
+                                    <input class="text-input-width-product form-control" formControlName="surname"
+                                        type="text" name="" id="">
+                                </div>
+                            </div>
+                            <div class="containerInputs">
+                                <div class="inputsText">
+                                    <span class="title-input">DNI</span>
+                                    <input class="text-input-width-product form-control" formControlName="dni"
+                                        type="number" name="" id="">
+                                   
+                                </div>
+                                <div class="inputsText">
+                                    <span class="title-input">Cumpleaños</span>
+                                    <input class="text-input-width-product form-control" formControlName="birthday"
+                                        type="number" name="" id="">
+                                    
+                                </div>
+                            </div>
+                            <div class="containerInputs">
+                                <div class="inputsText">
+                                    <span class="title-input">Nombre de usuario</span>
+                                    <input class="text-input-width-product form-control" formControlName="username"
+                                        type="number" name="" id="">
+                                    
+                                </div>
+                                <div class="inputsText">
+                                    <span class="title-input">E-mail</span>
+                                    <input class="text-input form-control" formControlName="email" type="text"
+                                        name="" id="" >
+                                   
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
-            </fieldset>
-            </form>
-           </div>
-            </div>
         </div>
-        <div class="formButtons" >
-            <a *ngIf="user.id" (click)="cancelar()">Limpiar</a>
-        </div>
+    </div>
 </div>

@@ -21,10 +21,16 @@ export class UsersAdminEffects {
     this.actions$.pipe(
       ofType(UsersActions.loadUsers),
       mergeMap((action) => {
-        return this.userServices.getUsersAdmin().pipe(
+        const getUser = action.pageable ? 
+        this.userServices.getUsersAdmin(action.pageable)
+        : this.userServices.getUsersAdmin();
+        return getUser.pipe(
           map((response) => {
             return UsersActions.loadUsersSuccess({
-              user: response.data,
+              user: response.content,
+              pageable:response.pageable,
+              totalPages: response.totalPages,
+              totalElements: response.totalElements
             });
           }),
           catchError((error) => {
@@ -43,7 +49,7 @@ export class UsersAdminEffects {
         return this.userServices.getUserByIdAdmin(action.id).pipe(
           map((response) => {
             return UsersActions.loadUserByIdSuccess({
-              user: response.data,
+              user: response,
             });
           }),
           catchError((error) => {
