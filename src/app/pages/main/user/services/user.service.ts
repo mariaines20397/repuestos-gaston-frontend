@@ -52,8 +52,8 @@ export class UserService {
     })
   }
 
-  editUserById(id:number, user:User):Observable<any>{
-    const finalUrl=`http://localhost:8080/user/profile/edit/${id}`;
+  editUserById(user:User):Observable<any>{
+    const finalUrl=`http://localhost:8080/v1/users/`;
     return new Observable((obs)=>{
       this.httpClient.put(finalUrl, user)
       .subscribe({

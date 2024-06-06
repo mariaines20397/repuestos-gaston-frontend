@@ -8,11 +8,11 @@
             <form action="" [formGroup]="userForm">
                 <div class="inputsText">
                     <span class="title-input">Nombre de usuario</span>
-                <input [disabled]="this.disabledUsername" class="text-input form-control"  formControlName="username" type="text" name="" id="" >
+                <input class="text-input form-control"  formControlName="username" type="text" name="" id="" >
                 </div>
                 <div class="inputsText">
                     <span class="title-input">Email</span>
-                <input [disabled]="this.disabledEmail" class="text-input form-control"  formControlName="email" type="text" name="" id="">
+                <input class="text-input form-control"  formControlName="email" type="text" name="" id="">
                 </div>
                 <div class="inputsText">
                     <span class="title-input">Nombre</span>
@@ -62,7 +62,7 @@
             </form>
             <div class="login-register">
                 <a (click)="cancelar()">Volver</a>
-                <button class="btn btn-primary btn-login" [disabled]="userForm.invalid" (click)="editar()">
+                <button class="btn btn-primary btn-login" [disabled]="userForm.invalid" (click)="editar(this.user.data)">
                         Guardar usuario</button>
             </div>
            </div>

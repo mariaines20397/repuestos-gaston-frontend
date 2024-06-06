@@ -42,9 +42,9 @@ export class ProfileComponent implements OnInit{
      this.userForm = this.formBuilder.group({
       name: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       surname: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
-      username: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+      username: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.maxLength(50)]),
       dni: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required]),
+      email: new FormControl({ value: null, disabled: true }, [Validators.required]),
       birthday: new FormControl(null),
       password: new FormControl(null, [Validators.required])
      });
@@ -69,29 +69,33 @@ export class ProfileComponent implements OnInit{
   cancelar(){
     this.router.navigate([`/users/profile`]);
   }
-  editar(){
+  editar(userProfile:any){
+    const userEdit:any = {}
     const {
       name,
       surname,
       dni,
       birthday,
-      username,
-      email,
-      password,
-      
+      password
     } = this.userForm.value
     const user={
       name,
       surname,
       dni,
       birthday,
-      email,
-      username,
-      password,
-      
+      password      
     }
+    userEdit.name = user.name == userProfile.name ? null : user.name;
+    userEdit.surname = user.surname == userProfile.surname ? null : userEdit.surname;
+    userEdit.dni = user.dni == userProfile.dni ? null : userEdit.dni;
+    userEdit.birthday = user.birthday == userProfile.birthday ? null : userEdit.birthday;
+    userEdit.password = user.password == userProfile.password ? null : userEdit.password;
+    console.log(userEdit);
+    console.log(this.userForm.value);
+    console.log(userProfile);
     console.log(user);
-    
+    this.store.dispatch(UserActions.editUser({user:userEdit}));
+
     // this.store.dispatch(userArctions.editUser(id,user));
   }
   llenarFormulario(user:any){

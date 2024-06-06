@@ -30,14 +30,14 @@ export const userReducer = createReducer<any>(
     on(
         UserActions.editUser,
         (state, props):any => ({
-            ...state
+            ...state,
+            data:props.user
         })
     ),
     on(
         UserActions.editUserSuccess,
         (state, props):any => ({
-            ...state,
-            data:props.user
+            ...state
         })
     )
     ,

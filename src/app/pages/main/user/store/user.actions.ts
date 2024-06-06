@@ -3,9 +3,8 @@ import { User } from "../model/users.model";
 
 //edit user
 export const editUser = createAction('[User] editUser',
-props<{id:number, user:User}>());
-export const editUserSuccess = createAction('[User] editUserSuccess',
-props<{user:User}>());
+props<{user:any}>());
+export const editUserSuccess = createAction('[User] editUserSuccess');
 export const editUserFail = createAction('[User] editUserFail',
 props<{error:any}>());
 

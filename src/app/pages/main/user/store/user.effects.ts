@@ -41,11 +41,14 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.editUser),
       mergeMap((action) => {
-        return this.userServices.editUserById(action.id, action.user).pipe(
+        return this.userServices.editUserById(action.user).pipe(
           map((response) => {
-            return UserActions.editUserSuccess({
-              user: response.data,
+            Swal.fire('¡Usuario modificado!', 'Los datos del usuario se modificaron con éxito', 'success').then((result) => {
+              if (result.isConfirmed) {
+                this.router.navigate(['/users/profile'])
+              } 
             });
+            return UserActions.editUserSuccess();
           }),
           catchError((error) => {
             return of(UserActions.editUserFail({ error }));
