@@ -41,4 +41,30 @@ export class CategoriesEffects {
       })
     )
   );
+
+  loadProductsByCategory$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CategoriesActions.loadProductsByCategory),
+      mergeMap((action) => {
+        const getProductsByCategory = action.pageable ? 
+        this.categoriesServices.getProductsByCategory(action.id,action.pageable)
+         : this.categoriesServices.getProductsByCategory(action.id);
+        return getProductsByCategory.pipe(
+          map((response) => {
+            console.log(response);
+            
+            return CategoriesActions.loadProductsByCategorySuccess({
+              product: response.content,
+              pageable: response.pageable,
+              totalPages: response.totalPages,
+              totalElements:response.totalElements
+            });
+          }),
+          catchError((error) => {
+            return of(CategoriesActions.loadProductsByCategoryFail({ error }));
+          })
+        );
+      })
+    )
+  );
 }

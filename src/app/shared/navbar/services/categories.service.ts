@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -44,22 +44,22 @@ export class CategoriesService {
     })
   }
 
-  getProductsByCategory(idCategory:number):Observable<any> {
-    const finalUrl=`http://localhost:8080/v1/product/filter/${idCategory}/category`;
-    console.log('entro aca');
+  getProductsByCategory(id:number,pagination?:any):Observable<any>{
+    let queryParams: any = new HttpParams();
+    if (pagination) {
+      pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
+      queryParams = new HttpParams({fromObject:{ ...pagination}});
+    }
+    const finalUrl=`http://localhost:8080/v1/product/filter/${id}/category`;
     return new Observable((obs)=>{
-      this.httpClient.get(finalUrl)
+      this.httpClient.get(finalUrl,{params:queryParams} )
       .subscribe({
         next: (res) => {
-          console.log(res);
-          
-          this.router.navigate([`/products/categories/${idCategory}`]);
+          // this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();
         },
         error: (error) => {
-          console.log(error);
-          
           // Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();

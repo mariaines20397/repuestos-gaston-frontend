@@ -30,5 +30,31 @@ export const categoriesReducer = createReducer<any>(
           ...state,
           data:props.error
       })
-  )
+  ),
+  //productsByCategory
+  on(
+    CategoriesActions.loadProductsByCategory,
+    (state, props):any => ({
+        ...state,
+        pageable:props.pageable
+    })
+),
+on(
+    CategoriesActions.loadProductsByCategorySuccess,
+    (state, props):any => ({
+        ...state,
+        data:props.product,
+        pageable:props.pageable,
+        totalPages:props.totalPages,
+        totalElements:props.totalElements
+    })
+)
+,
+on(
+    CategoriesActions.loadProductsByCategoryFail,
+    (state, props):any => ({
+        ...state,
+        data:props.error
+    })
+),
 )

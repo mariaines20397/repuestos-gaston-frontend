@@ -6,13 +6,13 @@ export const userReducer = createReducer<any>(
     initialState,
     //user
     on(
-        UserActions.loadUserById,
+        UserActions.loadProfile,
         (state, props):any => ({
             ...state
         })
     ),
     on(
-        UserActions.loadUserByIdSuccess,
+        UserActions.loadProfileSuccess,
         (state, props):any => ({
             ...state,
             data:props.user
@@ -20,7 +20,7 @@ export const userReducer = createReducer<any>(
     )
     ,
     on(
-        UserActions.loadUserByIdFail,
+        UserActions.loadProfileFail,
         (state, props):any => ({
             ...state,
             data:props.error
@@ -43,6 +43,27 @@ export const userReducer = createReducer<any>(
     ,
     on(
         UserActions.editUserFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
+    ),
+    //logout
+    on(
+        UserActions.loadLogout,
+        (state, props):any => ({
+            ...state
+        })
+    ),
+    on(
+        UserActions.loadLogoutSuccess,
+        (state, props):any => ({
+            ...state
+        })
+    )
+    ,
+    on(
+        UserActions.loadLogoutFail,
         (state, props):any => ({
             ...state,
             data:props.error

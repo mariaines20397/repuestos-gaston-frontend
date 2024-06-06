@@ -60,7 +60,7 @@ export class ProductsComponent implements OnInit{
     if (this.categoryId) {
       console.log(this.categoryId);
       
-      this.store.dispatch(ProductsActions.loadProductsByCategory({id:this.categoryId,pageable:this.category.pageable})); 
+      this.store.dispatch(ProductsActions.loadProductsByCategory({id:this.categoryId,pageable:this.products.pageable})); 
     }
     if (this.nameSearch) {   
     this.store.dispatch(SearchActions.loadSearch({filter:this.nameSearch,pageable:this.search.pageable}));

@@ -42,7 +42,7 @@
           </a>
           <ul class="dropdown-menu" >
             <li *ngFor="let data of this.category.data">
-              <a class="dropdown-item" onclick="filterProductsByCategory(data.category_id)" href="/products/categories/{{data.category_id}}">{{data.name}}</a></li>
+              <a class="dropdown-item" (click)="filterProductsByCategory(data.category_id)" href="/products/categories/{{data.category_id}}">{{data.name}}</a></li>
           </ul>
         </li>
         
@@ -66,10 +66,10 @@
         >
         <img src="../../../assets/svg/user.svg" alt="user" class="user" srcset="">
 
-        <p>{{user.data.Username}}</p>
+        <p>{{this.user.user}}</p>
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/users/profile/1">Perfil</a></li>
+          <li><a class="dropdown-item" (click)="profile()" href="/users/profile">Perfil</a></li>
           <li><a class="dropdown-item" (click)="logout()">Cerrar Sesión</a></li>
         </ul>
       </li>

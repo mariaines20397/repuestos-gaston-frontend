@@ -14,7 +14,8 @@ export const loginReducer = createReducer<any>(
         LoginActions.loadLoginSuccess,
         (state, props):any => ({
             ...state,
-            data:props.user
+            user:props.user,
+            jwt:props.jwt
         })
     )
     ,

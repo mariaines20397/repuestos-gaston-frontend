@@ -9,7 +9,7 @@ import * as SearchActions from './store/search.actions'
 import { User } from 'src/app/pages/main/user/model/users.model';
 import { Subscription } from 'rxjs';
 import { loadLoginSuccess } from 'src/app/pages/login/store/login.actions';
-import * as HomeActions from 'src/app/pages/main/home/store/home.actions';
+import * as UserActions from 'src/app/pages/main/user/store/user.actions';
 import * as CategoriasActions from 'src/app/shared/navbar/store/categories.actions';
 import * as ProductsActions from 'src/app/pages/main/products/store/products.actions';
 import { getAllCategories, getAllCategory } from 'src/app/pages/admin/table-categories/model/category.model';
@@ -43,7 +43,11 @@ export class NavbarComponent implements OnInit {
       this.subscriptions.add(
         this.store
           .select('user')
-          .subscribe((user) => this.user = user )
+          .subscribe((user) => {
+            this.user = user
+            console.log(this.user);
+            
+          } )
       );
       this.subscriptions.add(
         this.store
@@ -96,12 +100,12 @@ export class NavbarComponent implements OnInit {
   }
   logout() {
     const username = this.authService.usuario.Username;
-    loadLoginSuccess({
+   /* loadLoginSuccess({
       user:{
           Username:undefined,
           jwt:undefined
       }
-  });
+  });*/
     // this.authService.logout();
     Swal.fire(
       '¡Hasta pronto!',
@@ -113,5 +117,22 @@ export class NavbarComponent implements OnInit {
 
   filterProductsByCategory(id:number){
     this.router.navigate([`/products/categories/${id}`]);
+    const paginacion = {
+      pageNumber:0,
+      pageSize:2,
+      offset:0,
+      paged:true,
+      unpaged:false,
+      sort:{
+        empty:false,
+        sorted:true,
+        unsorted:false
+      }
+    }
+    this.store.dispatch(CategoriasActions.loadProductsByCategory({id, pageable:paginacion}))
+  }
+
+  profile(){
+    this.store.dispatch(UserActions.loadProfile());
   }
 }

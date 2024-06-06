@@ -11,10 +11,4 @@ props<{product:Product[], pageable?:Pegeable, totalElements:number, totalPages: 
 export const loadSearchFail = createAction('[Search] loadSearchFail',
 props<{error:any}>());
 
-//logout
-export const loadLogout = createAction('[Search] loadLogout',
-props<{user:User}>());
-export const loadLogoutSuccess = createAction('[Search] loadLogoutSuccess',
-props<{message:Object}>());
-export const loadLogoutFail = createAction('[Search] loadLogoutFail',
-props<{error:any}>());
+

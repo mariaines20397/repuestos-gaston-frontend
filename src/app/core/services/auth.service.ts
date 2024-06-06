@@ -97,16 +97,21 @@ export class AuthService {
   }
 
   autenticado():boolean{
-    let payload = this.obtenerDatoToken(this.user?.data?.jwt);
+    const data = localStorage.getItem('user');
+    if (data) {
+      let payload = this.obtenerDatoToken(JSON.parse(data).jwt);
+      if (payload != null) {
+        return true;
+      }
+      return false;
+    }
+    return false;
     // let payload = {
     //   user_name :['Maria Ines']
     // };
     // let payload = {
     //     user_name :[]
     //   };
-    if (payload != null) {
-      return true;
-    }
-    return false;
+   
   }
 }

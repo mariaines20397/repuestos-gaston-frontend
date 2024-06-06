@@ -4,10 +4,10 @@ import { UserComponent } from './user.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [ {
-  path: ':id',
+  path: '',
   component: UserComponent
 },{
-  path: 'edit/:id',
+  path: 'edit',
   component: ProfileComponent
 }];
 

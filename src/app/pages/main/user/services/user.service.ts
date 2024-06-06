@@ -30,19 +30,21 @@ export class UserService {
     }
     return false;    
   }
-  getUserById(id:number):Observable<any>{
-    const finalUrl=`http://localhost:8080/user/profile/${id}`;
+  getProfile():Observable<any>{
+    const finalUrl=`http://localhost:8080/v1/users/profile`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
         next: (res) => {
-          this.router.navigate(['/home']);
+          console.log(res);
+          
+        //  this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();
         },
         error: (error) => {
           Swal.fire('¡Lo siento!', error,'error');
-          this.isNoAuthorization(error);
+         // this.isNoAuthorization(error);
           obs.error(error);
           obs.complete();
         }
@@ -56,13 +58,33 @@ export class UserService {
       this.httpClient.put(finalUrl, user)
       .subscribe({
         next: (res) => {
-          this.router.navigate(['/home']);
+          //this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();
         },
         error: (error) => {
           Swal.fire('¡Lo siento!', error,'error');
-          this.isNoAuthorization(error);
+        //  this.isNoAuthorization(error);
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+
+  logout():Observable<any>{
+    const finalUrl=`http://localhost:8080/logout`;
+    return new Observable((obs)=>{
+      this.httpClient.post(finalUrl, {})
+      .subscribe({
+        next: (res) => {
+          
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          Swal.fire('¡Lo siento!', error,'error');
+         // this.isNoAuthorization(error);
           obs.error(error);
           obs.complete();
         }

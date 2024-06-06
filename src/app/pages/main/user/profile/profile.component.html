@@ -2,10 +2,18 @@
     <div class="card">
         <div class="card-body">
             <div class="agregarProducto">
-                <h3 class="card-title">Editar datos personales de <b>{{nombreUsuario}}</b></h3>
+                <h3 class="card-title">Editar datos personales de <b>{{this.user.data.name +' '+this.user.data.surname}}</b></h3>
             </div>
            <div class="form-container">
             <form action="" [formGroup]="userForm">
+                <div class="inputsText">
+                    <span class="title-input">Nombre de usuario</span>
+                <input [disabled]="this.disabledUsername" class="text-input form-control"  formControlName="username" type="text" name="" id="" >
+                </div>
+                <div class="inputsText">
+                    <span class="title-input">Email</span>
+                <input [disabled]="this.disabledEmail" class="text-input form-control"  formControlName="email" type="text" name="" id="">
+                </div>
                 <div class="inputsText">
                     <span class="title-input">Nombre</span>
                     <input class="text-input form-control" formControlName="name" type="text" name="" id="" autofocus>
@@ -27,15 +35,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="inputsText">
-                    <span class="title-input">Nombre de usuario</span>
-                <input class="text-input form-control" formControlName="username" type="text" name="" id="">
-                <div *ngIf="userForm.controls['username'].errors && userForm.get('username')?.touched">
-                    <div class="validatorText" *ngIf="userForm.get('username')?.hasError('required')">
-                        <span>Este campo es requerido.</span>
-                    </div>
-                </div>
-                </div>
+                
                 <div class="inputsText">
                     <span class="title-input">Contraseña</span>
                 <input class="text-input form-control" formControlName="password" type="password" name="" id="">
@@ -57,17 +57,12 @@
                 <div class="inputsText">
                     <span class="title-input">Fecha de nacimiento</span>
                 <input class="text-input form-control" formControlName="birthday" type="date" name="" id="">
-                <div *ngIf="userForm.controls['birthday'].errors && userForm.get('birthday')?.touched">
-                    <div class="validatorText" *ngIf="userForm.get('birthday')?.hasError('required')">
-                        <span>Este campo es requerido.</span>
-                    </div>
-                </div>
                 </div>
                 
             </form>
             <div class="login-register">
-                <a (click)="cancelar(userId)">Volver</a>
-                <button class="btn btn-primary btn-login" [disabled]="userForm.invalid" (click)="editar(userId)">
+                <a (click)="cancelar()">Volver</a>
+                <button class="btn btn-primary btn-login" [disabled]="userForm.invalid" (click)="editar()">
                         Guardar usuario</button>
             </div>
            </div>

@@ -5,6 +5,8 @@ import { UserService } from '../services/user.service';
 import { User } from '../model/users.model';
 import { Store } from '@ngrx/store';
 import * as userArctions from '../store/user.actions'
+import { Subscription } from 'rxjs';
+import * as UserActions from '../store/user.actions';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +14,9 @@ import * as userArctions from '../store/user.actions'
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit{
+  private subscriptions = new Subscription();
+  disabledEmail:boolean = false;
+  disabledUsername: boolean = false;
   datosUsuario:any[]=[
     {
       id:1,
@@ -24,7 +29,7 @@ export class ProfileComponent implements OnInit{
     }
   ]
   userId!:number;
-  user:User={};
+  user:any={};
   nombreUsuario='';
   userForm:FormGroup;
   constructor(
@@ -32,32 +37,46 @@ export class ProfileComponent implements OnInit{
     public router: Router,
     private userServices:UserService,
     private routeActive: ActivatedRoute,
-    private store:Store<{user:User}>
+    private store:Store<{user:any}>
    ){
      this.userForm = this.formBuilder.group({
       name: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       surname: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       username: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       dni: new FormControl(null, [Validators.required]),
-      birthday: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required]),
+      birthday: new FormControl(null),
       password: new FormControl(null, [Validators.required])
      });
+     this.subscriptions.add(
+      this.store
+        .select('user')
+        .subscribe((user) => {
+          this.user = user;
+          this.llenarFormulario(this.user);
+          this.disabledEmail = this.user.data.email? true : false;
+          this.disabledUsername = this.user.data.username? true : false;
+          console.log(this.user);
+          
+        })
+    );
    }
    ngOnInit(): void {
-    this.userId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
     // this.store.dispatch(userArctions.loadUserById(id));
-    this.llenarFormulario()   
+    this.store.dispatch(UserActions.loadProfile());
+   // this.llenarFormulario()   
   }
-  cancelar(id:number){
-    this.router.navigate([`/users/profile/${id}`]);
+  cancelar(){
+    this.router.navigate([`/users/profile`]);
   }
-  editar(id:number){
+  editar(){
     const {
       name,
       surname,
       dni,
       birthday,
       username,
+      email,
       password,
       
     } = this.userForm.value
@@ -66,6 +85,7 @@ export class ProfileComponent implements OnInit{
       surname,
       dni,
       birthday,
+      email,
       username,
       password,
       
@@ -74,31 +94,30 @@ export class ProfileComponent implements OnInit{
     
     // this.store.dispatch(userArctions.editUser(id,user));
   }
-
-  llenarFormulario(){
-    this.datosUsuario.forEach(user=>{
-      if (user.id == this.userId) {
+  llenarFormulario(user:any){
+   // this.datosUsuario.forEach(user=>{
+     // if (user.id == this.userId) {
         const {
           name,
           surname,
           username,
           dni,
+          email,
           birthday,
-          password,
-          
-        } = user
-        this.nombreUsuario=`${name} ${surname}`!;
+          password
+        } = user.data;
         this.userForm.patchValue({
           name,
           surname,
           username,
+          email,
           dni,
           birthday,
           password,
           
         })
-      }
-    })
+     // }
+    //})
     
 }
 }

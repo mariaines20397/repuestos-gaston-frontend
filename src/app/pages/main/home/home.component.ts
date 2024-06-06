@@ -121,6 +121,6 @@ export class HomeComponent implements OnInit{
        page: evento != 0 ? evento - 1 : 0 
       };
     }
-this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.products.pageable}));
+this.store.dispatch(HomeActions.loadHome({pageable:this.products.pageable}));
   }
 }

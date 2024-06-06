@@ -1,4 +1,4 @@
-<div *ngIf="categoryId">
+<div *ngIf="this.categoryId">
   <div class="title">
       <h3>{{nameCategory}}</h3>
   <span>{{products?.data?.length}} resultados</span>
@@ -18,11 +18,11 @@
         </div>
       </div>
     </div>
-    <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.category?.totalElements" [page]="this.category.pageable.pageNumber + 1" [pageSize]="this.category?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
+    <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.products?.totalElements" [page]="this.products.pageable.pageNumber + 1" [pageSize]="this.products?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
   </div>
 </div>
 
-<div *ngIf="nameSearch">
+<div *ngIf="this.nameSearch">
   <div class="title">
     <h3>{{nameSearch | titlecase}}</h3>
   <span>{{search?.data?.length}} resultados</span>

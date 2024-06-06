@@ -1,5 +1,5 @@
-<div class="profile" *ngFor="let data of datosUsuario">
-  <div class="card mb-3" style="max-width: 540px">
+<div class="profile">
+  <div class="card mb-3" style="max-width: 840px">
     <div class="row no-gutters">
       <div class="col-md-3 photoProfile">
         <img
@@ -10,7 +10,8 @@
       </div>
       <div class="col-md-8 card-text">
         <div class="card-body">
-          <h5 class="card-title">{{ data.name }}</h5>
+          <h5 class="card-title">{{this.user.data.name+' '+this.user.data.surname}}
+          </h5>
         </div>
       </div>
     </div>
@@ -18,12 +19,12 @@
   <div class="title">
     <h5>Datos personales</h5>
     <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Editar datos personales">
-      <img src="../../../../assets/svg/edit.svg" (click)="editarUser(data.id!)" alt="" srcset="">
+      <img src="../../../../assets/svg/edit.svg" (click)="editarUser(this.user.data)" alt="" srcset="">
   </button>
   </div>
   <div
     class="card mb-3 desktop"
-    style="max-width: 540px"
+    style="max-width: 840px"
   >
     <div class="row no-gutters row-line">
       <div class="col-md-3 card-text-title">
@@ -31,7 +32,7 @@
       </div>
       <div class="col-md-8 card-text">
         <div class="card-body">
-          <p class="card-text">{{ data.usuario }}</p>
+          <p class="card-text">{{ this.user.data.username }}</p>
         </div>
       </div>
     </div>
@@ -41,18 +42,29 @@
       </div>
       <div class="col-md-8 card-text">
         <div class="card-body">
-          <p class="card-text">{{ data.email }}</p>
+          <p class="card-text">{{ this.user.data.email }}</p>
         </div>
       </div>
     </div>
     <div class="row no-gutters row-line">
       <div class="col-md-3 card-text-title">
-        <p class="card-text">Teléfono</p>
+        <p class="card-text">Contraseña</p>
       </div>
       <div class="col-md-8 card-text">
         <div class="card-body">
-          <p class="card-text">{{ data.telefono }}</p>
-          <p class="card-text" *ngIf="data.telefono == null"></p>
+          <p class="card-text">{{ this.user.data.password }}</p>
+          <p class="card-text" *ngIf="this.user.data.password == null"></p>
+        </div>
+      </div>
+    </div>
+   <div class="row no-gutters row-line">
+      <div class="col-md-3 card-text-title">
+        <p class="card-text">Fecha de nacimiento</p>
+      </div>
+      <div class="col-md-8 card-text">
+        <div class="card-body">
+          <p class="card-text">{{ this.user.data.birthdate }}</p>
+          <p class="card-text" *ngIf="this.user.data.birthdate == null"></p>
         </div>
       </div>
     </div>
@@ -62,8 +74,8 @@
       </div>
       <div class="col-md-8 card-text">
         <div class="card-body">
-          <p class="card-text">{{ data.documento }}</p>
-          <p class="card-text" *ngIf="data.documento == null"></p>
+          <p class="card-text">{{ this.user.data.dni }}</p>
+          <p class="card-text" *ngIf="this.user.data.dni == null"></p>
         </div>
       </div>
     </div>
@@ -71,7 +83,7 @@
 
   <div
     class="card mb-3 mobile"
-    style="max-width: 540px"
+    style="max-width: 840px"
   >
     <div>
       <div class="col-md-3 card-text-title">
@@ -79,7 +91,7 @@
       </div>
       <div class="col-md-8 card-text">
         <div class="card-body">
-          <p class="card-text">{{ data.usuario }}</p>
+          <p class="card-text">{{ this.user.data.usuario }}</p>
         </div>
       </div>
     </div>
@@ -89,7 +101,17 @@
       </div>
       <div class="col-md-8 card-text">
         <div class="card-body">
-          <p class="card-text">{{ data.email }}</p>
+          <p class="card-text">{{ this.user.data.email }}</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-md-3 card-text-title">
+        <p class="card-text">Contraseña</p>
+      </div>
+      <div class="col-md-8 card-text">
+        <div class="card-body">
+          <p class="card-text">{{ this.user.data.password }}</p>
         </div>
       </div>
     </div>
@@ -99,8 +121,8 @@
       </div>
       <div class="col-md-8 card-text">
         <div class="card-body">
-          <p class="card-text">{{ data.telefono }}</p>
-          <p class="card-text" *ngIf="data.telefono == null"></p>
+          <p class="card-text">{{ this.user.data.telefono }}</p>
+          <p class="card-text" *ngIf="this.user.data.telefono == null"></p>
         </div>
       </div>
     </div>
@@ -110,8 +132,8 @@
       </div>
       <div class="col-md-8 card-text">
         <div class="card-body">
-          <p class="card-text">{{ data.documento }}</p>
-          <p class="card-text" *ngIf="data.documento == null"></p>
+          <p class="card-text">{{ this.user.data.documento }}</p>
+          <p class="card-text" *ngIf="this.user.data.documento == null"></p>
         </div>
       </div>
     </div>

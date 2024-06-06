@@ -28,7 +28,8 @@ export class LoginEffects {
                     this.router.navigate(['/home']);
                     Swal.fire('¡Bienvenido!', `Hola ${response.Username} has iniciado sesión con éxito`, 'success');
                     return LoginActions.loadLoginSuccess({
-                        user:{Username:response.Username, jwt:response.token}
+                        user:response.Username, 
+                        jwt:response.token
                     });
                 }),
                 catchError((error) => {
