@@ -22,8 +22,11 @@ export class CarritoEffects {
       mergeMap((action) => {
         return this.carritoServices.addProduct(action.product).pipe(
           map((response) => {
-            console.log(response);
-            this.router.navigate(['/carrito']);
+            if(this.router.url.includes('carrito')){
+              location.reload()
+            }else{
+              this.router.navigate(['/carrito']);
+            }
             return CarritoActions.addProductSuccess();
           }),
           catchError((error) => {
@@ -40,7 +43,6 @@ export class CarritoEffects {
       mergeMap((action) => {
         return this.carritoServices.getCartById().pipe(
           map((response) => {
-            console.log(response);
             return CarritoActions.loadCartByIdSuccess({
               products: response.products,
               total_price: response.total_price
@@ -60,7 +62,6 @@ export class CarritoEffects {
       mergeMap((action) => {
         return this.carritoServices.removeProduct(action.id).pipe(
           map((response) => {
-            console.log(response);
             location.reload();
             return CarritoActions.removeProductSuccess();
           }),
@@ -78,7 +79,7 @@ export class CarritoEffects {
       mergeMap((action) => {
         return this.carritoServices.decreaseProduct(action.product).pipe(
           map((response) => {
-            console.log(response);
+            location.reload();
             return CarritoActions.decreaseProductSuccess();
           }),
           catchError((error) => {
@@ -95,9 +96,11 @@ export class CarritoEffects {
       mergeMap((action) => {
         return this.carritoServices.cleanCart().pipe(
           map((response) => {
-            console.log(response);
-            Swal.fire('¡Tu carrito ahora esta limpio!', '', 'success')
-            location.reload();
+            Swal.fire('¡Tu carrito ahora esta limpio!', '', 'success').then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              } 
+            })
             return CarritoActions.cleanCartSuccess();
           }),
           catchError((error) => {

@@ -1,4 +1,4 @@
-<div class="carritoTablet" *ngIf="this.carrito.length > 0">
+<div class="carritoTablet" *ngIf="this.carrito?.length > 0">
   <div class="titleCarrito">
     <h3>Carrito</h3>
     <!-- <button class="btn"  ngbTooltip="Limpiar carrito">
@@ -39,7 +39,6 @@
                       <input
                         type="number"
                         class="cantidad"
-                        [value]="product.amount"
                         formControlName="cantidad"
                       />
                       
@@ -110,7 +109,7 @@
 
     <a (click)="clean()">Limpiar carrito</a>
   </div>
-  <div class="product" *ngIf="this.carrito.length > 0">
+  <div class="product" *ngIf="this.carrito?.length > 0">
     <div class="card" *ngFor="let product of this.carrito">
       <!-- <div class="card-header">
        <h5> <b>Productos</b></h5>
@@ -140,7 +139,6 @@
                       </button>
                       <input
                         type="number"
-                        [value]="product.amount"
                         class="cantidad"
                         formControlName="cantidad"
                       />
@@ -186,14 +184,14 @@
     <hr />
   </div>
   
-  <div class="productTotal" *ngIf="this.carrito.length > 0">
+  <div class="productTotal" *ngIf="this.carrito?.length > 0">
     <div class="card">
           <h2 class="card-title"><b>Total</b></h2>
           <h2 class="card-title"><b>${{this.total_price}}</b></h2>
         
     </div>
   </div>
-  <div class="finalizar" *ngIf="this.carrito.length > 0">
+  <div class="finalizar" *ngIf="this.carrito?.length > 0">
     <!-- <button class="success" [disabled]="carritoForm.invalid">
       Continuar compra
     </button> -->
@@ -202,7 +200,7 @@
     </button>
   </div>
 </div>
-<div class="notProducts" *ngIf="this.carrito.length == 0">
+<div class="notProducts" *ngIf="this.carrito?.length == 0">
   <div class="titleCarrito">
     <h3>Carrito</h3>
     </div>

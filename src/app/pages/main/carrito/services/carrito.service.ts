@@ -23,15 +23,11 @@ export class CarritoService {
 
      }
   addProduct(product?: any):Observable<any>{
-    console.log(product);
-    
     const finalUrl=`${this.urlEndpoint}/addProduct`;
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,product)
       .subscribe({
         next: (res) => {
-          console.log(res);
-          // this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();
         },
@@ -50,7 +46,6 @@ export class CarritoService {
       this.httpClient.get(finalUrl )
       .subscribe({
         next: (res) => {
-          // this.router.navigate([`/products/${id}`]);
           obs.next(res);
           obs.complete();
         },
@@ -69,7 +64,6 @@ export class CarritoService {
       this.httpClient.delete(finalUrl )
       .subscribe({
         next: (res) => {
-          // this.router.navigate([`/products/${id}`]);
           obs.next(res);
           obs.complete();
         },
@@ -88,7 +82,6 @@ export class CarritoService {
       this.httpClient.post(finalUrl,product)
       .subscribe({
         next: (res) => {
-          // this.router.navigate([`/products/${id}`]);
           obs.next(res);
           obs.complete();
         },
@@ -107,7 +100,6 @@ export class CarritoService {
       this.httpClient.post(finalUrl,{body:''})
       .subscribe({
         next: (res) => {
-          // this.router.navigate([`/products/${id}`]);
           obs.next(res);
           obs.complete();
         },

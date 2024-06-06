@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Product } from '../products/model/product.model';
 import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
@@ -18,55 +18,43 @@ export class CarritoComponent implements OnInit{
   private subscriptions = new Subscription();
   carrito:any = []
   total_price:any
-  // listProducts:Product[]=[
-  //   {
-  //     id:1,
-  //     name:'Motul 5100',
-  //     price:1000,
-  //     description:'Aceite de motos sintético',
-  //     img:'./assets/img/productos/motul.png',
-  //     stock:20
-  //   },
-  //   {
-  //     id:2,
-  //     name:'Motul 5100',
-  //     price:1000,
-  //     description:'Aceite de motos sintético',
-  //     img:'./assets/img/productos/motul.png',
-  //     stock:20
-  //   }
-  // ]
+  amount!:number
   carritoForm:FormGroup;
 constructor(
   private formBuilder: FormBuilder,
   private store:Store<{ carrito:any}>,
   private sanitizer: DomSanitizer
 ){
-  this.carritoForm = this.formBuilder.group({
-    cantidad: new FormControl(1, [Validators.required, Validators.minLength(1)])
-  },
-  {
-    validators: [this.maxValueValidator.bind(this)],
-  });
   this.subscriptions.add(
     this.store
     .select('carrito')
     .subscribe((carrito) => {
       this.carrito = carrito.data;
       this.total_price = carrito.total_price;
-      console.log(this.carrito);
-      console.log(this.total_price);
-      
+      this.inicializarProductos(carrito.data);
     })
   )
+  this.carritoForm = this.formBuilder.group({
+    cantidad: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.min(1)])
+  },
+  {
+    validators: [this.maxValueValidator.bind(this)],
+  });
+  
 }
   ngOnInit(): void {
     this.store.dispatch(CarritoActions.loadCartById());
 
-    // this.listProducts.forEach(data=>{
-    //   this.subTotal(data.price!);
-    // })
-    // this.total();
+  }
+  get productos(): FormArray {
+    return this.carritoForm.get('productos') as FormArray;
+  }
+  inicializarProductos(carrito:any) {
+    carrito.forEach((data:any)=>{
+      this.carritoForm.patchValue({
+        cantidad:data.amount
+      })
+    })
   }
   // maxValueValidator(control: AbstractControl): ValidationErrors | null  {
   //   const product = this.carrito;
@@ -107,16 +95,6 @@ constructor(
       idProduct: id
     }
     this.store.dispatch(CarritoActions.decreaseProduct({product:productAdd}));
-    // if (this.carritoForm.get('cantidad')!.value != 1) {
-    //   this.restaDisabled = false;
-    //   const resultadoResta = this.carritoForm.get('cantidad')!.value - 1;
-    //   this.sumaDisabled = false;
-    //   this.listProducts.forEach(data=>{
-    //     this.carritoForm.get('cantidad')!.setValue(resultadoResta);
-    //     this.subTotal(data.price!);
-    //   })
-    // }
-    // this.total();
   }
 
   suma(id:number){
@@ -125,18 +103,9 @@ constructor(
       idProduct: id
     }
     this.store.dispatch(CarritoActions.addProduct({product:productAdd}));
+    
   }
 
-  // subTotal(precio:number){
-  //   const resultadoSubTotal = this.carritoForm.get('cantidad')!.value * precio
-  //   this.carritoForm.get('subtotal')!.setValue(resultadoSubTotal);
-  // }
-
-  // total(){
-  //   let acu = 0;
-  //   acu += this.carritoForm.get('subtotal')!.value;
-  //   this.carritoForm.get('total')!.setValue(acu);
-  // }
   clean(){
     Swal.fire({
       title: `¿Estas seguro que quieres eliminar todos los productos del carrito?`,

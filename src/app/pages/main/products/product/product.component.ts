@@ -72,6 +72,7 @@ export class ProductComponent implements OnInit{
       }
       console.log(product);
       console.log(productAdd);
+      
       this.store.dispatch(ProductActions.addProductToCart({product:productAdd}));
     }else{
       Swal.fire('Inicia sesión', `Para agregar un producto al carrito haz click en continuar e inicia sesión.`, 'info')
