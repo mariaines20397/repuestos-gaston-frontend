@@ -47,5 +47,28 @@ export const salesAdminReducer = createReducer<any>(
             ...state,
             data:props.error
         })
+    ),
+    //productByBarCode
+    on(
+        SaleActions.loadProductByBarCode,
+        (state, props):any => ({
+            ...state,
+            data:props.barCode
+        })
+    ),
+    on(
+        SaleActions.loadProductByBarCodeSuccess,
+        (state, props):any => ({
+            ...state,
+            data:props.product
+        })
+    )
+    ,
+    on(
+        SaleActions.loadProductByBarCodeFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
     )
 )

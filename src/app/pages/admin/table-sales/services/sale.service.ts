@@ -102,4 +102,23 @@ export class SaleService {
       })
     })
   }
+
+  getProductByBarCode(barCode:number):Observable<any> {
+    const finalUrl=`http://localhost:8080/v1/product/filter/${barCode}/barCode`;
+    return new Observable((obs)=>{
+      this.httpClient.get(finalUrl)
+      .subscribe({
+        next: (res) => {
+          // this.router.navigate(['/home']);
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
 }

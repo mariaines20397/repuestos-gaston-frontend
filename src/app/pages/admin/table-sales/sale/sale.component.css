@@ -115,3 +115,469 @@ fieldset {
     opacity: 1;
     border: none;
   }
+/*Web*/
+@media (min-width: 1100px){
+    .carritoMobile{
+        display: none;
+    }
+    .carritoTablet{
+        display: block;
+    }
+    .productTotal{
+        width: 90%;
+        margin: auto;
+    }
+    .productTotal .card{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 0;
+        padding: 10px;
+    }
+    .productTotal .card h4{
+        margin: 0;
+    }
+    .product{
+        display: flex;
+        flex-direction: column;
+        background: #ebebeb;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+    }
+    .card{
+        margin-bottom: 5%;
+    }
+    .infoPrice{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .infoProduct{
+        display: flex;
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+    }
+    .divSumCantidad{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+    }
+    .card-img{
+        width: 100%;
+    }
+    .divImg{
+        width: 40%;
+        display: flex;
+        align-items: center;
+    }
+    .minusPlus{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .minusPlus input{
+        width: 35%;
+        text-align: center;
+        border: 0.2px solid rgba(60, 58, 58, 0.585);
+        height: 30px;
+        border-radius: 5px;
+    }
+    .subtotal{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .title h3{
+        margin: 0;
+    }
+    .card-body-price h3{
+        margin: 0;
+    }
+    .stock p{
+        text-align: center;
+        margin-top: 2%;
+    }
+    .titleCarrito{
+        padding-top: 50px;
+        margin: auto;
+        width: 80vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .titleCarrito h3{
+        font-weight: 700;
+        line-height: 1.3;
+    }
+    .titleCarrito a{
+        color: black;
+        font-size: 18px;
+        line-height: 1.3;
+        font-weight: 600;
+        margin-bottom: 8px;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    .minusPlus button{
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    .finalizar{
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+        margin-top: 5%;
+        padding-bottom: 5%;
+    }
+    .finalizar button{
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+    .trash{
+        display: flex;
+        justify-content: end;
+        width: 95%;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+    .notProducts{
+        height: 50vh;
+    }
+    .message{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
+        height: 60%;
+    }
+    .imgMessage{
+        width: 5%;
+    }
+    .message h4{
+        font-weight: 600;
+    }
+    .imgMessage img{
+        width: 100%;
+    }
+}
+/*Tablet*/
+@media (min-width: 750px) and (max-width: 1100px){
+    .carritoMobile{
+        display: none;
+    }
+    .carritoTablet{
+        display: block;
+    }
+    .productTotal{
+        width: 90%;
+        margin: auto;
+    }
+    .productTotal .card{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 0;
+        padding: 10px;
+    }
+    .productTotal .card h4{
+        margin: 0;
+    }
+    .product{
+        display: flex;
+        flex-direction: column;
+        background: #ebebeb;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+    }
+    .card{
+        margin-bottom: 5%;
+    }
+    .infoPrice{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .infoProduct{
+        display: flex;
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+    }
+    .divSumCantidad{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+    }
+    .card-img{
+        width: 100%;
+    }
+    .divImg{
+        width: 60%;
+        display: flex;
+        align-items: center;
+    }
+    .minusPlus{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .minusPlus input{
+        width: 35%;
+        text-align: center;
+        border: 0.2px solid rgba(60, 58, 58, 0.585);
+        height: 30px;
+        border-radius: 5px;
+    }
+    .subtotal{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .title h3{
+        margin: 0;
+    }
+    .card-body-price h3{
+        margin: 0;
+    }
+    .stock p{
+        text-align: center;
+        margin-top: 2%;
+    }
+    .titleCarrito{
+        padding-top: 50px;
+        margin: auto;
+        width: 80vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .titleCarrito h3{
+        font-weight: 700;
+        line-height: 1.3;
+    }
+    .titleCarrito a{
+        color: black;
+        font-size: 18px;
+        line-height: 1.3;
+        font-weight: 600;
+        margin-bottom: 8px;
+        text-decoration: underline;
+    }
+    .minusPlus button{
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    .finalizar{
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+        margin-top: 5%;
+        padding-bottom: 5%;
+    }
+    .finalizar button{
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+    .trash{
+        display: flex;
+        justify-content: end;
+        width: 90%;
+        margin-top: 10px;
+    }
+    .notProducts{
+        height: 50vh;
+    }
+    .message{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
+        height: 60%;
+    }
+    .imgMessage{
+        width: 10%;
+    }
+    .message h4{
+        font-weight: 600;
+    }
+    .imgMessage img{
+        width: 100%;
+    }
+}
+/*Mobile*/
+@media (max-width: 750px) {
+    .carritoMobile{
+        display: block;
+    }
+    .carritoTablet{
+        display: none;
+    }
+    .productTotal{
+        
+        width: 90%;
+        margin: auto;
+    }
+    .productTotal .card{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 0;
+        padding: 10px;
+    }
+    .productTotal .card h4{
+        margin: 0;
+    }
+    .product{
+        display: flex;
+        flex-direction: column;
+        background: #ebebeb;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+    }
+    .card{
+        margin-bottom: 5%;
+    }
+    .infoPrice{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .infoProduct{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+    }
+    .divSumCantidad{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+    }
+    .card-img{
+        width: 100%;
+    }
+    .divImg{
+        width: 80%;
+        display: flex;
+        align-items: center;
+    }
+    .minusPlus{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .minusPlus input{
+        width: 35%;
+        text-align: center;
+        border: 0.2px solid rgba(60, 58, 58, 0.585);
+        height: 30px;
+        border-radius: 5px;
+    }
+    .subtotal{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .title h3{
+        margin: 0;
+    }
+    .card-body-price h3{
+        margin: 0;
+    }
+    .stock p{
+        text-align: center;
+        margin-top: 2%;
+    }
+    .titleCarrito{
+        padding-top: 50px;
+        margin: auto;
+        width: 80vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .titleCarrito h3{
+        font-weight: 700;
+        line-height: 1.3;
+    }
+    .titleCarrito a{
+        color: black;
+        font-size: 18px;
+        line-height: 1.3;
+        font-weight: 600;
+        margin-bottom: 8px;
+        text-decoration: underline;
+    }
+    .minusPlus button{
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    .finalizar{
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+        margin-top: 5%;
+        padding-bottom: 5%;
+    }
+    .finalizar button{
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+    .trash{
+        display: flex;
+        justify-content: end;
+        width: 90%;
+        margin-top: 10px;
+    }
+    .trash img{
+        width: 8%;
+        height: 8%;
+    }
+    .notProducts{
+        height: 50vh;
+    }
+    .message{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
+        height: 60%;
+    }
+    .message h4{
+        text-align: center;
+        font-weight: 600;
+        width: 70%;
+    }
+    .imgMessage{
+        width: 20%;
+    }
+    .imgMessage img{
+        width: 100%;
+    }
+}

@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Search } from 'src/app/shared/navbar/model/search.model';
-import * as SearchActions from '../../../shared/navbar/store/search.actions'
+import * as SearchActions from '../../../shared/navbar/store/search.actions';
 import { Sale } from './model/sale.model';
 import { SaleService } from './services/sale.service';
 
@@ -71,7 +71,9 @@ export class TableSalesComponent implements OnInit{
     // })    
     this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
   }
-
+  agregar(){
+    this.router.navigate(['admin/dashboard/sale/add']);
+    }
   getSales(){
     this.sales=this.saleServices.getSalesPrueba();    
   }
@@ -81,7 +83,6 @@ export class TableSalesComponent implements OnInit{
   editarEstadoVenta(id:number){
     this.router.navigate([`admin/dashboard/ventas/editarVenta/${id}`]);
   }
-  
   mostrarData(sale:any){
     this.saleServices.disparadorVenta.emit(sale.id);
   }

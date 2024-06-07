@@ -7,40 +7,31 @@
                         <img src="../../../../../assets/svg/back.svg" alt="" srcset="">
                     </button>
                 <div class="title">
-                    <h3 *ngIf="agregarVenta" class="card-title"><b>Agregar venta</b></h3>
-                    <h3 *ngIf="editarVenta" class="card-title"><b>Editar venta {{this.saleForm.get('id')?.value}}</b></h3>
-                    <h3 class="card-title" *ngIf="!editarVenta && !agregarVenta"><b>Ver más de la venta {{this.saleForm.get('id')?.value}}</b>
+                    <h3 *ngIf="this.router.url.includes('add')" class="card-title"><b>Agregar venta</b></h3>
+                    <h3 *ngIf="this.router.url.includes('edit')" class="card-title"><b>Editar venta {{this.saleForm.get('id')?.value}}</b></h3>
+                    <h3 *ngIf="this.router.url.includes('view')" class="card-title" ><b>Ver más de la venta {{this.saleForm.get('id')?.value}}</b>
                     </h3>
                 </div>
                 <div class="iconsTitle">
-                    <button class="btn" (click)="editar()" *ngIf="this.saleForm.get('id')?.value && !agregarVenta" [disabled]="editarVenta" placement="top"
-                        ngbTooltip="Editar estado de venta">
+                    <button class="btn" (click)="editar()" *ngIf="!this.router.url.includes('add')" [disabled]="this.router.url.includes('edit')"
+                        placement="top" ngbTooltip="Editar producto">
                         <img src="../../../../../assets/svg/edit.svg" alt="" srcset="">
-                    </button>
-                    <div class="addProductInForm">
-                        <button *ngIf="agregarVenta" type="button" class="btn btn-dark" (click)="addProductsToCart()"
-                    placement="top" ngbTooltip="Agregar producto">
-                    Agregar producto
-                </button>
-                    </div>
-                    <button type="button" class="btn btn-dark" (click)="agregar()" [disabled]="agregarVenta"
-                        placement="top" ngbTooltip="Agregar venta">
-                        <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">
                     </button>
                 </div>
             </div>
             <div class="form-container">
-                <form [formGroup]="saleForm" *ngIf="!agregarVenta">
-                    <fieldset [disabled]="!editarVenta && !agregarVenta">
-                        <div class="containerProducts" *ngFor="let product of carrito.value; let i = index">
-                                <span class="spanTile"><b>Producto {{i+1}}</b></span>
+                <form [formGroup]="saleForm" *ngIf="this.router.url.includes('add')">
+                    <fieldset [disabled]="this.router.url.includes('view')">
+                        <div class="containerProducts">
+                            <!--     <span class="spanTile"><b>Producto {{i+1}}</b></span>-->
                         <div class="containerInputs">
                             <div class="inputsText">
-                                <span class="title-input">Nombre</span>
-                                <input disabled id='typeahead-template' type='text' class="text-input-width-product form-control"
+                                <span class="title-input">Código de barra</span>
+                                <input formControlName="barCode" type="number" name="" id="" (keydown.enter)="getProductByBarCode()">
+                              <!--  <input disabled id='typeahead-template' type='text' class="text-input-width-product form-control"
                                     [ngbTypeahead]='search' [inputFormatter]='formatter'
                                     [value]="product.name" />
-                            <!-- <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
+                             <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
                                 <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
                                     <span>Este campo es requerido.</span>
                                 </div>
@@ -49,24 +40,99 @@
                                 </div>
                             </div> -->
                             </div>
-                            <div class="inputsText">
+                          <!--  <div class="inputsText">
                                 <span class="title-input">Categoría</span>
                                 <input disabled id='typeahead-template' type='text' class="text-input-width-product form-control"
                                 [ngbTypeahead]='search' [inputFormatter]='formatter'
                                 [value]="product.category.name" />
-                                <!-- <div *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
+                                 <div *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
                                     <div class="validatorText" *ngIf="productForm.get('category')?.hasError('required')">
                                         <span>Este campo es requerido.</span>
                                     </div>
-                                </div>-->
-                            </div>
+                                </div>
+                            </div>-->
                         </div>
+                        <div class="product" *ngIf="saleForm.get('products')?.value.length > 0">
+                            <div class="card" *ngFor="let product of saleForm.get('products')?.value">
+                              <!-- <div class="card-header">
+                               <h5> <b>Productos</b></h5>
+                              </div> -->
+                              <div class="trash" >
+                                <img src="../../../assets/svg/trash-min.svg" (click)="deleteProduct(product)" placement="top" ngbTooltip="Eliminar producto del carrito" alt="user" class="user" srcset="">
+                        
+                              </div>
+                              <div class="carritoProducts" >
+                                <div class="row card-body" >
+                                  <div class="infoPrice">
+                                    <div class="infoProduct">
+                                      <div class="divImg">
+                                        <img class="card-img" [src]="mostrarImg(product?.image)" alt="Imagen del producto" *ngIf="product?.image" />
+                        
+                                      </div>
+                                      <div class="divDescription">
+                                        <div class="card-body">
+                                          <h4 class="card-title"><b>{{product?.name}}</b></h4>
+                                        </div>
+                                      </div>
+                                    </div>           
+                                        <div class="divSumCantidad">
+                                          <form action="" [formGroup]="carritoForm">
+                                            <div class="minusPlus">
+                                              <button class="btn" (click)="resta(product.product_id)">
+                                                <img src="./assets/svg/minus.svg" alt="Menos" srcset="" />
+                                              </button>
+                                              <input
+                                                type="number"
+                                                class="cantidad"
+                                                formControlName="cantidad"
+                                              />
+                                              
+                                              <button class="btn" (click)="suma(product.product_id)">
+                                                <img src="./assets/svg/plus.svg" alt="Menos" srcset="" />
+                                              </button>
+                                            </div>
+                            
+                                            <div class="stock">
+                                              <p class="card-text">
+                                                <small class="text-muted">{{product.stock}} stock disponibles</small>
+                                              </p>
+                                            </div>
+                                            
+                                          </form>
+                                          <div class="texts" *ngIf="carritoForm.controls['cantidad'].errors && carritoForm.get('cantidad')?.touched">
+                                            <div class="validatorText" *ngIf="carritoForm.get('cantidad')?.hasError('required')">
+                                                <span>Este campo es requerido</span>
+                                            </div>
+                                            <div class="validatorText" *ngIf="carritoForm.get('cantidad')?.hasError('minValueExceeded')">
+                                              <span>La cantidad mínima permitida es 1 unidad.</span>
+                                          </div>
+                                          <div class="validatorText" *ngIf="carritoForm.get('cantidad')?.hasError('maxValueExceeded')">
+                                            <span>No hay stock suficiente.</span>
+                                        </div>
+                                        </div>
+                                      </div>
+                                    
+                                  </div>
+                                  
+                                </div>
+                                <div class="card-footer subtotal">
+                                  <div class="title">
+                                    <h3><b>Subtotal</b></h3>
+                                  </div>
+                                  <div class="card-body-price">
+                                    <h3 class="card-title"><b>${{product.sub_total_price}}</b></h3>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <hr />
+                          </div>
                         <div class="containerInputs">
                             <div class="inputsText">
                                 <span class="title-input">Precio</span>
-                                <input disabled type='number' class="text-input-width-product form-control"
+                             <!--    <input disabled type='number' class="text-input-width-product form-control"
                                     [value]="product.price" />
-                            <!-- <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
+                            <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
                                 <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
                                     <span>Este campo es requerido.</span>
                                 </div>
@@ -77,9 +143,9 @@
                             </div>
                             <div class="inputsText">
                                 <span class="title-input">Cantidad</span>
-                                <input disabled type='number' class="text-input-width-product form-control"
+                             <!--   <input disabled type='number' class="text-input-width-product form-control"
                                 [value]="product.cantidad" />
-                                <!-- <div *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
+                                 <div *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
                                     <div class="validatorText" *ngIf="productForm.get('category')?.hasError('required')">
                                         <span>Este campo es requerido.</span>
                                     </div>
@@ -90,9 +156,9 @@
                         <div class="containerInputs">
                             <div class="inputsText">
                                 <span class="title-input">Subtotal</span>
-                                <input disabled type='number' class="text-input-width-product form-control"
+                            <!--    <input disabled type='number' class="text-input-width-product form-control"
                                     [value]="product.price * product.cantidad" />
-                            <!-- <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
+                             <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
                                 <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
                                     <span>Este campo es requerido.</span>
                                 </div>
@@ -119,19 +185,19 @@
                     <div class="containerInputs">
                         <div class="inputsText">
                             <span class="title-input">Estado</span>
-                            <select class="selectForm" formControlName="state">
+                          <!--  <select class="selectForm" formControlName="state">
                                 <option *ngFor="let state of stateIds" [value]="state.id">{{state.name}}</option>
                             </select>
                             <div *ngIf="saleForm.controls['state'].errors && saleForm.get('state')?.touched">
                                 <div class="validatorText" *ngIf="saleForm.get('state')?.hasError('required')">
                                     <span>Este campo es requerido.</span>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     </fieldset>
                 </form>
-                <form [formGroup]="saleForm" *ngIf="agregarVenta">
+               <!-- <form [formGroup]="saleForm" *ngIf="agregarVenta">
                     <fieldset>
                         <div class="containerProducts" *ngFor="let product of carrito.value; let i = index">
                             <span class="spanTile"><b>Producto {{i+1}}</b>
@@ -143,7 +209,7 @@
                             <span class="title-input">Nombre</span>
                             <input id='typeahead-template' type='text' class="text-input-width-product form-control"
                                 [ngbTypeahead]='search' [inputFormatter]='formatter'
-                                [value]="carrito.controls[i].value.name" />
+                                [value]="carrito.controls[i].value.name" />-->
                         <!-- <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
                             <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
                                 <span>Este campo es requerido.</span>
@@ -152,24 +218,24 @@
                                 <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
                             </div>
                         </div> -->
-                        </div>
+                       <!-- </div>
                         <div class="inputsText">
                             <span class="title-input">Categoría</span>
                             <input disabled id='typeahead-template' type='text' class="text-input-width-product form-control"
                             [ngbTypeahead]='search' [inputFormatter]='formatter'
-                            [value]="product.category.name" />
+                            [value]="product.category.name" />-->
                             <!-- <div *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
                                 <div class="validatorText" *ngIf="productForm.get('category')?.hasError('required')">
                                     <span>Este campo es requerido.</span>
                                 </div>
-                            </div>-->
+                            </div>
                         </div>
                     </div>
                     <div class="containerInputs">
                         <div class="inputsText">
                             <span class="title-input">Precio</span>
                             <input disabled type='number' class="text-input-width-product form-control"
-                                [value]="product.price" />
+                                [value]="product.price" />-->
                         <!-- <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
                             <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
                                 <span>Este campo es requerido.</span>
@@ -177,17 +243,17 @@
                             <div class="validatorText" *ngIf="productForm.get('name')?.hasError('maxlength')">
                                 <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
                             </div>
-                        </div> -->
+                        </div> 
                         </div>
                         <div class="inputsText">
                             <span class="title-input">Cantidad</span>
                             <input type='number' class="text-input-width-product form-control"
-                            [value]="product.cantidad" />
+                            [value]="product.cantidad" />-->
                             <!-- <div *ngIf="productForm.controls['category'].errors && productForm.get('category')?.touched">
                                 <div class="validatorText" *ngIf="productForm.get('category')?.hasError('required')">
                                     <span>Este campo es requerido.</span>
                                 </div>
-                            </div>-->
+                            </div>
                         </div>
                         
                     </div>
@@ -195,7 +261,7 @@
                         <div class="inputsText">
                             <span class="title-input">Subtotal</span>
                             <input disabled type='number' class="text-input-width-product form-control"
-                                [value]="product.price * product.cantidad" />
+                                [value]="product.price * product.cantidad" />-->
                         <!-- <div *ngIf="productForm.controls['name'].errors && productForm.get('name')?.touched">
                             <div class="validatorText" *ngIf="productForm.get('name')?.hasError('required')">
                                 <span>Este campo es requerido.</span>
@@ -203,13 +269,13 @@
                             <div class="validatorText" *ngIf="productForm.get('name')?.hasError('maxlength')">
                                 <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
                             </div>
-                        </div> -->
-                        </div>
+                        </div> 
+                        </div>-->
                         <!-- <div class="inputsText">
                             <span class="title-input">Total</span>
                             <input type='number' class="text-input-width-product form-control"
                             [value]="totalCompra" />
-                        </div> -->
+                        </div> 
                         
                     </div>
                 </div>
@@ -240,7 +306,7 @@
                     <a *ngIf="this.saleForm.get('id')?.value || agregarVenta" (click)="cancelar()">Limpiar</a>
                     <button class="btn btn-dark btn-login"  *ngIf="editarVenta || agregarVenta"  [disabled]="!agregarVenta && !editarVenta" (click)="guardarVenta()" >
                         Guardar venta</button>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

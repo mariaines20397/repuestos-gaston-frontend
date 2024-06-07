@@ -52,4 +52,23 @@ export class SaleAdminEffects {
       })
     )
   );
+
+  loadProductByBarCode$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SaleActions.loadProductByBarCode),
+      mergeMap((action) => {
+        return this.saleServices.getProductByBarCode(action.barCode).pipe(
+          map((response) => {
+            console.log(response);
+            return SaleActions.loadProductByBarCodeSuccess({
+              product: response,
+            });
+          }),
+          catchError((error) => {
+            return of(SaleActions.loadProductByBarCodeFail({ error }));
+          })
+        );
+      })
+    )
+  );
 }

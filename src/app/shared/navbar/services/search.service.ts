@@ -45,7 +45,7 @@ export class SearchService {
     
     const finalUrl=`http://localhost:8080/logout`;
     return new Observable((obs)=>{
-      this.httpClient.post(finalUrl, {})
+      this.httpClient.get('http://localhost:8080/logout')
       .subscribe({
         next: (res) => {
           console.log(res);

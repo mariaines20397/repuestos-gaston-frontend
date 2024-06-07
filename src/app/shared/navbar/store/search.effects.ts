@@ -54,7 +54,7 @@ export class SearchEffects {
              ).then((result) => {
               if (result.isConfirmed) {
                 localStorage.removeItem('user');
-                
+                this.router.navigate(['/login'])
                 location.reload();
               } 
             });
