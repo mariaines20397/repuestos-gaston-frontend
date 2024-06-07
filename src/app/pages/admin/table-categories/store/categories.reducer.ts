@@ -8,7 +8,6 @@ export const categoriesAdminReducer = createReducer<any>(
     on(
       CategoriesActions.loadCategories,
       (state, props):any => (
-        console.log(props),
         {
           ...state,
           pageable:props.pageable
@@ -16,9 +15,7 @@ export const categoriesAdminReducer = createReducer<any>(
   ),
   on(
       CategoriesActions.loadCategoriesSuccess,
-      (state, props):any => (
-        console.log(props.category),
-        
+      (state, props):any => (        
         {
           ...state,
           data:props.category,

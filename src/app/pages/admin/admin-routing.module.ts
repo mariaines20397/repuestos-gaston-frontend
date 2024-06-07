@@ -60,8 +60,20 @@ const routes: Routes = [
         component: CategoryComponent
       },
       {
-        path:'ventas', 
+        path:'sale', 
         component: TableSalesComponent
+      },
+      {
+        path:'sale/view/:id', 
+        component: SaleComponent
+      },
+      {
+        path:'sale/edit/:id', 
+        component: SaleComponent
+      },
+      {
+        path:'sale/add', 
+        component: SaleComponent
       },
       {
         path:'user', 
@@ -70,15 +82,7 @@ const routes: Routes = [
       {
         path:'user/view/:id', 
         component: UserComponent
-      },
-      {
-        path:'ventas/ver/:id', 
-        component: SaleComponent
-      },
-      {
-        path:'ventas/editarVenta/:id', 
-        component: SaleComponent
-      },
+      }
       
     ],
   },

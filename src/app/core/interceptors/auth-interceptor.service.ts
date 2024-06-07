@@ -23,8 +23,6 @@ export class AuthInterceptorService implements HttpInterceptor{
   // intercept(request: HttpRequest<unknown>, next: HttpHandler): any {
     return next.handle(request.clone({ headers: this.getHeaders() })).pipe(
       catchError((err) => {
-        console.log(err);
-        console.log('entro al interceptor');
         
         // if (err instanceof HttpErrorResponse && err.status === 401) {
           // return this.cognitoService.refreshUserSession().pipe(

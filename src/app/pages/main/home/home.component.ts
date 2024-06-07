@@ -89,8 +89,6 @@ export class HomeComponent implements OnInit{
         .select('home')
         .subscribe((home) => {
           this.products = home;
-          console.log(this.products);
-          
         })
         this.products.pageable = {
           size:3,
@@ -101,10 +99,7 @@ export class HomeComponent implements OnInit{
       
   }
   ngOnInit(): void {
-   
     this.totalProductos = this.productos.length;
-    console.log(this.productos.length);
-    console.log(this.category);
   }
  
   mostrarImg(image:any){

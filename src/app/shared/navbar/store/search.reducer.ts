@@ -30,5 +30,26 @@ export const searchReducer = createReducer<any>(
             ...state,
             data:props.error
         })
+    ),
+    //logout
+    on(
+        SearchActions.loadLogout,
+        (state, props):any => ({
+            ...state
+        })
+    ),
+    on(
+        SearchActions.loadLogoutSuccess,
+        (state, props):any => ({
+            ...state
+        })
+    )
+    ,
+    on(
+        SearchActions.loadLogoutFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
     )
 )

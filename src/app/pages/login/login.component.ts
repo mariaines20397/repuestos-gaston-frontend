@@ -47,9 +47,7 @@ export class LoginComponent implements OnInit{
     this.user = {
       username: this.loginForm.value.username,
       password: this.loginForm.value.password
-    }
-    console.log(this.user);
-    
+    }    
     this.store.dispatch(LoginActions.loadLogin({user:this.user}));
     // if (this.user.username == this.usuarioPrueba.username &&
     //   this.user.password == this.usuarioPrueba.password) {

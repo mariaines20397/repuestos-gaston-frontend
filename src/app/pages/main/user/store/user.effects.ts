@@ -14,7 +14,7 @@ export class UserEffects {
   constructor(
     private actions$: Actions,
     private userServices: UserService,
-    private router: Router,
+    private router: Router
   ) {}
 
   loadProfile$ = createEffect(() =>
@@ -23,8 +23,6 @@ export class UserEffects {
       mergeMap((action) => {
         return this.userServices.getProfile().pipe(
           map((response) => {
-            console.log(response);
-            
             return UserActions.loadProfileSuccess({
               user: response,
             });
@@ -57,25 +55,5 @@ export class UserEffects {
       })
     )
   );
-  loadLogout$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(UserActions.loadLogout),
-      mergeMap((action) => {
-        return this.userServices.logout().pipe(
-          map((response) => {
-            localStorage.removeItem('user');
-            Swal.fire('¡Sesión cerrada!', 'Esperamos volver a verte pronto', 'success').then((result) => {
-              if (result.isConfirmed) {
-                location.reload();
-              } 
-            });
-            return UserActions.loadLogoutSuccess();
-          }),
-          catchError((error) => {
-            return of(UserActions.loadLogoutFail({ error }));
-          })
-        );
-      })
-    )
-  );
+  
 }

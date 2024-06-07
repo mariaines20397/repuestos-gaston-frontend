@@ -8,7 +8,6 @@ export const categoriesReducer = createReducer<any>(
     on(
       CategoriesActions.loadCategories,
       (state, props):any => (
-        console.log(props),
         {
           ...state
       })
@@ -16,8 +15,6 @@ export const categoriesReducer = createReducer<any>(
   on(
       CategoriesActions.loadCategoriesSuccess,
       (state, props):any => (
-        console.log(props.category),
-        
         {
           ...state,
           data:props.category

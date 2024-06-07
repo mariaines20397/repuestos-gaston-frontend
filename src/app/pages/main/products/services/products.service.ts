@@ -65,14 +65,11 @@ export class ProductsService {
     })
   }
   addProductToCart(product?: any):Observable<any>{
-    console.log(product);
-    
     const finalUrl=`http://localhost:8080/v1/carts/addProduct`;
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,product)
       .subscribe({
         next: (res) => {
-          console.log(res);
           // this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();

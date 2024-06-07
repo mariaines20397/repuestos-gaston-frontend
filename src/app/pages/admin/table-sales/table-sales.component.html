@@ -45,11 +45,9 @@
       </div>
     </div>
     <div class="pagination">
-      <ngb-pagination [collectionSize]="sales.length" [(page)]="page" [pageSize]="10"
-        aria-label="Default pagination"></ngb-pagination>
+    <!-- <ngb-pagination 
+      (pageChange)="pageChange($event)" 
+      [collectionSize]="this.productAdmin?.totalElements" [page]="this.productAdmin.pageable.pageNumber + 1" [pageSize]="this.productAdmin?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>--> 
     </div>
-  </div>
-  <div class="form-productos">
-    <app-sale></app-sale>
   </div>
 </div>

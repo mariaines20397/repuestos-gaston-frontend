@@ -57,9 +57,7 @@ export class CategoryComponent {
   public back() : void{
     this.router.navigate(['/admin/dashboard/category'])
   }
-  getProductControl(index: number) {
-    console.log((this.categoryForm.get('products') as FormArray));
-    
+  getProductControl(index: number) {    
     return ((this.categoryForm.get('products') as FormArray).at(index) as FormControl);
   }
   public guardarProducto(): void {

@@ -47,26 +47,5 @@ export const userReducer = createReducer<any>(
             ...state,
             data:props.error
         })
-    ),
-    //logout
-    on(
-        UserActions.loadLogout,
-        (state, props):any => ({
-            ...state
-        })
-    ),
-    on(
-        UserActions.loadLogoutSuccess,
-        (state, props):any => ({
-            ...state
-        })
-    )
-    ,
-    on(
-        UserActions.loadLogoutFail,
-        (state, props):any => ({
-            ...state,
-            data:props.error
-        })
     )
 )

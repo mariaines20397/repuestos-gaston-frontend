@@ -25,8 +25,6 @@ export class ProductsAdminEffects {
          : this.productsServices.getProductsAdmin();
         return getProducts.pipe(
           map((response) => {
-            console.log(response);
-            
             return ProductsActions.loadProductsSuccess({
               product: response.content,
               pageable: response.pageable,
@@ -46,11 +44,8 @@ export class ProductsAdminEffects {
     this.actions$.pipe(
       ofType(ProductsActions.loadProductById),
       mergeMap((action) => {
-        console.log(action);
         return this.productsServices.getProductsByIdAdmin(action.id).pipe(
           map((response) => {
-            console.log(response);
-            
             return ProductsActions.loadProductByIdSuccess({
               product: response,
             });
@@ -67,7 +62,6 @@ export class ProductsAdminEffects {
   this.actions$.pipe(
     ofType(ProductsActions.editProduct),
     mergeMap((action) => {
-      console.log(action);
       return this.productsServices.editProductAdmin(action.id, action.product).pipe(
         map((response) => {
           Swal.fire('Producto guardado', `Producto modificado con éxito.`, 'success')
@@ -90,7 +84,6 @@ deleteProduct$ = createEffect(() =>
   this.actions$.pipe(
     ofType(ProductsActions.deleteProduct),
     mergeMap((action) => {
-      console.log(action);
       return this.productsServices.deleteProductAdmin(action.id).pipe(
         map((response) => {
           Swal.fire('¡Producto eliminado con éxito!', '', 'success').then((result)=> {

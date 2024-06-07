@@ -44,9 +44,7 @@ export class NavbarComponent implements OnInit {
         this.store
           .select('user')
           .subscribe((user) => {
-            this.user = user
-            console.log(this.user);
-            
+            this.user = user;
           } )
       );
       this.subscriptions.add(
@@ -61,8 +59,6 @@ export class NavbarComponent implements OnInit {
     }
   ngOnInit(): void {
     this.isHome();
-    console.log(this.category);
-    
   }
   isHome() {
     this.router.events.subscribe((event) => {
@@ -98,21 +94,9 @@ export class NavbarComponent implements OnInit {
   cart(){
     this.router.navigate(['/carrito']);
   }
-  logout() {
-    const username = this.authService.usuario.Username;
-   /* loadLoginSuccess({
-      user:{
-          Username:undefined,
-          jwt:undefined
-      }
-  });*/
-    // this.authService.logout();
-    Swal.fire(
-      '¡Hasta pronto!',
-      `${username} has cerrado sesión con éxito`,
-      'success'
-    );
-    this.router.navigate(['/login']);
+  logout(event:any) {
+    event.preventDefault();
+    this.store.dispatch(SearchActions.loadLogout());
   }
 
   filterProductsByCategory(id:number){

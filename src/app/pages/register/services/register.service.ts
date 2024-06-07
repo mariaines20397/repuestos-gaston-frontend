@@ -18,13 +18,10 @@ export class RegisterService {
       this.httpClient.post(finalUrl,user)
       .subscribe({
         next: (res) => {
-          console.log(res);
-          
           obs.next(res);
           obs.complete();
         },
         error: (error) => {
-          console.log(error);
           obs.error(error);
           obs.complete();
         }

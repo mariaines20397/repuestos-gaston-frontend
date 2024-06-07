@@ -26,8 +26,6 @@ export class CategoriesAdminEffects {
         : this.categoriesServices.getCategoriesAdmin();
         return getCategory.pipe(
           map((response) => {
-            console.log(response);
-            
             return CategoriesActions.loadCategoriesSuccess({
               category: response.content,
               pageable:response.pageable,
@@ -48,7 +46,6 @@ export class CategoriesAdminEffects {
     this.actions$.pipe(
       ofType(CategoriesActions.loadCategoryById),
       mergeMap((action) => {
-        console.log(action);
         return this.categoriesServices.getCategoriesByIdAdmin(action.id).pipe(
           map((response) => {
             return CategoriesActions.loadCategoryByIdSuccess({
@@ -67,7 +64,6 @@ export class CategoriesAdminEffects {
   this.actions$.pipe(
     ofType(CategoriesActions.editCategory),
     mergeMap((action) => {
-      console.log(action);
       return this.categoriesServices.editCategoryAdmin(action.id, action.category).pipe(
         map((response) => {
           Swal.fire('Categoría guardada', `Categoría modificada con éxito.`, 'success')
@@ -90,7 +86,6 @@ deleteCategories$ = createEffect(() =>
   this.actions$.pipe(
     ofType(CategoriesActions.deleteCategory),
     mergeMap((action) => {
-      console.log(action);
       return this.categoriesServices.deleteCategoryAdmin(action.id).pipe(
         map((response) => {
           Swal.fire('Cateogría eliminada con éxito!', '', 'success').then((result)=> {
@@ -112,7 +107,6 @@ createCategory$ = createEffect(() =>
   this.actions$.pipe(
     ofType(CategoriesActions.createCategory),
     mergeMap((action) => {
-      console.log(action);
       return this.categoriesServices.postCategory(action.category).pipe(
         map((response) => {
           Swal.fire('Categoría guardada', `Categoría ${action.category.name} agregada con éxito.`, 'success')

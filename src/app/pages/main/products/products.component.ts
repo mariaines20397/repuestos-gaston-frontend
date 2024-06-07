@@ -30,9 +30,7 @@ export class ProductsComponent implements OnInit{
       this.store
         .select('product')
         .subscribe((product) => {
-          this.products = product
-        console.log(this.products);
-        
+          this.products = product;
         })
     );
     this.subscriptions.add(
@@ -40,8 +38,6 @@ export class ProductsComponent implements OnInit{
         .select('category')
         .subscribe((category) => {
           this.category = category.data;
-          console.log(this.category);
-          
           this.productosPorCategorias();
         })
     );
@@ -49,8 +45,7 @@ export class ProductsComponent implements OnInit{
       this.store
         .select('search')
         .subscribe((search) => {
-          this.search = search
-          console.log(this.search);
+          this.search = search;
         })
     );
    }
@@ -58,8 +53,6 @@ export class ProductsComponent implements OnInit{
     this.categoryId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
     this.nameSearch = this.routeActive.snapshot.paramMap.get('filtrar')!;
     if (this.categoryId) {
-      console.log(this.categoryId);
-      
       this.store.dispatch(ProductsActions.loadProductsByCategory({id:this.categoryId,pageable:this.products.pageable})); 
     }
     if (this.nameSearch) {   
@@ -76,8 +69,6 @@ export class ProductsComponent implements OnInit{
   }
 
   productById(id:number){
-    console.log(id);
-    
     this.route.navigate([`/products/${id}`]);
     this.store.dispatch(ProductsActions.loadProductById({id})); 
   }

@@ -45,7 +45,6 @@ export class UsersAdminEffects {
     this.actions$.pipe(
       ofType(UsersActions.loadUserById),
       mergeMap((action) => {
-        console.log(action);
         return this.userServices.getUserByIdAdmin(action.id).pipe(
           map((response) => {
             return UsersActions.loadUserByIdSuccess({

@@ -56,8 +56,6 @@ export class ProfileComponent implements OnInit{
           this.llenarFormulario(this.user);
           this.disabledEmail = this.user.data.email? true : false;
           this.disabledUsername = this.user.data.username? true : false;
-          console.log(this.user);
-          
         })
     );
    }
@@ -74,6 +72,8 @@ export class ProfileComponent implements OnInit{
     const {
       name,
       surname,
+      username,
+      email,
       dni,
       birthday,
       password
@@ -81,15 +81,19 @@ export class ProfileComponent implements OnInit{
     const user={
       name,
       surname,
+      username,
+      email,
       dni,
       birthday,
       password      
     }
     userEdit.name = user.name == userProfile.name ? null : user.name;
-    userEdit.surname = user.surname == userProfile.surname ? null : userEdit.surname;
-    userEdit.dni = user.dni == userProfile.dni ? null : userEdit.dni;
-    userEdit.birthday = user.birthday == userProfile.birthday ? null : userEdit.birthday;
-    userEdit.password = user.password == userProfile.password ? null : userEdit.password;
+    userEdit.surname = user.surname == userProfile.surname ? null : user.surname;
+    userEdit.dni = user.dni == userProfile.dni ? null : user.dni;
+    userEdit.username = user.username == userProfile.username ? null : user.username;
+    userEdit.email = user.email == userProfile.email ? null : user.email;
+    userEdit.birthday = user.birthday == userProfile.birthday ? null : user.birthday;
+    userEdit.password = user.password == userProfile.password ? null : user.password;
     console.log(userEdit);
     console.log(this.userForm.value);
     console.log(userProfile);

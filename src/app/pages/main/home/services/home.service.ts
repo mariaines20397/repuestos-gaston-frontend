@@ -40,29 +40,4 @@ export class HomeService {
       })
     })
   }
-
-  // getCategoriesAdmin():Observable<any> {
-  //   const finalUrl=`http://localhost:8080/v1/category/`;
-  //   console.log('entro aca');
-  //   return new Observable((obs)=>{
-  //     this.httpClient.get(finalUrl)
-  //     .subscribe({
-  //       next: (res) => {
-  //         console.log(res);
-          
-  //         // this.router.navigate(['/home']);
-  //         obs.next(res);
-  //         obs.complete();
-  //       },
-  //       error: (error) => {
-  //         console.log(error);
-          
-  //         // Swal.fire('¡Lo siento!', error,'error');
-  //         obs.error(error);
-  //         obs.complete();
-  //       }
-  //     })
-  //   })
-  // }
-
 }

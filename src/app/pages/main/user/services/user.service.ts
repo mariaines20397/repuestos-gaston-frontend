@@ -36,8 +36,6 @@ export class UserService {
       this.httpClient.get(finalUrl)
       .subscribe({
         next: (res) => {
-          console.log(res);
-          
         //  this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();
@@ -72,24 +70,6 @@ export class UserService {
     })
   }
 
-  logout():Observable<any>{
-    const finalUrl=`http://localhost:8080/logout`;
-    return new Observable((obs)=>{
-      this.httpClient.post(finalUrl, {})
-      .subscribe({
-        next: (res) => {
-          
-          obs.next(res);
-          obs.complete();
-        },
-        error: (error) => {
-          Swal.fire('¡Lo siento!', error,'error');
-         // this.isNoAuthorization(error);
-          obs.error(error);
-          obs.complete();
-        }
-      })
-    })
-  }
+ 
 
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Carrito, Sale } from '../model/sale.model';
@@ -60,10 +60,15 @@ export class SaleService {
    getSalesPrueba(): Sale[] {
     return this.ventas;
   }
-  getSales():Observable<any> {
-    const finalUrl=`http://localhost:8080/admin/sales`;
+  getSales(pagination?:any):Observable<any> {
+    let queryParams: any = new HttpParams();
+    if (pagination) {
+      pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
+      queryParams = new HttpParams({fromObject:{ ...pagination}});
+    }
+    const finalUrl=`http://localhost:8080/v1/orders/`;
     return new Observable((obs)=>{
-      this.httpClient.get(finalUrl)
+      this.httpClient.get(finalUrl,{params:queryParams})
       .subscribe({
         next: (res) => {
           // this.router.navigate(['/home']);

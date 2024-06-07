@@ -107,6 +107,9 @@ export class SaleComponent implements OnInit {
       )
     }
   }
+  public back() : void{
+    this.router.navigate(['/admin/dashboard/sale'])
+  }
   borrar(id:number) {
     this.carrito.removeAt(id);
   }
@@ -146,7 +149,6 @@ export class SaleComponent implements OnInit {
       carrito,
       state
     }
-    console.log(sale);
     // this.editarProducto ?
     // this.store.dispatch(ProductosAdminActions.editProduct({id:this.producto.id,product}))
     // : this.store.dispatch(ProductosAdminActions.createProduct(product));

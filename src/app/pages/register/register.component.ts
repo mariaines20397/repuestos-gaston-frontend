@@ -25,6 +25,7 @@ export class RegisterComponent {
       password: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       surname: new FormControl(null, [Validators.required]),
+      dni: new FormControl(null, [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
     })
   }
@@ -34,12 +35,14 @@ export class RegisterComponent {
         username,
         password,
         name,
+        dni,
         surname,
         email
       } = this.registerForm.value
       this.user = {
         username,
         password,
+        dni,
         name,
         surname,
         email
@@ -57,7 +60,6 @@ export class RegisterComponent {
       // });
 
 
-    this.store.dispatch(RegisterActions.loadRegister({user:this.user}))
-    console.log(this.user);
+    this.store.dispatch(RegisterActions.loadRegister({user:this.user}));
   }
 }

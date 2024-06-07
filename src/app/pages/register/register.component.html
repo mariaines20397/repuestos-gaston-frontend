@@ -19,6 +19,14 @@
                     <span>Este campo es requerido.</span>
                 </div>
             </div>
+            <span class="title-input">DNI <small class="text-muted">(sin puntos)</small></span>
+
+            <input class="text-input form-control" formControlName="dni" type="number" >
+            <div *ngIf="registerForm.controls['dni'].errors && registerForm.get('dni')?.touched">
+                <div class="validatorText" *ngIf="registerForm.get('dni')?.hasError('required')">
+                    <span>Este campo es requerido.</span>
+                </div>
+            </div>
 
             <span class="title-input">Nombre de usuario</span>
             <input class="text-input form-control" formControlName="username" type="text" >

@@ -20,8 +20,6 @@ export class LoginService {
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,user).subscribe({
         next: (res) => {
-          console.log(res);
-          
           this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();

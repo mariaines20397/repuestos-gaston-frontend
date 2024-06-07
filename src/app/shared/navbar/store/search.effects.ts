@@ -15,6 +15,7 @@ export class SearchEffects {
     private actions$: Actions,
     private searchServices: SearchService,
     private router: Router,
+    public authService: AuthService
   ) {}
 
   loadProductsByFilter$ = createEffect(() =>
@@ -23,8 +24,6 @@ export class SearchEffects {
       mergeMap((action) => {
         return this.searchServices.getProductsByFilter(action.filter).pipe(
           map((response) => {
-            console.log(response);
-            
             return SearchActions.loadSearchSuccess({
               product: response.content,
               pageable: response.pageable,
@@ -39,6 +38,34 @@ export class SearchEffects {
       })
     )
   );
-
+  loadLogout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SearchActions.loadLogout),
+      mergeMap((action) => {
+        return this.searchServices.logout().pipe(
+          map((response) => {
+            console.log(response);
+            
+            const username = this.authService.usuario.Username;
+             Swal.fire(
+               `¡Hasta pronto ${username}!`,
+               `Has cerrado sesión con éxito`,
+               'success'
+             ).then((result) => {
+              if (result.isConfirmed) {
+                localStorage.removeItem('user');
+                
+                location.reload();
+              } 
+            });
+            return SearchActions.loadLogoutSuccess();
+          }),
+          catchError((error) => {
+            return of(SearchActions.loadLogoutFail({ error }));
+          })
+        );
+      })
+    )
+  );
  
 }

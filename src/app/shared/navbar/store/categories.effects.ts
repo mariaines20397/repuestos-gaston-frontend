@@ -23,12 +23,8 @@ export class CategoriesEffects {
     this.actions$.pipe(      
       ofType(CategoriesActions.loadCategories),      
       mergeMap((action) => {
-        console.log(action);
-        console.log('entro aca');
         return this.categoriesServices.getCategories().pipe(
           map((response) => {
-            console.log(response);
-            
             return CategoriesActions.loadCategoriesSuccess({
               category: response.content,
             });
@@ -51,8 +47,6 @@ export class CategoriesEffects {
          : this.categoriesServices.getProductsByCategory(action.id);
         return getProductsByCategory.pipe(
           map((response) => {
-            console.log(response);
-            
             return CategoriesActions.loadProductsByCategorySuccess({
               product: response.content,
               pageable: response.pageable,

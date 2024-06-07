@@ -15,8 +15,6 @@ export const productsAdminReducer = createReducer<any>(
     on(
         ProductsActions.loadProductsSuccess,
         (state, props):any => (
-          console.log(props),
-          
           {          
             ...state,
             data:props.product,

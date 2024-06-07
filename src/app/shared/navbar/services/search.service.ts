@@ -40,23 +40,22 @@ export class SearchService {
     })
   }
 
-  logout(user:User):Observable<any>{
+  logout():Observable<any>{
+    console.log('entro al servicio');
+    
+    const finalUrl=`http://localhost:8080/logout`;
     return new Observable((obs)=>{
-      this.httpClient.post(`${this.finalUrl}/logout`,user).subscribe({
+      this.httpClient.post(finalUrl, {})
+      .subscribe({
         next: (res) => {
           console.log(res);
           
-          this.router.navigate(['/home']);
-          Swal.fire(
-            '¡Hasta pronto!',
-            `${user.Username} has cerrado sesión con éxito`,
-            'success'
-          );
           obs.next(res);
           obs.complete();
         },
         error: (error) => {
           Swal.fire('¡Lo siento!', error,'error');
+         // this.isNoAuthorization(error);
           obs.error(error);
           obs.complete();
         }

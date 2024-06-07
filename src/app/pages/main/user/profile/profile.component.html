@@ -46,8 +46,8 @@
                 </div>
                 </div>
                 <div class="inputsText">
-                    <span class="title-input">DNI (sin puntos)</span>
-                <input class="text-input form-control" formControlName="dni" type="number" name="" id="">
+                    <span class="title-input">DNI <small class="text-muted">(sin puntos)</small></span>
+                    <input class="text-input form-control" formControlName="dni" type="number" name="" id="">
                 <div *ngIf="userForm.controls['dni'].errors && userForm.get('dni')?.touched">
                     <div class="validatorText" *ngIf="userForm.get('dni')?.hasError('required')">
                         <span>Este campo es requerido.</span>
