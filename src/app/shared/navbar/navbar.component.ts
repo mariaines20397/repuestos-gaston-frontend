@@ -25,6 +25,7 @@ export class NavbarComponent implements OnInit {
   isLogin: boolean = false;
   isAdmin:boolean = false;
   isSearch:boolean = false;
+  userRole:string = '';
   isMenu:boolean = false;
   category: any = {};
   searchForm:FormGroup;
@@ -45,12 +46,17 @@ export class NavbarComponent implements OnInit {
           .select('user')
           .subscribe((user) => {
             this.user = user;
+            this.userRole = this.user.rol[0];            
           } )
       );
       this.subscriptions.add(
         this.store
           .select('category')
-          .subscribe((category) => this.category = category)
+          .subscribe((category) =>{
+            this.category = category;
+            console.log(this.category);
+            
+          })
       );
       // this.subscriptions.add(this.store.select('user').subscribe(user => (this.user = user)));
       // this.store.dispatch(HomeActions.loadCategories());

@@ -15,7 +15,8 @@ export const loginReducer = createReducer<any>(
         (state, props):any => ({
             ...state,
             user:props.user,
-            jwt:props.jwt
+            jwt:props.jwt,
+            rol:props.rol
         })
     )
     ,

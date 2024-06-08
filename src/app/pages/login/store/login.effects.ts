@@ -25,11 +25,17 @@ export class LoginEffects {
             return this.loginServices.postLogin(action.user)
             .pipe(
                 map((response)=>{
-                    this.router.navigate(['/home']);
+                    if (response.Roles[0] == 'ROLE_ADMIN') {
+                        this.router.navigate(['/admin']);
+                    }else{
+                        this.router.navigate(['/home']);
+                    }
                     Swal.fire('¡Bienvenido!', `Hola ${response.Username} has iniciado sesión con éxito`, 'success');
+                    
                     return LoginActions.loadLoginSuccess({
                         user:response.Username, 
-                        jwt:response.token
+                        jwt:response.token,
+                        rol:response.Roles
                     });
                 }),
                 catchError((error) => {

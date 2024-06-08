@@ -28,8 +28,8 @@ export class AuthService {
   public get usuario() : User {
     if (this._usuario != null) {
       return this._usuario;
-    }else if(this._usuario == null && sessionStorage.getItem('usuario') != null){
-     this._usuario = JSON.parse(sessionStorage.getItem('usuario')!) as User;
+    }else if(this._usuario == null && sessionStorage.getItem('user') != null){
+     this._usuario = JSON.parse(sessionStorage.getItem('user')!) as User;
      return this._usuario;
     }
     return new User();
@@ -67,7 +67,7 @@ export class AuthService {
   // }
 
   tieneRol(rol:string):boolean{
-    if (this.usuario.roles?.includes(rol)) {
+    if (this.user.rol?.includes(rol)) {
       return true;
     }
     return false;

@@ -103,6 +103,8 @@ export class ProfileComponent implements OnInit{
     // this.store.dispatch(userArctions.editUser(id,user));
   }
   llenarFormulario(user:any){
+    console.log(user);
+    
    // this.datosUsuario.forEach(user=>{
      // if (user.id == this.userId) {
         const {

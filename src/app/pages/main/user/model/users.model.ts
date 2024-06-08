@@ -8,5 +8,5 @@ export class User{
     password?:string;
     email?:string;
     jwt?:string;
-    roles?: string[] = [];
+    rol?: string[] = [];
 }
