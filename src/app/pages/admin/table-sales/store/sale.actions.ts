@@ -23,3 +23,4 @@ export const loadProductByBarCode = createAction('[AdminProductByBarCode] loadPr
     props<{product:any}>());
     export const loadProductByBarCodeFail = createAction('[AdminProductByBarCode] loadProductByBarCodeFail',
     props<{error:any}>());
+

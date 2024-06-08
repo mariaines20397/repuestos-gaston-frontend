@@ -20,12 +20,14 @@ import * as fromAdminProductReducer from './table-products/store/products.reduce
 import * as fromAdminCategoryReducer from './table-categories/store/categories.reducer';
 import * as fromAdminSaleReducer from './table-sales/store/sale.reducer';
 import * as fromAdminUserReducer from './table-users/store/users.reducer';
+import * as fromCarritoAdminReducer from './table-sales/store/carritoAdmin.reducer';
 import { ProductsAdminEffects } from './table-products/store/products.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { CategoriesAdminEffects } from './table-categories/store/categories.effects';
 import { SaleAdminEffects } from './table-sales/store/sale.effects';
 import { UsersAdminEffects } from './table-users/store/users.effects';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarritoAdminEffects } from './table-sales/store/carritoAdmin.effects';
 
 
 @NgModule({
@@ -69,7 +71,12 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
       'userAdmin',
       fromAdminUserReducer.usersAdminReducer
     ),
-    EffectsModule.forFeature([UsersAdminEffects])
+    EffectsModule.forFeature([UsersAdminEffects]),
+    StoreModule.forFeature(
+      'carritoAdmin',
+      fromCarritoAdminReducer.carritoAdminReducer
+    ),
+    EffectsModule.forFeature([CarritoAdminEffects])
   ]
 })
 export class AdminModule { }

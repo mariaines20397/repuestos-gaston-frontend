@@ -121,4 +121,78 @@ export class SaleService {
       })
     })
   }
+  addProduct(product?: any):Observable<any>{
+    const finalUrl=`http://localhost:8080/v1/carts/addProduct`;
+    return new Observable((obs)=>{
+      this.httpClient.post(finalUrl,product)
+      .subscribe({
+        next: (res) => {
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+
+  getCartById():Observable<any>{
+    const finalUrl=`http://localhost:8080/v1/carts/id`;
+    return new Observable((obs)=>{
+      this.httpClient.get(finalUrl )
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+
+  removeProduct(id?:number):Observable<any>{
+    const finalUrl=`http://localhost:8080/v1/carts/removeProduct/${id}`;
+    return new Observable((obs)=>{
+      this.httpClient.delete(finalUrl )
+      .subscribe({
+        next: (res) => {
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+
+  decreaseProduct(product?:any):Observable<any>{
+    const finalUrl=`http://localhost:8080/v1/carts/decreaseProduct`;
+    return new Observable((obs)=>{
+      this.httpClient.post(finalUrl,product)
+      .subscribe({
+        next: (res) => {
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+
 }

@@ -43,6 +43,8 @@ export class CarritoEffects {
       mergeMap((action) => {
         return this.carritoServices.getCartById().pipe(
           map((response) => {
+            console.log(response);
+            
             return CarritoActions.loadCartByIdSuccess({
               products: response.products,
               total_price: response.total_price

@@ -3,7 +3,7 @@
         <div class="card card-tabla">
             <div class="card-body">
                 <div class="titleButtons">
-                    <button class="btn" (click)="back()" placement="top" ngbTooltip="Volver">
+                    <button class="btn" (click)="back()" placement="end" ngbTooltip="Volver">
                         <img src="../../../../../assets/svg/back.svg" alt="" srcset="">
                     </button>
                     <div class="title">
@@ -13,7 +13,7 @@
                     </div>
                     <div class="iconsTitle">
                         <button class="btn" (click)="editar()" *ngIf="!this.router.url.includes('add')" [disabled]="this.router.url.includes('edit')"
-                            placement="top" ngbTooltip="Editar producto">
+                            placement="left" ngbTooltip="Editar producto">
                             <img src="../../../../../assets/svg/edit.svg" alt="" srcset="">
                         </button>
                     </div>
