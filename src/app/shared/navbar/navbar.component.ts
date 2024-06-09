@@ -53,13 +53,9 @@ export class NavbarComponent implements OnInit {
         this.store
           .select('category')
           .subscribe((category) =>{
-            this.category = category;
-            console.log(this.category);
-            
+            this.category = category;            
           })
       );
-      // this.subscriptions.add(this.store.select('user').subscribe(user => (this.user = user)));
-      // this.store.dispatch(HomeActions.loadCategories());
       this.store.dispatch(CategoriasActions.loadCategories());
 
     }

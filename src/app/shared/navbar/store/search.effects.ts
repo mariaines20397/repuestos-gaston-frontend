@@ -44,8 +44,6 @@ export class SearchEffects {
       mergeMap((action) => {
         return this.searchServices.logout().pipe(
           map((response) => {
-            console.log(response);
-            
             const username = this.authService.usuario.Username;
              Swal.fire(
                `¡Hasta pronto ${username}!`,

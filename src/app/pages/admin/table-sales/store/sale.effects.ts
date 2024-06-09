@@ -59,7 +59,6 @@ export class SaleAdminEffects {
       mergeMap((action) => {
         return this.saleServices.getProductByBarCode(action.barCode).pipe(
           map((response) => {
-            console.log(response);
             return SaleActions.loadProductByBarCodeSuccess({
               product: response,
             });

@@ -12,6 +12,7 @@
                     </button>
                   </div>
                 </form>
+                <a *ngIf="this.router.url.includes('lowStock')" href="/admin/dashboard/product">Mostrar todos los productos</a>
                 <button type="button" class="btn btn-dark" (click)="agregar()"
                 placement="start" ngbTooltip="Agregar producto">
                   <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">

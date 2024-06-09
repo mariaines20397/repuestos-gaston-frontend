@@ -145,8 +145,6 @@ export class SaleService {
       this.httpClient.get(finalUrl )
       .subscribe({
         next: (res) => {
-          console.log(res);
-          
           obs.next(res);
           obs.complete();
         },

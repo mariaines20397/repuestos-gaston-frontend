@@ -115,4 +115,29 @@ export const productsAdminReducer = createReducer<any>(
       data:props.error
     })
   ),
+  //get products by low stock
+  on(
+    ProductsActions.loadProductByLowStock,
+    (state, props) => ({
+      ...state,
+      pageable:props.pageable
+    })
+  ),
+  on(
+    ProductsActions.loadProductByLowStockSuccess,
+    (state, props) => ({
+      ...state,
+      data:props.products,
+      pageable:props.pageable,
+      totalPages:props.totalPages,
+      totalElements:props.totalElements
+    })
+  ),
+  on(
+    ProductsActions.loadProductByLowStockFail,
+    (state, props) => ({
+      ...state,
+      data:props.error
+    })
+  ),
 )

@@ -41,8 +41,6 @@ export class CarritoAdminEffects {
       mergeMap((action) => {
         return this.saleServices.getCartById().pipe(
           map((response) => {
-            console.log(response);
-            
             return CarritoAdminActions.loadCartByIdSuccess({
               products: response.products,
               total_price: response.total_price

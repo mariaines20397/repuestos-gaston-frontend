@@ -17,6 +17,7 @@ export class HomeAdminComponent implements OnInit{
   userAdmin:any={}
   productsStockLow:any[]=[]
   private subscriptions = new Subscription();
+  lowStockParam:string = 'lowStock';
 
   constructor(
     private store:Store<{ userAdmin:getAllUser, productAdmin: getAllProduct}>,
@@ -39,9 +40,16 @@ export class HomeAdminComponent implements OnInit{
     
   }
   ngOnInit(): void {
+    this.productAdmin.pageable = {
+      size:2,
+      page:0
+    };
+    this.userAdmin.pageable = {
+      size:2,
+      page:0
+    };
     this.store.dispatch(UserAdminActions.loadUsers({pageable:undefined}));
     this.store.dispatch(ProductosAdminActions.loadProducts({pageable:undefined}));
-
   }
 
   calculateStockSlow(products:any){
@@ -50,5 +58,12 @@ export class HomeAdminComponent implements OnInit{
         this.productsStockLow.push(data);
       }
     });
+  }
+  lowStock(){
+    this.productAdmin.pageable = {
+      size:2,
+      page:0
+    };
+    this.store.dispatch(ProductosAdminActions.loadProductByLowStock({pageable:this.productAdmin.pageable}));
   }
 }

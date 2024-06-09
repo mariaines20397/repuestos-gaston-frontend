@@ -58,7 +58,6 @@ export class SaleComponent implements OnInit {
     this.store.select('carritoAdmin').subscribe((product) => {
       if (product) {
         this.carritoProducts = product;
-        console.log(this.carritoProducts );
       }
     });
     

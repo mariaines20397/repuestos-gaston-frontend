@@ -122,4 +122,27 @@ createProduct$ = createEffect(() =>
     })
   )
 );
+loadProductsByLowStock$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(ProductsActions.loadProductByLowStock),
+    mergeMap((action) => {
+      const getProducts = action.pageable ? 
+       this.productsServices.getProductsByLowStack(action.pageable)
+       : this.productsServices.getProductsByLowStack();
+      return getProducts.pipe(
+        map((response) => {
+          return ProductsActions.loadProductByLowStockSuccess({
+            products: response.content,
+            pageable: response.pageable,
+            totalPages: response.totalPages,
+            totalElements:response.totalElements
+          });
+        }),
+        catchError((error) => {
+          return of(ProductsActions.loadProductByLowStockFail({ error }));
+        })
+      );
+    })
+  )
+);
 }

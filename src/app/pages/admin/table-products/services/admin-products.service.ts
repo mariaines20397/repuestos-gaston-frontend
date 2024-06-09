@@ -24,178 +24,34 @@ export class AdminProductsService {
         .select('category')
         .subscribe((category) => this.categories = category)
     );
-    // this.category.id = 2;
-    // this.products= [
-    //   {
-    //     id: 1,
-    //     name: 'Motul 5100',
-    //     // category: this.category,
-    //     description: 'Lo que debes saber de este producto',
-    //     price: 1000,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/motul.png'
-  
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'Caño de escape YBR',
-    //     // category: this.category,
-    //     description: 'Caño de escape de 4 tiempos',
-    //     price: 1000,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/cañoEscape.jpg'
-    //   },
-    //   {
-    //     id: 3,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   },
-    //   {
-    //     id: 4,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   }
-    //   ,
-    //   {
-    //     id: 5,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   }
-    //   ,
-    //   {
-    //     id: 6,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   }
-    //   ,
-    //   {
-    //     id: 7,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   }
-    //   ,
-    //   {
-    //     id: 8,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   },
-    //   {
-    //     id: 9,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   },
-    //   {
-    //     id: 10,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   },
-    //   {
-    //     id: 11,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   },
-    //   {
-    //     id: 12,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   },
-    //   {
-    //     id: 13,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   },
-    //   {
-    //     id: 14,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   },
-    //   {
-    //     id: 15,
-    //     name: 'Casco',
-    //     // category: this.category,
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   },
-    //   {
-    //     id: 15,
-    //     name: 'Casco',
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   },
-    //   {
-    //     id: 15,
-    //     name: 'Casco Nuevo',
-    //     description: 'Casco clásico',
-    //     price: 500,
-    //     stock: 20,
-    //     imageUrl: 'assets/img/productos/casco.jpg'
-    //   }
-    // ]
   }
 
-  
-  // getCategory(): Categorie {
-  //   return this.categories;
-  // }
-  // getProducts(): Product[] {
-  //   return this.products;
-  // }
   getProductsByIdAdmin(id:number):Observable<any> {
     const finalUrl=`http://localhost:8080/v1/product/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
+      .subscribe({
+        next: (res) => {
+          // this.router.navigate(['/home']);
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+  getProductsByLowStack(pagination?:any):Observable<any> {let queryParams: any = new HttpParams();
+    if (pagination) {
+      pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
+      queryParams = new HttpParams({fromObject:{ ...pagination}});
+    }
+    const finalUrl=`http://localhost:8080/v1/product/filter/lowStock`;
+    return new Observable((obs)=>{
+      this.httpClient.get(finalUrl,{params:queryParams})
       .subscribe({
         next: (res) => {
           // this.router.navigate(['/home']);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { getAllProduct } from './model/product.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as ProductosAdminActions from './store/products.actions';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -22,11 +22,12 @@ export class TableProductsComponent implements OnInit{
   imageSource: any = {}
   pagination: any = {}
   private subscriptions = new Subscription();
-  
+  isLowStock:string=''
   constructor(
-    private router: Router,
+    public router: Router,
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer,
+    private routeActive: ActivatedRoute,
     private store:Store<{ search:Search, productAdmin: getAllProduct }>,
   ) {
     this.searchForm = this.formBuilder.group({
@@ -36,11 +37,7 @@ export class TableProductsComponent implements OnInit{
       this.store
       .select('productAdmin')
       .subscribe((productAdmin) => {
-        if (productAdmin) {
-          this.productAdmin = productAdmin;
-        } else {
-          this.productAdmin = { data: [] };
-        }
+          this.productAdmin = productAdmin;        
       })
     );
     this.subscriptions.add(
@@ -49,15 +46,20 @@ export class TableProductsComponent implements OnInit{
       .subscribe((search) => {
         this.productAdmin = search;      
       })
-    );
+    );    
+   }
+  ngOnInit(): void {
+    this.isLowStock = this.routeActive.snapshot.paramMap.get('lowStock')!;
     this.productAdmin.pageable = {
       size:2,
       page:0
     };
-    
-    this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
-   }
-  ngOnInit(): void {}
+    if (this.isLowStock) {
+      this.store.dispatch(ProductosAdminActions.loadProductByLowStock({pageable:this.productAdmin.pageable})); 
+    }else{
+      this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
+    }
+  }
   agregar(){
   this.router.navigate(['admin/dashboard/product/add']);
   }

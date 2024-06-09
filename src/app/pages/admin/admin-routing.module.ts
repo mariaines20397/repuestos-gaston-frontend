@@ -32,6 +32,10 @@ const routes: Routes = [
         component: TableProductsComponent
       },
       {
+        path:'product/:lowStock', 
+        component: TableProductsComponent
+      },
+      {
         path:'product/edit/:id', 
         component: ProductComponent
       },

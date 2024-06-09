@@ -41,15 +41,11 @@ export class SearchService {
   }
 
   logout():Observable<any>{
-    console.log('entro al servicio');
-    
     const finalUrl=`http://localhost:8080/logout`;
     return new Observable((obs)=>{
       this.httpClient.get('http://localhost:8080/logout')
       .subscribe({
         next: (res) => {
-          console.log(res);
-          
           obs.next(res);
           obs.complete();
         },

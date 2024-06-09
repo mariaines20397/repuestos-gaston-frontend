@@ -42,3 +42,10 @@ export const createProduct = createAction(
     '[AdminProducts] createProductFail',
     props<{ error: any }>()
   );
+
+  export const loadProductByLowStock = createAction('[AdminProductLowStock] loadProductByLowStock',
+    props<{pageable?:Pegeable}>());
+    export const loadProductByLowStockSuccess = createAction('[AdminProductLowStock] loadProductByLowStockSuccess',
+    props<{products:Product[], pageable:Pegeable, totalElements:number, totalPages: number}>());
+    export const loadProductByLowStockFail = createAction('[AdminProductLowStock] loadProductByLowStockFail',
+    props<{error:any}>());

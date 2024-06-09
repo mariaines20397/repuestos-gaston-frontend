@@ -94,19 +94,9 @@ export class ProfileComponent implements OnInit{
     userEdit.email = user.email == userProfile.email ? null : user.email;
     userEdit.birthday = user.birthday == userProfile.birthday ? null : user.birthday;
     userEdit.password = user.password == userProfile.password ? null : user.password;
-    console.log(userEdit);
-    console.log(this.userForm.value);
-    console.log(userProfile);
-    console.log(user);
     this.store.dispatch(UserActions.editUser({user:userEdit}));
-
-    // this.store.dispatch(userArctions.editUser(id,user));
   }
   llenarFormulario(user:any){
-    console.log(user);
-    
-   // this.datosUsuario.forEach(user=>{
-     // if (user.id == this.userId) {
         const {
           name,
           surname,
@@ -125,9 +115,6 @@ export class ProfileComponent implements OnInit{
           birthday,
           password,
           
-        })
-     // }
-    //})
-    
+        });    
 }
 }
