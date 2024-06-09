@@ -40,7 +40,7 @@ on(
     CategoriesActions.loadProductsByCategorySuccess,
     (state, props):any => ({
         ...state,
-        data:props.product,
+        productsByCategory:props.product,
         pageable:props.pageable,
         totalPages:props.totalPages,
         totalElements:props.totalElements

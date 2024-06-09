@@ -7,6 +7,11 @@
     align-items: center;
     margin-top: 2%;
 }
+.not-found{
+    text-align: center;
+    background-color: white;
+    height: 50%;
+}
 ngb-pagination{
     width: 100%;
 }
@@ -49,6 +54,9 @@ ngb-pagination ::ng-deep ul > li {
         display: block;
         height: 60vh;
         width: 100%;
+    }
+    .not-found{
+        text-align: center;
     }
     .carousel-desktop{
         display: block;
@@ -154,6 +162,9 @@ ngb-pagination ::ng-deep ul > li {
         display: block;
         height: 60vh;
         width: 100%;
+    }
+    .not-found{
+        text-align: center;
     }
     .carousel-desktop{
         display: block;

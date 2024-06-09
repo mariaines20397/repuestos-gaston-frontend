@@ -40,8 +40,8 @@
           >
           <p>Categorias</p>
           </a>
-          <ul class="dropdown-menu" *ngFor="let data of this.category.data">
-            <li >
+          <ul class="dropdown-menu">
+            <li *ngFor="let data of this.category.data">
               <a class="dropdown-item" (click)="filterProductsByCategory(data.category_id)" href="/products/categories/{{data.category_id}}">{{data.name}}</a></li>
           </ul>
         </li>
@@ -134,7 +134,7 @@
        >
       
        <img src="../../../assets/svg/user-mobile.svg" alt="user" class="user" srcset="">
-   <h3>{{user.data.Username}}</h3>
+   <h3>{{this.user?.user}}</h3>
        </a>
        <ul class="dropdown-menu">
          <li><a class="dropdown-item" href="/users/profile">Perfil</a></li>
@@ -149,7 +149,9 @@
   <h5 class="text-muted">Categorias</h5>
   <hr>
   <p *ngFor="let data of this.category.data">
-    <a href="/products/categories/{{data.category_id}}">{{data.name}}</a>
+    <!-- <a href="/products/categories/{{data.category_id}}">{{data.name}}</a> -->
+    <a class="dropdown-item" (click)="filterProductsByCategory(data.category_id)" href="/products/categories/{{data.category_id}}">{{data.name}}</a>
+
   </p>
   
  </div>

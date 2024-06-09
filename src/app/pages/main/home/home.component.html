@@ -59,7 +59,7 @@
   </div>
 </div>
 
-<div class="productos">
+<div class="productos" *ngIf="this.products?.data?.length > 0">
   <div class="card" *ngFor="let producto of this.products.data" style="width: 18rem">
     <div (click)="verProducto(producto.product_id)">
       <img [src]="mostrarImg(producto.image)" class="card-img-top" />
@@ -73,4 +73,9 @@
   <div class="pagination">
   <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.products?.totalElements" [page]="this.products.pageable.pageNumber + 1" [pageSize]="this.products?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
 </div>
+</div>
+<div class="card" *ngIf="this.products?.data?.length == 0">
+  <h4 class="not-found">
+    No hay productos para mostrar
+  </h4>
 </div>

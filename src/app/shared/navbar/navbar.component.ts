@@ -51,14 +51,15 @@ export class NavbarComponent implements OnInit {
         this.store
           .select('category')
           .subscribe((category) =>{
-            this.category = category;            
+            this.category = category;       
           })
       );
-      this.store.dispatch(CategoriasActions.loadCategories());
+      
 
     }
   ngOnInit(): void {
     this.isHome();
+    this.store.dispatch(CategoriasActions.loadCategories());
   }
   isHome() {
     this.router.events.subscribe((event) => {

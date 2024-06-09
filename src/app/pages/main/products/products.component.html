@@ -3,11 +3,11 @@
       <h3>{{nameCategory}}</h3>
   <span>{{products?.data?.length}} resultados</span>
   </div>
-  <div class="productos">
+  <div class="productos" *ngIf="this.products?.data?.length > 0">
     <div class="card" *ngFor="let data of this.products.data">
       <div class="card-products" (click)="productById(data.id)">
         <div class="col-md-6 divImg">
-          <img src={{data.img}} class="card-img" alt="Imagen de producto">
+          <img class="imagen" [src]="mostrarImg(data.image)" alt="Imagen del producto" *ngIf="data.image" />
         </div>
         <div class="col-md-6">
           <div class="card-body">
@@ -17,9 +17,17 @@
           </div>
         </div>
       </div>
+     
     </div>
+    
     <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.products?.totalElements" [page]="this.products.pageable.pageNumber + 1" [pageSize]="this.products?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
   </div>
+  <div class="card" *ngIf="this.products?.data?.length == 0">
+        
+    <h4 class="not-found">
+      No hay productos para mostrar
+    </h4>
+</div>
 </div>
 
 <div *ngIf="this.nameSearch">
@@ -42,6 +50,12 @@
             <p class="card-text-price">${{data.price}}</p>
           </div>
         </div>
+      </div>
+      <div class="card" *ngIf="!this.search.data || this.search.data.length == 0">
+        
+            <h4 class="not-found">
+              No hay productos para mostrar
+            </h4>
       </div>
     </div>
     <div class="pagination">

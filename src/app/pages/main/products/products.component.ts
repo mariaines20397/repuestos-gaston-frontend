@@ -17,6 +17,7 @@ export class ProductsComponent implements OnInit{
   public category: any = {};
   public nameSearch!:string;
   public products: any = [];
+  public listCategories: any = [];
   public search: any = {};
   public nameCategory:string = '';
   
@@ -37,7 +38,8 @@ export class ProductsComponent implements OnInit{
       this.store
         .select('category')
         .subscribe((category) => {
-          this.category = category.data;
+          this.category = category.productsByCategory;
+          this.listCategories = category.data;
           this.productosPorCategorias();
         })
     );
@@ -62,9 +64,11 @@ export class ProductsComponent implements OnInit{
 
   productosPorCategorias(){
     this.category?.forEach((data:any)=>{
-      if (data.category_id == this.categoryId) {
-        this.nameCategory = data.name;
-      }
+      this.listCategories.forEach((category:any)=>{
+        if (data.category == category.name) {
+          this.nameCategory = category.name;
+        }
+      })
     })
   }
 
