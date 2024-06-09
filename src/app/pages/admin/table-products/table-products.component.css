@@ -2,6 +2,16 @@
     /* display: flex; */
     height: 95%;
 }
+.lowStock{
+    color: rgb(163, 30, 30);
+    background: rgba(242, 151, 151, 0.842);
+    font-weight: 600;
+    width: 50%;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+    margin: auto;
+}
 .productos{
     margin: 2%;
     height: 100%;
@@ -94,9 +104,11 @@ h3{
 }
 table th{
     font-size: 15px;
+    text-align: center;
 }
 table td{
     font-size: 14px;
+    text-align: center;
 }
 .buscador::placeholder{
     padding-left: 10px;

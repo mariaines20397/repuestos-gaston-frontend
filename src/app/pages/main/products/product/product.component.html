@@ -52,12 +52,27 @@
                <span>No hay stock suficiente.</span>
            </div>
          </div>
+         <div *ngIf="!this.isAuthenticated">
+          <button disabled class="btn btn-primary btn-comprar" [disabled]="cantidadForm.invalid">
+            <p>Comprar ahora</p>
+            <img src="./assets/svg/shop.svg" class="img-button" alt="Canasto" />
+          </button>
+          <button disabled class="btn btn-carrito" [disabled]="cantidadForm.invalid">
+            <p>Agregar al carrito</p>
+            <img
+              src="./assets/svg/cartPlus.svg"
+              class="img-button"
+              alt="Carrito"
+            />
+            
+          </button>
+         </div>
            <div class="divButtons" *ngIf="this.product?.stock > 0">
              <button class="btn btn-primary btn-comprar" (click)="comprarAhora()" [disabled]="cantidadForm.invalid">
                <p>Comprar ahora</p>
                <img src="./assets/svg/shop.svg" class="img-button" alt="Canasto" />
              </button>
-             <button class="btn btn-carrito" (click)="agregarCarrito(this.product)" [disabled]="cantidadForm.invalid || !this.isAuthenticated">
+             <button class="btn btn-carrito" (click)="agregarCarrito(this.product)" [disabled]="cantidadForm.invalid">
                <p>Agregar al carrito</p>
                <img
                  src="./assets/svg/cartPlus.svg"

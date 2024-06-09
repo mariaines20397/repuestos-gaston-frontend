@@ -42,6 +42,31 @@ export class CategoriesAdminEffects {
     )
   );
 
+  loadCategoriesByName$ = createEffect(() =>    
+    this.actions$.pipe(      
+      ofType(CategoriesActions.loadCategoriesByName),      
+      mergeMap((action) => {
+        const getCategory = action.pageable ? 
+        this.categoriesServices.getCategoriesByName(action.filter, action.pageable)
+        : this.categoriesServices.getCategoriesByName(action.filter);
+        return getCategory.pipe(
+          map((response) => {
+            return CategoriesActions.loadCategoriesByNameSuccess({
+              category: response.content,
+              pageable:response.pageable,
+              totalPages: response.totalPages,
+              totalElements: response.totalElements
+            });
+          }),
+          retry({ count: 2, delay: 100 }),
+          catchError((error) => {
+            return of(CategoriesActions.loadCategoriesByNameFail({ error }));
+          })
+        );
+      })
+    )
+  );
+
   loadCategoryById$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CategoriesActions.loadCategoryById),

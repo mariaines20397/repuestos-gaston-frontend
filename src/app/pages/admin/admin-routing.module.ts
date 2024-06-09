@@ -32,10 +32,6 @@ const routes: Routes = [
         component: TableProductsComponent
       },
       {
-        path:'product/:lowStock', 
-        component: TableProductsComponent
-      },
-      {
         path:'product/edit/:id', 
         component: ProductComponent
       },
@@ -46,6 +42,10 @@ const routes: Routes = [
       {
         path:'product/view/:id', 
         component: ProductComponent
+      },
+      {
+        path:'product/:lowStock', 
+        component: TableProductsComponent
       },
       {
         path:'category', 

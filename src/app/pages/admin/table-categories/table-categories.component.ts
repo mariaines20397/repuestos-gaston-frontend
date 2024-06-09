@@ -77,7 +77,7 @@ export class TableCategoriesComponent implements OnInit{
     if (filtrar == "") {
       this.store.dispatch(CategoryActions.loadCategories({pageable:this.categoryAdmin.pageable}));
     }else{
-      this.store.dispatch(SearchActions.loadSearch({filter:filtrar, pageable:this.categoryAdmin.pageable}));
+      this.store.dispatch(CategoryActions.loadCategoriesByName({filter:filtrar, pageable:this.categoryAdmin.pageable}));
     }  
   }
   pageChange(evento:any){

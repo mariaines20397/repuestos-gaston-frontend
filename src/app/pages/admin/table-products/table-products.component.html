@@ -50,7 +50,12 @@
                         </td>
                         <td>{{producto.name}}</td>
                         <td>${{producto.price}}</td>
-                       <td>{{producto.stock}} un.</td>
+                       <td *ngIf="producto.stock > 5">{{producto.stock}} un.</td>
+                       <td *ngIf="producto.stock <= 5">
+                          <div class="lowStock">
+                            {{producto.stock}} un.
+                          </div>
+                        </td>
                       </tr>
                       <ng-container *ngIf="!this.productAdmin.data || this.productAdmin.data.length == 0">
                         <tr>
