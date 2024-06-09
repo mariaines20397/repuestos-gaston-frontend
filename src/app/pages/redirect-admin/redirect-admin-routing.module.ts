@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { RedirectAdminComponent } from './redirect-admin.component';
-import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { AdminGuard } from 'src/app/core/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -12,8 +11,7 @@ const routes: Routes = [
   {
     path:'dashboard',
     loadChildren:()=> import('../admin/admin.module').then((m)=> m.AdminModule),
-    canActivate:[AuthGuard],
-    // canActivate:[MainGuard],
+    canActivate:[AdminGuard],
    }
 ];
 

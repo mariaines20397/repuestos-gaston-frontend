@@ -59,12 +59,23 @@ export class AuthService {
   //   return this.http.post(urlAuth, params.toString(), {headers:httpHeaders});
   // }
 
-  // logout():void{
-  //   this._token = null;
-  //   this._usuario = null;
-  //   sessionStorage.removeItem('token');
-  //   sessionStorage.removeItem('usuario');
-  // }
+  logout():void{
+    this._token = null;
+    this._usuario = null;
+    localStorage.removeItem('user');
+  }
+
+  admin():boolean{
+    const data = localStorage.getItem('user');
+    if (data) {
+      let rol = JSON.parse(data).rol;
+      if (rol[0] == 'ROLE_ADMIN') {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
 
   tieneRol(rol:string):boolean{
     if (this.user.rol?.includes(rol)) {
@@ -100,6 +111,7 @@ export class AuthService {
     const data = localStorage.getItem('user');
     if (data) {
       let payload = this.obtenerDatoToken(JSON.parse(data).jwt);
+      
       if (payload != null) {
         return true;
       }

@@ -22,7 +22,7 @@
         <img class="menu-mobile" src="../../../assets/svg/menu.svg" alt="" srcset="">
         
       </button>
-        <button class="btn btn-cart" (click)="cart()" *ngIf="this.authService.autenticado() && this.userRole === 'ROLE_USER'">
+        <button class="btn btn-cart" (click)="cart()" *ngIf="this.authService.autenticado() && !this.authService.admin()">
           <img src="../../../assets/svg/cart-min.svg" alt="cart" class="user" srcset=""></button>
       
     </div>
@@ -69,12 +69,12 @@
         <p>{{this.user.user}}</p>
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" (click)="profile()" href="/users/profile">Perfil</a></li>
+          <li *ngIf="!this.authService.admin()"><a class="dropdown-item" (click)="profile()" href="/users/profile">Perfil</a></li>
           <li><a class="dropdown-item" (click)="logout($event)" href="/home">Cerrar Sesión</a></li>
         </ul>
       </li>
 <li >
-  <button class="btn btn-cart" (click)="cart()" *ngIf="this.authService.autenticado() && this.userRole === 'ROLE_USER'">
+  <button class="btn btn-cart" (click)="cart()" *ngIf="this.authService.autenticado() && !this.authService.admin()">
     <img src="../../../assets/svg/cart.svg" alt="cart" class="user" srcset="" ></button>
 
 </li>

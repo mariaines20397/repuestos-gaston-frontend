@@ -6,17 +6,18 @@ import { AuthService } from '../services/auth.service';
   providedIn: 'root'
 })
 class MainGuardianService {
-
   constructor(
     private authService: AuthService,
-    private router: Router) {}
+    private router: Router
+  ) {
+    }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.authService.autenticado()) {
-          this.router.navigate(['/home'])
-           return false;
-         }
-        return true;
+    if (!this.authService.autenticado()) {
+      return true;
+  }
+  this.router.navigate(['/home']);
+    return false;
   }
 }
 

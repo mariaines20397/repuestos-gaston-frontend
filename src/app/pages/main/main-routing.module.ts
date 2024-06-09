@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { MainGuard } from 'src/app/core/guards/main.guard';
+import { AdminGuard } from 'src/app/core/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -12,16 +13,15 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'home',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path:'home', 
-        loadChildren:() => import('./home/home.module').then((m)=> m.HomeModule)
+        loadChildren:() => import('./home/home.module').then((m)=> m.HomeModule),
       },
       {
         path:'products',
         loadChildren:() => import('./products/products.module').then((m)=> m.ProductsModule),
-        // canActivate:[AuthGuard],
       },
       {
         path:'users/profile',
@@ -31,7 +31,6 @@ const routes: Routes = [
       {
         path:'search/:filtrar',
         loadChildren:() => import('./products/products.module').then((m)=> m.ProductsModule),
-        // canActivate:[AuthGuard],
       }
       ,
       {
@@ -54,8 +53,7 @@ const routes: Routes = [
   {
    path:'admin',
    loadChildren:()=> import('../redirect-admin/redirect-admin.module').then((m)=> m.RedirectAdminModule),
-  canActivate:[AuthGuard],
-   //  canActivate:[MainGuard],
+  canActivate:[AdminGuard]
   },
 ];
 

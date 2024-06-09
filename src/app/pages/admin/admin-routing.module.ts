@@ -11,12 +11,13 @@ import { TableSalesComponent } from './table-sales/table-sales.component';
 import { SaleComponent } from './table-sales/sale/sale.component';
 import { CategoryComponent } from './table-categories/category/category.component';
 import { TableCategoriesComponent } from './table-categories/table-categories.component';
-import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { AdminGuard } from 'src/app/core/guards/admin.guard';
 
 const routes: Routes = [
   {
     path:'', 
     component:AdminComponent,
+    canActivate:[AdminGuard],
     children:[
       {
         path: '',

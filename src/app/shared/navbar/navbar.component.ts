@@ -25,7 +25,6 @@ export class NavbarComponent implements OnInit {
   isLogin: boolean = false;
   isAdmin:boolean = false;
   isSearch:boolean = false;
-  userRole:string = '';
   isMenu:boolean = false;
   category: any = {};
   searchForm:FormGroup;
@@ -45,8 +44,7 @@ export class NavbarComponent implements OnInit {
         this.store
           .select('user')
           .subscribe((user) => {
-            this.user = user;
-            this.userRole = this.user.rol[0];            
+            this.user = user;                     
           } )
       );
       this.subscriptions.add(
@@ -68,7 +66,6 @@ export class NavbarComponent implements OnInit {
         const url = event.urlAfterRedirects;
         this.isLogin = url.includes('login') || url.includes('register');
         this.isAdmin = url.includes('admin');
-        // includesLogin ? this.isLogin = true : this.isLogin = false;
       }
     });
   }
@@ -98,7 +95,16 @@ export class NavbarComponent implements OnInit {
   }
   logout(event:any) {
     event.preventDefault();
-    this.store.dispatch(SearchActions.loadLogout());
+    this.authService.logout();
+    Swal.fire(
+      `¡Hasta pronto!`,
+      `Has cerrado sesión con éxito`,
+      'success'
+    ).then((result) => {
+     if (result.isConfirmed) {
+       this.router.navigate(['/login']);
+     } 
+   });
   }
 
   filterProductsByCategory(id:number){

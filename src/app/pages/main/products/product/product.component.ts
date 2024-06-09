@@ -20,12 +20,12 @@ export class ProductComponent implements OnInit{
   private subscriptions = new Subscription();
   productId!:number;
   product:any={}
-  isAuthenticated:any={}
+  isAuthenticated:any
   constructor(
     private formBuilder: FormBuilder,
     private routeActive: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
+    public authService: AuthService,
     private sanitizer: DomSanitizer,
     private store:Store<{ product:any, productAdmin:any, carrito:any}>
   ){
@@ -55,7 +55,7 @@ export class ProductComponent implements OnInit{
   ngOnInit(): void {
     this.productId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
     this.store.dispatch(ProductActions.loadProductById({id:this.productId}));
-    this.isAuthenticated = localStorage.getItem('user');
+    
   }
   comprarAhora(){
     this.authService.autenticado() ?
