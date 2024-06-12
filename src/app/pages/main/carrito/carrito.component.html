@@ -94,7 +94,7 @@
     <!-- <button class="success" [disabled]="carritoForm.invalid">
       Continuar compra
     </button> -->
-    <button class="btn btn-primary btn-finalizarCompra" [disabled]="carritoForm.invalid">
+    <button (click)="simularCompra()" class="btn btn-primary btn-finalizarCompra" [disabled]="carritoForm.invalid">
       Continuar compra 
     </button>
   </div>
@@ -195,7 +195,7 @@
     <!-- <button class="success" [disabled]="carritoForm.invalid">
       Continuar compra
     </button> -->
-    <button class="btn btn-primary btn-finalizarCompra" [disabled]="carritoForm.invalid">
+    <button (click)="simularCompra()" class="btn btn-primary btn-finalizarCompra" [disabled]="carritoForm.invalid">
       Continuar compra 
     </button>
   </div>

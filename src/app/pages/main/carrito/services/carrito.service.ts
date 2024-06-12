@@ -5,6 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { User } from '../../user/model/users.model';
 import { Store } from '@ngrx/store';
+import { Stripe, loadStripe } from '@stripe/stripe-js';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class CarritoService {
 
   private urlEndpoint: string = 'http://localhost:8080/v1/carts'
   private subscriptions = new Subscription();
+  private stripe: Stripe | null = null;
   user: User = {};
   constructor(
     private httpClient: HttpClient,
@@ -20,8 +22,15 @@ export class CarritoService {
     private store: Store<{ user: User }>
     ) {
       this.subscriptions.add(this.store.select('user').subscribe((user) => (this.user = user)));
-
+      this.initializeStripe();
      }
+     private async initializeStripe() {
+      this.stripe = await loadStripe('pk_test_51JUthTEWMcJGOerEbEngQlhxXayqiT1pqY9eLZuk2TzQ3J5ZOcUzYY44QmHPlSbLCDrnM1lkpW8LxJvrb4oLHhBi00fDljGZIC');
+    }
+    public getStripe() {
+      return this.stripe;
+    }
+    
   addProduct(product?: any):Observable<any>{
     const finalUrl=`${this.urlEndpoint}/addProduct`;
     return new Observable((obs)=>{

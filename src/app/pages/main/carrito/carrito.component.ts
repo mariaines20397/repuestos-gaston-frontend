@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as CarritoActions from './store/carrito.actions';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { CarritoService } from './services/carrito.service';
 
 @Component({
   selector: 'app-carrito',
@@ -20,10 +22,13 @@ export class CarritoComponent implements OnInit{
   total_price:any
   amount!:number
   carritoForm:FormGroup;
+  productPayment:any[]=[]
 constructor(
   private formBuilder: FormBuilder,
   private store:Store<{ carrito:any}>,
-  private sanitizer: DomSanitizer
+  private sanitizer: DomSanitizer,
+  private router: Router,
+  private carritoService: CarritoService
 ){
   this.subscriptions.add(
     this.store
@@ -132,5 +137,31 @@ constructor(
   }
   mostrarImg(image:any){
     return this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image}`);
+  }
+ async simularCompra(){
+  this.carrito.forEach((product:any)=>{
+    this.productPayment.push({
+      price: product.price_id_stripe,
+      quantity: product.amount
+    })
+  })
+  
+      const stripe = this.carritoService.getStripe();
+      if (!stripe) {
+        console.error('Stripe no está inicializado.');
+        return;
+      }
+  
+      const { error } = await stripe.redirectToCheckout({
+        lineItems: this.productPayment,
+        mode: 'payment',
+        successUrl: window.location.origin + '/success',
+        cancelUrl: window.location.origin + '/cancel',
+      });
+  
+      if (error) {
+        console.error('Error al redirigir a Checkout:', error);
+      }
+    
   }
 }
