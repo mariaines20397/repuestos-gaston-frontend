@@ -113,5 +113,28 @@ export const carritoReducer = createReducer<any>(
             ...state,
             data:props.error
         })
+    ),
+    //payment
+    on(
+        CarritoActions.loadPayment,
+        (state, props):any => ({
+            ...state,
+            data:props.productPayment
+        })
+    ),
+    on(
+        CarritoActions.loadPaymentSuccess,
+        (state, props):any => ({
+            ...state,
+            data:props.prueba
+        })
+    )
+    ,
+    on(
+        CarritoActions.loadPaymentFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
     )
 )

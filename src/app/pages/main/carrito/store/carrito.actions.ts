@@ -33,3 +33,11 @@ export const cleanCart = createAction('[Cart] cleanCart');
 export const cleanCartSuccess = createAction('[Cart] cleanCartSuccess');
 export const cleanCartFail = createAction('[Cart] cleanCartFail',
 props<{error:any}>());
+
+//addProduct
+export const loadPayment = createAction('[Cart] loadPayment',
+props<{productPayment:any[]}>());
+export const loadPaymentSuccess = createAction('[Cart] loadPaymentSuccess',
+props<{prueba:any}>());
+export const loadPaymentFail = createAction('[Cart] loadPaymentFail',
+props<{error:any}>());

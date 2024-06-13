@@ -110,4 +110,29 @@ export class CarritoEffects {
       })
     )
   );
+
+  payment$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CarritoActions.loadPayment),
+      mergeMap((action) => {
+        return this.carritoServices.payment(action.productPayment).pipe(
+          map((response) => {
+            // Swal.fire('¡Tu carrito ahora esta limpio!', '', 'success').then((result) => {
+            //   if (result.isConfirmed) {
+            //     location.reload();
+            //   } 
+            // })
+            console.log(response);
+            
+            return CarritoActions.loadPaymentSuccess({
+              prueba:response.prueba
+            });
+          }),
+          catchError((error) => {
+            return of(CarritoActions.loadPaymentFail({ error }));
+          })
+        );
+      })
+    )
+  );
 }

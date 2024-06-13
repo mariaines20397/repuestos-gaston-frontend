@@ -128,4 +128,7 @@ export class NavbarComponent implements OnInit {
   profile(){
     this.store.dispatch(UserActions.loadProfile());
   }
+  back(){
+    this.router.navigate(['/admin']);
+  }
 }

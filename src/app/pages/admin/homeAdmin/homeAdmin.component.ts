@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as UserAdminActions from '../table-users/store/users.actions'
 import * as ProductosAdminActions from '../table-products/store/products.actions';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: 'homeAdmin.component.html',
@@ -21,6 +22,7 @@ export class HomeAdminComponent implements OnInit{
 
   constructor(
     private store:Store<{ userAdmin:getAllUser, productAdmin: getAllProduct}>,
+    private router: Router
   ) { 
     this.subscriptions.add(
       this.store
@@ -65,5 +67,8 @@ export class HomeAdminComponent implements OnInit{
       page:0
     };
     this.store.dispatch(ProductosAdminActions.loadProductByLowStock({pageable:this.productAdmin.pageable}));
+  }
+  back(){
+    this.router.navigate(['/admin'])
   }
 }

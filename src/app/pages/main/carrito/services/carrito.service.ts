@@ -30,7 +30,27 @@ export class CarritoService {
     public getStripe() {
       return this.stripe;
     }
-    
+    payment(productPayment:any[]):Observable<any>{
+      const stripe = this.getStripe();
+      if (!stripe) {
+        console.error('Stripe no está inicializado.');
+      }
+      return new Observable((obs)=>{
+      stripe?.redirectToCheckout({
+        lineItems: productPayment,
+        mode: 'payment',
+        successUrl: window.location.origin + '/success',
+        cancelUrl: window.location.origin + '/cancel',
+      }).then((data=>{
+        obs.next(data);
+        obs.complete();
+      }))
+      .catch(error=>{
+        obs.error(error);
+        obs.complete();
+      });
+    })
+    }
   addProduct(product?: any):Observable<any>{
     const finalUrl=`${this.urlEndpoint}/addProduct`;
     return new Observable((obs)=>{

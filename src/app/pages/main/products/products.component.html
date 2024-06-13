@@ -35,7 +35,7 @@
     <h3>{{nameSearch | titlecase}}</h3>
   <span>{{search?.data?.length}} resultados</span>
   </div>
-  <div class="productos">
+  <div class="productos" *ngIf="this.search?.data?.length > 0">
     <div class="card" *ngFor="let data of this.search.data">
       <div class="card-products" (click)="productById(data.product_id)">
         <div class="col-md-6 divImg">
@@ -51,15 +51,16 @@
           </div>
         </div>
       </div>
-      <div class="card" *ngIf="!this.search.data || this.search.data.length == 0">
-        
-            <h4 class="not-found">
-              No hay productos para mostrar
-            </h4>
-      </div>
+      
     </div>
     <div class="pagination">
       <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.search?.totalElements" [page]="this.search.pageable.pageNumber + 1" [pageSize]="this.search?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
     </div>
   </div>
+  <div class="card" *ngIf="this.search?.data?.length == 0">
+        
+    <h4 class="not-found">
+      No hay productos para mostrar
+    </h4>
+</div>
 </div>

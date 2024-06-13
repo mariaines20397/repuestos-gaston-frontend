@@ -219,6 +219,13 @@
 }
 /*Mobile*/
 @media (max-width: 750px) {
+    .divImg{
+        display: flex;
+        justify-content: center;
+    }
+    .divImg img{
+        width: 80%;
+    }
     .product{
         display: flex;
         background: #ebebeb;

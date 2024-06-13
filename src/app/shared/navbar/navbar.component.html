@@ -76,6 +76,9 @@
 <li >
   <button class="btn btn-cart" (click)="cart()" *ngIf="this.authService.autenticado() && !this.authService.admin()">
     <img src="../../../assets/svg/cart.svg" alt="cart" class="user" srcset="" ></button>
+    <button class="btn btn-cart" (click)="back()" placement="top" ngbTooltip="Volver al dashboard" *ngIf="this.authService.autenticado() && this.authService.admin()">
+      <img src="../../../assets/svg/dashboard.svg" alt="" class="user" srcset="">
+  </button>
 
 </li>
        <!-- *ngIf="authService.autenticado()" -->
