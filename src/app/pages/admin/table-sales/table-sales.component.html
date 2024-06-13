@@ -24,24 +24,47 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">N° de venta</th>
+                <th scope="col">DNI cliente</th>
                 <th scope="col">Estado de la venta</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let sale of sales; let index = index">
-                <td scope="row"><input type="radio" (change)="mostrarData(sale)" name="radioButton" [value]="sale" />
+              <tr *ngFor="let sale of this.salesAdmin.data; let index = index">
+                <td scope="row" class="colMenu">
+                  <div ngbDropdown class="d-inline-block dropdownMenu" >
+                    <button class="btn" id="dropdown1" ngbDropdownToggle>
+                      <img class="imgSection" src="../../../../assets/svg/menuAdmin.svg" alt="" srcset="" />
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdown1">
+                        <button ngbDropdownItem class="btn" (click)="viewSale(sale.id)">Ver más</button>
+                        <hr>
+                        <button ngbDropdownItem class="btn" (click)="editSale(sale.id)">Editar</button>
+                        
+                      </div>
+                  </div>
                 </td>
-                <td>{{sale.id}}</td>
-                <td *ngIf="sale.state == 0">
-                  <div class="sinConfirmar">Sin confirmar</div>
+                <td>{{sale.number_sale}}</td>
+                <td>${{sale.dni}}</td>
+                <td *ngIf="sale.sale_status == 'PENDING_PAYMENT'">
+                  <div>Pendiente de pago</div>
                 </td>
-                <td *ngIf="sale.state == 1">
-                  <div class="porEntregar">Por entregar</div>
+                <td *ngIf="sale.sale_status == 'PAID'">
+                  <div>Pagado</div>
                 </td>
-                <td *ngIf="sale.state == 2">
-                  <div class="entregado">Entregado</div>
+                <td *ngIf="sale.sale_status == 'DELIVERED'">
+                  <div>Entregado</div>
+                </td>
+                <td *ngIf="sale.sale_status == 'REJECTED'">
+                  <div>Rechazado</div>
                 </td>
               </tr>
+              <ng-container *ngIf="this.salesAdmin?.data?.length == 0">
+                <tr>
+                  <td colspan="5" class="not-found">
+                    No hay productos para mostrar
+                  </td>
+                </tr>
+            </ng-container>
             </tbody>
           </table>
         </div>

@@ -44,7 +44,8 @@ export class AdminProductsService {
       })
     })
   }
-  getProductsByLowStack(pagination?:any):Observable<any> {let queryParams: any = new HttpParams();
+  getProductsByLowStack(pagination?:any):Observable<any> {
+    let queryParams: any = new HttpParams();
     if (pagination) {
       pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
       queryParams = new HttpParams({fromObject:{ ...pagination}});

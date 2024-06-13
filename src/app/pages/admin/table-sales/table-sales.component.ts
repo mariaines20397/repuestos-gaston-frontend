@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Search } from 'src/app/shared/navbar/model/search.model';
 import * as SearchActions from '../../../shared/navbar/store/search.actions';
-import { Sale } from './model/sale.model';
+import * as SalesActions from './store/sale.actions';
+import { Sale, getAllSale } from './model/sale.model';
 import { SaleService } from './services/sale.service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -46,22 +48,35 @@ export class NgbdSortableHeader {
 })
 export class TableSalesComponent implements OnInit{
   @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
-
+  private subscriptions = new Subscription();
   searchForm:FormGroup;
   sales:Sale[]=[];
+  salesAdmin:any={}
   page = 1;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private saleServices: SaleService,
-    private store:Store<{ filtrar:Search}>,
+    private store:Store<{ filtrar:Search, salesAdmin:getAllSale}>,
   ) {
     this.searchForm = this.formBuilder.group({
       search: new FormControl(null)
     });
+    this.subscriptions.add(
+      this.store
+      .select('salesAdmin')
+      .subscribe((salesAdmin) => {
+          this.salesAdmin = salesAdmin;        
+      })
+    );
    }
    ngOnInit(): void {
-    this.getSales()
+    this.getSales();
+    this.salesAdmin.pageable = {
+      size:2,
+      page:0
+    };
+    this.store.dispatch(SalesActions.loadSales({pageable:this.salesAdmin.pageable}));
     // this.store.dispatch(ProductosAdminActions.loadProducts());
   }
    search(){
@@ -86,5 +101,12 @@ export class TableSalesComponent implements OnInit{
   mostrarData(sale:any){
     this.saleServices.disparadorVenta.emit(sale.id);
   }
-
+  viewSale(numberSale:number){
+    this.store.dispatch(SalesActions.loadSaleById({id:numberSale}));
+    this.router.navigate([`/admin/dashboard/sale/view/${numberSale}`]);
+  }
+  editSale(numberSale:number){
+    this.store.dispatch(SalesActions.loadSaleById({id:numberSale}));
+    this.router.navigate([`/admin/dashboard/sale/edit/${numberSale}`]);
+  }
 }

@@ -1,20 +1,28 @@
 import { createAction, props } from "@ngrx/store";
-import { Sale } from "../model/sale.model";
+import { Pegeable, Sale } from "../model/sale.model";
 
 //load users
-export const loadSales = createAction('[AdminSales] loadSales');
+export const loadSales = createAction('[AdminSales] loadSales',props<{pageable?:Pegeable}>());
 export const loadSalesSuccess = createAction('[AdminSales] loadSalesSuccess',
-props<{sales:Sale[]}>());
+props<{sales:Sale[], pageable:Pegeable, totalElements:number, totalPages: number}>());
 export const loadSalesFail = createAction('[AdminSales] loadSalesFail',
 props<{error:any}>());
 
 //GetById
-export const loadSaleByIdUser = createAction('[AdminSaleByIdUser] loadSaleByIdUser',
+export const loadSaleById = createAction('[AdminSaleByNumber] loadSaleById',
 props<{id:number}>());
-export const loadSaleByIdUserSuccess = createAction('[AdminSaleByIdUser] loadSaleByIdUserSuccess',
+export const loadSaleByIdSuccess = createAction('[AdminSaleByNumber] loadSaleByIdSuccess',
 props<{sale:Sale}>());
-export const loadSaleByIdUserFail = createAction('[AdminSaleByIdUser] loadSaleByIdUserFail',
+export const loadSaleByIdFail = createAction('[AdminSaleByNumber] loadSaleByIdFail',
 props<{error:any}>());
+
+//create sale admin
+export const createSaleAdmin = createAction('[createSaleAdmin] createSaleAdmin',
+    props<{products:any[]}>());
+    export const createSaleAdminSuccess = createAction('[createSaleAdmin] createSaleAdminSuccess',
+    props<{prueba:any}>());
+    export const createSaleAdminFail = createAction('[createSaleAdmin] createSaleAdminFail',
+    props<{error:any}>());
 
 //GetById
 export const loadProductByBarCode = createAction('[AdminProductByBarCode] loadProductByBarCode',
@@ -23,4 +31,12 @@ export const loadProductByBarCode = createAction('[AdminProductByBarCode] loadPr
     props<{product:any}>());
     export const loadProductByBarCodeFail = createAction('[AdminProductByBarCode] loadProductByBarCodeFail',
     props<{error:any}>());
+
+//loadSaleByNumber
+export const loadSaleByNumber = createAction('[SaleByNumber] loadSaleByNumber',
+props<{pageable?:Pegeable}>());
+export const loadSaleByNumberSuccess = createAction('[SaleByNumber] loadSaleByNumberSuccess',
+props<{sales:Sale[], pageable:Pegeable, totalElements:number, totalPages: number}>());
+export const loadSaleByNumberFail = createAction('[SaleByNumber] loadSaleByNumberFail',
+props<{error:any}>());
 

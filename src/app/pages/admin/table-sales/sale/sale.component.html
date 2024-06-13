@@ -25,7 +25,7 @@
                     <form [formGroup]="saleForm" *ngIf="this.router.url.includes('add')">
                         <fieldset [disabled]="this.router.url.includes('view')">
                             <div class="containerProducts">
-                                <div class="containerInputs">
+                                <div class="containerInputs" *ngIf="this.router.url.includes('add')">
                                     <div class="inputsText">
                                         <h6 class="title-input"><b>Código de barra</b></h6>
                                         <input formControlName="barCode" type="number" name="" id=""

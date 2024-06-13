@@ -8,14 +8,18 @@ export const salesAdminReducer = createReducer<any>(
     on(
         SaleActions.loadSales,
         (state, props):any => ({
-            ...state
+            ...state,
+            pageable:props.pageable
         })
     ),
     on(
         SaleActions.loadSalesSuccess,
         (state, props):any => ({
             ...state,
-            data:props.sales
+            data:props.sales,
+            pageable:props.pageable,
+            totalPages:props.totalPages,
+            totalElements:props.totalElements
         })
     )
     ,
@@ -28,13 +32,14 @@ export const salesAdminReducer = createReducer<any>(
     ),
     //saleByIdUser
     on(
-        SaleActions.loadSaleByIdUser,
-        (state):any => ({
-            ...state
+        SaleActions.loadSaleById,
+        (state,props):any => ({
+            ...state,
+            data:props.id
         })
     ),
     on(
-        SaleActions.loadSaleByIdUserSuccess,
+        SaleActions.loadSaleByIdSuccess,
         (state, props):any => ({
             ...state,
             data:props.sale
@@ -42,7 +47,7 @@ export const salesAdminReducer = createReducer<any>(
     )
     ,
     on(
-        SaleActions.loadSaleByIdUserFail,
+        SaleActions.loadSaleByIdFail,
         (state, props):any => ({
             ...state,
             data:props.error
@@ -53,7 +58,7 @@ export const salesAdminReducer = createReducer<any>(
         SaleActions.loadProductByBarCode,
         (state, props):any => ({
             ...state,
-            data:props.barCode
+            barCode:props.barCode
         })
     ),
     on(
@@ -70,5 +75,54 @@ export const salesAdminReducer = createReducer<any>(
             ...state,
             data:props.error
         })
+    ),
+    //load sales by number
+    on(
+        SaleActions.loadSaleByNumber,
+        (state, props):any => ({
+            ...state,
+            data:props.pageable
+        })
+    ),
+    on(
+        SaleActions.loadSaleByNumberSuccess,
+        (state, props):any => ({
+            ...state,
+            data:props.sales,
+            pageable:props.pageable,
+            totalPages:props.totalPages,
+            totalElements:props.totalElements
+        })
     )
+    ,
+    on(
+        SaleActions.loadSaleByNumberFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
+    ),
+    //create sales admin
+    on(
+        SaleActions.createSaleAdmin,
+        (state, props):any => ({
+            ...state,
+            data:props.products
+        })
+    ),
+    on(
+        SaleActions.createSaleAdminSuccess,
+        (state, props):any => ({
+            ...state,
+            data:props.prueba
+        })
+    )
+    ,
+    on(
+        SaleActions.createSaleAdminFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
+    ),
 )

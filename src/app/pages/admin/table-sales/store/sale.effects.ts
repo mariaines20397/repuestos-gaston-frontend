@@ -21,10 +21,16 @@ export class SaleAdminEffects {
     this.actions$.pipe(
       ofType(SaleActions.loadSales),
       mergeMap((action) => {
-        return this.saleServices.getSales().pipe(
+        const sales = action.pageable ? 
+        this.saleServices.getSales(action.pageable)
+        : this.saleServices.getSales();
+        return sales.pipe(
           map((response) => {
             return SaleActions.loadSalesSuccess({
-              sales: response.data,
+              sales: response.content,
+              pageable: response.pageable,
+              totalPages: response.totalPages,
+              totalElements:response.totalElements
             });
           }),
           catchError((error) => {
@@ -37,16 +43,16 @@ export class SaleAdminEffects {
 
   loadSaleByIdUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(SaleActions.loadSaleByIdUser),
+      ofType(SaleActions.loadSaleById),
       mergeMap((action) => {
-        return this.saleServices.getSalesByIdUser(action.id).pipe(
+        return this.saleServices.getSalesById(action.id).pipe(
           map((response) => {
-            return SaleActions.loadSaleByIdUserSuccess({
-              sale: response.data,
+            return SaleActions.loadSaleByIdSuccess({
+              sale: response,
             });
           }),
           catchError((error) => {
-            return of(SaleActions.loadSaleByIdUserFail({ error }));
+            return of(SaleActions.loadSaleByIdFail({ error }));
           })
         );
       })
@@ -65,6 +71,54 @@ export class SaleAdminEffects {
           }),
           catchError((error) => {
             return of(SaleActions.loadProductByBarCodeFail({ error }));
+          })
+        );
+      })
+    )
+  );
+
+  createSaleAdmin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SaleActions.createSaleAdmin),
+      mergeMap((action) => {
+        return this.saleServices.createOrderAdmin(action.products).pipe(
+          map((response) => {
+            Swal.fire(`Orden de venta ${response.number_sale}`, `Orden de venta generada con éxito.`, 'success')
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/admin/dashboard/sale']);
+            } 
+          })
+            return SaleActions.createSaleAdminSuccess({
+              prueba: response,
+            });
+          }),
+          catchError((error) => {
+            return of(SaleActions.createSaleAdminFail({ error }));
+          })
+        );
+      })
+    )
+  );
+
+  loadSaleByNumber$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SaleActions.loadSaleByNumber),
+      mergeMap((action) => {
+        const sales = action.pageable ? 
+        this.saleServices.getSales(action.pageable)
+        : this.saleServices.getSales();
+        return sales.pipe(
+          map((response) => {
+            return SaleActions.loadSaleByNumberSuccess({
+              sales: response.content,
+              pageable: response.pageable,
+              totalPages: response.totalPages,
+              totalElements:response.totalElements
+            });
+          }),
+          catchError((error) => {
+            return of(SaleActions.loadSaleByNumberFail({ error }));
           })
         );
       })
