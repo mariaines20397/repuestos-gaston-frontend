@@ -1,22 +1,34 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as SearchActions from './search.actions';
+import * as LoginActions from 'src/app/pages/login/store/login.actions';
 import { catchError, map, mergeMap, of, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { SearchService } from '../services/search.service';
+import { User } from 'src/app/pages/main/user/model/users.model';
+import { Store } from '@ngrx/store';
+import { LoginService } from 'src/app/pages/login/services/login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchEffects {
+  user: any = {};
+
   constructor(
     private actions$: Actions,
     private searchServices: SearchService,
+    private loginServices: LoginService,
     private router: Router,
-    public authService: AuthService
-  ) {}
+    public authService: AuthService,
+    private store:Store<{ user: User}>
+  ) {
+      this.store
+        .select('user')
+        .subscribe((user) => this.user = user);
+  }
 
   loadProductsByFilter$ = createEffect(() =>
     this.actions$.pipe(
@@ -40,26 +52,21 @@ export class SearchEffects {
   );
   loadLogout$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(SearchActions.loadLogout),
+      ofType(LoginActions.loadLogout),
       mergeMap((action) => {
-        return this.searchServices.logout().pipe(
+        return this.loginServices.logout().pipe(
           map((response) => {
-            const username = this.authService.usuario.Username;
              Swal.fire(
-               `¡Hasta pronto ${username}!`,
+               `¡Hasta pronto!`,
                `Has cerrado sesión con éxito`,
                'success'
-             ).then((result) => {
-              if (result.isConfirmed) {
-                localStorage.removeItem('user');
-                this.router.navigate(['/login'])
-                location.reload();
-              } 
-            });
-            return SearchActions.loadLogoutSuccess();
+             );
+             this.store.dispatch(LoginActions.loadClearUserState({user:null}));
+             this.router.navigate(['/login']);
+            return LoginActions.loadLogoutSuccess();
           }),
           catchError((error) => {
-            return of(SearchActions.loadLogoutFail({ error }));
+            return of(LoginActions.loadLogoutFail({ error }));
           })
         );
       })

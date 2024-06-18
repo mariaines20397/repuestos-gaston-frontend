@@ -116,14 +116,7 @@ export class CarritoEffects {
       ofType(CarritoActions.loadPayment),
       mergeMap((action) => {
         return this.carritoServices.payment(action.productPayment).pipe(
-          map((response) => {
-            // Swal.fire('¡Tu carrito ahora esta limpio!', '', 'success').then((result) => {
-            //   if (result.isConfirmed) {
-            //     location.reload();
-            //   } 
-            // })
-            console.log(response);
-            
+          map((response) => {            
             return CarritoActions.loadPaymentSuccess({
               prueba:response.prueba
             });

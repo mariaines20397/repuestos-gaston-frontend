@@ -31,4 +31,22 @@ export class LoginService {
       })
     })
   }
+  logout():Observable<any>{
+    const finalUrl=`http://localhost:8080/v1/auth/logout`;
+    return new Observable((obs)=>{
+      this.httpClient.post(`${finalUrl}`,{})
+      .subscribe({
+        next: (res) => {
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          Swal.fire('¡Lo siento!', error,'error');
+         // this.isNoAuthorization(error);
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
 }

@@ -17,4 +17,7 @@ export const loadLogoutSuccess = createAction('[User] loadLogoutSuccess');
 export const loadLogoutFail = createAction('[User] loadLogoutFail',
 props<{error:any}>());
 
+export const loadClearUserState = createAction('[User] loadClearUserState',
+    props<{user:any}>());
+
 

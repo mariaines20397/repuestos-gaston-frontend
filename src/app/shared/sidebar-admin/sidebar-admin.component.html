@@ -74,11 +74,15 @@
     </a>
     <hr>
     <div class="section"  *ngIf="menu">
-        <button class="btn btn-products" placement="end" ngbTooltip="Cerrar sesión">
+        <button class="btn btn-products" placement="end" ngbTooltip="Cerrar sesión" (click)="logout()">
             <img class="imgSection" src="../../../assets/svg/logout-min.svg" alt="" srcset="" />
         </button>
+
+        <!-- <button class="btn btn-products" placement="end" ngbTooltip="Cerrar sesión">
+            <img class="imgSection" src="../../../assets/svg/logout-min.svg" alt="" srcset="" />
+        </button> -->
     </div>
-    <div class="section" *ngIf="!menu">
+    <div class="section" *ngIf="!menu" (click)="logout()">
         <img class="imgSection" src="../../../assets/svg/logout.svg" alt="" srcset="" />
         <h5>Cerrar sesión</h5>
     </div>

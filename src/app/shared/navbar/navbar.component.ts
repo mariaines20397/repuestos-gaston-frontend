@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 import { loadLoginSuccess } from 'src/app/pages/login/store/login.actions';
 import * as UserActions from 'src/app/pages/main/user/store/user.actions';
 import * as CategoriasActions from 'src/app/shared/navbar/store/categories.actions';
-import * as ProductsActions from 'src/app/pages/main/products/store/products.actions';
+import * as LoginActions from 'src/app/pages/login/store/login.actions';
 import { getAllCategories, getAllCategory } from 'src/app/pages/admin/table-categories/model/category.model';
 import { Product } from 'src/app/pages/main/products/model/product.model';
 
@@ -94,18 +94,8 @@ export class NavbarComponent implements OnInit {
   cart(){
     this.router.navigate(['/carrito']);
   }
-  logout(event:any) {
-    event.preventDefault();
-    this.authService.logout();
-    Swal.fire(
-      `¡Hasta pronto!`,
-      `Has cerrado sesión con éxito`,
-      'success'
-    ).then((result) => {
-     if (result.isConfirmed) {
-       this.router.navigate(['/login']);
-     } 
-   });
+  logout() {
+    this.store.dispatch(LoginActions.loadLogout());
   }
 
   filterProductsByCategory(id:number){

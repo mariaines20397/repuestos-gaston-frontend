@@ -109,7 +109,6 @@ export class SaleComponent implements OnInit {
       })
     });
     this.store.dispatch(SalesActions.createSaleAdmin({products:this.createOrderAdmin}))
-    // console.log(this.carritoProducts );
   }
 }
 

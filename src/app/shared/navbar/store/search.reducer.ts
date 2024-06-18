@@ -1,7 +1,9 @@
 import { createReducer, on } from "@ngrx/store";
 import * as SearchActions from "./search.actions";
+import { User } from "src/app/pages/main/user/model/users.model";
 
 export const initialState: any={}
+export const initialStateUser: User | null = null;
 export const searchReducer = createReducer<any>(
     initialState,
     //products
@@ -50,6 +52,15 @@ export const searchReducer = createReducer<any>(
         (state, props):any => ({
             ...state,
             data:props.error
+        })
+    ),
+    //clear user state
+    on(
+        SearchActions.loadClearUserState,
+        (state, props):any => ({
+            user:props.user,
+            jwt:null,
+            rol:null
         })
     )
 )
