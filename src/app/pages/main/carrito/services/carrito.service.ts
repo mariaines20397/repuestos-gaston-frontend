@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth.service';
+import Swal from 'sweetalert2';
 import { User } from '../../user/model/users.model';
 import { Store } from '@ngrx/store';
 import { Stripe, loadStripe } from '@stripe/stripe-js';
@@ -30,27 +30,40 @@ export class CarritoService {
     public getStripe() {
       return this.stripe;
     }
-    payment(productPayment:any[]):Observable<any>{
-      const stripe = this.getStripe();
-      if (!stripe) {
-        console.error('Stripe no está inicializado.');
-      }
-      return new Observable((obs)=>{
+  payment(productPayment:any[]):Observable<any>{
+    const stripe = this.getStripe();
+    if (!stripe) {
+      console.error('Stripe no está inicializado.');
+    }
+    return new Observable((obs)=>{
       stripe?.redirectToCheckout({
         lineItems: productPayment,
         mode: 'payment',
         successUrl: window.location.origin + '/success',
         cancelUrl: window.location.origin + '/cancel',
-      }).then((data=>{
+      }).then(data=>{
+        console.log(data);
+        
         obs.next(data);
         obs.complete();
-      }))
+      })
       .catch(error=>{
         obs.error(error);
         obs.complete();
-      });
+      })
     })
-    }
+
+    /*const { error } = await stripe.redirectToCheckout({
+      lineItems: productPayment,
+      mode: 'payment',
+      successUrl: window.location.origin + '/success',
+      cancelUrl: window.location.origin + '/cancel',
+    });
+
+    if (error) {
+      console.error('Error al redirigir a Checkout:', error);
+    }*/
+  }
   addProduct(product?: any):Observable<any>{
     const finalUrl=`${this.urlEndpoint}/addProduct`;
     return new Observable((obs)=>{

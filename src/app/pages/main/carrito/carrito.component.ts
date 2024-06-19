@@ -145,23 +145,6 @@ constructor(
       quantity: product.amount
     })
   })
-  this.store.dispatch(CarritoActions.loadPayment({productPayment:this.productPayment}))
-      // const stripe = this.carritoService.getStripe();
-      // if (!stripe) {
-      //   console.error('Stripe no está inicializado.');
-      //   return;
-      // }
-  
-      // const { error } = await stripe.redirectToCheckout({
-      //   lineItems: this.productPayment,
-      //   mode: 'payment',
-      //   successUrl: window.location.origin + '/success',
-      //   cancelUrl: window.location.origin + '/cancel',
-      // });
-  
-      // if (error) {
-      //   console.error('Error al redirigir a Checkout:', error);
-      // }
-    
+  this.store.dispatch(CarritoActions.loadPayment({productPayment:this.productPayment}));
   }
 }

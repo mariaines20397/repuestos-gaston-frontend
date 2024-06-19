@@ -111,14 +111,16 @@ export class CarritoEffects {
     )
   );
 
-  payment$ = createEffect(() =>
+  loadPayment$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CarritoActions.loadPayment),
       mergeMap((action) => {
         return this.carritoServices.payment(action.productPayment).pipe(
-          map((response) => {            
+          map((response) => {
+           console.log(response);
+           
             return CarritoActions.loadPaymentSuccess({
-              prueba:response.prueba
+              prueba:response
             });
           }),
           catchError((error) => {
