@@ -31,40 +31,6 @@ export class CarritoService {
     public getStripe() {
       return this.stripe;
     }
-  /*payment(productPayment:any[]):Observable<any>{
-    const stripe = this.getStripe();
-    if (!stripe) {
-      console.error('Stripe no está inicializado.');
-    }
-    return new Observable((obs)=>{
-      stripe?.redirectToCheckout({
-        lineItems: productPayment,
-        mode: 'payment',
-        successUrl: window.location.origin + '/carrito/success',
-        cancelUrl: window.location.origin + '/carrito/cancel',
-      }).then(data=>{
-        console.log(data);
-        
-        obs.next(data);
-        obs.complete();
-      })
-      .catch(error=>{
-        obs.error(error);
-        obs.complete();
-      })
-    })
-
-  }*/
-    /*const { error } = await stripe.redirectToCheckout({
-      lineItems: productPayment,
-      mode: 'payment',
-      successUrl: window.location.origin + '/success',
-      cancelUrl: window.location.origin + '/cancel',
-    });
-
-    if (error) {
-      console.error('Error al redirigir a Checkout:', error);
-    }*/
       async payment(productPayment: any[]): Promise<void> {
         const stripe = await this.getStripe();
         if (!stripe) {

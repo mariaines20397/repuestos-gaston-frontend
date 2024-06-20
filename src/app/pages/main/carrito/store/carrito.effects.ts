@@ -147,23 +147,4 @@ export class CarritoEffects {
       })
     )
   );
- /* loadPayment$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CarritoActions.loadPayment),
-      mergeMap((action) => {
-        return this.carritoServices.payment(action.productPayment).pipe(
-          map((response) => {
-           console.log(response);
-           
-            return CarritoActions.loadPaymentSuccess({
-              prueba:response
-            });
-          }),
-          catchError((error) => {
-            return of(CarritoActions.loadPaymentFail({ error }));
-          })
-        );
-      })
-    )
-  );*/
 }

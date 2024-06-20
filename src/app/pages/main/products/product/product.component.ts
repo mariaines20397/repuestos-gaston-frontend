@@ -62,10 +62,7 @@ export class ProductComponent implements OnInit{
   }
   async comprarAhora(product:any){
     if (this.authService.autenticado()) {
-      console.log(product);
-      
       const amount = this.cantidadForm.get('cantidad')!.value;
-      console.log(amount);
       const productAdd = {
         price: product.price_id_stripe,
       quantity: amount

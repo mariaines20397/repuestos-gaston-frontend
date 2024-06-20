@@ -84,11 +84,6 @@ export class TableSalesComponent implements OnInit{
   }
    search(){
     const filtrar = parseInt(this.searchForm.value.search);
-    console.log(parseInt(this.searchForm.value.search));
-    
-    // this.router.navigate(['/search'],{
-    //   queryParams:{filtrar}
-    // })    
     if (!Number.isNaN(filtrar)) {
       this.store.dispatch(SalesActions.loadSaleOrderByNumberSale({numberSale:filtrar}));
     }
