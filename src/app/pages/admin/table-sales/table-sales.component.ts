@@ -123,4 +123,13 @@ export class TableSalesComponent implements OnInit{
     this.store.dispatch(SalesActions.loadSaleById({id:numberSale}));
     this.router.navigate([`/admin/dashboard/sale/edit/${numberSale}`]);
   }
+  pageChange(evento:any){
+    if (!Number.isNaN(evento)) {
+     this.salesAdmin.pageable = {
+        size:2,
+       page: evento != 0 ? evento - 1 : 0 
+      };
+    }
+this.store.dispatch(SalesActions.loadSales({pageable:this.salesAdmin.pageable}));
+  }
 }

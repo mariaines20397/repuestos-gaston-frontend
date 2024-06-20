@@ -70,7 +70,12 @@ export class ProductComponent implements OnInit{
         price: product.price_id_stripe,
       quantity: amount
       }
-      this.productPayment.push(productAdd)
+      const productAddCart = {
+        amount,
+        idProduct: product.product_id
+      }
+      this.productPayment.push(productAdd);
+      this.store.dispatch(ProductActions.addProductToCart({product:productAddCart}));
       await this.productsService.payment(this.productPayment);
     }else{
       Swal.fire('Inicia sesión', `Para agregar un producto al carrito haz click en continuar e inicia sesión.`, 'info')
@@ -89,6 +94,7 @@ export class ProductComponent implements OnInit{
         amount,
         idProduct: product.product_id
       }
+      this.router.navigate(['/carrito']);
       this.store.dispatch(ProductActions.addProductToCart({product:productAdd}));
     }else{
       Swal.fire('Inicia sesión', `Para agregar un producto al carrito haz click en continuar e inicia sesión.`, 'info')

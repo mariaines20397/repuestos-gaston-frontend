@@ -62,7 +62,6 @@ export class ProductsEffects {
       mergeMap((action) => {
         return this.productsServices.addProductToCart(action.product).pipe(
           map((response) => {
-            this.router.navigate(['/carrito']);
             return ProductsActions.addProductToCartSuccess();
           }),
           catchError((error) => {
