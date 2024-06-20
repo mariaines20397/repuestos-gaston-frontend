@@ -41,3 +41,18 @@ export const loadPaymentSuccess = createAction('[Payment] loadPaymentSuccess',
 props<{prueba:any}>());
 export const loadPaymentFail = createAction('[Payment] loadPaymentFail',
 props<{error:any}>());
+
+//create sale user
+export const createSale = createAction('[createSale] createSale');
+export const createSaleSuccess = createAction('[createSale] createSaleSuccess',
+props<{sale:any}>());
+export const createSaleFail = createAction('[createSale] createSaleFail',
+props<{error:any}>());
+
+//GetById
+export const loadProductById = createAction('[ProductById] loadProductById',
+props<{id:number}>());
+export const loadProductByIdSuccess = createAction('[ProductById] loadProductByIdSuccess',
+props<{product:any}>());
+export const loadProductByIdFail = createAction('[ProductById] loadProductByIdFail',
+props<{error:any}>());

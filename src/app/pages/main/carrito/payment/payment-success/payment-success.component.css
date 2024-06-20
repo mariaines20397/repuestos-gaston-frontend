@@ -1,6 +1,33 @@
 .div-general{
     height: 100%;
 }
+.title .card-title{
+    background: lightgreen;
+    color: rgb(1, 92, 1);
+    text-align: center;
+    padding: 0;
+    padding: 6px;
+    padding: 6px;
+    border-radius: 5px;
+}
+.title .card-title-numberSale{
+    background: rgba(79, 247, 79, 0.18);
+    color: rgb(1, 92, 1);
+    text-align: center;
+    padding: 0;
+    padding: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+.titleButtons{
+    margin-top: 3%;
+}
+.title{
+    margin: auto;
+}
+.title h4{
+    text-align: center;
+}
 .contenedor{
     /* display: flex; */
     height: 95%;
@@ -156,8 +183,8 @@ fieldset {
         flex-direction: column;
         background: #ebebeb;
         justify-content: center;
-        align-items: normal;
-        width: 70%;
+        align-items: center;
+        width: 90%;
         margin: auto;
     }
     .product .card{
@@ -204,19 +231,17 @@ fieldset {
         display: flex;
         justify-content: space-around;
     }
-    .totalPrice{
-        margin: auto;
-        width: 67%;
-    }
-    .totalPrice h3{
-        margin-top: 8px;
-        padding-top: 15px;
+    .total{
+        width: 100%;
     }
     .total .subtotal{
-        width: 70%;
+        width: 100%;
     }
     .title h3{
         margin-right: 10px;
+    }
+    .card-body-price h3{
+        margin: 0;
     }
     .stock p{
         text-align: center;
@@ -366,6 +391,12 @@ fieldset {
         justify-content: space-around;
         align-items: center;
     }
+    .title h3{
+        margin: 0;
+    }
+    .card-body-price h3{
+        margin: 0;
+    }
     .stock p{
         text-align: center;
         margin-top: 2%;
@@ -513,6 +544,12 @@ fieldset {
         display: flex;
         justify-content: space-around;
         align-items: center;
+    }
+    .title h3{
+        margin: 0;
+    }
+    .card-body-price h3{
+        margin: 0;
     }
     .stock p{
         text-align: center;

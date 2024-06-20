@@ -127,10 +127,10 @@ export class SaleService {
     })
   }
 
-  createOrderAdmin(products:any[]):Observable<any> {
-    const finalUrl=`http://localhost:8080/v1/orders/admin`;
+  createOrderSale():Observable<any> {
+    const finalUrl=`http://localhost:8080/v1/orders/`;
     return new Observable((obs)=>{
-      this.httpClient.post(finalUrl,products)
+      this.httpClient.post(finalUrl,{})
       .subscribe({
         next: (res) => {
           // this.router.navigate(['/home']);
@@ -222,6 +222,41 @@ export class SaleService {
     const finalUrl=`http://localhost:8080/v1/carts/decreaseProduct`;
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,product)
+      .subscribe({
+        next: (res) => {
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+
+  updateStatus(id:number,status:string):Observable<any>{
+    const finalUrl=`http://localhost:8080/v1/orders/updateStatus/${id}`;
+    return new Observable((obs)=>{
+      this.httpClient.patch(finalUrl,{sale_status:status})
+      .subscribe({
+        next: (res) => {
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
+  getOrderByNumberSale(numberSale:number):Observable<any>{
+    const finalUrl=`http://localhost:8080/v1/orders/numberSale/${numberSale}`;
+    return new Observable((obs)=>{
+      this.httpClient.get(finalUrl)
       .subscribe({
         next: (res) => {
           obs.next(res);

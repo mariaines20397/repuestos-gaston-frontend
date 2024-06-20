@@ -19,6 +19,14 @@ export class SaleComponent implements OnInit {
   salesAdmin:any = {};
   createOrderAdmin:any[]=[];
   saleId!:number;
+  totalPrice:number = 0;
+  statusSaleId:string='';
+  statusSale=[
+    {id:'PENDING_PAYMENT', value:'Pendiente de pago' },
+    {id:'PAID', value:'Pagado' },
+    {id:'DELIVERED', value:'Entregado' },
+    {id:'REJECTED', value:'Rechazado' }
+  ]
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
@@ -27,10 +35,14 @@ export class SaleComponent implements OnInit {
     private store:Store<{ salesAdmin:any, carritoAdmin:any }>
   ) {
     this.saleForm = this.formBuilder.group({
-      barCode: new FormControl(null, [Validators.required, Validators.min(1)])
+      barCode: new FormControl(null, [Validators.required, Validators.min(1)]),
+      status: new FormControl(null)
     });
     this.store.select('salesAdmin').subscribe((salesAdmin) => {
         this.salesAdmin = salesAdmin.data;
+        this.statusSaleId = salesAdmin.data.sale_status;
+        this.calculateTotalPrice(salesAdmin.data.products);
+
     });
   }
   ngOnInit(): void {   
@@ -38,6 +50,12 @@ export class SaleComponent implements OnInit {
     this.saleId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
    if (this.saleId) {
       this.store.dispatch(SalesActions.loadSaleById({id:this.saleId}));   }
+  }
+  calculateTotalPrice(products:any){
+    this.totalPrice = 0;
+    products.forEach((data:any)=>{
+      this.totalPrice += data.sub_total_price
+    })
   }
   back(){
     this.router.navigate([`/admin/dashboard/sale`]);
@@ -102,13 +120,10 @@ export class SaleComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image}`);
   }
   orderSale(){
-    this.carritoProducts.products.forEach((product:any) => {
-      this.createOrderAdmin.push({
-        idProduct: product.product_id,
-        amount:product.amount
-      })
-    });
-    this.store.dispatch(SalesActions.createSaleAdmin({products:this.createOrderAdmin}))
+    this.store.dispatch(SalesActions.createSale())
+  }
+  updateStatus(){
+    this.store.dispatch(SalesActions.loadUpdateStatus({id:this.saleId, status:this.saleForm.value.status}))
   }
 }
 

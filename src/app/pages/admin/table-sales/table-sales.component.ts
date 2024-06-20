@@ -57,7 +57,7 @@ export class TableSalesComponent implements OnInit{
     private router: Router,
     private formBuilder: FormBuilder,
     private saleServices: SaleService,
-    private store:Store<{ filtrar:Search, salesAdmin:getAllSale}>,
+    private store:Store<{ filtrar:Search, salesAdmin:any}>,
   ) {
     this.searchForm = this.formBuilder.group({
       search: new FormControl(null)
@@ -66,7 +66,10 @@ export class TableSalesComponent implements OnInit{
       this.store
       .select('salesAdmin')
       .subscribe((salesAdmin) => {
-          this.salesAdmin = salesAdmin;        
+          this.salesAdmin = salesAdmin;    
+          if (salesAdmin.search) {
+            this.salesAdmin = {data:[salesAdmin.search]};        
+          }    
       })
     );
    }
@@ -80,11 +83,22 @@ export class TableSalesComponent implements OnInit{
     // this.store.dispatch(ProductosAdminActions.loadProducts());
   }
    search(){
-    const filtrar = this.searchForm.value.search;
+    const filtrar = parseInt(this.searchForm.value.search);
+    console.log(parseInt(this.searchForm.value.search));
+    
     // this.router.navigate(['/search'],{
     //   queryParams:{filtrar}
     // })    
-    this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
+    if (!Number.isNaN(filtrar)) {
+      this.store.dispatch(SalesActions.loadSaleOrderByNumberSale({numberSale:filtrar}));
+    }
+    if (Number.isNaN(filtrar)) {
+      this.salesAdmin.pageable = {
+        size:2,
+        page:0
+      };
+      this.store.dispatch(SalesActions.loadSales({pageable:this.salesAdmin.pageable}));
+    }
   }
   agregar(){
     this.router.navigate(['admin/dashboard/sale/add']);

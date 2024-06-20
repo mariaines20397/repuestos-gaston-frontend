@@ -16,12 +16,11 @@ props<{sale:Sale}>());
 export const loadSaleByIdFail = createAction('[AdminSaleByNumber] loadSaleByIdFail',
 props<{error:any}>());
 
-//create sale admin
-export const createSaleAdmin = createAction('[createSaleAdmin] createSaleAdmin',
-    props<{products:any[]}>());
-    export const createSaleAdminSuccess = createAction('[createSaleAdmin] createSaleAdminSuccess',
-    props<{prueba:any}>());
-    export const createSaleAdminFail = createAction('[createSaleAdmin] createSaleAdminFail',
+//create sale 
+export const createSale = createAction('[createSale] createSale');
+    export const createSaleSuccess = createAction('[createSale] createSaleSuccess',
+    props<{sale:any}>());
+    export const createSaleFail = createAction('[createSale] createSaleFail',
     props<{error:any}>());
 
 //GetById
@@ -38,5 +37,21 @@ props<{pageable?:Pegeable}>());
 export const loadSaleByNumberSuccess = createAction('[SaleByNumber] loadSaleByNumberSuccess',
 props<{sales:Sale[], pageable:Pegeable, totalElements:number, totalPages: number}>());
 export const loadSaleByNumberFail = createAction('[SaleByNumber] loadSaleByNumberFail',
+props<{error:any}>());
+
+//update status
+export const loadUpdateStatus = createAction('[UpdateStatus] loadUpdateStatus',
+props<{id:number, status:string}>());
+export const loadUpdateStatusSuccess = createAction('[UpdateStatus] loadUpdateStatusSuccess',
+props<{sales:any}>());
+export const loadUpdateStatusFail = createAction('[UpdateStatus] loadUpdateStatusFail',
+props<{error:any}>());
+
+//get by numberSale
+export const loadSaleOrderByNumberSale = createAction('[SaleOrderByNumberSale] loadSaleOrderByNumberSale',
+props<{numberSale:number}>());
+export const loadSaleOrderByNumberSaleSuccess = createAction('[SaleOrderByNumberSale] loadSaleOrderByNumberSaleSuccess',
+props<{sales:any}>());
+export const loadSaleOrderByNumberSaleFail = createAction('[SaleOrderByNumberSale] loadSaleOrderByNumberSaleFail',
 props<{error:any}>());
 

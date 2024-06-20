@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { ProductsService } from '../services/products.service';
 
 
 @Component({
@@ -20,12 +21,14 @@ export class ProductComponent implements OnInit{
   private subscriptions = new Subscription();
   productId!:number;
   product:any={}
+  productPayment:any[]=[];
   isAuthenticated:any
   constructor(
     private formBuilder: FormBuilder,
     private routeActive: ActivatedRoute,
     private router: Router,
     public authService: AuthService,
+    public productsService: ProductsService,
     private sanitizer: DomSanitizer,
     private store:Store<{ product:any, productAdmin:any, carrito:any}>
   ){
@@ -57,10 +60,26 @@ export class ProductComponent implements OnInit{
     this.store.dispatch(ProductActions.loadProductById({id:this.productId}));
     
   }
-  comprarAhora(){
-    this.authService.autenticado() ?
-    this.router.navigate(['/carrito']):
-    this.router.navigate(['/login']);
+  async comprarAhora(product:any){
+    if (this.authService.autenticado()) {
+      console.log(product);
+      
+      const amount = this.cantidadForm.get('cantidad')!.value;
+      console.log(amount);
+      const productAdd = {
+        price: product.price_id_stripe,
+      quantity: amount
+      }
+      this.productPayment.push(productAdd)
+      await this.productsService.payment(this.productPayment);
+    }else{
+      Swal.fire('Inicia sesión', `Para agregar un producto al carrito haz click en continuar e inicia sesión.`, 'info')
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/login']);
+            } 
+          })
+    }
   }
   agregarCarrito(product:any){
     

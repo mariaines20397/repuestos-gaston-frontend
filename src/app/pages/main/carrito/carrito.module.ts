@@ -8,12 +8,16 @@ import { StoreModule } from '@ngrx/store';
 import * as fromCarritoReducer from './store/carrito.reducer';
 import { CarritoEffects } from './store/carrito.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { PaymentSuccessComponent } from './payment/payment-success/payment-success.component';
+import { PaymentCancelComponent } from './payment/payment-cancel/payment-cancel.component';
 
 
 
 @NgModule({
   declarations: [
-    CarritoComponent
+    CarritoComponent,
+    PaymentSuccessComponent,
+    PaymentCancelComponent
   ],
   imports: [
     CommonModule,

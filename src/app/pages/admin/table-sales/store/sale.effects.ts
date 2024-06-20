@@ -77,24 +77,24 @@ export class SaleAdminEffects {
     )
   );
 
-  createSaleAdmin$ = createEffect(() =>
+  createSale$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(SaleActions.createSaleAdmin),
+      ofType(SaleActions.createSale),
       mergeMap((action) => {
-        return this.saleServices.createOrderAdmin(action.products).pipe(
+        return this.saleServices.createOrderSale().pipe(
           map((response) => {
-            Swal.fire(`Orden de venta ${response.number_sale}`, `Orden de venta generada con éxito.`, 'success')
+            Swal.fire(`Orden de venta N° ${response.number_sale}`,'', 'success')
           .then((result) => {
             if (result.isConfirmed) {
               this.router.navigate(['/admin/dashboard/sale']);
             } 
           })
-            return SaleActions.createSaleAdminSuccess({
-              prueba: response,
+            return SaleActions.createSaleSuccess({
+              sale: response,
             });
           }),
           catchError((error) => {
-            return of(SaleActions.createSaleAdminFail({ error }));
+            return of(SaleActions.createSaleFail({ error }));
           })
         );
       })
@@ -119,6 +119,47 @@ export class SaleAdminEffects {
           }),
           catchError((error) => {
             return of(SaleActions.loadSaleByNumberFail({ error }));
+          })
+        );
+      })
+    )
+  );
+
+  loadUpdateStatus$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SaleActions.loadUpdateStatus),
+      mergeMap((action) => {
+        return this.saleServices.updateStatus(action.id, action.status).pipe(
+          map((response) => {
+            Swal.fire(`Estado de orden actualizada con éxito`, '','success')
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/admin/dashboard/sale']);
+            } 
+          })
+            return SaleActions.loadUpdateStatusSuccess({
+              sales: response
+            });
+          }),
+          catchError((error) => {
+            return of(SaleActions.loadUpdateStatusFail({ error }));
+          })
+        );
+      })
+    )
+  );
+  loadSaleOrderByNumberSale$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SaleActions.loadSaleOrderByNumberSale),
+      mergeMap((action) => {
+        return this.saleServices.getOrderByNumberSale(action.numberSale).pipe(
+          map((response) => {
+            return SaleActions.loadSaleOrderByNumberSaleSuccess({
+              sales: response
+            });
+          }),
+          catchError((error) => {
+            return of(SaleActions.loadSaleOrderByNumberSaleFail({ error }));
           })
         );
       })

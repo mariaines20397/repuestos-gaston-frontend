@@ -136,5 +136,49 @@ export const carritoReducer = createReducer<any>(
             ...state,
             data:props.error
         })
+    ),
+     //create sales user
+     on(
+        CarritoActions.createSale,
+        (state, props):any => ({
+            ...state
+        })
+    ),
+    on(
+        CarritoActions.createSaleSuccess,
+        (state, props):any => ({
+            ...state,
+            data:props.sale
+        })
     )
+    ,
+    on(
+        CarritoActions.createSaleFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
+    ),
+    //productById
+    on(
+        CarritoActions.loadProductById,
+        (state):any => ({
+            ...state
+        })
+    ),
+    on(
+        CarritoActions.loadProductByIdSuccess,
+        (state, props):any => ({
+            ...state,
+            product:props.product
+        })
+    )
+    ,
+    on(
+        CarritoActions.loadProductByIdFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
+    ),
 )

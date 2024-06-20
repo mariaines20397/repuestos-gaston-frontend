@@ -72,7 +72,7 @@
         </div>
          </div>
            <div class="divButtons" *ngIf="this.product?.stock > 0 && this.authService.autenticado() && !this.authService.admin()">
-             <button class="btn btn-primary btn-comprar" (click)="comprarAhora()" [disabled]="cantidadForm.invalid">
+             <button class="btn btn-primary btn-comprar" (click)="comprarAhora(this.product)" [disabled]="cantidadForm.invalid">
                <p>Comprar ahora</p>
                <img src="./assets/svg/shop.svg" class="img-button" alt="Canasto" />
              </button>

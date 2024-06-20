@@ -61,21 +61,6 @@ constructor(
       })
     })
   }
-  // maxValueValidator(control: AbstractControl): ValidationErrors | null  {
-  //   const product = this.carrito;
-  //     if (control.get('cantidad')?.value > product.stock!) {
-  //       control.get('cantidad')?.setErrors({ maxValueExceeded: true });      
-  //       return {
-  //         maxValueExceeded: true 
-  //       };
-  //     }else if(control.get('cantidad')?.value == 0){
-  //       control.get('cantidad')?.setErrors({ minValueExceeded: true });      
-  //       return {
-  //         minValueExceeded: true 
-  //       };
-  //     }
-  //   return null; 
-  // }
 
   maxValueValidator(control: AbstractControl): ValidationErrors | null  {
     this.carrito?.forEach((product:any)=>{
@@ -114,6 +99,7 @@ constructor(
   clean(){
     Swal.fire({
       title: `¿Estas seguro que quieres eliminar todos los productos del carrito?`,
+      icon:'question',
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
       cancelButtonText:'Cancelar'
@@ -145,6 +131,6 @@ constructor(
       quantity: product.amount
     })
   })
-  this.store.dispatch(CarritoActions.loadPayment({productPayment:this.productPayment}));
+  await this.carritoService.payment(this.productPayment);
   }
 }

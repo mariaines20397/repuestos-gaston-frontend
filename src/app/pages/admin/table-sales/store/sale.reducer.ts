@@ -102,24 +102,70 @@ export const salesAdminReducer = createReducer<any>(
             data:props.error
         })
     ),
-    //create sales admin
+    //create sales
     on(
-        SaleActions.createSaleAdmin,
+        SaleActions.createSale,
         (state, props):any => ({
-            ...state,
-            data:props.products
+            ...state
         })
     ),
     on(
-        SaleActions.createSaleAdminSuccess,
+        SaleActions.createSaleSuccess,
         (state, props):any => ({
             ...state,
-            data:props.prueba
+            data:props.sale
         })
     )
     ,
     on(
-        SaleActions.createSaleAdminFail,
+        SaleActions.createSaleFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
+    ),
+    //update status
+    on(
+        SaleActions.loadUpdateStatus,
+        (state, props):any => ({
+            ...state,
+            id:props.id,
+            status:props.status
+        })
+    ),
+    on(
+        SaleActions.loadUpdateStatusSuccess,
+        (state, props):any => ({
+            ...state,
+            data:props.sales
+        })
+    )
+    ,
+    on(
+        SaleActions.loadUpdateStatusFail,
+        (state, props):any => ({
+            ...state,
+            data:props.error
+        })
+    ),
+    //get order by number sale
+    on(
+        SaleActions.loadSaleOrderByNumberSale,
+        (state, props):any => ({
+            ...state,
+            numberSale:props.numberSale,
+        })
+    ),
+    on(
+        SaleActions.loadSaleOrderByNumberSaleSuccess,
+        (state, props):any => ({
+            ...state,
+            search:props.sales
+        })
+    )
+    ,
+    on(
+        SaleActions.loadSaleOrderByNumberSaleFail,
         (state, props):any => ({
             ...state,
             data:props.error

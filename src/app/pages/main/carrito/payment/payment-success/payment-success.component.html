@@ -1,0 +1,99 @@
+<div class="contenedor">
+    <div class="productos">
+        <div class="card card-tabla">
+            <div class="card-body">
+                <div class="titleButtonsSubtitle">
+                    <div class="title">
+                        <h3 class="card-title"><b>¡Orden creada con éxito!</b></h3>
+                    </div>
+                </div>
+
+                <div class="titleButtons">
+                    <div class="title">
+                        <h4><b>¡Todo está listo para disfrutar de tu compra!</b></h4>
+                        <h3 class="card-title-numberSale">Acércate a nuestro local y presenta este número de orden<b> N° {{this.carrito.number_sale}}</b></h3>
+                    </div>
+                </div>
+                <div class="form-container">
+                        <fieldset>
+                            <div class="containerProducts">
+                                <div class="product" *ngIf="this.carrito.products?.length > 0">
+                                    <div class="card" *ngFor="let product of this.carrito.products">
+                                        <div class="carritoProducts">
+                                            <div class="row card-body">
+                                                <div class="infoPrice">
+                                                    <div class="infoProduct">
+                                                    <div class="divImg">
+                                                            <img class="card-img" [src]="mostrarImg(product?.product.image)"
+                                                                alt="Imagen del producto" *ngIf="product?.product.image" />
+
+                                                        </div>  
+                                                        <div class="divDescription">
+                                                            <div class="card-body">
+                                                                <h4 class="card-title"><b>{{product?.product.name}}</b></h4>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="divSumCantidad">
+                                                        <div class="stock">
+                                                            <p class="card-text">
+                                                                <small class="text-muted">Unidades</small>
+                                                            </p>
+                                                        </div>
+                                                        <div class="minusPlus">
+                                                            <input type="number" class="cantidad" disabled
+                                                                [value]="product.quantity" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="divDescription">
+                                                        <div class="stock">
+                                                            <p class="card-text">
+                                                                <small class="text-muted">Precio</small>
+                                                            </p>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h4 class="card-title"><b>${{product?.product.price}}</b></h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer subtotal">
+                                                    <div class="title">
+                                                        <h3><b>Subtotal</b></h3>
+                                                    </div>
+                                                    <div class="card-body-price">
+                                                        <h3 class="card-title"><b>${{product?.sub_total_price}}</b></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="containerInputs total">
+                                        <div class="card-footer subtotal">
+                                            <div class="title">
+                                                <h3><b>Total</b></h3>
+                                            </div>
+                                          <div class="card-body-price">
+                                                <h3 class="card-title"><b>${{this.totalPrice}}</b></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               <div class="formButtons" *ngIf="this.carrito.products?.length > 0">
+                                    <button class="btn btn-dark btn-login" (click)="home()">
+                                        Seguir viendo productos</button>
+                                </div> 
+                          <!--     <ng-container
+                                    *ngIf="!this.carritoProducts.products || this.carritoProducts.products?.length == 0">
+                                    <div class="product">
+                                        <h3>No hay productos para mostrar</h3>
+                                    </div>
+                                </ng-container>--> 
+                            </div>
+                        </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>

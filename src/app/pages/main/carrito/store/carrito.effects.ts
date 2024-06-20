@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CarritoService } from '../services/carrito.service';
 import Swal from 'sweetalert2';
+import { ProductsService } from '../../products/services/products.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class CarritoEffects {
   constructor(
     private actions$: Actions,
     private carritoServices: CarritoService,
+    private productsServices: ProductsService,
     private router: Router
   ) {}
 
@@ -111,7 +113,41 @@ export class CarritoEffects {
     )
   );
 
-  loadPayment$ = createEffect(() =>
+  createSale$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CarritoActions.createSale),
+      mergeMap((action) => {
+        return this.carritoServices.createOrderSale().pipe(
+          map((response) => {
+            return CarritoActions.createSaleSuccess({
+              sale: response,
+            });
+          }),
+          catchError((error) => {
+            return of(CarritoActions.createSaleFail({ error }));
+          })
+        );
+      })
+    )
+  );
+  loadProductById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CarritoActions.loadProductById),
+      mergeMap((action) => {
+        return this.productsServices.getProductById(action.id).pipe(
+          map((response) => {
+            return CarritoActions.loadProductByIdSuccess({
+              product: response,
+            });
+          }),
+          catchError((error) => {
+            return of(CarritoActions.loadProductByIdFail({ error }));
+          })
+        );
+      })
+    )
+  );
+ /* loadPayment$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CarritoActions.loadPayment),
       mergeMap((action) => {
@@ -129,5 +165,5 @@ export class CarritoEffects {
         );
       })
     )
-  );
+  );*/
 }
