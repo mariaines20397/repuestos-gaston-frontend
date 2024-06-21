@@ -30,7 +30,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let sale of this.salesAdmin.data; let index = index">
+              <tr *ngFor="let sale of this.salesAdmin; let index = index">
                 <td scope="row" class="colMenu">
                   <div ngbDropdown class="d-inline-block dropdownMenu" >
                     <button class="btn" id="dropdown1" ngbDropdownToggle>
@@ -60,7 +60,7 @@
                   <div>Rechazado</div>
                 </td>
               </tr>
-              <ng-container *ngIf="this.salesAdmin?.data?.length == 0">
+              <ng-container *ngIf="this.salesAdmin?.length == 0">
                 <tr>
                   <td colspan="5" class="not-found">
                     No hay productos para mostrar
@@ -75,7 +75,7 @@
     <div class="pagination">
      <ngb-pagination 
       (pageChange)="pageChange($event)" 
-      [collectionSize]="this.salesAdmin?.totalElements" [page]="this.salesAdmin.pageable.pageNumber + 1" [pageSize]="this.salesAdmin?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
+      [collectionSize]="this.salesAdminComplete?.totalElements" [page]="this.salesAdminPagination?.pageNumber + 1" [pageSize]="this.salesAdminPagination?.pageSize" aria-label="Default pagination"></ngb-pagination>
     </div>
   </div>
 </div>

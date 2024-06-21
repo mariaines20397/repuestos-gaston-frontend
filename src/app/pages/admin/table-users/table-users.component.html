@@ -21,27 +21,29 @@
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col" class="descripcionTabla">Apellido</th>
+                    <th scope="col" class="descripcionTabla">DNI</th>
                     <th scope="col">Usuario</th>
                   </tr>
                 </thead>
                 <tbody >
-                  <tr *ngFor="let user of this.userAdmin.data; let index = index">
+                  <tr *ngFor="let user of this.userAdmin; let index = index">
                     <td scope="row" class="colMenu">
                       <div ngbDropdown class="d-inline-block dropdownMenu" >
                         <button class="btn" id="dropdown1" ngbDropdownToggle>
                           <img class="imgSection" src="../../../../assets/svg/menuAdmin.svg" alt="" srcset="" />
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdown1">
-                            <button ngbDropdownItem class="btn" (click)="verUsuario(user.user_id)">Ver más</button>
+                            <button ngbDropdownItem class="btn" (click)="verUsuario(user.id)">Ver más</button>
                             <hr>
                           </div>
                       </div>
                     </td>                     
                     <td>{{user.name}}</td>
                     <td class="descripcionTabla">{{user.surname}}</td>
+                    <td class="descripcionTabla">{{user.dni}}</td>
                     <td>{{user.username}}</td>
                   </tr>
-                  <ng-container *ngIf="!this.userAdmin.data || this.userAdmin.data.length == 0">
+                  <ng-container *ngIf="!this.userAdmin || this.userAdmin.length == 0">
                     <tr>
                       <td colspan="5" class="not-found">
                         No hay usuarios para mostrar
@@ -54,7 +56,7 @@
             </div>
         </div>
         <div class="pagination">
-          <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.userAdmin?.totalElements" [page]="this.userAdmin.pageable.pageNumber + 1" [pageSize]="this.userAdmin?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
+          <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.userAdminComplete?.totalElements" [page]="this.userAdminPagination.pageNumber + 1" [pageSize]="this.userAdminPagination?.pageSize" aria-label="Default pagination"></ngb-pagination>
         </div>
 </div>
 </div>

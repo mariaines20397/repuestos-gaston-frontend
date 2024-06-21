@@ -55,7 +55,7 @@ getByUser(user:any){
     name: user.data?.name,
     surname:user.data?.surname,
     dni:user.data?.dni,
-    birthday:user.data?.birthday,
+    birthday:user.data?.birthdate,
     username:user.data?.username,
     email:user.data?.email
   })  

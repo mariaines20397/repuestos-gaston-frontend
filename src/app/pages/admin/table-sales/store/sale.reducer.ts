@@ -147,28 +147,5 @@ export const salesAdminReducer = createReducer<any>(
             ...state,
             data:props.error
         })
-    ),
-    //get order by number sale
-    on(
-        SaleActions.loadSaleOrderByNumberSale,
-        (state, props):any => ({
-            ...state,
-            numberSale:props.numberSale,
-        })
-    ),
-    on(
-        SaleActions.loadSaleOrderByNumberSaleSuccess,
-        (state, props):any => ({
-            ...state,
-            search:props.sales
-        })
     )
-    ,
-    on(
-        SaleActions.loadSaleOrderByNumberSaleFail,
-        (state, props):any => ({
-            ...state,
-            data:props.error
-        })
-    ),
 )

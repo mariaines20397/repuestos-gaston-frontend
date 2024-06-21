@@ -18,11 +18,13 @@ export class TableCategoriesComponent implements OnInit{
  
   searchForm:FormGroup;
   private subscriptions = new Subscription();
-  categoryAdmin: any = {}
+  categoryAdmin: any = {};
+  private isSearching: boolean = false;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private store:Store<{ filtrar:Search, categoryAdmin: getAllCategory}>,
+    private store:Store<{ categoriesSearch:any, categoryAdmin: getAllCategory}>,
   ) {
     this.searchForm = this.formBuilder.group({
       search: new FormControl(null)
@@ -31,10 +33,18 @@ export class TableCategoriesComponent implements OnInit{
       this.store
       .select('categoryAdmin')
       .subscribe((categoryAdmin) => {
+        if (!this.isSearching) {
           this.categoryAdmin = categoryAdmin;
-        
+        }
       })
     );
+    this.store
+      .select('categoriesSearch')
+      .subscribe((categoriesSearch) => {
+        if (this.isSearching) {
+          this.categoryAdmin = categoriesSearch;
+        }
+      })
     this.categoryAdmin.pageable = {
       size:2,
       page:0
@@ -75,8 +85,10 @@ export class TableCategoriesComponent implements OnInit{
       page:0
     };
     if (filtrar == "") {
+      this.isSearching = false;
       this.store.dispatch(CategoryActions.loadCategories({pageable:this.categoryAdmin.pageable}));
     }else{
+      this.isSearching = true;
       this.store.dispatch(CategoryActions.loadCategoriesByName({filter:filtrar, pageable:this.categoryAdmin.pageable}));
     }  
   }

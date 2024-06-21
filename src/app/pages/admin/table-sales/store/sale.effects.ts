@@ -1,6 +1,6 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as SaleActions from './sale.actions';
-import { catchError, map, mergeMap, of, throwError } from 'rxjs';
+import { catchError, map, mergeMap, of, take, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -35,7 +35,7 @@ export class SaleAdminEffects {
           }),
           catchError((error) => {
             return of(SaleActions.loadSalesFail({ error }));
-          })
+          }),
         );
       })
     )
@@ -148,21 +148,4 @@ export class SaleAdminEffects {
       })
     )
   );
-  loadSaleOrderByNumberSale$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(SaleActions.loadSaleOrderByNumberSale),
-      mergeMap((action) => {
-        return this.saleServices.getOrderByNumberSale(action.numberSale).pipe(
-          map((response) => {
-            return SaleActions.loadSaleOrderByNumberSaleSuccess({
-              sales: response
-            });
-          }),
-          catchError((error) => {
-            return of(SaleActions.loadSaleOrderByNumberSaleFail({ error }));
-          })
-        );
-      })
-    )
-  );
-}
+  }

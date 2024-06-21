@@ -253,10 +253,15 @@ export class SaleService {
       })
     })
   }
-  getOrderByNumberSale(numberSale:number):Observable<any>{
+  getOrderByNumberSale(numberSale:number, pagination?:any):Observable<any>{
+    let queryParams: any = new HttpParams();
+    if (pagination) {
+      pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
+      queryParams = new HttpParams({fromObject:{ ...pagination}});
+    }
     const finalUrl=`http://localhost:8080/v1/orders/numberSale/${numberSale}`;
     return new Observable((obs)=>{
-      this.httpClient.get(finalUrl)
+      this.httpClient.get(finalUrl,{params:queryParams})
       .subscribe({
         next: (res) => {
           obs.next(res);

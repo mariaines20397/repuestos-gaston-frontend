@@ -53,12 +53,6 @@
            </div>
          </div>
          <div class="divButtons" *ngIf="!this.authService.autenticado()">
-          <div placement="start" ngbTooltip="Para realizar una compra primero debes iniciar sesión">
-          <button disabled class="btn btn-primary btn-comprar" >
-            <p>Comprar ahora</p>
-            <img src="./assets/svg/shop.svg" class="img-button" alt="Canasto" />
-          </button>
-        </div>
         <div placement="start" ngbTooltip="Para agregar un producto al carrito primero debes iniciar sesión">
           <button disabled class="btn btn-carrito" >
             <p>Agregar al carrito</p>
@@ -72,10 +66,6 @@
         </div>
          </div>
            <div class="divButtons" *ngIf="this.product?.stock > 0 && this.authService.autenticado() && !this.authService.admin()">
-             <button class="btn btn-primary btn-comprar" (click)="comprarAhora(this.product)" [disabled]="cantidadForm.invalid">
-               <p>Comprar ahora</p>
-               <img src="./assets/svg/shop.svg" class="img-button" alt="Canasto" />
-             </button>
              <button class="btn btn-carrito" (click)="agregarCarrito(this.product)" [disabled]="cantidadForm.invalid">
                <p>Agregar al carrito</p>
                <img

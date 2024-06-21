@@ -21,6 +21,9 @@ import * as fromAdminCategoryReducer from './table-categories/store/categories.r
 import * as fromAdminSaleReducer from './table-sales/store/sale.reducer';
 import * as fromAdminUserReducer from './table-users/store/users.reducer';
 import * as fromCarritoAdminReducer from './table-sales/store/carritoAdmin.reducer';
+import * as fromSearchSaleReducer from './table-sales/store/searchSale.reducer';
+import * as fromUsersSearchReducer from './table-users/store/usersSearch.reducer';
+import * as fromCategoriesSearchReducer from './table-categories/store/categoriesSearch.reducer';
 import { ProductsAdminEffects } from './table-products/store/products.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { CategoriesAdminEffects } from './table-categories/store/categories.effects';
@@ -28,6 +31,9 @@ import { SaleAdminEffects } from './table-sales/store/sale.effects';
 import { UsersAdminEffects } from './table-users/store/users.effects';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarritoAdminEffects } from './table-sales/store/carritoAdmin.effects';
+import { SearchSaleEffects } from './table-sales/store/searchSale.effects';
+import { UsersSearchEffects } from './table-users/store/usersSearch.effects';
+import { CategoriesSearchEffects } from './table-categories/store/categoriesSearch.effects';
 
 
 @NgModule({
@@ -76,7 +82,22 @@ import { CarritoAdminEffects } from './table-sales/store/carritoAdmin.effects';
       'carritoAdmin',
       fromCarritoAdminReducer.carritoAdminReducer
     ),
-    EffectsModule.forFeature([CarritoAdminEffects])
+    EffectsModule.forFeature([CarritoAdminEffects]),
+    StoreModule.forFeature(
+      'searchSale',
+      fromSearchSaleReducer.searchSaleReducer
+    ),
+    EffectsModule.forFeature([SearchSaleEffects]),
+    StoreModule.forFeature(
+      'usersSearch',
+      fromUsersSearchReducer.usersSearchReducer
+    ),
+    EffectsModule.forFeature([UsersSearchEffects]),
+    StoreModule.forFeature(
+      'categoriesSearch',
+      fromCategoriesSearchReducer.categoriesSearchReducer
+    ),
+    EffectsModule.forFeature([CategoriesSearchEffects])
   ]
 })
 export class AdminModule { }

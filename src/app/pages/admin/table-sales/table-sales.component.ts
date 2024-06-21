@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Search } from 'src/app/shared/navbar/model/search.model';
 import * as SearchActions from '../../../shared/navbar/store/search.actions';
 import * as SalesActions from './store/sale.actions';
+import * as SearchSaleActions from './store/searchSale.actions';
 import { Sale, getAllSale } from './model/sale.model';
 import { SaleService } from './services/sale.service';
 import { Subscription } from 'rxjs';
@@ -51,13 +52,17 @@ export class TableSalesComponent implements OnInit{
   private subscriptions = new Subscription();
   searchForm:FormGroup;
   sales:Sale[]=[];
-  salesAdmin:any={}
+  salesAdmin:any[]=[]
+  salesAdminPagination:any={}
+  salesAdminComplete:any={}
   page = 1;
+  private isSearching: boolean = false;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private saleServices: SaleService,
-    private store:Store<{ filtrar:Search, salesAdmin:any}>,
+    private store:Store<{ searchSale:any, salesAdmin:any}>,
   ) {
     this.searchForm = this.formBuilder.group({
       search: new FormControl(null)
@@ -66,41 +71,51 @@ export class TableSalesComponent implements OnInit{
       this.store
       .select('salesAdmin')
       .subscribe((salesAdmin) => {
-          this.salesAdmin = salesAdmin;    
+        if (!this.isSearching) {
+          this.salesAdminComplete = salesAdmin;   
+          this.salesAdmin = salesAdmin.data;   
+          this.salesAdminPagination = salesAdmin.pageable;  
           if (salesAdmin.search) {
-            this.salesAdmin = {data:[salesAdmin.search]};        
-          }    
+            this.salesAdmin = salesAdmin.search
+          } 
+        }
       })
     );
-   }
-   ngOnInit(): void {
-    this.getSales();
-    this.salesAdmin.pageable = {
+    this.store
+      .select('searchSale')
+      .subscribe((searchSale) => {
+        if (this.isSearching) {
+          this.salesAdminComplete = searchSale;   
+          this.salesAdmin = searchSale.search;   
+          this.salesAdminPagination = searchSale.pageable; 
+      }})
+    this.salesAdminPagination = {
       size:2,
       page:0
     };
-    this.store.dispatch(SalesActions.loadSales({pageable:this.salesAdmin.pageable}));
-    // this.store.dispatch(ProductosAdminActions.loadProducts());
+    this.store.dispatch(SalesActions.loadSales({pageable:this.salesAdminPagination}));
+   }
+   ngOnInit(): void {    
   }
    search(){
-    const filtrar = parseInt(this.searchForm.value.search);
-    if (!Number.isNaN(filtrar)) {
-      this.store.dispatch(SalesActions.loadSaleOrderByNumberSale({numberSale:filtrar}));
-    }
-    if (Number.isNaN(filtrar)) {
-      this.salesAdmin.pageable = {
-        size:2,
-        page:0
-      };
-      this.store.dispatch(SalesActions.loadSales({pageable:this.salesAdmin.pageable}));
+    const filtrar = this.searchForm.value.search;
+    this.salesAdminPagination = {
+      size:2,
+      page:0
+    };
+    console.log(filtrar);
+    
+    if (filtrar != "") {
+      this.isSearching = true;
+      this.store.dispatch(SearchSaleActions.loadSaleOrderByNumberSale({numberSale:parseInt(filtrar),pageable:this.salesAdminPagination}));
+    }else{
+      this.isSearching = false;
+      this.store.dispatch(SalesActions.loadSales({pageable:this.salesAdminPagination}));
     }
   }
   agregar(){
     this.router.navigate(['admin/dashboard/sale/add']);
     }
-  getSales(){
-    this.sales=this.saleServices.getSalesPrueba();    
-  }
   verDetalle(id:number){
     this.router.navigate([`admin/dashboard/ventas/ver/${id}`]);
   }
@@ -120,11 +135,11 @@ export class TableSalesComponent implements OnInit{
   }
   pageChange(evento:any){
     if (!Number.isNaN(evento)) {
-     this.salesAdmin.pageable = {
+     this.salesAdminPagination = {
         size:2,
        page: evento != 0 ? evento - 1 : 0 
       };
     }
-this.store.dispatch(SalesActions.loadSales({pageable:this.salesAdmin.pageable}));
+this.store.dispatch(SalesActions.loadSales({pageable:this.salesAdminPagination}));
   }
 }

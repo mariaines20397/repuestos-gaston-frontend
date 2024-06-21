@@ -147,4 +147,27 @@ export class AdminUsersService {
       })
     })
   }
+  getUsersByDni(dni:string, pagination?:any):Observable<any> {
+    let queryParams: any = new HttpParams();
+    if (pagination) {
+      pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
+      queryParams = new HttpParams({fromObject:{ ...pagination}});
+    }
+    const finalUrl=`http://localhost:8080/v1/users/dni/${dni}`;
+    return new Observable((obs)=>{
+      this.httpClient.get(finalUrl)
+      .subscribe({
+        next: (res) => {
+          // this.router.navigate(['/home']);
+          obs.next(res);
+          obs.complete();
+        },
+        error: (error) => {
+          // Swal.fire('¡Lo siento!', error,'error');
+          obs.error(error);
+          obs.complete();
+        }
+      })
+    })
+  }
 }

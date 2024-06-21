@@ -47,11 +47,4 @@ props<{sales:any}>());
 export const loadUpdateStatusFail = createAction('[UpdateStatus] loadUpdateStatusFail',
 props<{error:any}>());
 
-//get by numberSale
-export const loadSaleOrderByNumberSale = createAction('[SaleOrderByNumberSale] loadSaleOrderByNumberSale',
-props<{numberSale:number}>());
-export const loadSaleOrderByNumberSaleSuccess = createAction('[SaleOrderByNumberSale] loadSaleOrderByNumberSaleSuccess',
-props<{sales:any}>());
-export const loadSaleOrderByNumberSaleFail = createAction('[SaleOrderByNumberSale] loadSaleOrderByNumberSaleFail',
-props<{error:any}>());
 

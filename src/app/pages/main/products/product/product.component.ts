@@ -91,8 +91,8 @@ export class ProductComponent implements OnInit{
         amount,
         idProduct: product.product_id
       }
-      this.router.navigate(['/carrito']);
       this.store.dispatch(ProductActions.addProductToCart({product:productAdd}));
+      this.router.navigate(['/carrito']);
     }else{
       Swal.fire('Inicia sesión', `Para agregar un producto al carrito haz click en continuar e inicia sesión.`, 'info')
           .then((result) => {

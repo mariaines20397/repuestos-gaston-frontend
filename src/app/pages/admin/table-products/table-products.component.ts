@@ -22,7 +22,8 @@ export class TableProductsComponent implements OnInit{
   imageSource: any = {}
   pagination: any = {}
   private subscriptions = new Subscription();
-  isLowStock:string=''
+  isLowStock:string='';
+  private isSearching: boolean = false;
   constructor(
     public router: Router,
     private formBuilder: FormBuilder,
@@ -37,21 +38,23 @@ export class TableProductsComponent implements OnInit{
       this.store
       .select('productAdmin')
       .subscribe((productAdmin) => {
+        if (!this.isSearching) {
           this.productAdmin = productAdmin;        
-      })
+      }})
     );
     this.subscriptions.add(
       this.store
       .select('search')
       .subscribe((search) => {
+        if (this.isSearching) {
         this.productAdmin = search;      
-      })
+      }})
     );    
    }
   ngOnInit(): void {
     this.isLowStock = this.routeActive.snapshot.paramMap.get('lowStock')!;
     this.productAdmin.pageable = {
-      size:2,
+      size:4,
       page:0
     };
     if (this.isLowStock) {
@@ -74,7 +77,7 @@ export class TableProductsComponent implements OnInit{
   pageChange(evento:any){
     if (!Number.isNaN(evento)) {
      this.productAdmin.pageable = {
-        size:2,
+        size:4,
        page: evento != 0 ? evento - 1 : 0 
       };
     }
@@ -96,12 +99,14 @@ this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdm
  search(){
   const filtrar = this.searchForm.value.search;
   this.productAdmin.pageable = {
-    size:2,
+    size:4,
     page:0
   };
   if (filtrar == "") {
+    this.isSearching = false;
     this.store.dispatch(ProductosAdminActions.loadProducts({pageable:this.productAdmin.pageable}));
   }else{
+    this.isSearching = true;
     this.store.dispatch(SearchActions.loadSearch({filter:filtrar, pageable:this.productAdmin.pageable}));
   }
 }
