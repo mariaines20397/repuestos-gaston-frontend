@@ -1,11 +1,9 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as CategoriesSearchActions from './categoriesSearch.actions';
-import { catchError, map, mergeMap, of, retry, throwError } from 'rxjs';
+import { catchError, map, mergeMap, of, retry } from 'rxjs';
 import { AdminCategoriesService } from '../services/admin-categories.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { AuthService } from 'src/app/core/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class CategoriesSearchEffects {
   constructor(
     private actions$: Actions,
-    private categoriesServices: AdminCategoriesService,
-    private router: Router,
+    private categoriesServices: AdminCategoriesService
   ) {}
 
   loadCategoriesByName$ = createEffect(() =>    

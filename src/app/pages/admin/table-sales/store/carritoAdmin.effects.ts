@@ -1,10 +1,8 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as CarritoAdminActions from './carritoAdmin.actions';
-import { catchError, map, mergeMap, of, throwError } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { SaleService } from '../services/sale.service';
 
 @Injectable({
@@ -15,7 +13,7 @@ export class CarritoAdminEffects {
     private actions$: Actions,
     private saleServices: SaleService,
     private router: Router,
-  ) {}
+  ) { }
 
 
   addProduct$ = createEffect(() =>
@@ -24,7 +22,7 @@ export class CarritoAdminEffects {
       mergeMap((action) => {
         return this.saleServices.addProduct(action.product).pipe(
           map((response) => {
-              location.reload();
+            location.reload();
             return CarritoAdminActions.addProductSuccess();
           }),
           catchError((error) => {

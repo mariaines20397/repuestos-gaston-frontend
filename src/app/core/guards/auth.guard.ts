@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Injectable, inject } from '@angular/core';
 @Injectable({
@@ -12,7 +12,7 @@ class AuthGuardianService {
     }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.authService.autenticado() && !this.authService.admin()) {
+    if (this.authService.authenticated() && !this.authService.admin()) {
            return true;
     }
         this.router.navigate(['/home'])

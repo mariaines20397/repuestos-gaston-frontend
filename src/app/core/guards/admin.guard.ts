@@ -13,7 +13,7 @@ class AdminGuardianService {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.authService.autenticado() && this.authService.admin()) {
+    if (this.authService.authenticated() && this.authService.admin()) {
            return true;
       }
       this.router.navigate(['/home']);

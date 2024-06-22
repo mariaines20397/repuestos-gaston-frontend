@@ -1,8 +1,7 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as HomeActions from './home.actions';
-import { catchError, map, mergeMap, of, retry } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { HomeService } from '../services/home.service';
-import * as CategoriesActions from '../store/home.actions'
 import { Injectable } from '@angular/core';
 
 @Injectable({

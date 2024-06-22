@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import * as SearchActions from 'src/app/shared/navbar/store/search.actions'
 import * as LoginActions from 'src/app/pages/login/store/login.actions';
 
 import { Store } from '@ngrx/store';
@@ -16,11 +15,11 @@ export class SidebarAdminComponent {
   constructor(
     private store:Store
     ){}
-  disabledMenu(){
+  public disabledMenu() : void {
     this.menu ? this.menu = false : this.menu = true;
     this.changeMenu.emit(this.menu);
   }
-  logout(){
+  public logout() : void {
     this.store.dispatch(LoginActions.loadLogout());
   }
 }

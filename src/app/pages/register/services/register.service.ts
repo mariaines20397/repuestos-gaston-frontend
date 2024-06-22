@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class RegisterService {
     private httpClient: HttpClient
   ) { }
 
-  postRegister(user:object):Observable<any>{
+  public postRegister(user:object):Observable<any>{
     const finalUrl='http://localhost:8080/v1/users/';
 
     return new Observable((obs)=>{
@@ -22,6 +23,7 @@ export class RegisterService {
           obs.complete();
         },
         error: (error) => {
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }

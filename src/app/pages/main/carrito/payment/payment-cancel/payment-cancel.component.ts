@@ -11,7 +11,7 @@ export class PaymentCancelComponent {
     private router:Router
   ){}
 
-  home(){
+  public home() : void {
     this.router.navigate(['/home'])
   }
 }

@@ -1,5 +1,5 @@
 <!-- <body> -->
-  
+
 <ngb-carousel class="carouselDesktop">
   <ng-template *ngFor="let img of carousel" ngbSlide class="carousel-desktop">
     <div class="picsum-img-wrapper">
@@ -17,11 +17,7 @@
 <div class="formasPago">
   <div class="card">
     <div class="col-md-2">
-      <img
-        src="../../../../assets/svg/credit-card.svg"
-        class="card-img"
-        alt="tarjeta de credito"
-      />
+      <img src="../../../../assets/svg/credit-card.svg" class="card-img" alt="tarjeta de credito" />
     </div>
     <div class="col-md-10">
       <div class="card-body">
@@ -31,11 +27,7 @@
   </div>
   <div class="card">
     <div class="col-md-2">
-      <img
-        src="../../../../assets/svg/card.svg"
-        class="card-img"
-        alt="tarjeta de credito"
-      />
+      <img src="../../../../assets/svg/card.svg" class="card-img" alt="tarjeta de credito" />
     </div>
     <div class="col-md-10">
       <div class="card-body">
@@ -45,11 +37,7 @@
   </div>
   <div class="card">
     <div class="col-md-2">
-      <img
-        src="../../../../assets/svg/cash.svg"
-        class="card-img"
-        alt="tarjeta de credito"
-      />
+      <img src="../../../../assets/svg/cash.svg" class="card-img" alt="tarjeta de credito" />
     </div>
     <div class="col-md-10">
       <div class="card-body">
@@ -61,18 +49,20 @@
 
 <div class="productos" *ngIf="this.products?.data?.length > 0">
   <div class="card" *ngFor="let producto of this.products.data" style="width: 18rem">
-    <div (click)="verProducto(producto.product_id)">
-      <img [src]="mostrarImg(producto.image)" class="card-img-top" />
+    <div (click)="viewProduct(producto.product_id)">
+      <img [src]="viewImage(producto.image)" class="card-img-top" />
       <div class="card-body">
         <h5 class="card-title">{{ producto.name }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{ producto.description }}</h6>
-        <p class="card-text">$ {{ producto.price }}</p>
+        <p class="card-text">$ {{ producto.price | priceFormat}}</p>
       </div>
-   </div>
+    </div>
   </div>
   <div class="pagination">
-  <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.products?.totalElements" [page]="this.products.pageable.pageNumber + 1" [pageSize]="this.products?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
-</div>
+    <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.products?.totalElements"
+      [page]="this.products.pageable.pageNumber + 1" [pageSize]="this.products?.pageable?.pageSize"
+      aria-label="Default pagination"></ngb-pagination>
+  </div>
 </div>
 <div class="card" *ngIf="this.products?.data?.length == 0">
   <h4 class="not-found">

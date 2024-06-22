@@ -1,18 +1,16 @@
 <div class="admin">
     <div [class]="cssClassMenu(menu)">
-        <!-- class="col-sidebar" -->
         <app-sidebar-admin (changeMenu)="menu = $event"></app-sidebar-admin>
     </div>
     <div [class]="cssClassCol(menu)">
-        <!-- class="col-router" -->
         <router-outlet></router-outlet>
     </div>
 </div>
 <div class="mobile">
     <div class="text">
-       <h1>Oops,</h1>
-    <h4>Parece que esta vista no esta disponible en este momento.</h4> 
+        <h1>Oops,</h1>
+        <h4>Parece que esta vista no esta disponible en este momento.</h4>
     </div>
-    
+
     <img src="../assets/svg/alert.svg" alt="" srcset="">
-  </div>
+</div>

@@ -12,7 +12,7 @@
                         <h3 *ngIf="this.router.url.includes('view')" class="card-title"><b>Ver más de la categoría</b></h3>
                     </div>
                     <div class="iconsTitle">
-                        <button class="btn" (click)="editar()" *ngIf="!this.router.url.includes('add')" [disabled]="this.router.url.includes('edit')"
+                        <button class="btn" (click)="editCategory()" *ngIf="!this.router.url.includes('add')" [disabled]="this.router.url.includes('edit')"
                             placement="left" ngbTooltip="Editar categoría">
                             <img src="../../../../../assets/svg/edit.svg" alt="" srcset="">
                         </button>
@@ -43,7 +43,7 @@
                     </form>
                     <div class="formButtons">
                         <button class="btn btn-dark btn-login" *ngIf="!this.router.url.includes('view')"
-                            [disabled]="categoryForm.invalid" (click)="guardarProducto()">
+                            [disabled]="categoryForm.invalid" (click)="saveCategory()">
                             Guardar categoría</button>
                     </div>
                 </div>

@@ -22,7 +22,7 @@
         <img class="menu-mobile" src="../../../assets/svg/menu.svg" alt="" srcset="">
         
       </button>
-        <button class="btn btn-cart" (click)="cart()" *ngIf="this.authService.autenticado() && !this.authService.admin()">
+        <button class="btn btn-cart" (click)="cart()" *ngIf="this.authService.authenticated() && !this.authService.admin()">
           <img src="../../../assets/svg/cart-min.svg" alt="cart" class="user" srcset=""></button>
       
     </div>
@@ -49,13 +49,13 @@
         
       </ul>
       <ul class="navbar-nav navbar-right" id="navbar-user">
-        <li  *ngIf="authService.autenticado() == false">
+        <li  *ngIf="authService.authenticated() == false">
           <a class="nav-link" href="/register">Creá tu cuenta</a>
         </li>
-       <li  *ngIf="authService.autenticado() == false">
+       <li  *ngIf="authService.authenticated() == false">
          <a class="nav-link" href="/login">Ingresá</a>
        </li>
-       <li class="nav-item dropdown"  *ngIf="authService.autenticado()">
+       <li class="nav-item dropdown"  *ngIf="authService.authenticated()">
         
         <a
           class="nav-link dropdown-toggle"
@@ -75,14 +75,14 @@
           </ul>
       </li>
 <li >
-  <button class="btn btn-cart" (click)="cart()" *ngIf="this.authService.autenticado() && !this.authService.admin()">
+  <button class="btn btn-cart" (click)="cart()" *ngIf="this.authService.authenticated() && !this.authService.admin()">
     <img src="../../../assets/svg/cart.svg" alt="cart" class="user" srcset="" ></button>
-    <button class="btn btn-cart" (click)="back()" placement="top" ngbTooltip="Volver al dashboard" *ngIf="this.authService.autenticado() && this.authService.admin()">
+    <button class="btn btn-cart" (click)="back()" placement="top" ngbTooltip="Volver al dashboard" *ngIf="this.authService.authenticated() && this.authService.admin()">
       <img src="../../../assets/svg/dashboard.svg" alt="" class="user" srcset="">
   </button>
 
 </li>
-       <!-- *ngIf="authService.autenticado()" -->
+       <!-- *ngIf="authService.authenticated()" -->
        <!-- <li class="dropdown" >
          <a
            class="btn btn-outline-primary dropdown-toggle"
@@ -120,12 +120,12 @@
   </div>
   <div class="menu" *ngIf="isMenu">
     <div class="open-menu-mobile" >
-      <div class="buttons-menu-mobile" *ngIf="authService.autenticado() == false">
+      <div class="buttons-menu-mobile" *ngIf="authService.authenticated() == false">
        <button class="btn btn-dark btn-ingreso" (click)="login()">Ingresar</button>
      <button class="btn btn-outline-dark btn-register" (click)="register()">Registrarse</button>
      
    </div>
-   <div class="user-menu-mobile" *ngIf="authService.autenticado()">
+   <div class="user-menu-mobile" *ngIf="authService.authenticated()">
      <ul class="navbar-nav navbar-right navbar-user-mobile">
       <li class="nav-item dropdown">
        

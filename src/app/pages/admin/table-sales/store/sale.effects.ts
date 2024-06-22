@@ -1,10 +1,9 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as SaleActions from './sale.actions';
-import { catchError, map, mergeMap, of, take, throwError } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { SaleService } from '../services/sale.service';
 
 @Injectable({
@@ -15,22 +14,22 @@ export class SaleAdminEffects {
     private actions$: Actions,
     private saleServices: SaleService,
     private router: Router,
-  ) {}
+  ) { }
 
   loadSales$ = createEffect(() =>
     this.actions$.pipe(
       ofType(SaleActions.loadSales),
       mergeMap((action) => {
-        const sales = action.pageable ? 
-        this.saleServices.getSales(action.pageable)
-        : this.saleServices.getSales();
+        const sales = action.pageable ?
+          this.saleServices.getSales(action.pageable)
+          : this.saleServices.getSales();
         return sales.pipe(
           map((response) => {
             return SaleActions.loadSalesSuccess({
               sales: response.content,
               pageable: response.pageable,
               totalPages: response.totalPages,
-              totalElements:response.totalElements
+              totalElements: response.totalElements
             });
           }),
           catchError((error) => {
@@ -83,12 +82,12 @@ export class SaleAdminEffects {
       mergeMap((action) => {
         return this.saleServices.createOrderSale().pipe(
           map((response) => {
-            Swal.fire(`Orden de venta N° ${response.number_sale}`,'', 'success')
-          .then((result) => {
-            if (result.isConfirmed) {
-              this.router.navigate(['/admin/dashboard/sale']);
-            } 
-          })
+            Swal.fire(`Orden de venta N° ${response.number_sale}`, '', 'success')
+              .then((result) => {
+                if (result.isConfirmed) {
+                  this.router.navigate(['/admin/dashboard/sale']);
+                }
+              })
             return SaleActions.createSaleSuccess({
               sale: response,
             });
@@ -105,16 +104,16 @@ export class SaleAdminEffects {
     this.actions$.pipe(
       ofType(SaleActions.loadSaleByNumber),
       mergeMap((action) => {
-        const sales = action.pageable ? 
-        this.saleServices.getSales(action.pageable)
-        : this.saleServices.getSales();
+        const sales = action.pageable ?
+          this.saleServices.getSales(action.pageable)
+          : this.saleServices.getSales();
         return sales.pipe(
           map((response) => {
             return SaleActions.loadSaleByNumberSuccess({
               sales: response.content,
               pageable: response.pageable,
               totalPages: response.totalPages,
-              totalElements:response.totalElements
+              totalElements: response.totalElements
             });
           }),
           catchError((error) => {
@@ -131,12 +130,12 @@ export class SaleAdminEffects {
       mergeMap((action) => {
         return this.saleServices.updateStatus(action.id, action.status).pipe(
           map((response) => {
-            Swal.fire(`Estado de orden actualizada con éxito`, '','success')
-          .then((result) => {
-            if (result.isConfirmed) {
-              this.router.navigate(['/admin/dashboard/sale']);
-            } 
-          })
+            Swal.fire(`Estado de orden actualizada con éxito`, '', 'success')
+              .then((result) => {
+                if (result.isConfirmed) {
+                  this.router.navigate(['/admin/dashboard/sale']);
+                }
+              })
             return SaleActions.loadUpdateStatusSuccess({
               sales: response
             });
@@ -148,4 +147,4 @@ export class SaleAdminEffects {
       })
     )
   );
-  }
+}

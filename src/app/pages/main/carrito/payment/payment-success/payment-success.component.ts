@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import * as CarritoActions from '../../store/carrito.actions';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,12 +12,12 @@ import { Router } from '@angular/router';
 })
 export class PaymentSuccessComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
-  carrito: any = [];
-  totalPrice: any;
+  public carrito: any = [];
+  public totalPrice: any;
 
   constructor(private store: Store<{ carrito: any }>,
     private sanitizer: DomSanitizer,
-    private router:Router
+    private router: Router
   ) {
     this.store
       .select('carrito')
@@ -31,16 +31,16 @@ export class PaymentSuccessComponent implements OnInit, OnDestroy {
     this.store.dispatch(CarritoActions.createSale());
   }
 
-  calculateTotalPrice(products:any){
+  public calculateTotalPrice(products: any): void {
     this.totalPrice = 0;
-    products.forEach((data:any)=>{
+    products.forEach((data: any) => {
       this.totalPrice += data.sub_total_price
     })
   }
-  mostrarImg(image:any){
+  public viewImage(image: any): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image}`);
   }
-  home(){
+  public home(): void {
     this.router.navigate(['/home'])
   }
   ngOnDestroy(): void {

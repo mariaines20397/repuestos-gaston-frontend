@@ -34,6 +34,7 @@ import { CarritoAdminEffects } from './table-sales/store/carritoAdmin.effects';
 import { SearchSaleEffects } from './table-sales/store/searchSale.effects';
 import { UsersSearchEffects } from './table-users/store/usersSearch.effects';
 import { CategoriesSearchEffects } from './table-categories/store/categoriesSearch.effects';
+import { CoreModule } from 'src/app/core/core.module';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { CategoriesSearchEffects } from './table-categories/store/categoriesSear
     CommonModule,
     AdminRoutingModule,
     SharedModule,
+    CoreModule,
     NgbPaginationModule,
     ReactiveFormsModule,
     NgbTooltipModule,

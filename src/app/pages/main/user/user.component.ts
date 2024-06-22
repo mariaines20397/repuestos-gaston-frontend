@@ -12,23 +12,11 @@ import { Subscription } from 'rxjs';
 })
 export class UserComponent implements OnInit{
   private subscriptions = new Subscription();
-  user:any = {};
+  public user:any = {};
 
- /* datosUsuario:any[]=[
-    {
-      id:1,
-      name:'María Inés Toledo',
-      usuario:'mariainestoledo',
-      email:'mariainestoledo20397@gmail.com',
-      telefono:3804590089,
-      documento:39905178
-    }
-  ]*/
-  userId!:number;
   constructor(
     private store:Store<{user:User}>,
-    private router: Router,
-    private routeActive: ActivatedRoute
+    private router: Router
   ){
     this.subscriptions.add(
       this.store
@@ -39,12 +27,10 @@ export class UserComponent implements OnInit{
     );
   }
   ngOnInit(): void {
-   // this.userId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
     this.store.dispatch(UserActions.loadProfile());
-    //this.store.dispatch(UserActions.loadUserById({id:this.userId}));
   }
 
-  editarUser(id:number){
+  public editUser() : void {
     this.router.navigate([`/users/profile/edit`]);
     this.store.dispatch(UserActions.loadProfile());
   }

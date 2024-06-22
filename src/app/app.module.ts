@@ -13,6 +13,7 @@ import { RedirectAdminComponent } from './pages/redirect-admin/redirect-admin.co
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthInterceptorService, authProvider } from './core/interceptors/auth-interceptor.service';
 import { metaReducers, reducers } from './pages/login/store/app.state';
+import { PriceFormatPipe } from './core/pipe/transformPrice.pipe';
 
 @NgModule({ declarations: [
         AppComponent,

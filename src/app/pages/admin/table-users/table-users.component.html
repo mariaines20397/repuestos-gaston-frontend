@@ -1,62 +1,65 @@
 <div class="contenedor">
   <div class="productos">
     <div class="card card-productos">
-        <div class="card-body">
-            <div class="agregarProducto">
-                <h3 class="card-title"><b>Tabla de usuarios</b></h3>
-                <form action="" [formGroup]="searchForm">
-                  <div class="search" >
-                    <input type="search" class="buscador form-control" (keydown.enter)="search()" formControlName="search" placeholder="Busca usuarios" name="">
-                    <button type="button" class="btn lupa" (click)="search()">
-                      <img src="../../../assets/svg/search.svg" alt="" srcset="">
+      <div class="card-body">
+        <div class="agregarProducto">
+          <h3 class="card-title"><b>Tabla de usuarios</b></h3>
+          <form action="" [formGroup]="searchForm">
+            <div class="search">
+              <input type="search" class="buscador form-control" (keydown.enter)="search()" formControlName="search"
+                placeholder="Filtrar por DNI" name="">
+              <button type="button" class="btn lupa" (click)="search()">
+                <img src="../../../assets/svg/search.svg" alt="" srcset="">
+              </button>
+            </div>
+          </form>
+
+        </div>
+        <div class="table-container">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Nombre</th>
+                <th scope="col" class="descripcionTabla">Apellido</th>
+                <th scope="col" class="descripcionTabla">DNI</th>
+                <th scope="col">Usuario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of this.userAdmin; let index = index">
+                <td scope="row" class="colMenu">
+                  <div ngbDropdown class="d-inline-block dropdownMenu">
+                    <button class="btn" id="dropdown1" ngbDropdownToggle>
+                      <img class="imgSection" src="../../../../assets/svg/menuAdmin.svg" alt="" srcset="" />
                     </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdown1">
+                      <button ngbDropdownItem class="btn" (click)="viewUser(user.id)">Ver más</button>
+                      <hr>
+                    </div>
                   </div>
-                </form>
-                
-            </div>
-            <div class="table-container">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col" class="descripcionTabla">Apellido</th>
-                    <th scope="col" class="descripcionTabla">DNI</th>
-                    <th scope="col">Usuario</th>
-                  </tr>
-                </thead>
-                <tbody >
-                  <tr *ngFor="let user of this.userAdmin; let index = index">
-                    <td scope="row" class="colMenu">
-                      <div ngbDropdown class="d-inline-block dropdownMenu" >
-                        <button class="btn" id="dropdown1" ngbDropdownToggle>
-                          <img class="imgSection" src="../../../../assets/svg/menuAdmin.svg" alt="" srcset="" />
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdown1">
-                            <button ngbDropdownItem class="btn" (click)="verUsuario(user.id)">Ver más</button>
-                            <hr>
-                          </div>
-                      </div>
-                    </td>                     
-                    <td>{{user.name}}</td>
-                    <td class="descripcionTabla">{{user.surname}}</td>
-                    <td class="descripcionTabla">{{user.dni}}</td>
-                    <td>{{user.username}}</td>
-                  </tr>
-                  <ng-container *ngIf="!this.userAdmin || this.userAdmin.length == 0">
-                    <tr>
-                      <td colspan="5" class="not-found">
-                        No hay usuarios para mostrar
-                      </td>
-                    </tr>
-                </ng-container>
-                </tbody>
-              </table>
-                </div>  
-            </div>
+                </td>
+                <td>{{user.name}}</td>
+                <td class="descripcionTabla">{{user.surname}}</td>
+                <td class="descripcionTabla">{{user.dni | priceFormat}}</td>
+                <td>{{user.username}}</td>
+              </tr>
+              <ng-container *ngIf="!this.userAdmin || this.userAdmin.length == 0">
+                <tr>
+                  <td colspan="5" class="not-found">
+                    No hay usuarios para mostrar
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
         </div>
-        <div class="pagination">
-          <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.userAdminComplete?.totalElements" [page]="this.userAdminPagination.pageNumber + 1" [pageSize]="this.userAdminPagination?.pageSize" aria-label="Default pagination"></ngb-pagination>
-        </div>
-</div>
+      </div>
+    </div>
+    <div class="pagination">
+      <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.userAdminComplete?.totalElements"
+        [page]="this.userAdminPagination.pageNumber + 1" [pageSize]="this.userAdminPagination?.pageSize"
+        aria-label="Default pagination"></ngb-pagination>
+    </div>
+  </div>
 </div>

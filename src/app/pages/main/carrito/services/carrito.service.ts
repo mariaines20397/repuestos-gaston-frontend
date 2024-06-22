@@ -1,11 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
-import * as CarritoActions from '../store/carrito.actions';
-import { User } from '../../user/model/users.model';
-import { Store } from '@ngrx/store';
 import { Stripe, loadStripe } from '@stripe/stripe-js';
 
 @Injectable({
@@ -13,16 +9,11 @@ import { Stripe, loadStripe } from '@stripe/stripe-js';
 })
 export class CarritoService {
 
-  private urlEndpoint: string = 'http://localhost:8080/v1/carts'
-  private subscriptions = new Subscription();
+  private urlEndpoint: string = 'http://localhost:8080/v1/carts';
   private stripe: Stripe | null = null;
-  user: User = {};
   constructor(
-    private httpClient: HttpClient,
-    private router: Router,
-    private store: Store<{ user: User }>
+    private httpClient: HttpClient
     ) {
-      this.subscriptions.add(this.store.select('user').subscribe((user) => (this.user = user)));
       this.initializeStripe();
      }
      private async initializeStripe() {
@@ -53,7 +44,7 @@ export class CarritoService {
           throw error;
         }
       }
-  addProduct(product?: any):Observable<any>{
+  public addProduct(product?: any):Observable<any>{
     const finalUrl=`${this.urlEndpoint}/addProduct`;
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,product)
@@ -63,7 +54,7 @@ export class CarritoService {
           obs.complete();
         },
         error: (error) => {
-          // Swal.fire('¡Lo siento!', error,'error');
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }
@@ -71,7 +62,7 @@ export class CarritoService {
     })
   }
 
-  getCartById():Observable<any>{
+  public getCartById():Observable<any>{
     const finalUrl=`${this.urlEndpoint}/id`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl )
@@ -81,7 +72,7 @@ export class CarritoService {
           obs.complete();
         },
         error: (error) => {
-          // Swal.fire('¡Lo siento!', error,'error');
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }
@@ -89,7 +80,7 @@ export class CarritoService {
     })
   }
 
-  removeProduct(id?:number):Observable<any>{
+  public removeProduct(id?:number):Observable<any>{
     const finalUrl=`${this.urlEndpoint}/removeProduct/${id}`;
     return new Observable((obs)=>{
       this.httpClient.delete(finalUrl )
@@ -99,7 +90,7 @@ export class CarritoService {
           obs.complete();
         },
         error: (error) => {
-          // Swal.fire('¡Lo siento!', error,'error');
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }
@@ -107,7 +98,7 @@ export class CarritoService {
     })
   }
 
-  decreaseProduct(product?:any):Observable<any>{
+  public decreaseProduct(product?:any):Observable<any>{
     const finalUrl=`${this.urlEndpoint}/decreaseProduct`;
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,product)
@@ -117,7 +108,7 @@ export class CarritoService {
           obs.complete();
         },
         error: (error) => {
-          // Swal.fire('¡Lo siento!', error,'error');
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }
@@ -125,7 +116,7 @@ export class CarritoService {
     })
   }
 
-  cleanCart():Observable<any>{
+  public cleanCart():Observable<any>{
     const finalUrl=`${this.urlEndpoint}/clearShoppingCart`;
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,{body:''})
@@ -135,25 +126,24 @@ export class CarritoService {
           obs.complete();
         },
         error: (error) => {
-          // Swal.fire('¡Lo siento!', error,'error');
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }
       })
     })
   }
-  createOrderSale():Observable<any> {
+  public createOrderSale():Observable<any> {
     const finalUrl=`http://localhost:8080/v1/orders/`;
     return new Observable((obs)=>{
       this.httpClient.post(finalUrl,{})
       .subscribe({
         next: (res) => {
-          // this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();
         },
         error: (error) => {
-          // Swal.fire('¡Lo siento!', error,'error');
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }

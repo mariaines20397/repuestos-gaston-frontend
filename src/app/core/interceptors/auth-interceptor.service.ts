@@ -1,7 +1,7 @@
-import { HTTP_INTERCEPTORS, HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, catchError, of, throwError } from 'rxjs';
+import { Observable, Subscription, catchError } from 'rxjs';
 import { User } from 'src/app/pages/main/user/model/users.model';
 
 @Injectable({
@@ -20,19 +20,9 @@ export class AuthInterceptorService implements HttpInterceptor{
     );  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-  // intercept(request: HttpRequest<unknown>, next: HttpHandler): any {
     return next.handle(request.clone({ headers: this.getHeaders() })).pipe(
       catchError((err) => {
-        
-        // if (err instanceof HttpErrorResponse && err.status === 401) {
-          // return this.cognitoService.refreshUserSession().pipe(
-          //   switchMap(() => {
-               return next.handle(request.clone({ headers: this.getHeaders() }));
-          //   })
-          // );
-        // } else {
-         // return throwError(err);
-        // }
+        return next.handle(request.clone({ headers: this.getHeaders() }));
       })
     );
   }
@@ -49,6 +39,6 @@ export class AuthInterceptorService implements HttpInterceptor{
 export let authProvider = {
   provide: HTTP_INTERCEPTORS,
   useClass: AuthInterceptorService,
-  multi: true,
+  multi: true
 };
 

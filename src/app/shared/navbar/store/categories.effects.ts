@@ -1,11 +1,9 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as CategoriesActions from './categories.actions';
-import { catchError, map, mergeMap, of, retry, throwError } from 'rxjs';
+import { catchError, map, mergeMap, of, retry } from 'rxjs';
 import { CategoriesService } from '../services/categories.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { SearchService } from '../services/search.service';
 
 @Injectable({

@@ -13,7 +13,7 @@ class MainGuardianService {
     }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (!this.authService.autenticado()) {
+    if (!this.authService.authenticated()) {
       return true;
   }
   this.router.navigate(['/home']);

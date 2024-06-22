@@ -6,14 +6,14 @@
           <h3 class="card-title"><b>Tabla de ventas</b></h3>
           <form action="" [formGroup]="searchForm">
             <div class="search">
-              <input type="search" class="buscador form-control" (keydown.enter)="search()" formControlName="search" placeholder="Busca n° venta"
+              <input type="search" class="buscador form-control" (keydown.enter)="search()" formControlName="search" placeholder="Filtrar por N° de venta"
                 name="">
               <button type="button" class="btn lupa" (click)="search()">
                 <img src="../../../assets/svg/search.svg" alt="" srcset="">
               </button>
             </div>
           </form>
-          <button type="button" class="btn btn-dark" (click)="agregar()"
+          <button type="button" class="btn btn-dark" (click)="addSale()"
           placement="start" ngbTooltip="Agregar producto">
             <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">
           </button>
@@ -46,7 +46,7 @@
                 </td>
                 <td>{{sale.number_sale}}</td>
                 <td>{{sale.name +' '+ sale.surname}}</td>
-                <td>{{sale.dni}}</td>
+                <td>{{sale.dni | priceFormat}}</td>
                 <td *ngIf="sale.sale_status == 'PENDING_PAYMENT'">
                   <div>Pendiente de pago</div>
                 </td>

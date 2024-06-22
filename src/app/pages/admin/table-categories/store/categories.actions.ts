@@ -1,6 +1,5 @@
 import { createAction, props } from "@ngrx/store";
 import { Category, Pegeable, getAllCategory } from "../model/category.model";
-import { Categorie } from "../../table-products/model/product.model";
 
 //load categories
 export const loadCategories = createAction('[AdminCategories] loadCategories',props<{pageable?:Pegeable}>());

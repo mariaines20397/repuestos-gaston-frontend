@@ -1,76 +1,81 @@
 <div class="contenedor">
   <div class="productos">
     <div class="card card-productos">
-        <div class="card-body">
-            <div class="agregarProducto">
-                <h3 class="card-title"><b>Tabla de productos</b></h3>
-                <form action="" [formGroup]="searchForm">
-                  <div class="search" >
-                    <input type="search" class="buscador form-control" (keydown.enter)="search()" formControlName="search" placeholder="Filtrar por nombre" name="">
-                    <button type="button" class="btn lupa" (click)="search()">
-                      <img src="../../../assets/svg/search.svg" alt="" srcset="">
+      <div class="card-body">
+        <div class="agregarProducto">
+          <h3 class="card-title"><b>Tabla de productos</b></h3>
+          <form action="" [formGroup]="searchForm">
+            <div class="search">
+              <input type="search" class="buscador form-control" (keydown.enter)="search()" formControlName="search"
+                placeholder="Filtrar por nombre" name="">
+              <button type="button" class="btn lupa" (click)="search()">
+                <img src="../../../assets/svg/search.svg" alt="" srcset="">
+              </button>
+            </div>
+          </form>
+          <a *ngIf="this.router.url.includes('lowStock')" href="/admin/dashboard/product">Mostrar todos los
+            productos</a>
+          <button type="button" class="btn btn-dark" (click)="addProduct()" placement="start"
+            ngbTooltip="Agregar producto">
+            <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">
+          </button>
+        </div>
+        <div class="table-container">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col" class="colMenu"></th>
+                <th scope="col" class="imagenTabla">Imágen</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Stock</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let producto of this.productAdmin.data; let index = index">
+                <td scope="row" class="colMenu">
+                  <div ngbDropdown class="d-inline-block dropdownMenu">
+                    <button class="btn" id="dropdown1" ngbDropdownToggle>
+                      <img class="imgSection" src="../../../../assets/svg/menuAdmin.svg" alt="" srcset="" />
                     </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdown1">
+                      <button ngbDropdownItem class="btn" (click)="viewProduct(producto.product_id)">Ver más</button>
+                      <hr>
+                      <button ngbDropdownItem class="btn" (click)="editProduct(producto.product_id)">Editar</button>
+                      <hr>
+                      <button ngbDropdownItem class="btn" (click)="deleteProduct(producto)">Eliminar</button>
+                    </div>
                   </div>
-                </form>
-                <a *ngIf="this.router.url.includes('lowStock')" href="/admin/dashboard/product">Mostrar todos los productos</a>
-                <button type="button" class="btn btn-dark" (click)="agregar()"
-                placement="start" ngbTooltip="Agregar producto">
-                  <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">
-                </button>
-            </div>
-            <div class="table-container">
-                <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col" class="colMenu"></th>
-                        <th scope="col" class="imagenTabla">Imágen</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Stock</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let producto of this.productAdmin.data; let index = index">
-                        <td scope="row" class="colMenu">
-                          <div ngbDropdown class="d-inline-block dropdownMenu" >
-                            <button class="btn" id="dropdown1" ngbDropdownToggle>
-                              <img class="imgSection" src="../../../../assets/svg/menuAdmin.svg" alt="" srcset="" />
-                            </button>
-                            <div ngbDropdownMenu aria-labelledby="dropdown1">
-                                <button ngbDropdownItem class="btn" (click)="verProducto(producto.product_id)">Ver más</button>
-                                <hr>
-                                <button ngbDropdownItem class="btn" (click)="editarProducto(producto.product_id)">Editar</button>
-                                <hr>
-                                <button ngbDropdownItem class="btn" (click)="eliminarProducto(producto)">Eliminar</button>
-                              </div>
-                          </div>
-                        </td>
-                        <td class="imagenTabla">
-                          <img class="imagen" [src]="mostrarImg(producto.image)" alt="Imagen del producto" *ngIf="producto.image" />
-                        </td>
-                        <td>{{producto.name}}</td>
-                        <td>${{producto.price}}</td>
-                       <td *ngIf="producto.stock > 5">{{producto.stock}} un.</td>
-                       <td *ngIf="producto.stock <= 5">
-                          <div class="lowStock">
-                            {{producto.stock}} un.
-                          </div>
-                        </td>
-                      </tr>
-                      <ng-container *ngIf="!this.productAdmin.data || this.productAdmin.data.length == 0">
-                        <tr>
-                          <td colspan="5" class="not-found">
-                            No hay productos para mostrar
-                          </td>
-                        </tr>
-                    </ng-container>
-                    </tbody>
-                  </table>  
-                </div>  
-            </div>
+                </td>
+                <td class="imagenTabla">
+                  <img class="imagen" [src]="viewImage(producto.image)" alt="Imagen del producto"
+                    *ngIf="producto.image" />
+                </td>
+                <td>{{producto.name}}</td>
+                <td>${{producto.price | priceFormat}}</td>
+                <td *ngIf="producto.stock > 5">{{producto.stock}} un.</td>
+                <td *ngIf="producto.stock <= 5">
+                  <div class="lowStock">
+                    {{producto.stock}} un.
+                  </div>
+                </td>
+              </tr>
+              <ng-container *ngIf="!this.productAdmin.data || this.productAdmin.data.length == 0">
+                <tr>
+                  <td colspan="5" class="not-found">
+                    No hay productos para mostrar
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
         </div>
-        <div class="pagination">
-          <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.productAdmin?.totalElements" [page]="this.productAdmin.pageable.pageNumber + 1" [pageSize]="this.productAdmin?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
-        </div>
-</div>
+      </div>
+    </div>
+    <div class="pagination">
+      <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.productAdmin?.totalElements"
+        [page]="this.productAdmin.pageable.pageNumber + 1" [pageSize]="this.productAdmin?.pageable?.pageSize"
+        aria-label="Default pagination"></ngb-pagination>
+    </div>
+  </div>
 </div>

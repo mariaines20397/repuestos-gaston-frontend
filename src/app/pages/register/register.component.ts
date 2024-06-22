@@ -12,14 +12,12 @@ import { User } from '../main/user/model/users.model';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  registerForm:FormGroup;
-  user:any = {};
-  // passwordRepeat:any;
+  public registerForm: FormGroup;
+  private user: any = {};
   constructor(
     private formBuilder: FormBuilder,
-   private router: Router,
-   private store:Store<{ user:User}>
-  ){
+    private store: Store<{ user: User }>
+  ) {
     this.registerForm = this.formBuilder.group({
       username: new FormControl(null, [Validators.required, Validators.minLength(10)]),
       password: new FormControl(null, [Validators.required]),
@@ -30,36 +28,24 @@ export class RegisterComponent {
     })
   }
 
-  register(){
-      const {
-        username,
-        password,
-        name,
-        dni,
-        surname,
-        email
-      } = this.registerForm.value
-      this.user = {
-        username,
-        password,
-        dni,
-        name,
-        surname,
-        email
-      }
-      // Swal.fire(
-      //   {title:'¡Usuario registrado!', 
-      //   html:'<p>Todo esta listo. Ahora inicia sesión para vivir la experiencia de Repuestos Gastón</p>',
-      //   icon:'success',
-      //   confirmButtonText:'Iniciar Sesión',
-      //   showConfirmButton: true,
-      // }).then((result)=>{
-      //   if (result.isConfirmed) {
-      //     this.router.navigateByUrl('/login')
-      //   }
-      // });
+  public register(): void {
+    const {
+      username,
+      password,
+      name,
+      dni,
+      surname,
+      email
+    } = this.registerForm.value
+    this.user = {
+      username,
+      password,
+      dni,
+      name,
+      surname,
+      email
+    }
 
-
-    this.store.dispatch(RegisterActions.loadRegister({user:this.user}));
+    this.store.dispatch(RegisterActions.loadRegister({ user: this.user }));
   }
 }

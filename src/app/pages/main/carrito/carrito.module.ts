@@ -10,6 +10,7 @@ import { CarritoEffects } from './store/carrito.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { PaymentSuccessComponent } from './payment/payment-success/payment-success.component';
 import { PaymentCancelComponent } from './payment/payment-cancel/payment-cancel.component';
+import { CoreModule } from 'src/app/core/core.module';
 
 
 
@@ -23,9 +24,10 @@ import { PaymentCancelComponent } from './payment/payment-cancel/payment-cancel.
     CommonModule,
     CarritoRoutingModule,
     ReactiveFormsModule,
+    CoreModule,
     NgbTooltipModule,
     StoreModule.forFeature(
-      'carrito',
+      'cart',
       fromCarritoReducer.carritoReducer
     ),
     EffectsModule.forFeature([CarritoEffects])

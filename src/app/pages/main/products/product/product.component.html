@@ -5,31 +5,26 @@
       <div class="imgDescription">
         <div class="imgCardActions">
           <div class="divImg">
-       <!--  <img
-           src="./assets/img/productos/motul.png"
-           class="card-img"
-           alt="Motul"
-         />-->
-         <img class="imagen" [src]="mostrarImg(this.product?.image)" alt="Imagen del producto" *ngIf="this.product?.image" />
+         <img class="imagen" [src]="viewImage(this.product?.image)" alt="Imagen del producto" *ngIf="this.product?.image" />
 
        </div>
        <div class="cardActions">
          <div class="card-body">
            <h4 class="card-title"><b>{{this.product?.name}}</b></h4>
-           <h3 class="card-title">${{this.product?.price}}</h3>
+           <h3 class="card-title">${{this.product?.price | priceFormat}}</h3>
          </div>
          <div class="divActions">
            <h6 *ngIf="this.product?.stock > 0" class="card-title isStock"><b>Stock disponible</b></h6>
-           <h6 *ngIf="this.product?.stock == 0" class="card-title-stock isNotStock"><b>Lo siento, por el momento no tenemos stock disponible de este producto.</b></h6>
-           <div *ngIf="this.product?.stock > 0" class="cantidadForm">
-             <form action="" [formGroup]="cantidadForm" class="cantidadTablet">
+           <h6 *ngIf="this.product?.stock == 0" class="card-title isNotStock"><b>Lo siento, por el momento no tenemos stock disponible de este producto.</b></h6>
+           <div *ngIf="this.product?.stock > 0" class="amountForm">
+             <form action="" [formGroup]="amountForm" class="cantidadTablet">
                <div class="inputCantidad">
                  <p>Cantidad</p>
                  <input
                  type="number"
                  class="cantidad"
-                 formControlName="cantidad"
-                 [value]="cantidadForm.get('cantidad')!.value"
+                 formControlName="amount"
+                 [value]="amountForm.get('amount')!.value"
                />
                <p>unidades</p>
                </div>
@@ -41,18 +36,18 @@
              </form>
              
            </div>
-           <div class="texts" *ngIf="cantidadForm.controls['cantidad'].errors && cantidadForm.get('cantidad')?.touched">
-             <div class="validatorText" *ngIf="cantidadForm.get('cantidad')?.hasError('required')">
+           <div class="texts" *ngIf="amountForm.controls['amount'].errors && amountForm.get('amount')?.touched">
+             <div class="validatorText" *ngIf="amountForm.get('amount')?.hasError('required')">
                  <span>Este campo es requerido.</span>
              </div>
-             <div class="validatorText" *ngIf="cantidadForm.get('cantidad')?.hasError('minValueExceeded')">
+             <div class="validatorText" *ngIf="amountForm.get('amount')?.hasError('minValueExceeded')">
                  <span>La cantidad mínima permitida es 1 unidad.</span>
              </div>
-             <div class="validatorText" *ngIf="cantidadForm.get('cantidad')?.hasError('maxValueExceeded')">
+             <div class="validatorText" *ngIf="amountForm.get('amount')?.hasError('maxValueExceeded')">
                <span>No hay stock suficiente.</span>
            </div>
          </div>
-         <div class="divButtons" *ngIf="!this.authService.autenticado()">
+         <div class="divButtons" *ngIf="!this.authService.authenticated()">
         <div placement="start" ngbTooltip="Para agregar un producto al carrito primero debes iniciar sesión">
           <button disabled class="btn btn-carrito" >
             <p>Agregar al carrito</p>
@@ -65,8 +60,8 @@
           </button>
         </div>
          </div>
-           <div class="divButtons" *ngIf="this.product?.stock > 0 && this.authService.autenticado() && !this.authService.admin()">
-             <button class="btn btn-carrito" (click)="agregarCarrito(this.product)" [disabled]="cantidadForm.invalid">
+           <div class="divButtons" *ngIf="this.product?.stock > 0 && this.authService.authenticated() && !this.authService.admin()">
+             <button class="btn btn-carrito" (click)="addCart(this.product)" [disabled]="amountForm.invalid">
                <p>Agregar al carrito</p>
                <img
                  src="./assets/svg/cartPlus.svg"

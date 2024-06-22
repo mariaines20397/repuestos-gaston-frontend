@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Product } from '../products/model/product.model';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as CarritoActions from './store/carrito.actions';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CarritoService } from './services/carrito.service';
 
 @Component({
@@ -14,123 +12,116 @@ import { CarritoService } from './services/carrito.service';
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.css']
 })
-export class CarritoComponent implements OnInit{
-  restaDisabled:boolean=false;
-  sumaDisabled:boolean=false;
+export class CarritoComponent implements OnInit {
   private subscriptions = new Subscription();
-  carrito:any = []
-  total_price:any
-  amount!:number
-  carritoForm:FormGroup;
-  productPayment:any[]=[]
-constructor(
-  private formBuilder: FormBuilder,
-  private store:Store<{ carrito:any}>,
-  private sanitizer: DomSanitizer,
-  private router: Router,
-  private carritoService: CarritoService
-){
-  this.subscriptions.add(
-    this.store
-    .select('carrito')
-    .subscribe((carrito) => {
-      this.carrito = carrito.data;
-      this.total_price = carrito.total_price;
-      this.inicializarProductos(carrito.data);
-    })
-  )
-  this.carritoForm = this.formBuilder.group({
-    cantidad: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.min(1)])
-  },
-  {
-    validators: [this.maxValueValidator.bind(this)],
-  });
-  
-}
+  public cart: any = [];
+  public total_price: any;
+  public cartForm: FormGroup;
+  private productPayment: any[] = [];
+  constructor(
+    private formBuilder: FormBuilder,
+    private store: Store<{ cart: any }>,
+    private sanitizer: DomSanitizer,
+    private carritoService: CarritoService
+  ) {
+    this.subscriptions.add(
+      this.store
+        .select('cart')
+        .subscribe((cart) => {
+          this.cart = cart.data;
+          this.total_price = cart.total_price;
+          this.initProducts(cart.data);
+        })
+    )
+    this.cartForm = this.formBuilder.group({
+      cantidad: new FormControl({ value: null, disabled: true }, [Validators.required, Validators.min(1)])
+    },
+      {
+        validators: [this.maxValueValidator.bind(this)],
+      });
+
+  }
   ngOnInit(): void {
     this.store.dispatch(CarritoActions.loadCartById());
 
   }
-  get productos(): FormArray {
-    return this.carritoForm.get('productos') as FormArray;
-  }
-  inicializarProductos(carrito:any) {
-    carrito.forEach((data:any)=>{
-      this.carritoForm.patchValue({
-        cantidad:data.amount
+  private initProducts(carrito: any): void {
+    carrito.forEach((data: any) => {
+      this.cartForm.patchValue({
+        cantidad: data.amount
       })
     })
   }
 
-  maxValueValidator(control: AbstractControl): ValidationErrors | null  {
-    this.carrito?.forEach((product:any)=>{
+  private maxValueValidator(control: AbstractControl): ValidationErrors | null {
+    this.cart?.forEach((product: any) => {
       if (control.get('cantidad')?.value > product.stock) {
-            control.get('cantidad')?.setErrors({ maxValueExceeded: true });      
-            return {
-              maxValueExceeded: true 
-            };
-          }else if(control.get('cantidad')?.value == 0){
-            control.get('cantidad')?.setErrors({ minValueExceeded: true });      
-            return {
-              minValueExceeded: true 
-            };
-          }
-          return null; 
+        control.get('cantidad')?.setErrors({ maxValueExceeded: true });
+        return {
+          maxValueExceeded: true
+        };
+      } else if (control.get('cantidad')?.value == 0) {
+        control.get('cantidad')?.setErrors({ minValueExceeded: true });
+        return {
+          minValueExceeded: true
+        };
+      }
+      return null;
     })
-    return null; 
+    return null;
   }
-  resta(id:number){
+  public decreaseProduct(id: number): void {
     const productAdd = {
-      amount:1,
+      amount: 1,
       idProduct: id
     }
-    this.store.dispatch(CarritoActions.decreaseProduct({product:productAdd}));
+    this.store.dispatch(CarritoActions.decreaseProduct({ product: productAdd }));
   }
 
-  suma(id:number){
+  public addProduct(id: number): void {
     const productAdd = {
-      amount:1,
+      amount: 1,
       idProduct: id
     }
-    this.store.dispatch(CarritoActions.addProduct({product:productAdd}));
-    
+    this.store.dispatch(CarritoActions.addProduct({ product: productAdd }));
+
   }
 
-  clean(){
+  public cleanCart(): void {
     Swal.fire({
       title: `¿Estas seguro que quieres eliminar todos los productos del carrito?`,
-      icon:'question',
+      icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
-      cancelButtonText:'Cancelar'
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         this.store.dispatch(CarritoActions.cleanCart());
-      } 
+      }
     })
   }
-  deleteProduct(product:any){
+  public deleteProduct(product: any): void {
     Swal.fire({
       title: `¿Estas seguro que quieres eliminar el producto ${product.name} del carrito?`,
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
-      cancelButtonText:'Cancelar'
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.store.dispatch(CarritoActions.removeProduct({id:product.product_id}));
-      } 
+        this.store.dispatch(CarritoActions.removeProduct({ id: product.product_id }));
+      }
     })
   }
-  mostrarImg(image:any){
+  public viewImage(image: any): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image}`);
   }
- async simularCompra(){
-  this.carrito.forEach((product:any)=>{
-    this.productPayment.push({
-      price: product.price_id_stripe,
-      quantity: product.amount
+  public async simulateBuy(): Promise<void> {
+    this.cart.forEach((product: any) => {
+      this.productPayment.push({
+        price: product.price_id_stripe,
+        quantity: product.amount
+      })
     })
-  })
-  await this.carritoService.payment(this.productPayment);
+    await this.carritoService.payment(this.productPayment);
   }
 }

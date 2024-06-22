@@ -1,73 +1,71 @@
 <div class="register">
-    <div class="card" >
+    <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Para crear tu cuenta necesitamos algunos datos</h4>
-          <h6 class="card-subtitle mb-2 text-muted">Solo te tomará unos minutos.</h6>
-          <form action="" [formGroup]="registerForm">
-            <span class="title-input">Nombre</span>
-            <input class="text-input form-control" formControlName="name" type="text">
-            <div  *ngIf="registerForm.controls['name'].errors && registerForm.get('name')?.touched">
-                <div class="validatorText" *ngIf="registerForm.get('name')?.hasError('required')">
-                    <span>Este campo es requerido.</span>
+            <h4 class="card-title">Para crear tu cuenta necesitamos algunos datos</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Solo te tomará unos minutos.</h6>
+            <form action="" [formGroup]="registerForm">
+                <span class="title-input">Nombre</span>
+                <input class="text-input form-control" formControlName="name" type="text">
+                <div *ngIf="registerForm.controls['name'].errors && registerForm.get('name')?.touched">
+                    <div class="validatorText" *ngIf="registerForm.get('name')?.hasError('required')">
+                        <span>Este campo es requerido.</span>
+                    </div>
                 </div>
-            </div>
 
-            <span class="title-input">Apellido</span>
-            <input class="text-input form-control" formControlName="surname" type="text" >
-            <div *ngIf="registerForm.controls['surname'].errors && registerForm.get('surname')?.touched">
-                <div class="validatorText" *ngIf="registerForm.get('surname')?.hasError('required')">
-                    <span>Este campo es requerido.</span>
+                <span class="title-input">Apellido</span>
+                <input class="text-input form-control" formControlName="surname" type="text">
+                <div *ngIf="registerForm.controls['surname'].errors && registerForm.get('surname')?.touched">
+                    <div class="validatorText" *ngIf="registerForm.get('surname')?.hasError('required')">
+                        <span>Este campo es requerido.</span>
+                    </div>
                 </div>
-            </div>
-            <span class="title-input">DNI <small class="text-muted">(sin puntos)</small></span>
+                <span class="title-input">DNI <small class="text-muted">(sin puntos)</small></span>
 
-            <input class="text-input form-control" formControlName="dni" type="number" >
-            <div *ngIf="registerForm.controls['dni'].errors && registerForm.get('dni')?.touched">
-                <div class="validatorText" *ngIf="registerForm.get('dni')?.hasError('required')">
-                    <span>Este campo es requerido.</span>
+                <input class="text-input form-control" formControlName="dni" type="number">
+                <div *ngIf="registerForm.controls['dni'].errors && registerForm.get('dni')?.touched">
+                    <div class="validatorText" *ngIf="registerForm.get('dni')?.hasError('required')">
+                        <span>Este campo es requerido.</span>
+                    </div>
                 </div>
-            </div>
 
-            <span class="title-input">Nombre de usuario</span>
-            <input class="text-input form-control" formControlName="username" type="text" >
-            <div *ngIf="registerForm.controls['username'].errors && registerForm.get('username')?.touched">
-                <div class="validatorText" *ngIf="registerForm.get('username')?.hasError('required')">
-                    <span>Este campo es requerido.</span>
+                <span class="title-input">Nombre de usuario</span>
+                <input class="text-input form-control" formControlName="username" type="text">
+                <div *ngIf="registerForm.controls['username'].errors && registerForm.get('username')?.touched">
+                    <div class="validatorText" *ngIf="registerForm.get('username')?.hasError('required')">
+                        <span>Este campo es requerido.</span>
+                    </div>
+                    <div class="validatorText" *ngIf="registerForm.get('username')?.hasError('minlength')">
+                        <span>El nombre de usuario debe tener como mínimo 10 caracteres.</span>
+                    </div>
                 </div>
-                <div class="validatorText" *ngIf="registerForm.get('username')?.hasError('minlength')">
-                    <span>El nombre de usuario debe tener como mínimo 10 caracteres.</span>
-                </div>
-            </div>
 
-            <span class="title-input">E-mail</span>
-            <input class="text-input form-control" formControlName="email" type="email" >
-            <div *ngIf="registerForm.controls['email'].errors && registerForm.get('email')?.touched">
-                <div class="validatorText" *ngIf="registerForm.get('email')?.hasError('required')">
-                    <span>Este campo es requerido.</span>
+                <span class="title-input">E-mail</span>
+                <input class="text-input form-control" formControlName="email" type="email">
+                <div *ngIf="registerForm.controls['email'].errors && registerForm.get('email')?.touched">
+                    <div class="validatorText" *ngIf="registerForm.get('email')?.hasError('required')">
+                        <span>Este campo es requerido.</span>
+                    </div>
+                    <div class="validatorText" *ngIf="registerForm.get('email')?.hasError('email')">
+                        <span>El valor ingresado no es un e-mail válido.</span>
+                    </div>
                 </div>
-                <div class="validatorText" *ngIf="registerForm.get('email')?.hasError('email')">
-                    <span>El valor ingresado no es un e-mail válido.</span>
-                </div>
-            </div>
 
-            <span class="title-input">Contraseña</span>
-            <input class="text-input form-control" formControlName="password" type="password" >
-            <div *ngIf="registerForm.controls['password'].errors && registerForm.get('password')?.touched">
-                <div class="validatorText" *ngIf="registerForm.get('password')?.hasError('required')">
-                    <span>Este campo es requerido.</span>
+                <span class="title-input">Contraseña</span>
+                <input class="text-input form-control" formControlName="password" type="password">
+                <div *ngIf="registerForm.controls['password'].errors && registerForm.get('password')?.touched">
+                    <div class="validatorText" *ngIf="registerForm.get('password')?.hasError('required')">
+                        <span>Este campo es requerido.</span>
+                    </div>
                 </div>
+                <div class="login-register">
+                    <button class="btn btn-primary btn-register" [disabled]="registerForm.invalid" (click)="register()">
+                        <!--  (click)="login()" -->
+                        Registrarme</button>
+                </div>
+            </form>
+            <div class="div-login">
+                ¿Ya tienes una cuenta? <a href="/login" class="card-link">Inicia sesión</a>
             </div>
-            <div class="login-register">
-                <button class="btn btn-primary btn-register" [disabled]="registerForm.invalid" (click)="register()">
-                    <!--  (click)="login()" -->
-                    Registrarme</button>
-                    <!-- (click)="register()" -->
-                <!-- <a >Crear cuenta</a> -->
-            </div>
-        </form>
-          <div class="div-login">
-            ¿Ya tienes una cuenta? <a href="/login" class="card-link">Inicia sesión</a>
-          </div>
         </div>
-      </div>
+    </div>
 </div>

@@ -1,11 +1,10 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as UserActions from './user.actions';
-import { catchError, map, mergeMap, of, throwError } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { AuthService } from 'src/app/core/services/auth.service';
 
 @Injectable({
   providedIn: 'root',

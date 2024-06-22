@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
 export class ProductsEffects {
   constructor(
     private actions$: Actions,
-    private productsServices: ProductsService,
-    private router: Router
+    private productsServices: ProductsService
   ) {}
 
   loadProductsByCategory$ = createEffect(() =>

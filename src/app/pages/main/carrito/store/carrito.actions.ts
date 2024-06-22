@@ -34,14 +34,6 @@ export const cleanCartSuccess = createAction('[Cart] cleanCartSuccess');
 export const cleanCartFail = createAction('[Cart] cleanCartFail',
 props<{error:any}>());
 
-//loadPayment
-export const loadPayment = createAction('[Payment] loadPayment',
-props<{productPayment:any[]}>());
-export const loadPaymentSuccess = createAction('[Payment] loadPaymentSuccess',
-props<{prueba:any}>());
-export const loadPaymentFail = createAction('[Payment] loadPaymentFail',
-props<{error:any}>());
-
 //create sale user
 export const createSale = createAction('[createSale] createSale');
 export const createSaleSuccess = createAction('[createSale] createSaleSuccess',

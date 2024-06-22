@@ -1,13 +1,12 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as SearchActions from './search.actions';
 import * as LoginActions from 'src/app/pages/login/store/login.actions';
-import { catchError, map, mergeMap, of, throwError } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { SearchService } from '../services/search.service';
-import { User } from 'src/app/pages/main/user/model/users.model';
 import { Store } from '@ngrx/store';
 import { LoginService } from 'src/app/pages/login/services/login.service';
 
@@ -15,7 +14,6 @@ import { LoginService } from 'src/app/pages/login/services/login.service';
   providedIn: 'root',
 })
 export class SearchEffects {
-  user: any = {};
 
   constructor(
     private actions$: Actions,
@@ -23,11 +21,8 @@ export class SearchEffects {
     private loginServices: LoginService,
     private router: Router,
     public authService: AuthService,
-    private store:Store<{ user: User}>
+    private store:Store
   ) {
-      this.store
-        .select('user')
-        .subscribe((user) => this.user = user);
   }
 
   loadProductsByFilter$ = createEffect(() =>

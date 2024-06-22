@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
 import { CoreModule } from '../core/core.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
@@ -18,7 +17,6 @@ import { CategoriesEffects } from './navbar/store/categories.effects';
 @NgModule({
   declarations: [
     NavbarComponent,
-    FooterComponent,
     SidebarAdminComponent
   ],
   imports: [
@@ -40,7 +38,6 @@ import { CategoriesEffects } from './navbar/store/categories.effects';
   ],
   exports:[
     NavbarComponent,
-    FooterComponent,
     SidebarAdminComponent
   ]
 })

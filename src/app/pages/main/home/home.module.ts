@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromHomeReducer from './store/home.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { HomeEffects } from './store/home.effects';
+import { CoreModule } from 'src/app/core/core.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { HomeEffects } from './store/home.effects';
     CommonModule,
     HomeRoutingModule,
     NgbModule,
+    CoreModule,
     StoreModule.forFeature(
       'home',
       fromHomeReducer.homeReducer

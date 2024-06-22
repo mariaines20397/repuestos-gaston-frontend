@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as SalesActions from '../store/sale.actions';
-import * as CarritoActions from 'src/app/pages/main/carrito/store/carrito.actions';
 import * as CarritoAdminActions from '../store/carritoAdmin.actions';
 import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -14,116 +13,131 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./sale.component.css']
 })
 export class SaleComponent implements OnInit {
-  saleForm: FormGroup;
-  carritoProducts:any = {};
-  salesAdmin:any = {};
-  createOrderAdmin:any[]=[];
-  saleId!:number;
-  totalPrice:number = 0;
-  statusSaleId:string='';
-  statusSale=[
-    {id:'PENDING_PAYMENT', value:'Pendiente de pago' },
-    {id:'PAID', value:'Pagado' },
-    {id:'DELIVERED', value:'Entregado' },
-    {id:'REJECTED', value:'Rechazado' }
+  public saleForm: FormGroup;
+  public carritoProducts: any = {};
+  public salesAdmin: any = {};
+  private saleId!: number;
+  public totalPrice: number = 0;
+  public statusSaleId: string = '';
+  public statusSale: any[] = [
+    { id: 'PENDING_PAYMENT', value: 'Pendiente de pago' },
+    { id: 'PAID', value: 'Pagado' },
+    { id: 'DELIVERED', value: 'Entregado' },
+    { id: 'REJECTED', value: 'Rechazado' }
   ]
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
     private sanitizer: DomSanitizer,
     private routeActive: ActivatedRoute,
-    private store:Store<{ salesAdmin:any, carritoAdmin:any }>
+    private store: Store<{ salesAdmin: any, carritoAdmin: any }>
   ) {
     this.saleForm = this.formBuilder.group({
       barCode: new FormControl(null, [Validators.required, Validators.min(1)]),
       status: new FormControl(null)
     });
     this.store.select('salesAdmin').subscribe((salesAdmin) => {
-        this.salesAdmin = salesAdmin.data;
-        this.statusSaleId = salesAdmin.data.sale_status;
-        this.calculateTotalPrice(salesAdmin.data.products);
+      this.salesAdmin = salesAdmin.data;
+      this.statusSaleId = salesAdmin.data.sale_status;
+      this.calculateTotalPrice(salesAdmin.data.products);
 
     });
   }
-  ngOnInit(): void {   
+  ngOnInit(): void {
     this.loadCarrito();
     this.saleId = parseInt(this.routeActive.snapshot.paramMap.get('id')!);
-   if (this.saleId) {
-      this.store.dispatch(SalesActions.loadSaleById({id:this.saleId}));   }
+    if (this.saleId) {
+      this.store.dispatch(SalesActions.loadSaleById({ id: this.saleId }));
+    }
   }
-  calculateTotalPrice(products:any){
+  private calculateTotalPrice(products: any): void {
     this.totalPrice = 0;
-    products.forEach((data:any)=>{
+    products.forEach((data: any) => {
       this.totalPrice += data.sub_total_price
     })
   }
-  back(){
+  public back(): void {
     this.router.navigate([`/admin/dashboard/sale`]);
   }
-  editar() {
+  public editSale(): void {
     this.router.navigate([`/admin/dashboard/sale/edit/${this.saleId}`]);
   }
-  getProductByBarCode(){
-    this.store.dispatch(SalesActions.loadProductByBarCode({barCode:this.saleForm.value.barCode}));
+  public getProductByBarCode(): void {
+    this.store.dispatch(SalesActions.loadProductByBarCode({ barCode: this.saleForm.value.barCode }));
     this.store.select('salesAdmin').subscribe(product => {
       if (product) {
-        this.agregarCarrito(product);
+        this.addCart(product);
       }
     });
   }
-  agregarCarrito(product:any){
+  private addCart(product: any): void {
+    if (this.carritoProducts.products.length > 0) {
+      this.carritoProducts.products.forEach((data: any) => {
+        if (product.data.product_id != data.product_id) {
+          const productAdd = {
+            amount: 1,
+            idProduct: product.data.product_id
+          }
+          this.store.dispatch(CarritoAdminActions.addProduct({ product: productAdd }));
+        }
+      })
+    } else {
       const productAdd = {
-        amount:1,
+        amount: 1,
         idProduct: product.data.product_id
       }
-    this.store.dispatch(CarritoAdminActions.addProduct({product:productAdd}));
-   this.loadCarrito();
+      this.store.dispatch(CarritoAdminActions.addProduct({ product: productAdd }));
+    }
+
+
+    this.loadCarrito();
   }
-  loadCarrito(){
+  private loadCarrito(): void {
     this.store.dispatch(CarritoAdminActions.loadCartById());
     this.store.select('carritoAdmin').subscribe((product) => {
       if (product) {
         this.carritoProducts = product;
       }
     });
-    
+
   }
-  resta(id:number){
+  public decreaseProduct(id: number): void {
     const productAdd = {
-      amount:1,
+      amount: 1,
       idProduct: id
     }
-    this.store.dispatch(CarritoActions.decreaseProduct({product:productAdd}));
+    this.store.dispatch(CarritoAdminActions.decreaseProduct({ product: productAdd }));
   }
 
-  suma(id:number){
+  public addProduct(id: number): void {
     const productAdd = {
-      amount:1,
+      amount: 1,
       idProduct: id
     }
-    this.store.dispatch(CarritoActions.addProduct({product:productAdd}));
-    
+    this.store.dispatch(CarritoAdminActions.addProduct({ product: productAdd }));
+
   }
-  deleteProduct(product:any){
+  public deleteProduct(product: any): void {
     Swal.fire({
       title: `¿Estas seguro que quieres eliminar el producto ${product.name} del carrito?`,
       showCancelButton: true,
+      icon: 'question',
       confirmButtonText: 'Eliminar',
-      cancelButtonText:'Cancelar'
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.store.dispatch(CarritoActions.removeProduct({id:product.product_id}));
-      } 
+        this.store.dispatch(CarritoAdminActions.removeProduct({ id: product.product_id }));
+      }
     })
   }
-  mostrarImg(image:any){
+  public viewImage(image: any): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${image}`);
   }
-  orderSale(){
+  public createOrderSale(): void {
     this.store.dispatch(SalesActions.createSale())
   }
-  updateStatus(){
-    this.store.dispatch(SalesActions.loadUpdateStatus({id:this.saleId, status:this.saleForm.value.status}))
+  public updateStatus(): void {
+    this.store.dispatch(SalesActions.loadUpdateStatus({ id: this.saleId, status: this.saleForm.value.status }))
   }
 }
 

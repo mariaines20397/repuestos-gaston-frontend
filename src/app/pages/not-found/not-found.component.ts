@@ -10,7 +10,7 @@ export class NotFoundComponent {
   constructor(
     private router :Router
   ){}
-  redirect(){
+  public redirect() : void {
     this.router.navigate(['/']);
   }
 }

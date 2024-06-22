@@ -12,7 +12,7 @@
                         <h3 *ngIf="this.router.url.includes('view')" class="card-title"><b>Ver más del producto</b></h3>
                     </div>
                     <div class="iconsTitle">
-                        <button class="btn" (click)="editar()" *ngIf="!this.router.url.includes('add')" [disabled]="this.router.url.includes('edit')"
+                        <button class="btn" (click)="editProduct()" *ngIf="!this.router.url.includes('add')" [disabled]="this.router.url.includes('edit')"
                             placement="left" ngbTooltip="Editar producto">
                             <img src="../../../../../assets/svg/edit.svg" alt="" srcset="">
                         </button>
@@ -133,13 +133,13 @@
                             </div>
                             <div class="inputsText imagenProducto">
                                 <img class="imagen" *ngIf="this.product.data?.image && !this.router.url.includes('add')"
-                                    [src]="mostrarImg(this.product.data?.image)" alt="Imagen del producto" />
+                                    [src]="viewImage(this.product.data?.image)" alt="Imagen del producto" />
                             </div>
                         </fieldset>
                     </form>
                     <div class="formButtons">
                         <button class="btn btn-dark btn-login" *ngIf="!this.router.url.includes('view')"
-                            [disabled]="productForm.invalid" (click)="guardarProducto()">
+                            [disabled]="productForm.invalid" (click)="saveProduct()">
                             Guardar producto</button>
                     </div>
                 </div>

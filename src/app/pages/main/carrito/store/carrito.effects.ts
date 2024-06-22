@@ -16,7 +16,7 @@ export class CarritoEffects {
     private carritoServices: CarritoService,
     private productsServices: ProductsService,
     private router: Router
-  ) {}
+  ) { }
 
   addProduct$ = createEffect(() =>
     this.actions$.pipe(
@@ -24,9 +24,9 @@ export class CarritoEffects {
       mergeMap((action) => {
         return this.carritoServices.addProduct(action.product).pipe(
           map((response) => {
-            if(this.router.url.includes('carrito')){
+            if (this.router.url.includes('carrito')) {
               location.reload()
-            }else{
+            } else {
               this.router.navigate(['/carrito']);
             }
             return CarritoActions.addProductSuccess();
@@ -101,7 +101,7 @@ export class CarritoEffects {
             Swal.fire('¡Tu carrito ahora esta limpio!', '', 'success').then((result) => {
               if (result.isConfirmed) {
                 location.reload();
-              } 
+              }
             })
             return CarritoActions.cleanCartSuccess();
           }),

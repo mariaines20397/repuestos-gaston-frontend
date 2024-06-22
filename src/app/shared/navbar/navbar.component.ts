@@ -3,18 +3,14 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/core/services/auth.service';
-import Swal from 'sweetalert2';
 import { Search } from './model/search.model';
 import * as SearchActions from './store/search.actions'
 import { User } from 'src/app/pages/main/user/model/users.model';
 import { Subscription } from 'rxjs';
-import { loadLoginSuccess } from 'src/app/pages/login/store/login.actions';
 import * as UserActions from 'src/app/pages/main/user/store/user.actions';
 import * as CategoriasActions from 'src/app/shared/navbar/store/categories.actions';
 import * as LoginActions from 'src/app/pages/login/store/login.actions';
-import { getAllCategories, getAllCategory } from 'src/app/pages/admin/table-categories/model/category.model';
-import { Product } from 'src/app/pages/main/products/model/product.model';
-
+import { getAllCategory } from 'src/app/pages/admin/table-categories/model/category.model';
 
 @Component({
   selector: 'app-navbar',
@@ -22,13 +18,13 @@ import { Product } from 'src/app/pages/main/products/model/product.model';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  isLogin: boolean = false;
-  isAdmin:boolean = false;
-  isSearch:boolean = false;
-  isMenu:boolean = false;
-  category: any = {};
-  searchForm:FormGroup;
-  user: any = {};
+  public isLogin: boolean = false;
+  public isAdmin:boolean = false;
+  public isSearch:boolean = false;
+  public isMenu:boolean = false;
+  public category: any = {};
+  public searchForm:FormGroup;
+  public user: any = {};
   private subscriptions = new Subscription();
 
   constructor(
@@ -61,7 +57,7 @@ export class NavbarComponent implements OnInit {
     this.isHome();
     this.store.dispatch(CategoriasActions.loadCategories());
   }
-  isHome() {
+  private isHome() : void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const url = event.urlAfterRedirects;
@@ -70,35 +66,35 @@ export class NavbarComponent implements OnInit {
       }
     });
   }
-  search(){
+  public search() : void {
     const filtrar = this.searchForm.value.search;
     this.router.navigate([`/search/${filtrar}`])    
     this.store.dispatch(SearchActions.loadSearch({filter:filtrar}));
   }
-  selectSearch():boolean{
+  public selectSearch():boolean{
     this.isSearch = !this.isSearch;
     return this.isSearch;
   }
-  selectMenu():boolean{
+  public selectMenu():boolean{
     this.isMenu = !this.isMenu;
     return this.isMenu;
   }
-  register(){
+  public register() : void {
     this.isMenu = false;
     this.router.navigate(['/register']);
   }
-  login(){
+  public login() : void {
     this.isMenu = false;
     this.router.navigate(['/login']);
   }
-  cart(){
+  public cart() : void {
     this.router.navigate(['/carrito']);
   }
-  logout() {
+  public logout() : void {
     this.store.dispatch(LoginActions.loadLogout());
   }
 
-  filterProductsByCategory(id:number){
+  public filterProductsByCategory(id:number) : void {
     this.router.navigate([`/products/categories/${id}`]);
     const paginacion = {
       pageNumber:0,
@@ -115,10 +111,10 @@ export class NavbarComponent implements OnInit {
     this.store.dispatch(CategoriasActions.loadProductsByCategory({id, pageable:paginacion}))
   }
 
-  profile(){
+  public profile() : void {
     this.store.dispatch(UserActions.loadProfile());
   }
-  back(){
+  public back() : void {
     this.router.navigate(['/admin']);
   }
 }

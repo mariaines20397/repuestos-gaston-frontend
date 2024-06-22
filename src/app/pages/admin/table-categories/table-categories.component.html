@@ -1,66 +1,66 @@
 <div class="contenedor">
-    <div class="productos">
-      <div class="card card-productos">
-          <div class="card-body">
-              <div class="agregarProducto">
-                  <h3 class="card-title"><b>Tabla de categorias</b></h3>
-                  <form action="" [formGroup]="searchForm">
-                    <div class="search" >
-                      <input type="search" class="buscador form-control" (keydown.enter)="search()" formControlName="search" placeholder="Busca categorias" name="">
-                      <button type="button" class="btn lupa" (click)="search()">
-                        <img src="../../../assets/svg/search.svg" alt="" srcset="">
-                      </button>
+  <div class="productos">
+    <div class="card card-productos">
+      <div class="card-body">
+        <div class="agregarProducto">
+          <h3 class="card-title"><b>Tabla de categorias</b></h3>
+          <form action="" [formGroup]="searchForm">
+            <div class="search">
+              <input type="search" class="buscador form-control" (keydown.enter)="search()" formControlName="search"
+                placeholder="Filtrar por nombre" name="">
+              <button type="button" class="btn lupa" (click)="search()">
+                <img src="../../../assets/svg/search.svg" alt="" srcset="">
+              </button>
+            </div>
+          </form>
+          <button type="button" class="btn btn-dark" (click)="addCategory()" placement="start"
+            ngbTooltip="Agregar categoria">
+            <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">
+          </button>
+        </div>
+        <div class="table-container">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Nombre</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let category of this.categoryAdmin.data; let index = index">
+                <td scope="row" class="colMenu">
+                  <div ngbDropdown class="d-inline-block dropdownMenu">
+                    <button class="btn" id="dropdown1" ngbDropdownToggle>
+                      <img class="imgSection" src="../../../../assets/svg/menuAdmin.svg" alt="" srcset="" />
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdown1">
+                      <button ngbDropdownItem class="btn" (click)="viewCategory(category.category_id)">Ver más</button>
+                      <hr>
+                      <button ngbDropdownItem class="btn"
+                        (click)="editCategory(category.category_id)">Editar</button>
+                      <hr>
+                      <button ngbDropdownItem class="btn" (click)="deleteCategory(category)">Eliminar</button>
                     </div>
-                  </form>
-                  <button type="button" class="btn btn-dark" (click)="agregar()"
-                placement="start" ngbTooltip="Agregar categoria">
-                  <img src="../../../assets/svg/plusWhite.svg" alt="" srcset="">
-                </button>
-              </div>
-              <div class="table-container">
-                  <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Cantidad de productos</th>
-                        </tr>
-                      </thead>
-                      <tbody >
-                        <tr *ngFor="let category of this.categoryAdmin.data; let index = index">
-                          <td scope="row" class="colMenu">
-                            <div ngbDropdown class="d-inline-block dropdownMenu" >
-                              <button class="btn" id="dropdown1" ngbDropdownToggle>
-                                <img class="imgSection" src="../../../../assets/svg/menuAdmin.svg" alt="" srcset="" />
-                              </button>
-                              <div ngbDropdownMenu aria-labelledby="dropdown1">
-                                  <button ngbDropdownItem class="btn" (click)="verCategoria(category.category_id)">Ver más</button>
-                                  <hr>
-                                  <button ngbDropdownItem class="btn" (click)="editarCategoria(category.category_id)">Editar</button>
-                                  <hr>
-                                  <button ngbDropdownItem class="btn" (click)="eliminarCategoria(category)">Eliminar</button>
-                                </div>
-                            </div>
-                          </td>                          
-                          <td>{{category.name}}</td>
-                          <td>{{category.products?.length}} un.</td>
-                        </tr>
-                        <ng-container *ngIf="!this.categoryAdmin.data || this.categoryAdmin.data.length == 0">
-                          <tr>
-                            <td colspan="5" class="not-found">
-                              No hay categorías para mostrar
-                            </td>
-                          </tr>
-                      </ng-container>
-                      </tbody>
-                    </table>  
-                  </div>  
-              </div>
-          </div>
-          <div class="pagination">
-            <!-- <ngb-pagination [collectionSize]="categories.length" [(page)]="page" [pageSize]="10" aria-label="Default pagination"></ngb-pagination> -->
-            <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.categoryAdmin?.totalElements" [page]="this.categoryAdmin.pageable.pageNumber + 1" [pageSize]="this.categoryAdmin?.pageable?.pageSize" aria-label="Default pagination"></ngb-pagination>
-          </div>
+                  </div>
+                </td>
+                <td>{{category.name}}</td>
+              </tr>
+              <ng-container *ngIf="!this.categoryAdmin.data || this.categoryAdmin.data.length == 0">
+                <tr>
+                  <td colspan="5" class="not-found">
+                    No hay categorías para mostrar
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="pagination">
+      <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.categoryAdmin?.totalElements"
+        [page]="this.categoryAdmin.pageable.pageNumber + 1" [pageSize]="this.categoryAdmin?.pageable?.pageSize"
+        aria-label="Default pagination"></ngb-pagination>
+    </div>
   </div>
-  </div>
-  
+</div>

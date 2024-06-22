@@ -8,21 +8,21 @@
                     </button>
                     <div class="title">
                         <h3 *ngIf="this.router.url.includes('add')" class="card-title"><b>Agregar venta</b></h3>
-                        <h3 *ngIf="this.router.url.includes('edit')" class="card-title"><b>Editar venta N° 
-                            {{this.salesAdmin.number_sale}}</b></h3>
-                        <h3 *ngIf="this.router.url.includes('view')" class="card-title"><b>Ver más de la venta N° 
+                        <h3 *ngIf="this.router.url.includes('edit')" class="card-title"><b>Editar venta N°
+                                {{this.salesAdmin.number_sale}}</b></h3>
+                        <h3 *ngIf="this.router.url.includes('view')" class="card-title"><b>Ver más de la venta N°
                                 {{this.salesAdmin.number_sale}}</b>
                         </h3>
                     </div>
                     <div class="iconsTitle">
-                        <button class="btn" (click)="editar()" *ngIf="!this.router.url.includes('add')"
+                        <button class="btn" (click)="editSale()" *ngIf="!this.router.url.includes('add')"
                             [disabled]="this.router.url.includes('edit')" placement="left" ngbTooltip="Editar producto">
                             <img src="../../../../../assets/svg/edit.svg" alt="" srcset="">
                         </button>
                     </div>
                 </div>
                 <div class="form-container">
-                    <form [formGroup]="saleForm" >
+                    <form [formGroup]="saleForm">
                         <fieldset [disabled]="this.router.url.includes('view')">
                             <div class="containerProducts">
                                 <div class="containerInputs" *ngIf="this.router.url.includes('add')">
@@ -32,7 +32,8 @@
                                             (keydown.enter)="getProductByBarCode()">
                                     </div>
                                 </div>
-                                <div class="product" *ngIf="this.carritoProducts.products?.length > 0 && this.router.url.includes('add')">
+                                <div class="product"
+                                    *ngIf="this.carritoProducts.products?.length > 0 && this.router.url.includes('add')">
                                     <div class="card" *ngFor="let product of this.carritoProducts.products">
                                         <div class="trash">
                                             <img src="../../../assets/svg/trash-min.svg"
@@ -45,7 +46,7 @@
                                                 <div class="infoPrice">
                                                     <div class="infoProduct">
                                                         <div class="divImg">
-                                                            <img class="card-img" [src]="mostrarImg(product?.image)"
+                                                            <img class="card-img" [src]="viewImage(product?.image)"
                                                                 alt="Imagen del producto" *ngIf="product?.image" />
 
                                                         </div>
@@ -58,14 +59,15 @@
                                                     </div>
                                                     <div class="divSumCantidad">
                                                         <div class="minusPlus">
-                                                            <button class="btn" (click)="resta(product.product_id)"
+                                                            <button class="btn"
+                                                                (click)="decreaseProduct(product.product_id)"
                                                                 [disabled]="product.amount == 1">
                                                                 <img src="./assets/svg/minus.svg" alt="Menos"
                                                                     srcset="" />
                                                             </button>
                                                             <input type="number" class="cantidad" disabled
                                                                 [value]="product.amount" />
-                                                            <button class="btn" (click)="suma(product.product_id)"
+                                                            <button class="btn" (click)="addProduct(product.product_id)"
                                                                 [disabled]="product.amount == product.stock">
                                                                 <img src="./assets/svg/plus.svg" alt="Menos"
                                                                     srcset="" />
@@ -108,8 +110,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formButtons" *ngIf="this.carritoProducts.products?.length > 0 && this.router.url.includes('add')">
-                                    <button class="btn btn-dark btn-login" (click)="orderSale()">
+                                <div class="formButtons"
+                                    *ngIf="this.carritoProducts.products?.length > 0 && this.router.url.includes('add')">
+                                    <button class="btn btn-dark btn-login" (click)="createOrderSale()">
                                         Generar orden de venta</button>
                                 </div>
                                 <ng-container
@@ -119,63 +122,76 @@
                                     </div>
                                 </ng-container>
                                 <div class="product" *ngIf="!this.router.url.includes('add')">
-                                    <form [formGroup]="saleForm">
-                                        <select formControlName="status">
-                                            <option *ngFor="let status of this.statusSale" [value]="status.id" selected="{{status.id == this.statusSaleId}}">
-                                                {{status.value}}
-                                            </option>
-                                        </select>
-                                    </form>
-                                    <div class="card" *ngFor="let product of this.salesAdmin.products">
-                                        <div class="carritoProducts">
-                                            
-                                            <div class="row card-body">
-                                                <div class="infoPrice">
-                                                    <div class="infoProduct">
-                                                        <div class="divImg">
-                                                            <img class="card-img" [src]="mostrarImg(product?.product.image)"
-                                                                alt="Imagen del producto" *ngIf="product?.product.image" />
+                                    <div class="inputsText">
+                                        <h6 class="title-input"><b>Estado de orden de venta</b></h6>
+                                        <form [formGroup]="saleForm">
+                                            <select class="selectForm" formControlName="status">
+                                                <option *ngFor="let status of this.statusSale" [value]="status.id"
+                                                    selected="{{status.id == this.statusSaleId}}">
+                                                    {{status.value}}
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                    <div class="inputsTextProducts">
+                                        <h6 class="title-input"><b>Listado de productos</b></h6>
+
+                                        <div class="card" *ngFor="let product of this.salesAdmin.products">
+                                            <div class="carritoProducts">
+
+                                                <div class="row card-body">
+                                                    <div class="infoPrice">
+                                                        <div class="infoProduct">
+                                                            <div class="divImg">
+                                                                <img class="card-img"
+                                                                    [src]="viewImage(product?.product.image)"
+                                                                    alt="Imagen del producto"
+                                                                    *ngIf="product?.product.image" />
+
+                                                            </div>
+                                                            <div class="divDescription">
+                                                                <div class="card-body">
+                                                                    <h4 class="card-title">
+                                                                        <b>{{product?.product.name}}</b></h4>
+                                                                </div>
+                                                            </div>
 
                                                         </div>
-                                                        <div class="divDescription">
-                                                            <div class="card-body">
-                                                                <h4 class="card-title"><b>{{product?.product.name}}</b></h4>
+                                                        <div class="divSumCantidad">
+                                                            <div class="stock">
+                                                                <p class="card-text">
+                                                                    <small class="text-muted">Unidades</small>
+                                                                </p>
+                                                            </div>
+                                                            <div class="minusPlus">
+                                                                <input type="number" class="cantidad" disabled
+                                                                    [value]="product.quantity" />
                                                             </div>
                                                         </div>
+                                                        <div class="divDescription">
+                                                            <div class="stock">
+                                                                <p class="card-text">
+                                                                    <small class="text-muted">Precio</small>
+                                                                </p>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <h4 class="card-title">
+                                                                    <b>${{product?.product.price}}</b></h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer subtotal">
+                                                        <div class="title">
+                                                            <h3><b>Subtotal</b></h3>
+                                                        </div>
+                                                        <div class="card-body-price">
+                                                            <h3 class="card-title"><b>${{product?.sub_total_price}}</b>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                    </div>
-                                                    <div class="divSumCantidad">
-                                                        <div class="stock">
-                                                            <p class="card-text">
-                                                                <small class="text-muted">Unidades</small>
-                                                            </p>
-                                                        </div>
-                                                        <div class="minusPlus">
-                                                            <input type="number" class="cantidad" disabled
-                                                                [value]="product.quantity" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="divDescription">
-                                                        <div class="stock">
-                                                            <p class="card-text">
-                                                                <small class="text-muted">Precio</small>
-                                                            </p>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <h4 class="card-title"><b>${{product?.product.price}}</b></h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card-footer subtotal">
-                                                    <div class="title">
-                                                        <h3><b>Subtotal</b></h3>
-                                                    </div>
-                                                    <div class="card-body-price">
-                                                        <h3 class="card-title"><b>${{product?.sub_total_price}}</b></h3>
-                                                    </div>
-                                                </div>
                                             </div>
-
                                         </div>
                                     </div>
                                     <hr />

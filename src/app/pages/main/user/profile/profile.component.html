@@ -2,72 +2,76 @@
     <div class="card">
         <div class="card-body">
             <div class="agregarProducto">
-                <h3 class="card-title">Editar datos personales de <b>{{this.user.data.name +' '+this.user.data.surname}}</b></h3>
+                <h3 class="card-title">Editar datos personales de <b>{{this.user.data.name +'
+                        '+this.user.data.surname}}</b></h3>
             </div>
-           <div class="form-container">
-            <form action="" [formGroup]="userForm">
-                <div class="inputsText">
-                    <span class="title-input">Nombre de usuario</span>
-                <input class="text-input form-control"  formControlName="username" type="text" name="" id="" >
-                </div>
-                <div class="inputsText">
-                    <span class="title-input">Email</span>
-                <input class="text-input form-control"  formControlName="email" type="text" name="" id="">
-                </div>
-                <div class="inputsText">
-                    <span class="title-input">Nombre</span>
-                    <input class="text-input form-control" formControlName="name" type="text" name="" id="" autofocus>
-                    <div *ngIf="userForm.controls['name'].errors && userForm.get('name')?.touched">
-                        <div class="validatorText" *ngIf="userForm.get('name')?.hasError('required')">
-                            <span>Este campo es requerido.</span>
-                        </div>
-                        <div class="validatorText" *ngIf="userForm.get('name')?.hasError('maxlength')">
-                            <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
-                        </div>
+            <div class="form-container">
+                <form action="" [formGroup]="userForm">
+                    <div class="inputsText">
+                        <span class="title-input">Nombre de usuario</span>
+                        <input class="text-input form-control" formControlName="username" type="text" name="" id="">
                     </div>
-                </div>
-                <div class="inputsText">
-                    <span class="title-input">Apellido</span>
-                    <input class="text-input form-control" formControlName="surname" type="text" name="" id="" autofocus>
-                    <div *ngIf="userForm.controls['surname'].errors && userForm.get('surname')?.touched">
-                        <div class="validatorText" *ngIf="userForm.get('surname')?.hasError('required')">
-                            <span>Este campo es requerido.</span>
+                    <div class="inputsText">
+                        <span class="title-input">Email</span>
+                        <input class="text-input form-control" formControlName="email" type="text" name="" id="">
+                    </div>
+                    <div class="inputsText">
+                        <span class="title-input">Nombre</span>
+                        <input class="text-input form-control" formControlName="name" type="text" name="" id=""
+                            autofocus>
+                        <div *ngIf="userForm.controls['name'].errors && userForm.get('name')?.touched">
+                            <div class="validatorText" *ngIf="userForm.get('name')?.hasError('required')">
+                                <span>Este campo es requerido.</span>
+                            </div>
+                            <div class="validatorText" *ngIf="userForm.get('name')?.hasError('maxlength')">
+                                <span>El nombre del producto debe tener como máximo 50 caracteres.</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="inputsText">
-                    <span class="title-input">Contraseña</span>
-                <input class="text-input form-control" formControlName="password" type="password" name="" id="">
-                <div *ngIf="userForm.controls['password'].errors && userForm.get('password')?.touched">
-                    <div class="validatorText" *ngIf="userForm.get('password')?.hasError('required')">
-                        <span>Este campo es requerido.</span>
+                    <div class="inputsText">
+                        <span class="title-input">Apellido</span>
+                        <input class="text-input form-control" formControlName="surname" type="text" name="" id=""
+                            autofocus>
+                        <div *ngIf="userForm.controls['surname'].errors && userForm.get('surname')?.touched">
+                            <div class="validatorText" *ngIf="userForm.get('surname')?.hasError('required')">
+                                <span>Este campo es requerido.</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                </div>
-                <div class="inputsText">
-                    <span class="title-input">DNI <small class="text-muted">(sin puntos)</small></span>
-                    <input class="text-input form-control" formControlName="dni" type="number" name="" id="">
-                <div *ngIf="userForm.controls['dni'].errors && userForm.get('dni')?.touched">
-                    <div class="validatorText" *ngIf="userForm.get('dni')?.hasError('required')">
-                        <span>Este campo es requerido.</span>
+
+                    <div class="inputsText">
+                        <span class="title-input">Contraseña</span>
+                        <input class="text-input form-control" formControlName="password" type="password" name="" id="">
+                        <div *ngIf="userForm.controls['password'].errors && userForm.get('password')?.touched">
+                            <div class="validatorText" *ngIf="userForm.get('password')?.hasError('required')">
+                                <span>Este campo es requerido.</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                </div>
-                <div class="inputsText">
-                    <span class="title-input">Fecha de nacimiento</span>
-                <input class="text-input form-control" formControlName="birthday" type="date" name="" id="">
-                </div>
-                
-            </form>
-            <div class="login-register">
-                <a (click)="cancelar()">Volver</a>
-                <button class="btn btn-primary btn-login" [disabled]="userForm.invalid" (click)="editar(this.user.data)">
+                    <div class="inputsText">
+                        <span class="title-input">DNI <small class="text-muted">(sin puntos)</small></span>
+                        <input class="text-input form-control" formControlName="dni" type="number" name="" id="">
+                        <div *ngIf="userForm.controls['dni'].errors && userForm.get('dni')?.touched">
+                            <div class="validatorText" *ngIf="userForm.get('dni')?.hasError('required')">
+                                <span>Este campo es requerido.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inputsText">
+                        <span class="title-input">Fecha de nacimiento</span>
+                        <input class="text-input form-control" formControlName="birthday" type="date" name="" id="">
+                    </div>
+
+                </form>
+                <div class="login-register">
+                    <a (click)="back()">Volver</a>
+                    <button class="btn btn-primary btn-login" [disabled]="userForm.invalid"
+                        (click)="edituser(this.user.data)">
                         Guardar usuario</button>
+                </div>
             </div>
-           </div>
-            </div>
-            
         </div>
-        
+
+    </div>
+
 </div>

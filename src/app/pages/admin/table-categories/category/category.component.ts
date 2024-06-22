@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as CategoriasAdminActions from '../store/categories.actions';
@@ -11,10 +11,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent {
-  categoryForm: FormGroup;
-  category: any = {};
-  categoryId!: number;
-  private idCategory!: number;
+  public categoryForm: FormGroup;
+  private category: any = {};
+  private categoryId!: number;
   private subscriptions = new Subscription();
 
   constructor(
@@ -46,21 +45,18 @@ export class CategoryComponent {
       this.store.dispatch(CategoriasAdminActions.loadCategoryById({id:this.categoryId}));
     }
   }
-  getByCategory(category:any){
+  private getByCategory(category:any) : void{
     this.categoryForm.patchValue({
       name: category.data?.name
     })
   }
-  public editar(): void {
+  public editCategory(): void {
     this.router.navigate([`/admin/dashboard/category/edit/${this.categoryId}`]);
   }
-  public back() : void{
+  public back() : void {
     this.router.navigate(['/admin/dashboard/category'])
   }
-  getProductControl(index: number) {    
-    return ((this.categoryForm.get('products') as FormArray).at(index) as FormControl);
-  }
-  public guardarProducto(): void {
+  public saveCategory(): void {
     const {
       name
     } = this.categoryForm.value

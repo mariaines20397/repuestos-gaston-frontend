@@ -9,6 +9,7 @@ import { ProductsEffects } from './store/products.effects';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductsComponent } from './products.component';
 import { NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { CoreModule } from 'src/app/core/core.module';
 
 
 
@@ -23,6 +24,7 @@ import { NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstra
     ReactiveFormsModule,
     NgbTooltipModule,
     NgbPaginationModule,
+    CoreModule,
     StoreModule.forFeature(
       'product',
       fromProductReducer.productsReducer

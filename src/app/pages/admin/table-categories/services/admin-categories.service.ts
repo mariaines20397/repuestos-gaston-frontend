@@ -1,33 +1,27 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Category } from '../model/category.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminCategoriesService {
-  categories: Category[]=[];
-  @Output() disparadorCategoria:EventEmitter<any>= new EventEmitter();
-
-  // @Output() disparadorProducto:EventEmitter<any>= new EventEmitter();
-
-  // products:Product[]=[];
   constructor(
     private httpClient: HttpClient,
   ) {}
-  getCategoriesByIdAdmin(id:number):Observable<any> {
+  public getCategoriesByIdAdmin(id:number):Observable<any> {
     const finalUrl=`http://localhost:8080/v1/category/${id}`;
     return new Observable((obs)=>{
       this.httpClient.get(finalUrl)
       .subscribe({
         next: (res) => {
-          // this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();
         },
         error: (error) => {
-          // Swal.fire('¡Lo siento!', error,'error');
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }
@@ -35,7 +29,7 @@ export class AdminCategoriesService {
     })
   }
 
-  getCategoriesByName(filters:string,pagination?:any):Observable<any> {
+  public getCategoriesByName(filters:string,pagination?:any):Observable<any> {
     let queryParams: any = new HttpParams();
     if (pagination) {
       pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
@@ -46,12 +40,11 @@ export class AdminCategoriesService {
       this.httpClient.get(finalUrl)
       .subscribe({
         next: (res) => {
-          // this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();
         },
         error: (error) => {
-          // Swal.fire('¡Lo siento!', error,'error');
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }
@@ -59,7 +52,7 @@ export class AdminCategoriesService {
     })
   }
 
-  getCategoriesAdmin(pagination?:any):Observable<any> {
+  public getCategoriesAdmin(pagination?:any):Observable<any> {
     let queryParams: any = new HttpParams();
     if (pagination) {
       pagination = Object.fromEntries(Object.entries(pagination).filter(([_, value]) => value != null || value != undefined))
@@ -70,13 +63,11 @@ export class AdminCategoriesService {
       this.httpClient.get(finalUrl)
       .subscribe({
         next: (res) => {
-          
-          // this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();
         },
         error: (error) => {          
-          // Swal.fire('¡Lo siento!', error,'error');
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }
@@ -84,18 +75,17 @@ export class AdminCategoriesService {
     })
   }
 
-  editCategoryAdmin(id:number, category:Category):Observable<any> {
+  public editCategoryAdmin(id:number, category:Category):Observable<any> {
     const finalUrl=`http://localhost:8080/v1/category/${id}`;
     return new Observable((obs)=>{
       this.httpClient.put(finalUrl, category)
       .subscribe({
         next: (res) => {
-          // this.router.navigate(['/home']);
           obs.next(res);
           obs.complete();
         },
         error: (error) => {
-          // Swal.fire('¡Lo siento!', error,'error');
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }
@@ -103,19 +93,17 @@ export class AdminCategoriesService {
     })
   }
 
-  deleteCategoryAdmin(id:number):Observable<any> {
+  public deleteCategoryAdmin(id:number):Observable<any> {
     const finalUrl=`http://localhost:8080/v1/category/${id}`;
     return new Observable((obs)=>{
       this.httpClient.delete(finalUrl)
       .subscribe({
         next: (res) => {
-          // this.router.navigate(['/home']);
-          // Swal.fire('Categoria eliminada con éxito!','sucess');
           obs.next(res);
           obs.complete();
         },
         error: (error) => {
-          // Swal.fire('¡Lo siento!', error,'error');
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error);
           obs.complete();
         }
@@ -123,7 +111,7 @@ export class AdminCategoriesService {
     })
   }
 
-  postCategory(category?: Category): Observable<any> {
+  public postCategory(category?: Category): Observable<any> {
     const finalUrl=`http://localhost:8080/v1/category/`;
     return new Observable((obs) => {
       this.httpClient.post(finalUrl, category).subscribe({
@@ -132,6 +120,7 @@ export class AdminCategoriesService {
           obs.complete();
         },
         error: (error) => {
+          Swal.fire('¡Lo siento!', error,'error');
           obs.error(error.error);
           obs.complete();
         },
