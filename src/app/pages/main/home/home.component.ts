@@ -17,12 +17,12 @@ export class HomeComponent {
   carousel: string[] = [
     './assets/img/carousel/carousel1.png',
     './assets/img/carousel/carousel2.png',
-    './assets/img/carousel/carousel3.png'
+    // './assets/img/carousel/carousel3.png'
   ]
   carouselMobile: string[] = [
     './assets/img/carousel/carousel1-mobile.png',
     './assets/img/carousel/carousel2-mobile.png',
-    './assets/img/carousel/carousel3-mobile.png'
+    // './assets/img/carousel/carousel3-mobile.png'
   ]
   constructor(
     private _config: NgbCarouselConfig,

@@ -15,15 +15,15 @@ export class PaymentSuccessComponent implements OnInit, OnDestroy {
   public carrito: any = [];
   public totalPrice: any;
 
-  constructor(private store: Store<{ carrito: any }>,
+  constructor(private store: Store<{ cart: any }>,
     private sanitizer: DomSanitizer,
     private router: Router
   ) {
     this.store
-      .select('carrito')
-      .subscribe((carrito) => {
-        this.carrito = carrito.data;
-        this.calculateTotalPrice(carrito.data.products);
+      .select('cart')
+      .subscribe((cart) => {
+        this.carrito = cart.data;
+        this.calculateTotalPrice(cart.data.products);
       });
   }
 

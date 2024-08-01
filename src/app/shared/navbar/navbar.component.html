@@ -6,7 +6,7 @@
       <img class="logo-login-mobile" src="../../../assets/img/logo.png" alt="" srcset=""/>
     </a>
     <form action="" [formGroup]="searchForm" class="formSearch">
-      <div *ngIf="!isLogin" class="search" >
+      <div *ngIf="!this.router.url.includes('login') && !this.router.url.includes('register')" class="search" >
         <input type="search" class="buscador form-control" (keydown.enter)="search()" formControlName="search" placeholder="Busca productos" name="">
         <button type="button" class="btn lupa" (click)="search()">
           <img src="../../../assets/svg/search.svg" alt="" srcset="">
@@ -15,10 +15,10 @@
       </div>
     </form>
     <div class="iconos-mobile">
-      <button class="btn" (click)="selectSearch()">
+      <button *ngIf="!this.router.url.includes('login') && !this.router.url.includes('register')" class="btn" (click)="selectSearch()">
         <img class="lupa-mobile" src="../../../assets/svg/search-mobile.svg" alt="" srcset="">
       </button>
-      <button class="btn" (click)="selectMenu()">
+      <button *ngIf="!this.router.url.includes('login') && !this.router.url.includes('register')" class="btn" (click)="selectMenu()">
         <img class="menu-mobile" src="../../../assets/svg/menu.svg" alt="" srcset="">
         
       </button>
@@ -28,7 +28,7 @@
     </div>
     
 </div>
-    <div *ngIf="!isLogin" class="collapse navbar-collapse boxCategorias" id="navbarNavDropdown">
+    <div *ngIf="!this.router.url.includes('login') && !this.router.url.includes('register')" class="collapse navbar-collapse boxCategorias" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item dropdown nav-menu-item">
           <a
@@ -82,26 +82,6 @@
   </button>
 
 </li>
-       <!-- *ngIf="authService.authenticated()" -->
-       <!-- <li class="dropdown" >
-         <a
-           class="btn btn-outline-primary dropdown-toggle"
-           href="#"
-           role="button"
-           id="dropdownMenuLink"
-           data-toggle="dropdown"
-           aria-haspopup="true"
-           aria-expanded="false"
-         >
-           {{ authService.usuario.username }}
-         </a>
-
-         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-           <button class="dropdown-item" type="submit" (click)="logout()">
-             Cerrar sesión
-           </button>
-         </div>
-       </li> -->
      </ul>
      
 
@@ -109,7 +89,7 @@
   </div>
   <div class="form-mobile" *ngIf="isSearch">
     <form action="" [formGroup]="searchForm">
-    <div *ngIf="!isLogin" class="search" >
+    <div *ngIf="!this.router.url.includes('login') && !this.router.url.includes('register')" class="search" >
       <input type="search" (keydown.enter)="search()" class="buscador form-control" formControlName="search" placeholder="Busca productos" name="">
       <button type="button" class="btn lupa" (click)="search()">
         <img src="../../../assets/svg/search.svg" alt="" srcset="">

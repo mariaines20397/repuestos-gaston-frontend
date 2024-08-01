@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
   private subscriptions = new Subscription();
 
   constructor(
-    private router: Router, 
+    public router: Router, 
     private formBuilder: FormBuilder,
     private store:Store<{ filtrar:Search, user: User, category: getAllCategory }>,
     public authService: AuthService
