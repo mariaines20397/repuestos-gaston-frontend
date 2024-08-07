@@ -46,7 +46,7 @@
     </div>
   </div> -->
 </div>
-
+<div class="body-products">
 <div class="productos" *ngIf="this.products?.data?.length > 0">
   <div class="card" *ngFor="let producto of this.products.data" style="width: 18rem">
     <div (click)="viewProduct(producto.product_id)">
@@ -58,12 +58,16 @@
       </div>
     </div>
   </div>
-  <div class="pagination">
-    <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.products?.totalElements"
-      [page]="this.products.pageable.pageNumber + 1" [pageSize]="this.products?.pageable?.pageSize"
-      aria-label="Default pagination"></ngb-pagination>
-  </div>
+ 
 </div>
+ <div class="pagination" *ngIf="this.products?.data?.length > 0">
+  <ngb-pagination (pageChange)="pageChange($event)" [collectionSize]="this.products?.totalElements"
+    [page]="this.products.pageable.pageNumber + 1" [pageSize]="this.products?.pageable?.pageSize"
+    aria-label="Default pagination"></ngb-pagination>
+</div>
+</div>
+
+
 <div class="card" *ngIf="this.products?.data?.length == 0">
   <h4 class="not-found">
     No hay productos para mostrar
